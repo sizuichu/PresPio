@@ -1,0 +1,1083 @@
+﻿<Project ToolsVersion="17.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\SixLabors.ImageSharp.3.1.5\build\SixLabors.ImageSharp.props" Condition="Exists('packages\SixLabors.ImageSharp.3.1.5\build\SixLabors.ImageSharp.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--
+    This section defines project-level properties.
+
+    AssemblyName
+      Name of the output assembly.
+    Configuration
+      Specifies a default value for debug.
+    OutputType
+      Must be "Library" for VSTO.
+    Platform
+      Specifies what CPU the output of this project can run on.
+    NoStandardLibraries
+      Set to "false" for VSTO.
+    RootNamespace
+      In C#, this specifies the namespace given to new files. In VB, all objects are
+      wrapped in this namespace at runtime.
+  -->
+  <PropertyGroup>
+    <ProjectTypeGuids>{BAA0C2D2-18E2-41B9-852F-F413020CAA33};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8D5F375F-C9F7-40EE-B02B-6C3DB3FC69C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <RootNamespace>PresPio</RootNamespace>
+    <AssemblyName>PresPio</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <DefineConstants>VSTO40</DefineConstants>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <PublishUrl>publish\</PublishUrl>
+    <InstallUrl />
+    <TargetCulture>zh-chs</TargetCulture>
+    <ApplicationVersion>1.0.0.7</ApplicationVersion>
+    <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>days</UpdateIntervalUnits>
+    <ProductName>PresPio</ProductName>
+    <PublisherName />
+    <SupportUrl />
+    <FriendlyName>PresPio</FriendlyName>
+    <OfficeApplicationDescription />
+    <LoadBehavior>3</LoadBehavior>
+  </PropertyGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft Visual Studio 2010 Tools for Office Runtime %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <PropertyGroup>
+    <!--
+      OfficeApplication
+        Add-in host application
+    -->
+    <OfficeApplication>PowerPoint</OfficeApplication>
+  </PropertyGroup>
+  <!--
+    This section defines properties that are set when the "Debug" configuration is selected.
+
+    DebugSymbols
+      If "true", create symbols (.pdb). If "false", do not create symbols.
+    DefineConstants
+      Constants defined for the preprocessor.
+    EnableUnmanagedDebugging
+      If "true", starting the debugger will attach both managed and unmanaged debuggers.
+    Optimize
+      If "true", optimize the build output. If "false", do not optimize.
+    OutputPath
+      Output path of project relative to the project file.
+    WarningLevel
+      Warning level for the compiler.
+  -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <!--
+    This section defines properties that are set when the "Release" configuration is selected.
+
+    DebugSymbols
+      If "true", create symbols (.pdb). If "false", do not create symbols.
+    DefineConstants
+      Constants defined for the preprocessor.
+    EnableUnmanagedDebugging
+      If "true", starting the debugger will attach both managed and unmanaged debuggers.
+    Optimize
+      If "true", optimize the build output. If "false", do not optimize.
+    OutputPath
+      Output path of project relative to the project file.
+    WarningLevel
+      Warning level for the compiler.
+  -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <!--
+    This section specifies references for the project.
+  -->
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="ColorHelper, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ColorHelper.1.8.1\lib\netstandard2.0\ColorHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="ColorThief.Desktop.v46, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ksemenenko.ColorThief.1.1.1.4\lib\net46\ColorThief.Desktop.v46.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.3.1.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml.Framework, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.Framework.3.1.1\lib\net46\DocumentFormat.OpenXml.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV, Version=4.9.0.5494, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>packages\Emgu.CV.4.9.0.5494\lib\netstandard2.0\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="ExCSS, Version=4.3.0.0, Culture=neutral, PublicKeyToken=bdbe16be9b936b9a, processorArchitecture=MSIL">
+      <HintPath>packages\ExCSS.4.3.0\lib\net48\ExCSS.dll</HintPath>
+    </Reference>
+    <Reference Include="Fizzler, Version=1.3.1.0, Culture=neutral, PublicKeyToken=4ebff4844e382110, processorArchitecture=MSIL">
+      <HintPath>packages\Fizzler.1.3.1\lib\netstandard2.0\Fizzler.dll</HintPath>
+    </Reference>
+    <Reference Include="HandyControl, Version=3.5.2.0, Culture=neutral, PublicKeyToken=45be8712787a1e5b, processorArchitecture=MSIL">
+      <HintPath>packages\HandyControls.3.5.3\lib\net48\HandyControl.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.71.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>packages\HtmlAgilityPack.1.11.71\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="IconPacks.Material, Version=1.0.8940.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\IconPacks.Material.1.0.8940.2-build\lib\netstandard2.0\IconPacks.Material.dll</HintPath>
+    </Reference>
+    <Reference Include="Itp.WpfAppBar, Version=2.2.1.0, Culture=neutral, PublicKeyToken=d2dc648c22fae597, processorArchitecture=MSIL">
+      <HintPath>packages\Itp.WpfAppBar.2.2.1\lib\net48\Itp.WpfAppBar.dll</HintPath>
+    </Reference>
+    <Reference Include="LiteDB, Version=5.0.21.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>packages\LiteDB.5.0.21\lib\net45\LiteDB.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.BootstrapIcons, Version=5.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
+      <HintPath>packages\MahApps.Metro.IconPacks.BootstrapIcons.5.1.0\lib\net47\MahApps.Metro.IconPacks.BootstrapIcons.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
+      <HintPath>packages\MahApps.Metro.IconPacks.Core.5.1.0\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.Http.Features.6.0.0-preview.4.21253.5\lib\net461\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.HashCode.6.0.0\lib\net462\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.9.0.0\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Abstractions.9.0.0\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Binder.9.0.0\lib\net462\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.9.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Diagnostics.Abstractions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Diagnostics.Abstractions.9.0.0\lib\net462\Microsoft.Extensions.Diagnostics.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.FileProviders.Abstractions.9.0.0\lib\net462\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Hosting.Abstractions.9.0.0\lib\net462\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Http, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Http.9.0.0\lib\net462\Microsoft.Extensions.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.9.0.0\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.9.0.0\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Options.9.0.0\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Primitives.9.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.WebEncoders, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.WebEncoders.9.0.0\lib\net462\Microsoft.Extensions.WebEncoders.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.PowerPoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.PowerPoint.15.0.4420.1018\lib\net20\Microsoft.Office.Interop.PowerPoint.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Word.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.2895.0, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.2895-prerelease\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.2895.0, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.2895-prerelease\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.2895.0, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.2895-prerelease\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPinyinPro, Version=0.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\NPinyinPro.0.3.3\lib\net20\NPinyinPro.dll</HintPath>
+    </Reference>
+    <Reference Include="PPTX-HTML, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\PPTXToHTML.1.0.0.10\lib\net46\PPTX-HTML.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="Svg, Version=3.4.0.0, Culture=neutral, PublicKeyToken=12a0bac221edeae2, processorArchitecture=MSIL">
+      <HintPath>packages\Svg.3.4.7\lib\net472\Svg.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Collections.Immutable.9.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.9.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Drawing.Common.9.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Drawing.Primitives.4.3.0\lib\net45\System.Drawing.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Formats.Nrbf, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Formats.Nrbf.9.0.0\lib\net462\System.Formats.Nrbf.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Abstractions, Version=21.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Abstractions.21.1.3\lib\net462\System.IO.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Pipelines.9.0.0\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.6.0\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.6.0\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Reflection.Metadata.9.0.0\lib\net462\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Extensions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Resources.Extensions.9.0.0\lib\net462\System.Resources.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.1.0\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Text.Encoding.CodePages, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encoding.CodePages.9.0.0\lib\net462\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.9.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.9.0.0\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.6.0\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="TestableIO.System.IO.Abstractions, Version=21.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>packages\TestableIO.System.IO.Abstractions.21.1.3\lib\net462\TestableIO.System.IO.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="TestableIO.System.IO.Abstractions.Wrappers, Version=21.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>packages\TestableIO.System.IO.Abstractions.Wrappers.21.1.3\lib\net462\TestableIO.System.IO.Abstractions.Wrappers.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Tools.v4.0.Framework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Tools.Applications.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Tools, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Tools.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Tools.Common.v4.0.Utilities, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <!--
+    This section defines the user source files that are part of the project.
+     
+    A "Compile" element specifies a source file to compile.
+    An "EmbeddedResource" element specifies an .resx file for embedded resources.
+    A "None" element specifies a file that is not to be passed to the compiler (for instance, 
+    a text file or XML file).
+    The "AppDesigner" element specifies the directory where the application properties files
+    can be found.
+  -->
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ComForm\Use_Color.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ComForm\Use_Color.Designer.cs">
+      <DependentUpon>Use_Color.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\RibbonIcoHelper.cs" />
+    <Compile Include="Helper\ComHelper.cs" />
+    <Compile Include="ComForm\Con_TextTools.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ComForm\Con_TextTools.Designer.cs">
+      <DependentUpon>Con_TextTools.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\ImageHelper.cs" />
+    <Compile Include="Function\MyCustomTaskPane.cs" />
+    <Compile Include="Helper\RotationHelper.cs" />
+    <Compile Include="Page_ColorPane.xaml.cs">
+      <DependentUpon>Page_ColorPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Shapeset.xaml.cs">
+      <DependentUpon>Page_Shapeset.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rseource\Icon.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icon.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Page_NotePage.xaml.cs">
+      <DependentUpon>Page_NotePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Page_Sprite.xaml.cs">
+      <DependentUpon>Page_Sprite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Page_textPods.xaml.cs">
+      <DependentUpon>Page_textPods.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Page_ThemeColor.xaml.cs">
+      <DependentUpon>Page_ThemeColor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\IconUtility.cs" />
+    <Compile Include="Properties\Images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rseource\ResourceMock.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceMock.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Function\MessageBoxTimeout.cs" />
+    <Compile Include="Rseource\iToolResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iToolResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helper\YouDao.cs" />
+    <Compile Include="Wpf_ColorAdjust.xaml.cs">
+      <DependentUpon>Wpf_ColorAdjust.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\SuperClipboard\Wpf_Clipboard.xaml.cs">
+      <DependentUpon>Wpf_Clipboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_colorTheme.xaml.cs">
+      <DependentUpon>Wpf_colorTheme.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_colorGrad.xaml.cs">
+      <DependentUpon>Wpf_colorGrad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_crossPage.xaml.cs">
+      <DependentUpon>Wpf_crossPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_Colortheif.xaml.cs">
+      <DependentUpon>Wpf_Colortheif.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_About.xaml.cs">
+      <DependentUpon>Wpf_About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_Publish.xaml.cs">
+      <DependentUpon>Wpf_Publish.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_superGuide.xaml.cs">
+      <DependentUpon>Wpf_superGuide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_waterMark.xaml.cs">
+      <DependentUpon>Wpf_waterMark.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_Gradient.xaml.cs">
+      <DependentUpon>Wpf_Gradient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_ImageExport.xaml.cs">
+      <DependentUpon>Wpf_ImageExport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_InfoDelete.xaml.cs">
+      <DependentUpon>Wpf_InfoDelete.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_MasterSet.xaml.cs">
+      <DependentUpon>Wpf_MasterSet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_LikeChat.xaml.cs">
+      <DependentUpon>Wpf_LikeChat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_Mockup.xaml.cs">
+      <DependentUpon>Wpf_Mockup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_NameUnification.xaml.cs">
+      <DependentUpon>Wpf_NameUnification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_shapeCopy.xaml.cs">
+      <DependentUpon>Wpf_shapeCopy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf__Pagesize.xaml.cs">
+      <DependentUpon>Wpf__Pagesize.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_shapeCohesion.xaml.cs">
+      <DependentUpon>Wpf_shapeCohesion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_ShapeGlow.xaml.cs">
+      <DependentUpon>Wpf_ShapeGlow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_ShapeShodw.xaml.cs">
+      <DependentUpon>Wpf_ShapeShodw.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_Tools.xaml.cs">
+      <DependentUpon>Wpf_Tools.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_UniPa.xaml.cs">
+      <DependentUpon>Wpf_UniPa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ComForm\XWindow1.xaml.cs">
+      <DependentUpon>XWindow1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_ImageTra.xaml.cs">
+      <DependentUpon>Wpf_ImageTra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_ShpStyle.xaml.cs">
+      <DependentUpon>Wpf_ShpStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_Form\Wpf_Qrcode.xaml.cs">
+      <DependentUpon>Wpf_Qrcode.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ComForm\Con_TextTools.resx">
+      <DependentUpon>Con_TextTools.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComForm\Use_Color.resx">
+      <DependentUpon>Use_Color.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Images.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rseource\Icon.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icon.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rseource\ResourceMock.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceMock.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rseource\iToolResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>iToolResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyRibbon.resx">
+      <DependentUpon>MyRibbon.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="PresPio_TemporaryKey.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="MyRibbon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyRibbon.Designer.cs">
+      <DependentUpon>MyRibbon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThisAddIn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="Resources\Aboutme.rtf" />
+    <None Include="Resources\Fluents.ttf" />
+    <None Include="Resources\TextBox.cfg" />
+    <None Include="ThisAddIn.Designer.xml">
+      <DependentUpon>ThisAddIn.cs</DependentUpon>
+    </None>
+    <Compile Include="ThisAddIn.Designer.cs">
+      <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UseForm\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FormImg\recent %281%29.png" />
+    <Resource Include="Images\FormImg\recent %282%29.png" />
+    <Resource Include="Images\FormImg\recent %283%29.png" />
+    <Resource Include="Images\FormImg\recent %284%29.png" />
+    <Resource Include="Images\FormImg\recent %285%29.png" />
+    <Resource Include="Images\FormImg\recent %286%29.png" />
+    <Resource Include="Images\FormImg\recent %287%29.png" />
+    <Resource Include="Images\FormImg\recent %288%29.png" />
+    <Resource Include="Images\FormImg\recent %289%29.png" />
+    <EmbeddedResource Include="UserData\GuideData.xml">
+      <CustomToolNamespace>UserData</CustomToolNamespace>
+    </EmbeddedResource>
+    <Content Include="ColorPage.html" />
+    <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
+    <Content Include="Images\Icons\0-LOGO.ico" />
+    <Content Include="Images\Icons\0-LOGO.png" />
+    <Content Include="Images\Icons\A %281%29.png" />
+    <Resource Include="Images\Icons\对齐-1.png" />
+    <Resource Include="Images\Icons\对齐-2.png" />
+    <Resource Include="Images\Icons\对齐-3.png" />
+    <Resource Include="Images\Icons\对齐-4.png" />
+    <Resource Include="Images\Icons\对齐-5.png" />
+    <Resource Include="Images\Icons\对齐-6.png" />
+    <Resource Include="Images\Icons\对齐-7.png" />
+    <Resource Include="Images\Icons\对齐-8.png" />
+    <Resource Include="Images\Icons\对齐-9.png" />
+    <Resource Include="Images\Icons\图层-最上层.png" />
+    <Resource Include="Images\Icons\图层-最下层.png" />
+    <Resource Include="Images\Icons\图层-移到前面.png" />
+    <Resource Include="Images\Icons\图层-移到后面.png" />
+    <Resource Include="Images\Icons\原位复制 %281%29.png" />
+    <Resource Include="Images\Icons\原位复制 %282%29.png" />
+    <Resource Include="Images\Icons\原位复制 %283%29.png" />
+    <Resource Include="Images\Icons\原位复制 %284%29.png" />
+    <Resource Include="Images\Icons\原位复制 %285%29.png" />
+    <Resource Include="Images\Icons\原位复制 %286%29.png" />
+    <Resource Include="Images\Icons\原位复制 %287%29.png" />
+    <Resource Include="Images\Icons\原位复制 %288%29.png" />
+    <Resource Include="Images\Icons\原位复制 %289%29.png" />
+    <Resource Include="Images\Icons\A %282%29.png" />
+    <Content Include="Images\Icons\A %283%29.png" />
+    <Content Include="Images\Icons\A %284%29.png" />
+    <Content Include="Images\Icons\A %285%29.png" />
+    <Content Include="Images\Icons\A %286%29.png" />
+    <Content Include="Images\Icons\A %287%29.png" />
+    <Content Include="Images\Icons\A %288%29.png" />
+    <Content Include="Images\Icons\A-字体.png" />
+    <Content Include="Images\Icons\A-随机.png" />
+    <Content Include="Images\Icons\B-文字工具1.png" />
+    <Resource Include="Images\Icons\B-文字工具2.png" />
+    <Content Include="Images\Icons\B-文本工具.png" />
+    <Content Include="Images\Icons\B-缩进.png" />
+    <Content Include="Images\Icons\B-行距.png" />
+    <Content Include="Images\Icons\C-SVG粘贴.png" />
+    <Content Include="Images\Icons\C-以图换图.png" />
+    <Content Include="Images\Icons\C-修饰.png" />
+    <Content Include="Images\Icons\C-全屏矩形.png" />
+    <Content Include="Images\Icons\C-刷新母版.png" />
+    <Content Include="Images\Icons\C-发光质感.png" />
+    <Content Include="Images\Icons\C-图片压缩.png" />
+    <Content Include="Images\Icons\C-图转形状.png" />
+    <Content Include="Images\Icons\C-圆形修饰.png" />
+    <Content Include="Images\Icons\C-圆角矩形.png" />
+    <Content Include="Images\Icons\C-增强图元.png" />
+    <Content Include="Images\Icons\C-对齐增强.png" />
+    <Content Include="Images\Icons\C-对齐增强1.png" />
+    <Content Include="Images\Icons\C-平滑顶点.png" />
+    <Content Include="Images\Icons\C-形状编号.png" />
+    <Content Include="Images\Icons\C-形状翻转.png" />
+    <Content Include="Images\Icons\C-形状衔接.png" />
+    <Content Include="Images\Icons\C-形状裁图.png" />
+    <Content Include="Images\Icons\C-形状设置.png" />
+    <Content Include="Images\Icons\C-快速转图.png" />
+    <Content Include="Images\Icons\C-拼音修饰.png" />
+    <Content Include="Images\Icons\C-新增母版.png" />
+    <Content Include="Images\Icons\C-标签1.png" />
+    <Content Include="Images\Icons\C-标签2.png" />
+    <Content Include="Images\Icons\C-标签3.png" />
+    <Content Include="Images\Icons\C-标签4.png" />
+    <Content Include="Images\Icons\C-清除母版.png" />
+    <Content Include="Images\Icons\C-矩形修饰.png" />
+    <Content Include="Images\Icons\C-矩阵复制.png" />
+    <Content Include="Images\Icons\C-移到母版.png" />
+    <Content Include="Images\Icons\C-英文修饰.png" />
+    <Content Include="Images\Icons\C-补全母版.png" />
+    <Content Include="Images\Icons\C-角标修饰.png" />
+    <Content Include="Images\Icons\C-重置大小.png" />
+    <Content Include="Images\Icons\C-阴影质感.png" />
+    <Content Include="Images\Icons\Color3.png" />
+    <Content Include="Images\Icons\D-兼容检测.png" />
+    <Content Include="Images\Icons\D-内容适应.png" />
+    <Content Include="Images\Icons\D-分节内容.png" />
+    <Content Include="Images\Icons\D-参考线.png" />
+    <Content Include="Images\Icons\D-发送到word.png" />
+    <Content Include="Images\Icons\D-取消定位.png" />
+    <Content Include="Images\Icons\D-垂直参考.png" />
+    <Content Include="Images\Icons\D-垂直翻转.png" />
+    <Content Include="Images\Icons\D-对象尺子.png" />
+    <Content Include="Images\Icons\D-对齐居中.png" />
+    <Content Include="Images\Icons\D-属性删除.png" />
+    <Content Include="Images\Icons\D-微信封面.png" />
+    <Content Include="Images\Icons\D-格式交换.png" />
+    <Content Include="Images\Icons\D-水平参考.png" />
+    <Content Include="Images\Icons\D-水平翻转.png" />
+    <Content Include="Images\Icons\D-清除参考.png" />
+    <Content Include="Images\Icons\D-画布适应.png" />
+    <Content Include="Images\Icons\D-统一 %281%29.png" />
+    <Content Include="Images\Icons\D-统一 %282%29.png" />
+    <Content Include="Images\Icons\D-统一 %283%29.png" />
+    <Content Include="Images\Icons\D-统一大小.png" />
+    <Content Include="Images\Icons\D-统一宽度.png" />
+    <Content Include="Images\Icons\D-统一高度.png" />
+    <Content Include="Images\Icons\D-解锁.png" />
+    <Content Include="Images\Icons\D-锁定.png" />
+    <Content Include="Images\Icons\D-页面定位.png" />
+    <Content Include="Images\Icons\E-格式 %281%29.png" />
+    <Content Include="Images\Icons\E-格式 %282%29.png" />
+    <Content Include="Images\Icons\E-格式 %283%29.png" />
+    <Content Include="Images\Icons\E-格式 %284%29.png" />
+    <Content Include="Images\Icons\E-格式 %285%29.png" />
+    <Content Include="Images\Icons\E-格式 %286%29.png" />
+    <Content Include="Images\Icons\E-格式（7）.png" />
+    <Content Include="Images\Icons\E-格式（8）.png" />
+    <Resource Include="Images\Icons\Lucency.png" />
+    <Resource Include="Images\Icons\Logo.png" />
+    <Content Include="Images\Icons\O %281%29.png" />
+    <Content Include="Images\Icons\O %2810%29.png" />
+    <Content Include="Images\Icons\O %282%29.png" />
+    <Content Include="Images\Icons\O %283%29.png" />
+    <Content Include="Images\Icons\O %284%29.png" />
+    <Content Include="Images\Icons\O %285%29.png" />
+    <Content Include="Images\Icons\O %286%29.png" />
+    <Content Include="Images\Icons\O %287%29.png" />
+    <Content Include="Images\Icons\O %288%29.png" />
+    <Content Include="Images\Icons\O %289%29.png" />
+    <Resource Include="Images\Icons\P %281%29.png" />
+    <Resource Include="Images\Icons\P %282%29.png" />
+    <Resource Include="Images\Icons\P %283%29.png" />
+    <Resource Include="Images\Icons\P %284%29.png" />
+    <Resource Include="Images\Icons\P %285%29.png" />
+    <Resource Include="Images\Icons\P %286%29.png" />
+    <Content Include="Images\Icons\P1.png" />
+    <Content Include="Images\Icons\P2.png" />
+    <Content Include="Images\Icons\P3.png" />
+    <Content Include="Images\Icons\P4.png" />
+    <Resource Include="Images\Icons\PioLogo.png" />
+    <Content Include="Images\Icons\Q %281%29.png" />
+    <Content Include="Images\Icons\Q %2810%29.png" />
+    <Content Include="Images\Icons\Q %282%29.png" />
+    <Content Include="Images\Icons\Q %283%29.png" />
+    <Content Include="Images\Icons\Q %284%29.png" />
+    <Content Include="Images\Icons\Q %285%29.png" />
+    <Content Include="Images\Icons\Q %286%29.png" />
+    <Content Include="Images\Icons\Q %287%29.png" />
+    <Content Include="Images\Icons\Q %288%29.png" />
+    <Content Include="Images\Icons\Q %289%29.png" />
+    <Content Include="Images\Icons\shp %281%29.png" />
+    <Content Include="Images\Icons\shp %282%29.png" />
+    <Content Include="Images\Icons\shp %283%29.png" />
+    <Content Include="Images\Icons\shp %284%29.png" />
+    <Content Include="Images\Icons\shp %285%29.png" />
+    <Content Include="Images\Icons\shp %286%29.png" />
+    <Content Include="Images\Icons\shp %287%29.png" />
+    <Content Include="Images\Icons\shp %288%29.png" />
+    <Content Include="Images\Icons\一键转换.png" />
+    <Content Include="Images\Icons\主题适配.png" />
+    <Content Include="Images\Icons\主题适配2.png" />
+    <Content Include="Images\Icons\主题配色.png" />
+    <Content Include="Images\Icons\休闲娱乐.png" />
+    <Content Include="Images\Icons\优惠券.png" />
+    <Content Include="Images\Icons\全景.png" />
+    <Content Include="Images\Icons\参考线.png" />
+    <Content Include="Images\Icons\取消组合.png" />
+    <Content Include="Images\Icons\另存IMG.png" />
+    <Content Include="Images\Icons\咨询.png" />
+    <Content Include="Images\Icons\四周.png" />
+    <Content Include="Images\Icons\图文分离.png" />
+    <Content Include="Images\Icons\图片剪裁.png" />
+    <Content Include="Images\Icons\图片工具.png" />
+    <Content Include="Images\Icons\复制.png" />
+    <Content Include="Images\Icons\字体.png" />
+    <Content Include="Images\Icons\定位.png" />
+    <Content Include="Images\Icons\快速形状.png" />
+    <Content Include="Images\Icons\效果图.png" />
+    <Content Include="Images\Icons\文本工具.png" />
+    <Content Include="Images\Icons\文稿段落.png" />
+    <Content Include="Images\Icons\施工.png" />
+    <Content Include="Images\Icons\显示.png" />
+    <Content Include="Images\Icons\显示1.png" />
+    <Content Include="Images\Icons\母版.png" />
+    <Content Include="Images\Icons\水印.png" />
+    <Content Include="Images\Icons\画布.png" />
+    <Content Include="Images\Icons\空白页面.png" />
+    <Content Include="Images\Icons\组合.png" />
+    <Content Include="Images\Icons\缩进.png" />
+    <Content Include="Images\Icons\行距.png" />
+    <Content Include="Images\Icons\衬底.png" />
+    <Content Include="Images\Icons\规整名称.png" />
+    <Content Include="Images\Icons\解锁.png" />
+    <Content Include="Images\Icons\设置.png" />
+    <Content Include="Images\Icons\设计.png" />
+    <Content Include="Images\Icons\访问.png" />
+    <Content Include="Images\Icons\质感渐变.png" />
+    <Content Include="Images\Icons\超级组合.png" />
+    <Content Include="Images\Icons\跨页工具.png" />
+    <Content Include="Images\Icons\边缘剪裁.png" />
+    <Content Include="Images\Icons\选择.png" />
+    <Content Include="Images\Icons\配色1.png" />
+    <Content Include="Images\Icons\锁定.png" />
+    <Content Include="Images\Icons\隐藏.png" />
+    <Content Include="Images\Icons\隐藏1.png" />
+    <Content Include="Images\Icons\隐藏2.png" />
+    <Content Include="Images\Icons\面积.png" />
+    <Content Include="Images\Icons\页面清空.png" />
+    <Content Include="Images\Icons\预览-关闭_preview-close-one.png" />
+    <Content Include="Images\Icons\预览-打开_preview-open.png" />
+    <None Include="Resources\Pagesize.xml" />
+    <None Include="Images\Imageicon\F %282%29.png" />
+    <None Include="Images\Imageicon\F %283%29.png" />
+    <None Include="Images\Imageicon\F %284%29.png" />
+    <None Include="Images\Imageicon\F %285%29.png" />
+    <None Include="Images\Imageicon\F %286%29.png" />
+    <None Include="Images\Imageicon\F %287%29.png" />
+    <None Include="Images\Imageicon\F %288%29.png" />
+    <Resource Include="Images\Imageicon\F %289%29.png" />
+    <None Include="Images\Imageicon\F %2810%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Pages\Page_NotePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Page_Sprite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Page_textPods.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Page_ThemeColor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page_ColorPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page_Shapeset.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_ColorAdjust.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf_Form\SuperClipboard\Wpf_Clipboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_colorTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_colorGrad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_crossPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_Colortheif.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_Publish.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_superGuide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_waterMark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_Gradient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_ImageExport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_InfoDelete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_MasterSet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_LikeChat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_Mockup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_NameUnification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_shapeCopy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf__Pagesize.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_shapeCohesion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_ShapeGlow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_ShapeShodw.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_Tools.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_UniPa.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ComForm\XWindow1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_ImageTra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_ShpStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Form\Wpf_Qrcode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>PresPio_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>46894AB9FD970ECBCC89A15BAD1E8DE3523BA221</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <!-- Include the build rules for a C# project. -->
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Include additional build rules for an Office application add-in. -->
+  <Import Project="$(VSToolsPath)\OfficeTools\Microsoft.VisualStudio.Tools.Office.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- This section defines VSTO properties that describe the host-changeable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
+        <ProjectProperties HostName="PowerPoint" HostPackage="{29A7B9D7-A7F1-4328-8EF0-6B2D1A56B2C1}" OfficeVersion="15.0" VstxVersion="4.0" ApplicationType="PowerPoint" Language="cs" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\16.0\PowerPoint\InstallRoot\Path#powerpnt.exe" AddItemTemplatesGuid="{51063C3A-E220-4D12-8922-BDA915ACD783}" />
+        <Host Name="PowerPoint" GeneratedCodeNamespace="PresPio" PublishedHash="69C324AB27932AA2FBF2B7EA72250886FF164DE6" IconIndex="0">
+          <HostItem Name="ThisAddIn" Code="ThisAddIn.cs" CanonicalName="AddIn" PublishedHash="243668DE527BC58B659B44532CB6B25260FFC62B" CanActivate="false" IconIndex="1" Blueprint="ThisAddIn.Designer.xml" GeneratedCode="ThisAddIn.Designer.cs" />
+        </Host>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用"NuGet 程序包还原"可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\SixLabors.ImageSharp.3.1.5\build\SixLabors.ImageSharp.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SixLabors.ImageSharp.3.1.5\build\SixLabors.ImageSharp.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets'))" />
+  </Target>
+  <Import Project="packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets')" />
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.5" />
+    <PackageReference Include="System.Text.Json" Version="7.0.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
+  </ItemGroup>
+</Project>

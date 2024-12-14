@@ -1,0 +1,122 @@
+﻿<hc:Window
+    x:Class="PresPio.Wpf_Mockup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:PresPio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="超级样机"
+    Width="567"
+    Height="360"
+    Background="White"
+    ResizeMode="CanMinimize"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <hc:Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </hc:Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="213*" />
+            <ColumnDefinition Width="86*" />
+            <ColumnDefinition Width="86*" />
+            <ColumnDefinition Width="86*" />
+            <ColumnDefinition Width="86*" />
+
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="49*" />
+            <RowDefinition Height="252*" />
+            <RowDefinition Height="34*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+        <GroupBox
+            Grid.Row="2"
+            Grid.RowSpan="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="5"
+            Margin="0,10,0,5"
+            Header="样机预览">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="7*" />
+                </Grid.RowDefinitions>
+                <hc:CoverFlow
+                    x:Name="CoverFlowMain"
+                    Grid.RowSpan="2"
+                    Background="White" />
+                <Menu>
+                    <MenuItem Header="样机设置">
+                        <MenuItem Name="SeltMockup" Header="选择样机" Click="SeltMockup_Click" />
+                        <MenuItem Name="OpenFile" Header="打开文件" Click="OpenFile_Click" />
+                        <Separator />
+                        <MenuItem Header="退出" />
+                    </MenuItem>
+                    <MenuItem Header="帮助">
+                        <MenuItem Header="关于" />
+                    </MenuItem>
+                </Menu>
+            </Grid>
+
+
+        </GroupBox>
+        <Label
+            Name="LabelNum"
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="200"
+            Height="38"
+            Content="选择数量-99" />
+        <Button
+            Grid.Row="1"
+            Grid.Column="5"
+            Width="66"
+            Height="28"
+            Background="White"
+            BorderBrush="#FF006CBE"
+            Click="Button_Click"
+            Content="生成样机"
+            FontSize="10"
+            Foreground="#FF006CBE" />
+        <RadioButton
+            x:Name="SelAll"
+            Grid.Row="1"
+            Grid.Column="2"
+            Width="70"
+            Height="28"
+            Checked="SelAll_Checked"
+            Content="全部页面" />
+        <RadioButton
+            x:Name="SelBtn"
+            Grid.Row="1"
+            Grid.Column="3"
+            Width="70"
+            Height="28"
+            Content="所选页面"
+            IsChecked="True" />
+        <Button
+            Grid.Row="1"
+            Grid.Column="4"
+            Width="66"
+            Height="28"
+            Background="White"
+            BorderBrush="Red"
+            Click="Button_Click_1"
+            Content="删除样机"
+            FontSize="10"
+            Foreground="Red" />
+    </Grid>
+
+</hc:Window>

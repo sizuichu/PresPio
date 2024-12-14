@@ -1,0 +1,87 @@
+﻿<hc:Window
+    x:Class="PresPio.Wpf_ShapeGlow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:PresPio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="发光质感"
+    Width="238"
+    Height="220"
+    ResizeMode="CanMinimize"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <hc:Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </hc:Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="12*" />
+            <ColumnDefinition Width="149*" />
+            <ColumnDefinition Width="149*" />
+            <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="14*" />
+            <RowDefinition Height="58*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="73*" />
+            <RowDefinition Height="48*" />
+            <RowDefinition Height="7*" />
+        </Grid.RowDefinitions>
+        <hc:NumericUpDown
+            Name="sizeBtn"
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="6,3,6,10"
+            hc:InfoElement.Placeholder=""
+            hc:InfoElement.Title="尺寸（磅）"
+            Style="{StaticResource NumericUpDownExtend}"
+            ValueChanged="sizeBtn_ValueChanged" />
+        <hc:NumericUpDown
+            Name="growBtn"
+            Grid.Row="3"
+            Grid.Column="2"
+            Margin="6,3,6,10"
+            hc:InfoElement.Placeholder=""
+            hc:TitleElement.Title="透明度（%）"
+            Style="{StaticResource NumericUpDownExtend}"
+            ValueChanged="growBtn_ValueChanged" />
+        <Button
+            x:Name="CancelBtn"
+            Grid.Row="4"
+            Grid.Column="1"
+            Width="99"
+            Height="33"
+            Content="默认" />
+        <Button
+            x:Name="OkBtn"
+            Grid.Row="4"
+            Grid.Column="2"
+            Width="99"
+            Height="33"
+            Click="OkBtn_Click"
+            Content="确定"
+            RenderTransformOrigin="0.238,0.451" />
+        <Button
+            x:Name="ColorButton"
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="210"
+            Height="48"
+            Margin="5,0,0,0"
+            HorizontalAlignment="Left"
+            Click="ColorButton_Click"
+            Content="质感颜色"
+            Foreground="#FFD8CFCF" />
+    </Grid>
+
+</hc:Window>

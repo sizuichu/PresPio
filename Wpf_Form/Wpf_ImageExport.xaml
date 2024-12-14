@@ -1,0 +1,156 @@
+﻿<hc:Window
+    x:Class="PresPio.Wpf_ImageExport"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:PresPio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="高清导图"
+    Width="450"
+    Height="450"
+    d:DesignHeight="450"
+    d:DesignWidth="450"
+    Background="White"
+    ResizeMode="CanMinimize"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <hc:Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </hc:Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="16*" />
+            <ColumnDefinition Width="200*" />
+            <ColumnDefinition Width="200*" />
+            <ColumnDefinition Width="16*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*" />
+            <RowDefinition Height="167*" />
+            <RowDefinition Height="13*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="79*" />
+            <RowDefinition Height="46*" />
+            <RowDefinition Height="69*" />
+        </Grid.RowDefinitions>
+        <hc:ImageViewer
+            Name="ImageViewer"
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="416"
+            Height="162"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="WhiteSmoke" />
+        <hc:ButtonGroup
+            Name="ButtonGroups"
+            Grid.Row="4"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Height="59"
+            VerticalAlignment="Center">
+            <RadioButton
+                x:Name="RadioButtonJpg"
+                Margin="4"
+                Background="{DynamicResource SecondaryRegionBrush}"
+                Checked="RadioButton_Checked"
+                Content="Jpg"
+                Style="{StaticResource RadioButtonIcon}" />
+            <RadioButton
+                x:Name="RadioButtonPng"
+                Margin="4"
+                Background="{DynamicResource SecondaryRegionBrush}"
+                Checked="RadioButton_Checked"
+                Content="Png"
+                IsChecked="True"
+                Style="{StaticResource RadioButtonIcon}" />
+            <RadioButton
+                x:Name="RadioButtonGif"
+                Margin="4"
+                VerticalAlignment="Stretch"
+                Background="{DynamicResource SecondaryRegionBrush}"
+                Checked="RadioButton_Checked"
+                Content="Gif"
+                Style="{StaticResource RadioButtonIcon}" />
+            <RadioButton
+                x:Name="RadioButtonTif"
+                Margin="4"
+                Background="{DynamicResource SecondaryRegionBrush}"
+                Checked="RadioButton_Checked"
+                Content="Tif"
+                Style="{StaticResource RadioButtonIcon}" />
+            <RadioButton
+                x:Name="RadioButtonBmp"
+                Margin="4"
+                Background="{DynamicResource SecondaryRegionBrush}"
+                Checked="RadioButton_Checked"
+                Content="Bmp"
+                Style="{StaticResource RadioButtonIcon}" />
+        </hc:ButtonGroup>
+        <hc:TextBox
+            Name="filePath"
+            Grid.Row="5"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Height="30"
+            Margin="10,0,68,0"
+            VerticalAlignment="Center"
+            hc:InfoElement.Necessary="True"
+            hc:InfoElement.Placeholder="请选保存地址！"
+            hc:TitleElement.Title="保存地址："
+            hc:TitleElement.TitlePlacement="Left" />
+        <hc:ComboBox
+            Name="DpiComBox"
+            Grid.Row="3"
+            Grid.Column="1"
+            Width="188"
+            Margin="0,12,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            hc:InfoElement.Necessary="True"
+            hc:InfoElement.Placeholder="请选DPI！"
+            hc:TitleElement.Title="DPI设置："
+            hc:TitleElement.TitlePlacement="Left"
+            SelectionChanged="DpiComBox_SelectionChanged" />
+        <hc:TextBox
+            Name="SizeTextBox"
+            Grid.Row="3"
+            Grid.Column="2"
+            Width="188"
+            Height="30"
+            Margin="20,12,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            hc:InfoElement.Necessary="True"
+            hc:InfoElement.Placeholder="请选DPI！"
+            hc:TitleElement.Title="图片尺寸："
+            hc:TitleElement.TitlePlacement="Left" />
+        <Button
+            Grid.Row="6"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="293"
+            Height="46"
+            Margin="0,10,0,0"
+            VerticalAlignment="Top"
+            Click="Button_Click"
+            Content="导出图片" />
+        <Button
+            x:Name="FolderSelect"
+            Grid.Row="5"
+            Grid.Column="2"
+            Width="62"
+            Height="30"
+            Margin="144,0,0,0"
+            HorizontalAlignment="Left"
+            Content="选择" Click="FolderSelect_Click" />
+    </Grid>
+</hc:Window>

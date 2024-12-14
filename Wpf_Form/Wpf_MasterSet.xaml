@@ -1,0 +1,101 @@
+﻿<hc:Window
+    x:Class="PresPio.Wpf_MasterSet"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:PresPio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="MastWindown"
+    Title="母版设置"
+    Width="226"
+    Height="200"
+    Loaded="MastWindown_Loaded"
+    ResizeMode="CanMinimize"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <hc:Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </hc:Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="100*" />
+            <ColumnDefinition Width="114*" />
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="55*" />
+            <RowDefinition Height="40*" />
+            <RowDefinition Height="41*" />
+            <RowDefinition Height="39*" />
+        </Grid.RowDefinitions>
+        <hc:NumericUpDown
+            Name="numericUpDown"
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="178"
+            Height="35"
+            Margin="19,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            hc:InfoElement.Necessary="True"
+            hc:InfoElement.Placeholder="0"
+            hc:InfoElement.Title="字体大小"
+            hc:InfoElement.TitlePlacement="Left"
+            hc:InfoElement.TitleWidth="70"
+            DecimalPlaces="2"
+            Style="{StaticResource NumericUpDownExtend}"
+            ValueChanged="numericUpDown_ValueChanged" />
+        <CheckBox
+            x:Name="uiCheckBox1"
+            Grid.Row="2"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="76"
+            Height="34"
+            Margin="27,0,0,0"
+            HorizontalAlignment="Left"
+            Checked="uiCheckBox1_Checked"
+            Content="原件保留" />
+        <CheckBox
+            x:Name="uiCheckBox2"
+            Grid.Row="2"
+            Grid.Column="2"
+            Width="78"
+            Height="34"
+            Margin="11,0,0,0"
+            HorizontalAlignment="Left"
+            Checked="uiCheckBox2_Checked"
+            Content="形状排除" />
+        <CheckBox
+            x:Name="uiCheckBox3"
+            Grid.Row="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="76"
+            Height="34"
+            Margin="27,0,0,0"
+            HorizontalAlignment="Left"
+            Checked="uiCheckBox3_Checked"
+            Content="文字保留" />
+        <CheckBox
+            x:Name="uiCheckBox4"
+            Grid.Row="3"
+            Grid.Column="2"
+            Width="78"
+            Height="34"
+            Margin="11,0,0,0"
+            HorizontalAlignment="Left"
+            Checked="uiCheckBox4_Checked"
+            Content="图片排除" />
+    </Grid>
+</hc:Window>

@@ -1,0 +1,163 @@
+﻿<hc:Window
+    x:Class="PresPio.Wpf_InfoDelete"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:PresPio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="文档属性"
+    Width="240"
+    Height="283"
+    ResizeMode="CanMinimize"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <hc:Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </hc:Window.Resources>
+
+    <Grid Margin="0,0,0,1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="140*" />
+            <ColumnDefinition Width="140*" />
+            <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="68*" />
+            <RowDefinition Height="17*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <hc:Card
+            Name="Card"
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="220"
+            Height="188"
+            Margin="0,2,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top">
+            <Grid x:Name="Grid1" Height="181">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="30*" />
+
+                </Grid.RowDefinitions>
+                <CheckBox
+                    x:Name="uiCheckBox2"
+                    Width="75"
+                    Height="26"
+                    HorizontalAlignment="Center"
+                    Content="注释信息" />
+                <CheckBox
+                    x:Name="uiCheckBox3"
+                    Grid.Row="1"
+                    Width="75"
+                    Height="26"
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Content="内容信息" />
+                <CheckBox
+                    x:Name="uiCheckBox4"
+                    Grid.Row="2"
+                    Width="75"
+                    Height="26"
+                    HorizontalAlignment="Center"
+                    Content="管理策略" />
+                <CheckBox
+                    x:Name="uiCheckBox5"
+                    Grid.Row="3"
+                    Width="75"
+                    Height="26"
+                    HorizontalAlignment="Center"
+                    Content="文档属性" />
+                <CheckBox
+                    x:Name="uiCheckBox11"
+                    Grid.Column="1"
+                    Width="75"
+                    Height="26"
+                    HorizontalAlignment="Center"
+                    Content="更新信息" />
+                <CheckBox
+                    x:Name="uiCheckBox10"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="75"
+                    Height="26"
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Content="个人信息" />
+                <CheckBox
+                    x:Name="uiCheckBox9"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Width="75"
+                    Height="26"
+                    HorizontalAlignment="Center"
+                    Content="出版路径" />
+                <CheckBox
+                    x:Name="uiCheckBox8"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Width="75"
+                    Height="26"
+                    HorizontalAlignment="Center"
+                    Content="墨迹注释" />
+                <CheckBox
+                    x:Name="uiCheckBox6"
+                    Grid.Row="4"
+                    Width="89"
+                    Height="26"
+                    Margin="17,6,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="服务器属性" />
+                <CheckBox
+                    x:Name="uiCheckBox7"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Width="89"
+                    Height="32"
+                    Margin="17,0,0,0"
+                    HorizontalAlignment="Left"
+                    Content="工作区属性" />
+            </Grid>
+        </hc:Card>
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Width="100"
+            Height="28"
+            Margin="2,0,0,0"
+            HorizontalAlignment="Left"
+            Click="Button_Click_1"
+            Content="取消全选" />
+        <Button
+            Grid.Row="2"
+            Grid.Column="2"
+            Width="100"
+            Height="28"
+            Margin="10,0,0,0"
+            HorizontalAlignment="Left"
+            Click="Button_Click"
+            Content="确定删除" />
+    </Grid>
+</hc:Window>

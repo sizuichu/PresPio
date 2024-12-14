@@ -1,0 +1,63 @@
+﻿<Window x:Name="markWindow" x:Class="PresPio.Wpf_waterMark"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:hc="https://handyorg.github.io/handycontrol" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresPio"
+             mc:Ignorable="d" 
+             d:DesignHeight="450"
+             d:DesignWidth="450"
+        Topmost="True"   
+        Height="450"
+        Width="450"
+            WindowStartupLocation="CenterScreen"
+            Title="超级水印" Loaded="markWindow_Loaded"
+            ResizeMode="CanMinimize"
+           >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources/>
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid Margin="0,-2,0,2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"/>
+                <ColumnDefinition Width="128*"/>
+                <ColumnDefinition Width="131*"/>
+                <ColumnDefinition Width="84*"/>
+                <ColumnDefinition Width="85*"/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="13*"/>
+                <RowDefinition Height="107*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="42*"/>
+                <RowDefinition Height="41*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="154*"/>
+                <RowDefinition Height="14*"/>
+            </Grid.RowDefinitions>
+            <Label  x:Name="markLabel" Content="水印文字" HorizontalAlignment="Stretch" Margin="1,0,2,0" Grid.Row="1" Height="99" Grid.Column="1" FontSize="72" FontFamily="Roboto Slab Medium" Grid.ColumnSpan="4" MouseDoubleClick="markLabel_MouseDoubleClick"/>
+            <hc:TextBox x:Name="FontTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="1,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="248" Height="38" TextChanged="FontTextBox_TextChanged" Grid.ColumnSpan="2"/>
+            <Label x:Name="Fontsize" Grid.Column="3" Content="Label" Grid.Row="3" Height="36" Width="76"/>
+            <Button x:Name="FontBtn" Grid.Column="4" Content="字体设置" Grid.Row="3" Height="36" Width="78" Click="FontBtn_Click"/>
+            <hc:Watermark x:Name="Watermark" FontSize="18"  Foreground="{DynamicResource PrimaryBrush}" Angle="45" AutoSizeEnabled="True" Mark="水印"  MarkMargin="5"  Grid.Column="1" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Top" Height="149" Width="426" Grid.ColumnSpan="4" Margin="0,1,0,0"/>
+            <hc:NumericUpDown x:Name="Num1"  hc:InfoElement.Title="水平数量" Grid.Column="1" HorizontalAlignment="Left" Margin="2,24,0,4" Grid.Row="4" Width="120" Style="{StaticResource NumericUpDownExtend}" Grid.RowSpan="2" ValueChanged="Num1_ValueChanged" />
+            <hc:NumericUpDown x:Name="Num2"  hc:TitleElement.Title="垂直数量" Grid.Column="2" HorizontalAlignment="Left" Margin="2,24,0,4" Grid.Row="4" Width="120" Style="{StaticResource NumericUpDownExtend}" Grid.RowSpan="2" ValueChanged="Num2_ValueChanged" />
+            <Button Grid.Column="3" Content="删除水印" Margin="4,0,4,0" Grid.Row="4" Grid.ColumnSpan="2" Height="36" HorizontalAlignment="Stretch" Click="Button_Click" VerticalAlignment="Top"/>
+            <Button Grid.Column="3" Content="添加水印" Margin="4,2,4,0" Grid.Row="5" Grid.ColumnSpan="2" Height="36" HorizontalAlignment="Stretch" Click="Button_Click_1" VerticalAlignment="Top"/>
+            <hc:ColorPicker Visibility="Collapsed" x:Name="colorPicker" Grid.Column="1" HorizontalAlignment="Left" Margin="90,40,0,0" VerticalAlignment="Top" Height="369" Grid.RowSpan="8" Width="251" Grid.ColumnSpan="3" Grid.Row="1" Canceled="colorPicker_Canceled" Confirmed="colorPicker_Confirmed"/>
+
+        </Grid>
+        <hc:BlendEffectBox HorizontalAlignment="Left" Margin="594,423,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

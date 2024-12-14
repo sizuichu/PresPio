@@ -1,0 +1,176 @@
+﻿<hc:Window
+    x:Class="PresPio.Wpf_UniPa"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:PresPio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="uniWindow"
+    Width="240"
+    Height="380"
+    Background="White"
+    Loaded="uniWindow_Loaded"
+    ResizeMode="NoResize"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="0,0,0,3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*" />
+            <ColumnDefinition Width="102*" />
+            <ColumnDefinition Width="121*" />
+            <ColumnDefinition Width="8*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="119*" />
+            <RowDefinition Height="43*" />
+            <RowDefinition Height="43*" />
+            <RowDefinition Height="43*" />
+            <RowDefinition Height="43*" />
+            <RowDefinition Height="53*" />
+            <RowDefinition Height="15*" />
+        </Grid.RowDefinitions>
+        <hc:ButtonGroup
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Height="0"
+            Margin="0,4,0,0" />
+        <GroupBox
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="0,4,0,9"
+            Header="统一段落">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="18*" />
+                    <RowDefinition Height="19*" />
+                </Grid.RowDefinitions>
+                <RadioButton
+                    x:Name="uiRadioButton1"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    Content="所选幻灯片"
+                    IsChecked="True" />
+                <RadioButton
+                    x:Name="uiRadioButton2"
+                    Grid.Row="1"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    Content="所有幻灯片" />
+            </Grid>
+        </GroupBox>
+        <CheckBox
+            x:Name="uiCheckBox1"
+            Grid.Row="2"
+            Grid.Column="1"
+            Width="74"
+            Height="28"
+            HorizontalAlignment="Center"
+            Click="uiCheckBox1_Click"
+            Content="行距(磅）" />
+        <CheckBox
+            x:Name="uiCheckBox2"
+            Grid.Row="3"
+            Grid.Column="1"
+            Width="74"
+            Height="28"
+            HorizontalAlignment="Center"
+            Click="uiCheckBox2_Click"
+            Content="段前(磅）" />
+        <CheckBox
+            x:Name="uiCheckBox3"
+            Grid.Row="4"
+            Grid.Column="1"
+            Width="74"
+            Height="28"
+            HorizontalAlignment="Center"
+            Click="uiCheckBox3_Click"
+            Content="段后(磅）" />
+        <CheckBox
+            x:Name="uiCheckBox4"
+            Grid.Row="5"
+            Grid.Column="1"
+            Width="74"
+            Height="28"
+            HorizontalAlignment="Center"
+            Click="uiCheckBox4_Click"
+            Content="对齐(行）" />
+        <hc:NumericUpDown
+            Name="uiTextBox1"
+            Grid.Row="2"
+            Grid.Column="2"
+            Width="96"
+            Height="28"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            DecimalPlaces="2"
+            Increment="0.5"
+            IsEnabled="False"
+            Maximum="10"
+            Minimum="0"
+            Style="{StaticResource NumericUpDownExtend}"
+            Value="1.5" />
+
+        <hc:NumericUpDown
+            Name="uiTextBox2"
+            Grid.Row="3"
+            Grid.Column="2"
+            Width="96"
+            Height="28"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            DecimalPlaces="2"
+            Increment="0.5"
+            IsEnabled="False"
+            Maximum="10"
+            Minimum="0"
+            Style="{StaticResource NumericUpDownExtend}"
+            Value="1.5" />
+
+        <hc:NumericUpDown
+            Name="uiTextBox3"
+            Grid.Row="4"
+            Grid.Column="2"
+            Width="96"
+            Height="28"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            DecimalPlaces="2"
+            Increment="0.5"
+            IsEnabled="False"
+            Maximum="10"
+            Minimum="0"
+            Style="{StaticResource NumericUpDownExtend}"
+            Value="1.5" />
+        <hc:ComboBox
+            x:Name="uiComboBox1"
+            Grid.Row="5"
+            Grid.Column="2"
+            Width="96"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+        <Button
+            Grid.Row="6"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="197"
+            Height="40"
+            Margin="14,5,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="Button_Click"
+            Content="确定" />
+
+    </Grid>
+</hc:Window>

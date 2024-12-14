@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+	<record>
+		<Name>PPT 16:9</Name>
+		<Height>14.288 </Height>
+		<Width>25.400 </Width>
+	</record>
+	<record>
+		<Name>PPT 16:10</Name>
+		<Height>15.875 </Height>
+		<Width>25.400 </Width>
+	</record>
+	<record>
+		<Name>PPT 4:3</Name>
+		<Height>19.050 </Height>
+		<Width>25.400 </Width>
+	</record>
+	<record>
+		<Name>手机海报</Name>
+		<Height>19.200 </Height>
+		<Width>10.800 </Width>
+	</record>
+	<record>
+		<Name>全屏海报</Name>
+		<Height>27.780 </Height>
+		<Width>12.840 </Width>
+	</record>
+	<record>
+		<Name>竖版海报</Name>
+		<Height>10.080 </Height>
+		<Width>6.400 </Width>
+	</record>
+	<record>
+		<Name>长图海报</Name>
+		<Height>20.000 </Height>
+		<Width>8.000 </Width>
+	</record>
+	<record>
+		<Name>横版海报</Name>
+		<Height>9.000 </Height>
+		<Width>5.000 </Width>
+	</record>
+	<record>
+		<Name>Logo设计</Name>
+		<Height>5.000 </Height>
+		<Width>5.000 </Width>
+	</record>
+	<record>
+		<Name>公众号封面首图</Name>
+		<Height>3.830 </Height>
+		<Width>9.000 </Width>
+	</record>
+	<record>
+		<Name>公众号封面小图</Name>
+		<Height>2.000 </Height>
+		<Width>2.000 </Width>
+	</record>
+	<record>
+		<Name>小红书配图</Name>
+		<Height>12.420 </Height>
+		<Width>16.600 </Width>
+	</record>
+	<record>
+		<Name>横版视频封面</Name>
+		<Height>10.800 </Height>
+		<Width>19.200 </Width>
+	</record>
+	<record>
+		<Name>视频边框</Name>
+		<Height>12.420 </Height>
+		<Width>22.080 </Width>
+	</record>
+	<record>
+		<Name>横版二维码</Name>
+		<Height>5.000 </Height>
+		<Width>9.000 </Width>
+	</record>
+	<record>
+		<Name>条漫</Name>
+		<Height>10.000 </Height>
+		<Width>25.000 </Width>
+	</record>
+	<record>
+		<Name>文章标题</Name>
+		<Height>5.000 </Height>
+		<Width>10.800 </Width>
+	</record>
+	<record>
+		<Name>文章长图</Name>
+		<Height>10.000 </Height>
+		<Width>10.800 </Width>
+	</record>
+	<record>
+		<Name>专辑封面</Name>
+		<Height>14.000 </Height>
+		<Width>14.000 </Width>
+	</record>
+	<record>
+		<Name>名片（横版）</Name>
+		<Height>5.000 </Height>
+		<Width>9.000 </Width>
+	</record>
+	<record>
+		<Name>名片（竖版）</Name>
+		<Height>9.000 </Height>
+		<Width>5.000 </Width>
+	</record>
+	<record>
+		<Name>名片（方版）</Name>
+		<Height>9.000 </Height>
+		<Width>9.000 </Width>
+	</record>
+	<record>
+		<Name>IC卡</Name>
+		<Height>5.400 </Height>
+		<Width>8.500 </Width>
+	</record>
+	<record>
+		<Name>三折广告页(A4)</Name>
+		<Height>21.000 </Height>
+		<Width>28.500 </Width>
+	</record>
+	<record>
+		<Name>普通宣传页(A4)</Name>
+		<Height>21.000 </Height>
+		<Width>28.500 </Width>
+	</record>
+	<record>
+		<Name>文件套页</Name>
+		<Height>22.000 </Height>
+		<Width>30.500 </Width>
+	</record>
+	<record>
+		<Name>招贴画</Name>
+		<Height>38.000 </Height>
+		<Width>54.000 </Width>
+	</record>
+	<record>
+		<Name>1寸照</Name>
+		<Height>3.500 </Height>
+		<Width>2.500 </Width>
+	</record>
+	<record>
+		<Name>2寸照</Name>
+		<Height>4.900 </Height>
+		<Width>3.500 </Width>
+	</record>
+	<record>
+		<Name>3寸照</Name>
+		<Height>5.200 </Height>
+		<Width>3.500 </Width>
+	</record>
+	<record>
+		<Name>身份证照片</Name>
+		<Height>3.300 </Height>
+		<Width>2.200 </Width>
+	</record>
+	<record>
+		<Name>1.8米展板</Name>
+		<Height>180.000 </Height>
+		<Width>80.000 </Width>
+	</record>
+	<record>
+		<Name>课程封面</Name>
+		<Height>8.400 </Height>
+		<Width>8.400 </Width>
+	</record>
+	<record>
+		<Name>宣传单</Name>
+		<Height>28.500 </Height>
+		<Width>21.000 </Width>
+	</record>
+	<record>
+		<Name>2米易拉宝</Name>
+		<Height>200.000 </Height>
+		<Width>80.000 </Width>
+	</record>
+	<record>
+		<Name>画册</Name>
+		<Height>28.500 </Height>
+		<Width>42.000 </Width>
+	</record>
+	<record>
+		<Name>展板</Name>
+		<Height>120.000 </Height>
+		<Width>60.000 </Width>
+	</record>
+	<record>
+		<Name>菜单</Name>
+		<Height>28.500 </Height>
+		<Width>21.000 </Width>
+	</record>
+	<record>
+		<Name>台历</Name>
+		<Height>21.000 </Height>
+		<Width>14.000 </Width>
+	</record>
+	<record>
+		<Name>会员卡</Name>
+		<Height>5.400 </Height>
+		<Width>8.500 </Width>
+	</record>
+	<record>
+		<Name>门票</Name>
+		<Height>8.000 </Height>
+		<Width>20.000</Width>
+	</record>
+</dataset>
