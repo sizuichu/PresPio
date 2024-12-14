@@ -493,7 +493,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helper\YouDao.cs" />
-    <Compile Include="Wpf_ColorAdjust.xaml.cs">
+    <Compile Include="Wpf_Form\Wpf_ColorAdjust.xaml.cs">
       <DependentUpon>Wpf_ColorAdjust.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf_Form\SuperClipboard\Wpf_Clipboard.xaml.cs">
@@ -920,7 +920,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_ColorAdjust.xaml">
+    <Page Include="Wpf_Form\Wpf_ColorAdjust.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1044,7 +1044,7 @@
     <ManifestKeyFile>PresPio_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>46894AB9FD970ECBCC89A15BAD1E8DE3523BA221</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C40DFC43D171253A24BDB7510366C7F10364E524</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />

@@ -37,7 +37,7 @@ namespace PresPio
             // 获取当前应用程序实例
             var app = Globals.ThisAddIn.Application;
 
-            // 从应用程序设置中获取水印文本
+            // 从应用程序设置中获取水印文���
             string waterText = Properties.Settings.Default.WaterText;
 
             // 将水印文本分配给文本框和标签内容
@@ -61,7 +61,7 @@ namespace PresPio
             markLabel.Foreground = new SolidColorBrush(mediaColor);
 
             // 将水印大小显示为整数
-            Fontsize.Content = (int)waterSize;
+            Fontsize.Text = waterSize.ToString();
 
             }
 
@@ -75,7 +75,7 @@ namespace PresPio
                 // 更新界面字体
                 markLabel.FontSize = fontDialog.Font.Size;
                 markLabel.FontFamily = new System.Windows.Media.FontFamily(fontDialog.Font.Name);
-                Fontsize.Content = (int)fontDialog.Font.Size;
+                Fontsize.Text = fontDialog.Font.Size.ToString();
                 Watermark.FontSize = (int)fontDialog.Font.Size / 2;
                 // 保存用户选择到应用程序设置
                 Properties.Settings.Default.WaterFont = fontDialog.Font.Name;
@@ -104,34 +104,7 @@ namespace PresPio
 
         private void markLabel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
             {
-            colorPicker.Visibility = System.Windows.Visibility.Visible;
-            }
-
-        private void colorPicker_Canceled(object sender, EventArgs e)
-            {
-            colorPicker.Visibility = System.Windows.Visibility.Collapsed;
-            }
-
-        private void colorPicker_Confirmed(object sender, HandyControl.Data.FunctionEventArgs<System.Windows.Media.Color> e)
-            {
-
-            var solidColorBrush = colorPicker.SelectedBrush;
-
-            // 获取SolidColorBrush的颜色
-            System.Windows.Media.Color color = solidColorBrush.Color;
-
-            // 设置标签的前景色为获取的颜色
-            markLabel.Foreground = new SolidColorBrush(color);
-
-            // 隐藏颜色选择器
-            colorPicker.Visibility = System.Windows.Visibility.Collapsed;
-
-            // 将 System.Windows.Media.Color 转换为 System.Drawing.Color
-            System.Drawing.Color drawingColor = System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
-
-            // 将 System.Drawing.Color 保存到应用程序设置中
-            Properties.Settings.Default.WaterColor = drawingColor;
-            Properties.Settings.Default.Save();
+            Border_MouseLeftButtonDown(sender, e);
             }
 
         private void Num1_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
@@ -210,7 +183,7 @@ namespace PresPio
             List<Shape> shps = new List<Shape>();
             int n = Properties.Settings.Default.WaterRow;
             int m = Properties.Settings.Default.WaterColumn;
-            float Width = pre.PageSetup.SlideWidth + 50;
+            float Width = pre.PageSetup.SlideWidth + 30;
             float Height = pre.PageSetup.SlideHeight + 30;
             float Wcell = Width / n;
             float Hcell = Height / m;
@@ -292,5 +265,64 @@ namespace PresPio
             int R = color - B * 256 * 256 - G * 256;
             return System.Drawing.Color.FromArgb(R, G, B);
             }
+
+        // 添加颜色选择器点击事件处理
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var colorPicker = new HandyControl.Controls.ColorPicker
+            {
+                SelectedBrush = markLabel.Foreground as SolidColorBrush
+            };
+
+            var popup = new HandyControl.Controls.PopupWindow
+            {
+                PopupElement = colorPicker,
+                AllowsTransparency = true,
+                WindowStyle = WindowStyle.None,
+                Title = "选择颜色",
+                Width = 280,  // 设置固定宽度
+                Height =360  // 设置固定高度
+            };
+
+            colorPicker.Canceled += (s, args) => 
+            {
+                popup.Close();
+            };
+
+            colorPicker.Confirmed += (s, args) =>
+            {
+                // 更新UI颜色
+                var solidColorBrush = colorPicker.SelectedBrush;
+                markLabel.Foreground = solidColorBrush;
+                Watermark.Foreground = solidColorBrush;
+
+                // 转换颜色并保存设置
+                System.Windows.Media.Color color = solidColorBrush.Color;
+                System.Drawing.Color drawingColor = System.Drawing.Color.FromArgb(
+                    color.A, color.R, color.G, color.B);
+                Properties.Settings.Default.WaterColor = drawingColor;
+                Properties.Settings.Default.Save();
+
+                popup.Close();
+            };
+
+            // 计算弹出位置 - 在鼠标点击位置的右边并垂直居中
+            var element = sender as FrameworkElement;
+            var mousePosition = Mouse.GetPosition(element);
+            var elementPoint = element.PointToScreen(new System.Windows.Point(element.ActualWidth, element.ActualHeight/2));
+            var point = new System.Windows.Point(elementPoint.X-100, elementPoint.Y - 160); // 垂直居中对齐,200为弹窗高度的一半
+            // 确保颜色选择器不会超出屏幕边界
+            var screenWidth = SystemParameters.PrimaryScreenWidth;
+            var screenHeight = SystemParameters.PrimaryScreenHeight;
+            
+            popup.Left = Math.Min(point.X, screenWidth - 280);  // 使用固定宽度
+            popup.Top = Math.Min(point.Y, screenHeight - 360);  // 使用固定高度
+            
+            popup.Show();
+        }
+
+     
+
+      
         }
     }
