@@ -37,7 +37,7 @@
     <PublishUrl>publish\</PublishUrl>
     <InstallUrl />
     <TargetCulture>zh-chs</TargetCulture>
-    <ApplicationVersion>1.0.0.7</ApplicationVersion>
+    <ApplicationVersion>1.0.0.8</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -62,7 +62,7 @@
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
       <Visible>False</Visible>
-      <ProductName>Microsoft Visual Studio 2010 Tools for Office Runtime %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft Visual Studio 2010 Tools for Office Runtime %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
@@ -568,14 +568,14 @@
     <Compile Include="ComForm\XWindow1.xaml.cs">
       <DependentUpon>XWindow1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_ImageTra.xaml.cs">
-      <DependentUpon>Wpf_ImageTra.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf_Form\Wpf_ShpStyle.xaml.cs">
       <DependentUpon>Wpf_ShpStyle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf_Form\Wpf_Qrcode.xaml.cs">
       <DependentUpon>Wpf_Qrcode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_ImageTra.xaml.cs">
+      <DependentUpon>Wpf_ImageTra.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ComForm\Con_TextTools.resx">
       <DependentUpon>Con_TextTools.cs</DependentUpon>
@@ -1020,15 +1020,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_ImageTra.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Wpf_Form\Wpf_ShpStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf_Form\Wpf_Qrcode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_ImageTra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
