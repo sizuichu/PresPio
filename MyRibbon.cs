@@ -2749,7 +2749,16 @@ namespace PresPio
             {
             Wpf_ImageTra wpf_ImageTra = new Wpf_ImageTra();
             wpf_ImageTra.ShowDialog();
-          
+            //Selection sel = app.ActiveWindow.Selection;
+            //if (sel.Type == PpSelectionType.ppSelectionShapes && sel.ShapeRange.Count == 1)
+            //    {
+            //    Wpf_ImageTra wpf_ImageTra = new Wpf_ImageTra();
+            //    wpf_ImageTra.ShowDialog();
+            //    }
+            //else
+            //    {
+            //    Growl.WarningGlobal("请选择图片后重试！");
+            //    }
 
             }
 
