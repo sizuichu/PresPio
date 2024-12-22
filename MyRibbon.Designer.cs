@@ -2245,7 +2245,6 @@
             // 
             this.button212.Label = "button212";
             this.button212.Name = "button212";
-            this.button212.Visible = false;
             this.button212.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button212_Click);
             // 
             // button207

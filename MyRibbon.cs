@@ -7143,24 +7143,8 @@ namespace PresPio
 
         private void button212_Click(object sender, RibbonControlEventArgs e)
             {
-            //Wpf_LikeChat wpf_LikeChat = new Wpf_LikeChat();
-            //wpf_LikeChat.Show();
-
-            //Wpf_ColorHash colorHash = new Wpf_ColorHash();
-            //colorHash.Show();
-            string qrCodeText = "";
-
-            qrCodeText = Microsoft.VisualBasic.Interaction.InputBox("请注意，此功能使用外部 API 来生成二维码（goqr.me/api/）" + Environment.NewLine + Environment.NewLine + Environment.NewLine + "请为二维码提供 URL（或其他内容）：", "生成二维码", "https://");
-
-            if (!string.IsNullOrEmpty(qrCodeText))
-                {
-                //string qrCodeUrl = $"https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={qrCodeText}";
-                string qrCodeUrl = $"https://api.pwmqr.com/qrcode/create/?url={qrCodeText}";
-                //  string qrCodeUrl = $"http://niningqi.com/api/wordcloud?keywords={qrCodeText}&bgColor=black";
-                Shape qrCode;
-                qrCode = app.ActiveWindow.Selection.SlideRange.Shapes.AddPicture(qrCodeUrl, MsoTriState.msoTrue, MsoTriState.msoTrue, 0, 0);
-                qrCode.Select();
-                }
+            Wpf_FileSteward wpf_FileSteward=new Wpf_FileSteward();
+            wpf_FileSteward.Show();
 
             }
 
