@@ -493,7 +493,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helper\YouDao.cs" />
-    <Compile Include="Wpf_FileSteward.xaml.cs">
+    <Compile Include="Wpf_Form\Wpf_FileSteward.xaml.cs">
       <DependentUpon>Wpf_FileSteward.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf_Form\Wpf_ColorAdjust.xaml.cs">
@@ -923,7 +923,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_FileSteward.xaml">
+    <Page Include="Wpf_Form\Wpf_FileSteward.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
