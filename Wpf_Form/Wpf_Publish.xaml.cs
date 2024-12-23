@@ -14,6 +14,10 @@ using System.Threading;
 using MessageBox = HandyControl.Controls.MessageBox;
 using Window = System.Windows.Window;
 using static Emgu.CV.VideoCapture;
+using System.Windows.Controls;
+using ComboBox = System.Windows.Controls.ComboBox;
+using ComboBoxItem = System.Windows.Controls.ComboBoxItem;
+using System.Collections.Generic;
 
 namespace PresPio
 {
@@ -23,6 +27,8 @@ namespace PresPio
         private CancellationTokenSource _cts;
         private readonly IProgress<int> _progress;
         private DateTime startTime;
+        private ComboBox _imageFormatComboBox;
+        private ComboBox _imageQualityComboBox;
 
         public Wpf_Publish()
         {
@@ -30,9 +36,16 @@ namespace PresPio
             _app = Globals.ThisAddIn.Application;
             _progress = new Progress<int>(value => 
             {
-                ExportProgress.Value = value;
-                ExportButton.Content = $"导出中 {value}%";
+                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ExportProgress.Value = value;
+                    ExportButton.Content = $"导出中 {value}%";
+                });
             });
+
+            // 初始化 ComboBox 引用
+            _imageFormatComboBox = ImageFormatComboBox;
+            _imageQualityComboBox = ImageQualityComboBox;
 
             InitializeEvents();
             LoadDefaultSettings();
@@ -149,35 +162,75 @@ namespace PresPio
         private async Task ExportFilesAsync(CancellationToken token)
         {
             var presentation = _app.ActivePresentation;
-            var basePath = ExportPathBox.Text;
+            var exportPath = ExportPathBox.Text;
             var fileName = Path.GetFileNameWithoutExtension(presentation.Name);
             int progress = 0;
             int totalTasks = GetTotalTasks();
 
+            // 在进入后台线程前获取所有 UI 控件的状态
+            var isPptxChecked = PptxCheck.IsChecked == true;
+            var isPpsxChecked = PpsxCheck.IsChecked == true;
+            var isThemeChecked = ThemeCheck.IsChecked == true;
+            var isFontChecked = FontCheck.IsChecked == true;
+            var isPdfChecked = PdfCheck.IsChecked == true;
+            var isImageChecked = ImageCheck.IsChecked == true;
+            var isVideoChecked = VideoCheck.IsChecked == true;
+
             // 创建导出目录结构
-            var exportPath = Path.Combine(basePath, $"{fileName}_导出文件");
-            var presentationPath = Path.Combine(exportPath, "01-演示文件");
-            var previewPath = Path.Combine(exportPath, "02-预览文件");
-            var themePath = Path.Combine(exportPath, "03-主题文件");
-            var printPath = Path.Combine(exportPath, "04-印刷文件");
-            var videoPath = Path.Combine(exportPath, "05-演示视频");
+            Directory.CreateDirectory(exportPath);
+
+            // 动态创建文件夹路径
+            var folderPaths = new Dictionary<string, string>();
+            int folderIndex = 1;
+
+            // 演示文件（包含 pptx 和 ppsx）
+            if (isPptxChecked || isPpsxChecked)
+            {
+                folderPaths["presentation"] = Path.Combine(exportPath, $"{folderIndex:D2}-演示文件");
+                folderIndex++;
+            }
+
+            // 预览文件（图片）
+            if (isImageChecked)
+            {
+                folderPaths["preview"] = Path.Combine(exportPath, $"{folderIndex:D2}-预览文件");
+                folderIndex++;
+            }
+
+            // 主题文件
+            if (isThemeChecked)
+            {
+                folderPaths["theme"] = Path.Combine(exportPath, $"{folderIndex:D2}-主题文件");
+                folderIndex++;
+            }
+
+            // 印刷文件（PDF）
+            if (isPdfChecked)
+            {
+                folderPaths["print"] = Path.Combine(exportPath, $"{folderIndex:D2}-印刷文件");
+                folderIndex++;
+            }
+
+            // 演示视频
+            if (isVideoChecked)
+            {
+                folderPaths["video"] = Path.Combine(exportPath, $"{folderIndex:D2}-演示视频");
+            }
 
             // 创建所需的目录
-            Directory.CreateDirectory(exportPath);
-            Directory.CreateDirectory(presentationPath);
-            Directory.CreateDirectory(previewPath);
-            Directory.CreateDirectory(themePath);
-            Directory.CreateDirectory(printPath);
-            Directory.CreateDirectory(videoPath);
+            foreach (var path in folderPaths.Values)
+            {
+                Directory.CreateDirectory(path);
+            }
 
             // 保存导出路径到设置
             Properties.Settings.Default.Publish_URL = exportPath;
             Properties.Settings.Default.Save();
 
             // 导出演示文件
-            if (PptxCheck.IsChecked == true)
+            if (isPptxChecked)
             {
-                var pptxPath = Path.Combine(presentationPath, fileName);
+                var pptxPath = Path.Combine(folderPaths["presentation"], $"{fileName}_编辑版.pptx");
                 await Task.Run(() =>
                 {
                     _app.Presentations[1].SaveCopyAs(
@@ -189,24 +242,24 @@ namespace PresPio
             }
 
             // 导出放映文件
-            if (PpsxCheck.IsChecked == true)
+            if (isPpsxChecked)
             {
-                var ppsxPath = Path.Combine(presentationPath, fileName);
+                var ppsxPath = Path.Combine(folderPaths["presentation"], $"{fileName}_放映版.ppsx");
                 await Task.Run(() =>
                 {
                     presentation.SaveCopyAs(
                         ppsxPath,
                         PpSaveAsFileType.ppSaveAsShow,
-                        FontCheck.IsChecked == true ? MsoTriState.msoTrue : MsoTriState.msoFalse
+                        isFontChecked ? MsoTriState.msoTrue : MsoTriState.msoFalse
                     );
                     UpdateProgress(ref progress, totalTasks);
                 }, token);
             }
 
             // 导出主题文件
-            if (ThemeCheck.IsChecked == true)
+            if (isThemeChecked)
             {
-                var themxPath = Path.Combine(themePath, fileName);
+                var themxPath = Path.Combine(folderPaths["theme"], $"{fileName}.thmx");
                 await Task.Run(() =>
                 {
                     presentation.SaveCopyAs(
@@ -219,9 +272,9 @@ namespace PresPio
             }
 
             // 导出PDF文件
-            if (PdfCheck.IsChecked == true)
+            if (isPdfChecked)
             {
-                var pdfPath = Path.Combine(printPath, fileName);
+                var pdfPath = Path.Combine(folderPaths["print"], $"{fileName}.pdf");
                 await Task.Run(() =>
                 {
                     presentation.SaveAs(
@@ -233,29 +286,79 @@ namespace PresPio
             }
 
             // 导出图片
-            if (ImageCheck.IsChecked == true)
+            if (isImageChecked)
             {
+                // 获取图片格式和质量设置
+                string imageFormat = "PNG";
+                int imageQuality = 100;
+
+                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                {
+                    if (_imageFormatComboBox != null)
+                    {
+                        var selectedFormat = (_imageFormatComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+                        imageFormat = selectedFormat ?? "PNG";
+                    }
+
+                    if (_imageQualityComboBox != null)
+                    {
+                        var selectedQuality = (_imageQualityComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+                        switch (selectedQuality)
+                        {
+                            case "高":
+                                imageQuality = 100;
+                                break;
+                            case "中":
+                                imageQuality = 80;
+                                break;
+                            case "低":
+                                imageQuality = 60;
+                                break;
+                            default:
+                                imageQuality = 100;
+                                break;
+                        }
+                    }
+                });
+
                 await Task.Run(() =>
                 {
                     int slideCount = presentation.Slides.Count;
+                    string numberFormat = new string('0', slideCount.ToString().Length);
+                    
                     for (int i = 1; i <= slideCount; i++)
                     {
-                        float height = presentation.SlideMaster.Height * 2;
-                        float width = presentation.SlideMaster.Width * 2;
-                        string imagePath = Path.Combine(previewPath, $"{fileName}_{i}.png");
-                        presentation.Slides[i].Export(imagePath, "PNG", (int)width, (int)height);
+                        float height = presentation.PageSetup.SlideHeight * 2;
+                        float width = presentation.PageSetup.SlideWidth * 2;
+                        
+                        // 设置正确的文件扩展名和导出格式
+                        string extension;
+                        string exportFormat;
+                        if (imageFormat.Equals("JPEG", StringComparison.OrdinalIgnoreCase))
+                        {
+                            extension = "jpg";
+                            exportFormat = "JPG";
+                        }
+                        else
+                        {
+                            extension = "png";
+                            exportFormat = "PNG";
+                        }
+                        
+                        string imagePath = Path.Combine(folderPaths["preview"], $"{fileName}_幻灯片{i.ToString(numberFormat)}.{extension}");
+                        presentation.Slides[i].Export(imagePath, exportFormat, (int)width, (int)height);
                     }
                     UpdateProgress(ref progress, totalTasks);
                 }, token);
             }
 
             // 导出视频
-            if (VideoCheck.IsChecked == true)
+            if (isVideoChecked)
             {
-                var videoFilePath = Path.Combine(videoPath, fileName);
+                var videoFilePath = Path.Combine(folderPaths["video"], $"{fileName}.mp4");
                 await Task.Run(() =>
                 {
-                    presentation.CreateVideo(videoPath, false, 5, 1080, 60, 100);
+                    presentation.CreateVideo(videoFilePath, false, 5, 1080, 60, 100);
                     UpdateProgress(ref progress, totalTasks);
                 }, token);
             }
@@ -277,7 +380,10 @@ namespace PresPio
         {
             progress++;
             var percentage = (int)((double)progress / total * 100);
-            _progress.Report(percentage);
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                _progress.Report(percentage);
+            });
         }
 
         protected override void OnClosing(CancelEventArgs e)

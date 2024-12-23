@@ -81,13 +81,13 @@
 
                         <TextBlock Text="图片设置" FontWeight="Bold" Margin="-4,-25,4,30"/>
                         <TextBlock Text="格式：" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Column="1" Margin="5" SelectedIndex="0">
+                        <ComboBox x:Name="ImageFormatComboBox" Grid.Column="1" Margin="5" SelectedIndex="0">
                             <ComboBoxItem Content="PNG"/>
                             <ComboBoxItem Content="JPEG"/>
                         </ComboBox>
 
                         <TextBlock Grid.Row="1" Text="质量：" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" Margin="5" SelectedIndex="0">
+                        <ComboBox x:Name="ImageQualityComboBox" Grid.Row="1" Grid.Column="1" Margin="5" SelectedIndex="0">
                             <ComboBoxItem Content="高"/>
                             <ComboBoxItem Content="中"/>
                             <ComboBoxItem Content="低"/>
