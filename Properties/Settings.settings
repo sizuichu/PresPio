@@ -213,7 +213,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PPtDPI" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">300</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="WaterFonts" Type="System.Drawing.FontStyle" Scope="User">
       <Value Profile="(Default)">Regular</Value>
@@ -241,6 +241,18 @@
     </Setting>
     <Setting Name="AllowEdit" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="JPEGQuality" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+    <Setting Name="NamePattern" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{filename}_Page{number}</Value>
+    </Setting>
+    <Setting Name="OpenAfterExport" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CreateSubFolder" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

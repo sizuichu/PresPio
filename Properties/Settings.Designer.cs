@@ -982,5 +982,53 @@ namespace PresPio.Properties {
                 this["AllowEdit"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
+        public int JPEGQuality {
+            get {
+                return ((int)(this["JPEGQuality"]));
+            }
+            set {
+                this["JPEGQuality"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("{filename}_Page{number}")]
+        public string NamePattern {
+            get {
+                return ((string)(this["NamePattern"]));
+            }
+            set {
+                this["NamePattern"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool OpenAfterExport {
+            get {
+                return ((bool)(this["OpenAfterExport"]));
+            }
+            set {
+                this["OpenAfterExport"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CreateSubFolder {
+            get {
+                return ((bool)(this["CreateSubFolder"]));
+            }
+            set {
+                this["CreateSubFolder"] = value;
+            }
+        }
     }
 }
