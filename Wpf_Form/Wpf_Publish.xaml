@@ -5,7 +5,14 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     Title="发布文件" Height="579" Width="584"
     WindowStartupLocation="CenterScreen">
-
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources/>
+                <hc:Theme/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

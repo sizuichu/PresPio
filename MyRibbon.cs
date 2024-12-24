@@ -1927,30 +1927,6 @@ namespace PresPio
 
         private void button72_Click(object sender, RibbonControlEventArgs e)
             {
-            //Selection sel = app.ActiveWindow.Selection;
-            //Slide slide = app.ActiveWindow.View.Slide;
-            //Presentation pre = app.ActivePresentation;
-            //float width = pre.PageSetup.SlideWidth;//获取幻灯片长宽
-            //float height = pre.PageSetup.SlideHeight;
-
-            //if (sel.Type == PpSelectionType.ppSelectionSlides) {
-            //    string sName = System.IO.Path.GetFileNameWithoutExtension(pre.Name);//获取无后缀名称
-            //    int count = sel.SlideRange.Count;
-            //    Stopwatch sw = new Stopwatch();
-            //    sw.Start();
-            //    for (int i = 1; i <= count; i++) {
-            //        Slide sl = sel.SlideRange[i];//获取每一页PPT
-            //        string pathName = Path.Combine(Path.GetTempPath(), $"{sName}-{i}.png");
-            //        sl.Export(pathName, "PNG", (int)width, (int)height);
-            //        sl.Shapes.AddPicture(pathName, MsoTriState.msoTrue, MsoTriState.msoTrue, 0, 0, width, height).Name = "覆盖封面";
-            //        File.Delete(pathName);//删除临时文件
-            //    }
-            //    sw.Stop();
-            //    MessageBox.Show($"共处理{count}页，总耗时{sw.ElapsedMilliseconds}毫秒。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else {
-            //    MessageBox.Show("请选择幻灯片！", "温馨提示");
-            //}
             Selection sel = app.ActiveWindow.Selection;
             Slide slide = app.ActiveWindow.View.Slide;
             Presentation pre = app.ActivePresentation;
@@ -1959,39 +1935,28 @@ namespace PresPio
 
             if (sel.Type == PpSelectionType.ppSelectionSlides)
                 {
-                string sName = Path.GetFileNameWithoutExtension(pre.Name);//获取无后缀名称
+                string sName = System.IO.Path.GetFileNameWithoutExtension(pre.Name);//获取无后缀名称
                 int count = sel.SlideRange.Count;
-                List<Thread> threads = new List<Thread>();
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
                 for (int i = 1 ; i <= count ; i++)
                     {
                     Slide sl = sel.SlideRange[i];//获取每一页PPT
                     string pathName = Path.Combine(Path.GetTempPath(), $"{sName}-{i}.png");
-                    Thread thread = new Thread(() =>
-                    {
-                        sl.Export(pathName, "PNG", (int)width, (int)height);
-                        sl.Shapes.AddPicture(pathName, MsoTriState.msoTrue, MsoTriState.msoTrue, 0, 0, width, height).Name = "覆盖封面";
-                        File.Delete(pathName);//删除临时文件
-                    });
-                    threads.Add(thread);
-                    thread.Start();
-                    }
-                foreach (var thread in threads)
-                    {
-                    thread.Join();//等待所有线程执行完毕
+                    sl.Export(pathName, "PNG", (int)width, (int)height);
+                    sl.Shapes.AddPicture(pathName, MsoTriState.msoTrue, MsoTriState.msoTrue, 0, 0, width, height).Name = "覆盖封面";
+                    File.Delete(pathName);//删除临时文件
                     }
                 sw.Stop();
-                Growl.Success($"共处理{count}页，总耗时{sw.ElapsedMilliseconds}毫秒。", "提示");
+                MessageBox.Show($"共处理{count}页，总耗时{sw.ElapsedMilliseconds}毫秒。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             else
                 {
-                Growl.Success("请选择幻灯片！", "温馨提示");
+                MessageBox.Show("请选择幻灯片！", "温馨提示");
+               
                 }
 
-
-
-            }
+                }
 
         private void button73_Click(object sender, RibbonControlEventArgs e)
             {
@@ -5887,6 +5852,9 @@ namespace PresPio
 
         private void button158_Click(object sender, RibbonControlEventArgs e)
             {
+          
+            
+            
             Presentation presentation = app.ActivePresentation;
             string WithoutExtension = System.IO.Path.GetFileNameWithoutExtension(presentation.Name);
 
