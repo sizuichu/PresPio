@@ -8,10 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="GrideWindow"
     Title="超级参考线"
-    Width="440"
-    Height="450"
-    d:DesignHeight="450"
-    d:DesignWidth="440"
+    Width="627"
+    Height="533"
     Loaded="GrideWindow_Loaded"
     ResizeMode="CanMinimize"
     Topmost="True"
@@ -24,155 +22,126 @@
                 <hc:ThemeResources />
                 <hc:Theme />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- NumericUpDown 的基础样式 -->
+            <Style x:Key="BaseNumericUpDown" TargetType="hc:NumericUpDown">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Minimum" Value="0"/>
+                <Setter Property="Maximum" Value="1000"/>
+                <Setter Property="Value" Value="0"/>
+                <Setter Property="hc:InfoElement.TitleWidth" Value="70"/>
+                <Setter Property="hc:InfoElement.TitlePlacement" Value="Left"/>
+
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*" />
-            <ColumnDefinition Width="142*" />
-            <ColumnDefinition Width="85*" />
-            <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="140*" />
-            <ColumnDefinition Width="140*" />
-            <ColumnDefinition Width="10*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="12*" />
-            <RowDefinition Height="37*" />
-            <RowDefinition Height="73*" />
-            <RowDefinition Height="73*" />
-            <RowDefinition Height="73*" />
-            <RowDefinition Height="73*" />
-            <RowDefinition Height="38*" />
-            <RowDefinition Height="35*" />
 
-            <RowDefinition Height="20*" />
-        </Grid.RowDefinitions>
-        <hc:NumericUpDown
-            x:Name="NumericUpDown1"
-            Grid.Row="2"
-            Grid.Column="4"
-            Margin="1,11,4,8"
-            hc:InfoElement.Placeholder="ss"
-            hc:InfoElement.Title="顶部距离"
-            Increment="10"
-            Style="{StaticResource NumericUpDownExtend}" />
-        <hc:NumericUpDown
-            x:Name="NumericUpDown2"
-            Grid.Row="3"
-            Grid.Column="4"
-            Margin="1,8,4,11"
-            hc:InfoElement.Placeholder="ss"
-            hc:TitleElement.Title="底部距离"
-            Increment="10"
-            Style="{StaticResource NumericUpDownExtend}" />
-        <hc:NumericUpDown
-            x:Name="NumericUpDown3"
-            Grid.Row="2"
-            Grid.Column="5"
-            Margin="5,11,3,8"
-            hc:InfoElement.Placeholder="ss"
-            hc:TitleElement.Title="左边距离"
-            Increment="10"
-            Style="{StaticResource NumericUpDownExtend}" />
-        <hc:NumericUpDown
-            x:Name="NumericUpDown4"
-            Grid.Row="3"
-            Grid.Column="5"
-            Margin="5,8,3,11"
-            hc:InfoElement.Placeholder="ss"
-            hc:TitleElement.Title="右边距离"
-            Increment="10"
-            Style="{StaticResource NumericUpDownExtend}" />
-        <hc:NumericUpDown
-            x:Name="NumericUpDown5"
-            Grid.Row="4"
-            Grid.Column="4"
-            Margin="1,10,4,10"
-            hc:InfoElement.Placeholder="ss"
-            hc:TitleElement.Title="行间距数目"
-            Style="{StaticResource NumericUpDownExtend}" />
-        <hc:NumericUpDown
-            x:Name="NumericUpDown6"
-            Grid.Row="4"
-            Grid.Column="5"
-            Margin="5,10,3,10"
-            hc:InfoElement.Placeholder="ss"
-            hc:TitleElement.Title="列间距数目"
-            Style="{StaticResource NumericUpDownExtend}" />
-        <hc:NumericUpDown
-            x:Name="numericUpDown7"
-            Grid.Row="5"
-            Grid.Column="4"
-            Margin="1,11,4,9"
-            hc:InfoElement.Placeholder="ss"
-            hc:TitleElement.Title="行间距"
-            IsEnabled="False"
-            Style="{StaticResource NumericUpDownExtend}" />
-        <hc:NumericUpDown
-            x:Name="numericUpDown8"
-            Grid.Row="5"
-            Grid.Column="5"
-            Margin="5,11,3,9"
-            hc:InfoElement.Placeholder="ss"
-            hc:TitleElement.Title="列间距"
-            IsEnabled="False"
-            Style="{StaticResource NumericUpDownExtend}" />
-        <ListBox
-            x:Name="GrideListBox"
-            Grid.Row="2"
-            Grid.RowSpan="6"
-            Grid.ColumnSpan="3"
-            Margin="8,1,2,14"
-            d:ItemsSource="{d:SampleData ItemCount=5}"
-            SelectionChanged="GrideListBox_SelectedIndexChanged" />
-        <Label
-            Grid.Row="1"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Height="28"
-            Margin="0,0,2,0"
-            HorizontalAlignment="Stretch"
-            Content="预设方案" />
-        <Label
-            Grid.Row="1"
-            Grid.Column="4"
-            Grid.ColumnSpan="2"
-            Height="28"
-            Margin="1,0,3,0"
-            HorizontalAlignment="Stretch"
-            Content="定义方案" />
-        <Button
-            Grid.Row="6"
-            Grid.RowSpan="2"
-            Grid.Column="4"
-            Width="104"
-            Height="41"
-            Margin="0,18,0,0"
-            VerticalAlignment="Top"
-            Click="Button_Click_1"
-            Content="添加至母版" />
-        <Button
-            Grid.Row="6"
-            Grid.RowSpan="2"
-            Grid.Column="5"
-            Width="107"
-            Height="41"
-            Margin="0,18,0,0"
-            VerticalAlignment="Top"
-            Click="Button_Click"
-            Content="去除参考线" />
-        <hc:ColorPicker
-            x:Name="colorPicker"
-            Grid.Row="2"
-            Grid.RowSpan="6"
-            Grid.Column="4"
-            Grid.ColumnSpan="2"
-            Height="361"
-            Margin="2"
-            VerticalAlignment="Top"
-            Canceled="colorPicker_Canceled"
-            Confirmed="colorPicker_Confirmed"
-            Visibility="Collapsed" />
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 左侧面板 -->
+        <DockPanel Grid.Column="0">
+            <TextBlock DockPanel.Dock="Top" Text="预设方案" Margin="0,0,0,5" FontSize="14" FontWeight="Bold"/>
+            <ListBox x:Name="GrideListBox" 
+                     DockPanel.Dock="Top"
+                     Height="Auto"
+                     Margin="0,0,0,10"
+                     SelectionChanged="GrideListBox_SelectedIndexChanged"/>
+        </DockPanel>
+
+        <!-- 右侧面板 -->
+        <Grid Grid.Column="1" Margin="5,0,10,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- 参数设置区域 -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.ColumnSpan="2" Text="参数设置" Margin="0,0,0,10" FontSize="14" FontWeight="Bold"/>
+
+                <!-- 添加位置选择 -->
+                <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="添加位置：" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <RadioButton x:Name="RadioNormal" Content="普通页面" IsChecked="True" Margin="0,0,10,0" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="RadioMaster" Content="母版页面" Margin="0,0,10,0" Checked="RadioButton_Checked"/>
+                </StackPanel>
+
+                <hc:NumericUpDown x:Name="NumericUpDown1" Grid.Row="2" Grid.Column="0" Margin="0,5,5,5"
+                              
+                  Style="{StaticResource NumericUpDownExtend}" 
+                                 hc:InfoElement.Title="顶部距离"
+                                 hc:InfoElement.Necessary="True"
+                                 Increment="10"/>
+                <hc:NumericUpDown x:Name="NumericUpDown2" Grid.Row="2" Grid.Column="1" Margin="5,5,0,5"
+                               Style="{StaticResource NumericUpDownExtend}" 
+                                 hc:InfoElement.Title="底部距离"
+                              
+                                 hc:InfoElement.Necessary="True"
+                                 Increment="10"/>
+                <hc:NumericUpDown x:Name="NumericUpDown3" Grid.Row="3" Grid.Column="0" Margin="0,5,5,5"
+                                 Style="{StaticResource NumericUpDownExtend}" 
+                                 hc:InfoElement.Title="左边距离"
+                               
+                                 hc:InfoElement.Necessary="True"
+                                 Increment="10"/>
+                <hc:NumericUpDown x:Name="NumericUpDown4" Grid.Row="3" Grid.Column="1" Margin="5,5,0,5"
+                                 Style="{StaticResource NumericUpDownExtend}" 
+                                 hc:InfoElement.Title="右边距离"
+                               
+                                 hc:InfoElement.Necessary="True"
+                                 Increment="10"/>
+                <hc:NumericUpDown x:Name="NumericUpDown5" Grid.Row="4" Grid.Column="0" Margin="0,5,5,5"
+                                Style="{StaticResource NumericUpDownExtend}" 
+                                 hc:InfoElement.Title="行间距数"
+                                
+                                 hc:InfoElement.Necessary="True"/>
+                <hc:NumericUpDown x:Name="NumericUpDown6" Grid.Row="4" Grid.Column="1" Margin="5,5,0,5"
+                                 Style="{StaticResource NumericUpDownExtend}" 
+                                 hc:InfoElement.Title="列间距数"
+                          
+                                 hc:InfoElement.Necessary="True"/>
+            </Grid>
+
+            <!-- 预览区域 -->
+            <Border Grid.Row="1" Margin="0,10" BorderBrush="#DDDDDD" BorderThickness="1">
+                <Canvas x:Name="PreviewCanvas" 
+                        Background="White"
+                        SizeChanged="PreviewCanvas_SizeChanged">
+                    <!-- 预览内容将在代码中动态生成 -->
+                </Canvas>
+            </Border>
+
+            <!-- 底部按钮区域 -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Button Content="调整参考线" Width="100" Height="35" Margin="10"  Click="Button_Click_2"/>
+                <Button Content="添加至母版" Width="100" Height="35"  Margin="10" Click="Button_Click_1"/>
+                <Button Content="去除参考线" Width="100" Height="35" Margin="10" Click="Button_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- 颜色选择器 -->
+        <hc:ColorPicker x:Name="colorPicker"
+                        Grid.Column="1"
+                        Visibility="Collapsed"
+                        Canceled="colorPicker_Canceled"
+                        Confirmed="colorPicker_Confirmed"/>
     </Grid>
 </Window>

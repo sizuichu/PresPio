@@ -31,18 +31,19 @@ namespace PresPio
         public Wpf_superGuide()
             {
             InitializeComponent();
-            imposValue(); //设置按钮的最大最小值
+            InitializeControls(); //初始化控件
             AttachValueChangedEventHandlers();//注册按钮事件
             }
 
         public PowerPoint.Application app;
 
-
+        private bool isAddToMaster = false; // 添加标志位
 
         private void GrideWindow_Loaded(object sender, RoutedEventArgs e)
             {
             app = Globals.ThisAddIn.Application;
-           LoadXml(0);
+            LoadXml(0);
+            UpdatePreview(); // 初始加载时更新预览
             }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace PresPio
                         LoadXmlAndUpdateByName(selectedSchemeName); // 根据选择的名称更新 UI
                         }
 
-                   // Growl.SuccessGlobal("XML 文件已成功加载并处理。");
+                    // Growl.SuccessGlobal("XML 文件已成功加载并处理。");
                     }
                 }
             catch (Exception ex)
@@ -147,7 +148,7 @@ namespace PresPio
                         Growl.ErrorGlobal($"未找到名称为 '{searchName}' 的方案。");
                         }
 
-                  //  Growl.SuccessGlobal("XML 文件已成功加载并处理。");
+                    //  Growl.SuccessGlobal("XML 文件已成功加载并处理。");
                     }
                 }
             catch (Exception ex)
@@ -178,8 +179,9 @@ namespace PresPio
             string scheme = GrideListBox.SelectedItem as string;
             if (!string.IsNullOrEmpty(scheme))
                 {
-              //  Growl.Success($"选择了方案: {scheme}");
+                //  Growl.Success($"选择了方案: {scheme}");
                 LoadXmlAndUpdateByName(scheme);  // 根据选中的名称更新数据
+                UpdatePreview(); // 当选择改变时更新预览
                 }
             else
                 {
@@ -199,6 +201,7 @@ namespace PresPio
             NumericUpDown4.Value = rightDistance;
             NumericUpDown5.Value = rowCount;
             NumericUpDown6.Value = columnCount;
+            UpdatePreview(); // 当UI更新时更新预览
             }
 
 
@@ -215,7 +218,15 @@ namespace PresPio
             }
         private void NumericUpDown_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
             {
-            getGrid();
+            if (RadioNormal.IsChecked == true)
+                {
+                getGrid(); // 使用原有的普通页面添加方法
+                }
+            else
+                {
+                AddGuidesToMaster(); // 使用母版页添加方法
+                }
+            UpdatePreview();
             }
 
         //色彩更换
@@ -271,44 +282,74 @@ namespace PresPio
         private void Button_Click(object sender, RoutedEventArgs e)
             {
             app = Globals.ThisAddIn.Application;
-            //删除参考线
+            //删除普通页面参考线
             int i = app.ActivePresentation.Guides.Count;
             if (i > 0)
                 {
-                for (int j = i ; j > 0 ; j--)
+                for (int j = i; j > 0; j--)
                     {
                     Guide guide1 = app.ActivePresentation.Guides[j];
                     guide1.Delete();
                     }
                 }
-            //删除参考线
+            //删除母版页参考线
             int k = app.ActivePresentation.SlideMaster.Guides.Count;
             if (k > 0)
                 {
-                for (int j = k ; j > 0 ; j--)
+                for (int j = k; j > 0; j--)
                     {
                     Guide guide2 = app.ActivePresentation.SlideMaster.Guides[j];
                     guide2.Delete();
                     }
                 }
+            UpdatePreview();
             }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
             {
+            AddGuidesToMaster();
+            UpdatePreview();
+            }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+            {
+            if (RadioNormal.IsChecked == true)
+                {
+                getGrid();
+                }
+            else
+                {
+                AddGuidesToMaster();
+                }
+            UpdatePreview();
+            }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.RadioButton radioButton)
+            {
+                isAddToMaster = radioButton.Name == "RadioMaster";
+                UpdatePreview();
+            }
+        }
+
+        private void AddGuidesToMaster()
+        {
             app = Globals.ThisAddIn.Application;
             Presentation pre = app.ActivePresentation;
-            Slide slide = app.ActiveWindow.View.Slide;
-            //删除参考线
+
+            // 删除母版页现有参考线
             int i = app.ActivePresentation.SlideMaster.Guides.Count;
             if (i > 0)
+            {
+                for (int j = i; j > 0; j--)
                 {
-                for (int j = i ; j > 0 ; j--)
-                    {
-                    Guide guide1 = app.ActivePresentation.SlideMaster.Guides[j];
-                    guide1.Delete();
-                    }
+                    Guide guide = app.ActivePresentation.SlideMaster.Guides[j];
+                    guide.Delete();
                 }
-            //添加参考线
+            }
+
+            // 获取参数值
             float hTop = (float)NumericUpDown1.Value;
             float hBottom = (float)NumericUpDown2.Value;
             float hLeft = (float)NumericUpDown3.Value;
@@ -319,56 +360,27 @@ namespace PresPio
             float NewRight = PageWidth - hRight;
             int vNum = (int)NumericUpDown5.Value;
             int hNum = (int)NumericUpDown6.Value;
-            //水平参考线的位置
+
+            // 添加参考线到母版页
             Guide GuideTop1 = pre.SlideMaster.Guides.Add(PpGuideOrientation.ppHorizontalGuide, hTop);
             Guide GuideTop2 = pre.SlideMaster.Guides.Add(PpGuideOrientation.ppHorizontalGuide, hTop + 30);
             Guide GuideBottom = pre.SlideMaster.Guides.Add(PpGuideOrientation.ppHorizontalGuide, newBottom);
-
-            ////垂直参考线的位置
             Guide GuideLeft = pre.SlideMaster.Guides.Add(PpGuideOrientation.ppVerticalGuide, hLeft);
             Guide GuideRight = pre.SlideMaster.Guides.Add(PpGuideOrientation.ppVerticalGuide, NewRight);
-            float vInterval = PageWidth / (vNum + 1); // 垂直间距
 
-            for (int j = 1 ; j <= vNum ; j++)
-                {
-                var GuideV = pre.SlideMaster.Guides.Add(PpGuideOrientation.ppVerticalGuide, vInterval * j);
-                }
-
-            // 添加水平参考线和注释形状
-            float hInterval = PageHeight / (hNum + 1); // 水平间距
-            for (int j = 1 ; j <= hNum ; j++)
-                {
-                var GuideH = pre.SlideMaster.Guides.Add(PpGuideOrientation.ppHorizontalGuide, hInterval * j);
-
-                }
-
-            }
-
-
-        /// <summary>
-        /// 设置初始值
-        /// </summary>
-        public void imposValue()
+            // 添加等分参考线
+            float vInterval = PageWidth / (vNum + 1);
+            for (int j = 1; j <= vNum; j++)
             {
-            app = Globals.ThisAddIn.Application;
-            Presentation pre = app.ActivePresentation;
-            //添加参考线
-            float PageWidth = pre.PageSetup.SlideWidth;
-            float PageHeight = pre.PageSetup.SlideHeight;
-            NumericUpDown1.Maximum = PageHeight;
-            NumericUpDown2.Maximum = PageHeight;
-            NumericUpDown3.Maximum = PageWidth;
-            NumericUpDown4.Maximum = PageWidth;
-            NumericUpDown1.Minimum = 0;
-            NumericUpDown2.Minimum = 0;
-            NumericUpDown3.Minimum = 0;
-            NumericUpDown4.Minimum = 0;
-            NumericUpDown5.Minimum = 0;
-            NumericUpDown6.Minimum = 0;
-
+                pre.SlideMaster.Guides.Add(PpGuideOrientation.ppVerticalGuide, vInterval * j);
             }
 
-
+            float hInterval = PageHeight / (hNum + 1);
+            for (int j = 1; j <= hNum; j++)
+            {
+                pre.SlideMaster.Guides.Add(PpGuideOrientation.ppHorizontalGuide, hInterval * j);
+            }
+        }
 
         public class CreatGrid
             {
@@ -433,7 +445,164 @@ namespace PresPio
                 }
             }
 
+        
+
+        // 更新预览画布的方法
+        private void UpdatePreview()
+        {
+            if (PreviewCanvas == null || PreviewCanvas.ActualWidth == 0 || PreviewCanvas.ActualHeight == 0)
+            {
+                return; // 如果画布未加载完成，则不进行预览
+            }
+
+            PreviewCanvas.Children.Clear();
+
+            try
+            {
+                // 获取PPT的宽高比
+                app = Globals.ThisAddIn.Application;
+                if (app?.ActivePresentation == null) return;
+
+                Presentation pre = app.ActivePresentation;
+                float pageWidth = pre.PageSetup.SlideWidth;
+                float pageHeight = pre.PageSetup.SlideHeight;
+
+                // 设置画布大小为PPT的宽高比
+                double canvasWidth = PreviewCanvas.ActualWidth;
+                double canvasHeight = PreviewCanvas.ActualHeight;
+                
+                // 计算缩放比例，保持宽高比
+                double scaleX = canvasWidth / pageWidth;
+                double scaleY = canvasHeight / pageHeight;
+                double scale = Math.Min(scaleX, scaleY);
+
+                // 设置画布大小
+                double scaledWidth = pageWidth * scale;
+                double scaledHeight = pageHeight * scale;
+                
+                PreviewCanvas.Width = scaledWidth;
+                PreviewCanvas.Height = scaledHeight;
+
+                // 居中显示
+                PreviewCanvas.Margin = new Thickness(
+                    (canvasWidth - scaledWidth) / 2,
+                    (canvasHeight - scaledHeight) / 2,
+                    0, 0);
+
+                // 获取参数值并进行缩放
+                double hTop = (double)NumericUpDown1.Value * scale;
+                double hBottom = (double)NumericUpDown2.Value * scale;
+                double hLeft = (double)NumericUpDown3.Value * scale;
+                double hRight = (double)NumericUpDown4.Value * scale;
+                int hNum = (int)NumericUpDown5.Value;
+                int vNum = (int)NumericUpDown6.Value;
+
+                // 绘制边框
+                Rectangle border = new Rectangle
+                {
+                    Width = PreviewCanvas.Width,
+                    Height = PreviewCanvas.Height,
+                    Stroke = Brushes.LightGray,
+                    StrokeThickness = 1
+                };
+                PreviewCanvas.Children.Add(border);
+
+                // 绘制水平参考线
+                DrawHorizontalLine(hTop, Brushes.Red); // 顶部
+                DrawHorizontalLine(hTop + 30 * scale, Brushes.Red); // 标题区域
+                DrawHorizontalLine(PreviewCanvas.Height - hBottom, Brushes.Red); // 底部
+
+                // 绘制垂直参考线
+                DrawVerticalLine(hLeft, Brushes.Red); // 左边
+                DrawVerticalLine(PreviewCanvas.Width - hRight, Brushes.Red); // 右边
+
+                // 绘制等分参考线
+                double vInterval = PreviewCanvas.Width / (vNum + 1);
+                for (int i = 1; i <= vNum; i++)
+                {
+                    DrawVerticalLine(vInterval * i, Brushes.Blue);
+                }
+
+                double hInterval = PreviewCanvas.Height / (hNum + 1);
+                for (int i = 1; i <= hNum; i++)
+                {
+                    DrawHorizontalLine(hInterval * i, Brushes.Blue);
+                }
+            }
+            catch (Exception ex)
+            {
+                Growl.ErrorGlobal($"更新预览时发生错误：{ex.Message}");
+            }
         }
-    }
+
+        private void PreviewCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdatePreview();
+        }
+
+        // 绘制水平线
+        private void DrawHorizontalLine(double y, Brush color)
+            {
+            Line line = new Line
+                {
+                X1 = 0,
+                Y1 = y,
+                X2 = PreviewCanvas.Width,
+                Y2 = y,
+                Stroke = color,
+                StrokeThickness = 1,
+                StrokeDashArray = new DoubleCollection { 4, 4 }
+                };
+            PreviewCanvas.Children.Add(line);
+            }
+
+        // 绘制垂直线
+        private void DrawVerticalLine(double x, Brush color)
+            {
+            Line line = new Line
+                {
+                X1 = x,
+                Y1 = 0,
+                X2 = x,
+                Y2 = PreviewCanvas.Height,
+                Stroke = color,
+                StrokeThickness = 1,
+                StrokeDashArray = new DoubleCollection { 4, 4 }
+                };
+            PreviewCanvas.Children.Add(line);
+            }
+        
+         
+        /// <summary>
+        /// 初始化控件
+        /// </summary>
+        private void InitializeControls()
+            {
+            app = Globals.ThisAddIn.Application;
+            if (app?.ActivePresentation != null)
+                {
+                Presentation pre = app.ActivePresentation;
+                float PageWidth = pre.PageSetup.SlideWidth;
+                float PageHeight = pre.PageSetup.SlideHeight;
+
+                // 设置数值范围
+                NumericUpDown1.Maximum = PageHeight;
+                NumericUpDown2.Maximum = PageHeight;
+                NumericUpDown3.Maximum = PageWidth;
+                NumericUpDown4.Maximum = PageWidth;
+                NumericUpDown5.Maximum = 10;  // 限制最大分割数
+                NumericUpDown6.Maximum = 10;  // 限制最大分割数
+
+                // 设置默认值
+                NumericUpDown1.Value = 50;  // 默认顶部边距
+                NumericUpDown2.Value = 50;  // 默认底部边距
+                NumericUpDown3.Value = 50;  // 默认左边距
+                NumericUpDown4.Value = 50;  // 默认右边距
+                NumericUpDown5.Value = 2;   // 默认行数
+                NumericUpDown6.Value = 2;   // 默认列数
+                }
+            }
+        }
+    }       
 
 
