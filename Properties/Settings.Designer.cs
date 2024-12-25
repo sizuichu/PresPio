@@ -1030,5 +1030,16 @@ namespace PresPio.Properties {
                 this["CreateSubFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection RecentColors {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["RecentColors"]));
+            }
+            set {
+                this["RecentColors"] = value;
+            }
+        }
     }
 }
