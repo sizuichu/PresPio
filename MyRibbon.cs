@@ -5852,8 +5852,6 @@ namespace PresPio
 
         private void button158_Click(object sender, RibbonControlEventArgs e)
             {
-          
-            
             
             Presentation presentation = app.ActivePresentation;
             string WithoutExtension = System.IO.Path.GetFileNameWithoutExtension(presentation.Name);
@@ -7111,8 +7109,11 @@ namespace PresPio
 
         private void button212_Click(object sender, RibbonControlEventArgs e)
             {
-            Wpf_FileSteward wpf_FileSteward=new Wpf_FileSteward();
-            wpf_FileSteward.Show();
+            //Wpf_FileSteward wpf_FileSteward=new Wpf_FileSteward();
+            //wpf_FileSteward.Show();
+            PresPio.Wpf_Form.Wpf_SplitPPT wpf_SplitPPT = new Wpf_Form.Wpf_SplitPPT();
+     
+            wpf_SplitPPT.Show();
 
             }
 
@@ -7886,6 +7887,12 @@ namespace PresPio
             {
             Wpf_shapeCopy wpf_ShapeCopy = new Wpf_shapeCopy();
             wpf_ShapeCopy.Show();
+            }
+
+        private void button15_Click_1(object sender, RibbonControlEventArgs e)
+            {
+            PresPio.Wpf_Form.Wpf_SplitPPT wpf_SplitPPT = new Wpf_Form.Wpf_SplitPPT();
+            wpf_SplitPPT.Show();
             }
         }
     }

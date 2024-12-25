@@ -450,7 +450,7 @@
     <Compile Include="Page_Shapeset.xaml.cs">
       <DependentUpon>Page_Shapeset.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page_textPods.xaml.cs">
+    <Compile Include="Pages\Page_textPods.xaml.cs">
       <DependentUpon>Page_textPods.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -579,6 +579,9 @@
     </Compile>
     <Compile Include="Wpf_Form\Wpf_Qrcode.xaml.cs">
       <DependentUpon>Wpf_Qrcode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf_SplitPPT.xaml.cs">
+      <DependentUpon>Wpf_SplitPPT.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ComForm\Con_TextTools.resx">
       <DependentUpon>Con_TextTools.cs</DependentUpon>
@@ -919,7 +922,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page_textPods.xaml">
+    <Page Include="Pages\Page_textPods.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1036,6 +1039,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf_Form\Wpf_Qrcode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_SplitPPT.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
