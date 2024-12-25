@@ -5,7 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:PresPio.Wpf_Form"
         mc:Ignorable="d" 
-        Title="PPT拆分工具" Height="700" Width="1200"
+        Title="超级拆分"
+        Height="700" Width="1200"
+        Topmost="True"
         WindowStartupLocation="CenterScreen"
         Background="#F0F0F0">
     <Window.Resources>
@@ -187,7 +189,7 @@
                                                    HorizontalAlignment="Center"
                                                    Margin="5"/>
                                         <RadioButton x:Name="CustomRangeRadio" 
-                                                   Content="自定义范围"
+                                                   Content="自定范围"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
                                                    Margin="5"/>
