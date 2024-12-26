@@ -865,18 +865,6 @@ namespace PresPio.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("300")]
-        public int PPtDPI {
-            get {
-                return ((int)(this["PPtDPI"]));
-            }
-            set {
-                this["PPtDPI"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Regular")]
         public global::System.Drawing.FontStyle WaterFonts {
             get {
@@ -1039,6 +1027,18 @@ namespace PresPio.Properties {
             }
             set {
                 this["RecentColors"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public int PPtDPI {
+            get {
+                return ((int)(this["PPtDPI"]));
+            }
+            set {
+                this["PPtDPI"] = value;
             }
         }
     }

@@ -577,6 +577,9 @@
     <Compile Include="Wpf_Form\Wpf_SplitPPT.xaml.cs">
       <DependentUpon>Wpf_SplitPPT.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf_Manuscript.xaml.cs">
+      <DependentUpon>Wpf_Manuscript.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ComForm\Con_TextTools.resx">
       <DependentUpon>Con_TextTools.cs</DependentUpon>
     </EmbeddedResource>
@@ -1029,6 +1032,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf_Form\Wpf_SplitPPT.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf_Manuscript.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

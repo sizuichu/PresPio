@@ -6703,7 +6703,8 @@ namespace PresPio
 
         private void button207_Click(object sender, RibbonControlEventArgs e)
             {
-           
+            Wpf_Manuscript wpf_Manuscript = new Wpf_Manuscript();
+            wpf_Manuscript.Show();
             
             }
 
