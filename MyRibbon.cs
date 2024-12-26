@@ -7616,8 +7616,8 @@ namespace PresPio
 
         private void splitButton15_Click(object sender, RibbonControlEventArgs e)
             {
-            Page_NotePage page_NotePage = new Page_NotePage();
-            page_NotePage.Show();
+            Wpf_Manuscript wpf_Manuscript = new Wpf_Manuscript();
+            wpf_Manuscript.Show();
             MyRibbon RB = Globals.Ribbons.Ribbon1;
             RB.splitButton15.Enabled = false;
             }
@@ -7896,6 +7896,14 @@ namespace PresPio
         private void button227_Click(object sender, RibbonControlEventArgs e)
             {
 
+            }
+
+        private void button124_Click_1(object sender, RibbonControlEventArgs e)
+            {
+            Page_NotePage page_NotePage = new Page_NotePage();
+            page_NotePage.Show();
+            MyRibbon RB = Globals.Ribbons.Ribbon1;
+            RB.button124.Enabled = false;
             }
         }
     }

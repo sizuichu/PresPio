@@ -334,7 +334,7 @@ namespace PresPio
                                 {
                                     if (inline is Run run)
                                     {
-                                        // 获取当前文本��围
+                                        // 获取当前文本范围
                                         var currentRange = textRange.InsertAfter(run.Text);
                                         
                                         // 应用字体样式
@@ -392,9 +392,11 @@ namespace PresPio
                 // 设置页面大小为A4
                 tempPres.PageSetup.SlideSize = PowerPoint.PpSlideSizeType.ppSlideSizeA4Paper;
 
-                // 设置页面方向
-                bool isLandscape = LandscapeRadio.IsChecked == true;
-                if (isLandscape)
+                // 设置页面方向和布局
+                bool isPortrait = PortraitRadio.IsChecked == true;
+                bool isDoublePage = LandscapeDoubleRadio.IsChecked == true;
+
+                if (!isPortrait)
                 {
                     tempPres.PageSetup.SlideWidth = 960;  // A4横向宽度
                     tempPres.PageSetup.SlideHeight = 720; // A4横向高度
@@ -409,73 +411,150 @@ namespace PresPio
                 var indices = slideIndices ?? Enumerable.Range(1, currentPresentation.Slides.Count).ToList();
 
                 // 为每个幻灯片创建新的页面
-                foreach (int index in indices)
+                for (int i = 0; i < indices.Count; i += (isDoublePage ? 2 : 1))
                 {
                     // 添加新的空白幻灯片
                     PowerPoint.Slide newSlide = tempPres.Slides.Add(tempPres.Slides.Count + 1, PowerPoint.PpSlideLayout.ppLayoutBlank);
                     
-                    // 获取原始幻灯片
-                    PowerPoint.Slide originalSlide = currentPresentation.Slides[index];
-                    
-                    // 导出原始幻灯片为图片
-                    string tempImagePath = Path.Combine(Path.GetTempPath(), $"slide_{index}.png");
-                    originalSlide.Export(tempImagePath, "PNG", 960, 720);
-                    
-                    // 在新幻灯片中添加图片
+                    // 计算布局参数
                     float slideWidth = tempPres.PageSetup.SlideWidth;
                     float slideHeight = tempPres.PageSetup.SlideHeight;
-                    float imageTop = 30; // 图片顶位置
+                    float margin = 20;
+                    float imageTop = margin;
                     
-                    // 根据页面方向调整图片和文本的布局
-                    float imageHeight, imageWidth, textTop, textHeight;
-                    if (isLandscape)
+                    if (isDoublePage)
                     {
-                        // 横向布局：图片占60%高度
-                        imageHeight = slideHeight * 0.6f;
-                        imageWidth = slideWidth * 0.9f;
-                        textTop = imageTop + imageHeight + 20;
-                        textHeight = slideHeight - textTop - 30;
+                        // 横向双张布局
+                        float contentWidth = (slideWidth - margin * 3) / 2; // 每个内容区域的宽度
+                        float imageHeight = contentWidth * 0.75f;  // 保持4:3比例
+                        float textTop = imageTop + imageHeight + margin;
+                        float textHeight = slideHeight - textTop - margin;
+                        
+                        // 添加第一张幻灯片
+                        AddSlideContent(currentPresentation.Slides[indices[i]], newSlide,
+                            margin, imageTop, contentWidth, imageHeight,
+                            margin, textTop, contentWidth, textHeight);
+                        
+                        // 添加第二张幻灯片（如果存在）
+                        if (i + 1 < indices.Count)
+                        {
+                            float secondLeft = margin * 2 + contentWidth;
+                            AddSlideContent(currentPresentation.Slides[indices[i + 1]], newSlide,
+                                secondLeft, imageTop, contentWidth, imageHeight,
+                                secondLeft, textTop, contentWidth, textHeight);
+                        }
                     }
                     else
                     {
-                        // 纵向布局：图片占35%高度，文本占55%高度
-                        imageHeight = slideHeight * 0.35f;
-                        imageWidth = slideWidth * 0.8f;
-                        textTop = imageTop + imageHeight + 20;
-                        textHeight = slideHeight * 0.55f;
-                    }
-                    
-                    float imageLeft = (slideWidth - imageWidth) / 2; // 图片水平居中
-                    
-                    PowerPoint.Shape imageShape = newSlide.Shapes.AddPicture(
-                        tempImagePath, MsoTriState.msoFalse, MsoTriState.msoTrue,
-                        imageLeft, imageTop, imageWidth, imageHeight);
-                    
-                    // 删除临时图片文件
-                    try { File.Delete(tempImagePath); } catch { }
-                    
-                    // 获取原始备注
-                    string notes = "";
-                    var notesPage = originalSlide.NotesPage;
-                    if (notesPage != null)
-                    {
-                        var notesShape = notesPage.Shapes.Placeholders[2];
-                        if (notesShape != null && notesShape.HasTextFrame == MsoTriState.msoTrue)
+                        // 横向单张或纵向布局
+                        float contentWidth = slideWidth - margin * 2;
+                        float imageHeight;
+                        if (isPortrait)
                         {
-                            notes = notesShape.TextFrame.TextRange.Text.Trim();
+                            imageHeight = contentWidth * 0.75f; // 保持4:3比例
+                            if (imageHeight > slideHeight * 0.4f)
+                            {
+                                imageHeight = slideHeight * 0.4f;
+                                contentWidth = imageHeight / 0.75f;
+                            }
                         }
+                        else
+                        {
+                            imageHeight = contentWidth * 0.75f; // 保持4:3比例
+                            if (imageHeight > slideHeight * 0.6f)
+                            {
+                                imageHeight = slideHeight * 0.6f;
+                                contentWidth = imageHeight / 0.75f;
+                            }
+                        }
+                        
+                        float imageLeft = (slideWidth - contentWidth) / 2;
+                        float textTop = imageTop + imageHeight + margin;
+                        float textHeight = slideHeight - textTop - margin;
+                        
+                        AddSlideContent(currentPresentation.Slides[indices[i]], newSlide,
+                            imageLeft, imageTop, contentWidth, imageHeight,
+                            imageLeft, textTop, contentWidth, textHeight);
                     }
+                }
+
+                // 导出为PDF
+                tempPres.SaveAs(filePath, PowerPoint.PpSaveAsFileType.ppSaveAsPDF, MsoTriState.msoTrue);
+
+                System.Diagnostics.Process.Start(filePath);
+                Growl.Success("导出完成");
+            }
+            catch (Exception ex)
+            {
+                Growl.Error($"导出时出错：{ex.Message}");
+            }
+            finally
+            {
+                if (tempPres != null)
+                {
+                    try
+                    {
+                        tempPres.Close();
+                        Marshal.ReleaseComObject(tempPres);
+                    }
+                    catch { }
+                }
+            }
+        }
+
+        private void AddSlideContent(PowerPoint.Slide originalSlide, PowerPoint.Slide newSlide,
+            float imageLeft, float imageTop, float imageWidth, float imageHeight,
+            float textLeft, float textTop, float textWidth, float textHeight)
+        {
+            // 导出原始幻灯片为图片，保持原始比例
+            string tempImagePath = Path.Combine(Path.GetTempPath(), $"slide_{originalSlide.SlideNumber}.png");
+            
+            // 获取原始幻灯片的尺寸
+            float originalWidth = originalSlide.Master.Width;
+            float originalHeight = originalSlide.Master.Height;
+            float originalRatio = originalWidth / originalHeight;
+
+            // 根据原始比例调整图片尺寸
+            float adjustedWidth = imageWidth;
+            float adjustedHeight = imageWidth / originalRatio;
+            
+            if (adjustedHeight > imageHeight)
+            {
+                adjustedHeight = imageHeight;
+                adjustedWidth = imageHeight * originalRatio;
+            }
+
+            // 计算居中位置
+            float adjustedLeft = imageLeft + (imageWidth - adjustedWidth) / 2;
+            float adjustedTop = imageTop + (imageHeight - adjustedHeight) / 2;
+
+            // 导出图片，使用较大的尺寸以保持质量
+            originalSlide.Export(tempImagePath, "PNG", (int)(adjustedWidth * 2), (int)(adjustedHeight * 2));
+            
+            // 添加图片
+            PowerPoint.Shape imageShape = newSlide.Shapes.AddPicture(
+                tempImagePath, MsoTriState.msoFalse, MsoTriState.msoTrue,
+                adjustedLeft, adjustedTop, adjustedWidth, adjustedHeight);
+            
+            // 删除临时图片文件
+            try { File.Delete(tempImagePath); } catch { }
+            
+            // 获取并添加备注
+            var notesPage = originalSlide.NotesPage;
+            if (notesPage != null)
+            {
+                var notesShape = notesPage.Shapes.Placeholders[2];
+                if (notesShape != null && notesShape.HasTextFrame == MsoTriState.msoTrue)
+                {
+                    var originalTextRange = notesShape.TextFrame.TextRange;
+                    string notes = originalTextRange.Text.Trim();
                     
-                    // 添加备注文本框
                     if (!string.IsNullOrEmpty(notes))
                     {
+                        // 添加备注文本框
                         PowerPoint.Shape textShape = newSlide.Shapes.AddTextbox(
                             MsoTextOrientation.msoTextOrientationHorizontal,
-                            imageLeft, textTop, imageWidth, textHeight);
-                        
-                        // 获取原始备注的格式化文本
-                        var notesShape = originalSlide.NotesPage.Shapes.Placeholders[2];
-                        var originalTextRange = notesShape.TextFrame.TextRange;
+                            textLeft, textTop, textWidth, textHeight);
                         
                         // 复制文本和格式
                         var textRange = textShape.TextFrame.TextRange;
@@ -503,28 +582,6 @@ namespace PresPio
                         textShape.TextFrame.WordWrap = MsoTriState.msoTrue;
                         textShape.TextFrame.AutoSize = PowerPoint.PpAutoSize.ppAutoSizeNone;
                     }
-                }
-
-                // 导出为PDF
-                tempPres.SaveAs(filePath, PowerPoint.PpSaveAsFileType.ppSaveAsPDF, MsoTriState.msoTrue);
-
-                System.Diagnostics.Process.Start(filePath);
-                Growl.Success("导出完成");
-            }
-            catch (Exception ex)
-            {
-                Growl.Error($"导出时出错：{ex.Message}");
-            }
-            finally
-            {
-                if (tempPres != null)
-                {
-                    try
-                    {
-                        tempPres.Close();
-                        Marshal.ReleaseComObject(tempPres);
-                    }
-                    catch { }
                 }
             }
         }
@@ -709,7 +766,7 @@ namespace PresPio
 
         private void UpdateUI()
         {
-            PageInfo.Text = $"�� {currentSlideIndex}/{totalSlides} 页";
+            PageInfo.Text = $"第 {currentSlideIndex}/{totalSlides} 页";
             BtnPrev.IsEnabled = currentSlideIndex > 1;
             BtnNext.IsEnabled = currentSlideIndex < totalSlides;
         }
@@ -1038,5 +1095,12 @@ namespace PresPio
                 ColorIndicator.Fill = brush;
             }
         }
-    }
+
+        private void ManuscriptWindow_Closed(object sender, EventArgs e)
+            {
+            // 启用功能区按钮
+            MyRibbon RB = Globals.Ribbons.Ribbon1;
+            RB.splitButton15.Enabled = true;
+            }
+        }
 }

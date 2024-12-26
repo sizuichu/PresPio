@@ -372,6 +372,7 @@
             this.button88 = this.Factory.CreateRibbonButton();
             this.button92 = this.Factory.CreateRibbonButton();
             this.button171 = this.Factory.CreateRibbonButton();
+            this.button124 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -801,6 +802,7 @@
             // splitButton15
             // 
             this.splitButton15.Image = global::PresPio.Properties.Resources.F__4_;
+            this.splitButton15.Items.Add(this.button124);
             this.splitButton15.Items.Add(this.button214);
             this.splitButton15.Items.Add(this.button213);
             this.splitButton15.Items.Add(this.button178);
@@ -3156,6 +3158,13 @@
             this.button171.Name = "button171";
             this.button171.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button171_Click);
             // 
+            // button124
+            // 
+            this.button124.Label = "备注助手";
+            this.button124.Name = "button124";
+            this.button124.ShowImage = true;
+            this.button124.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button124_Click_1);
+            // 
             // MyRibbon
             // 
             this.Name = "MyRibbon";
@@ -3524,6 +3533,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton toggleButton1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button228;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button15;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button124;
         }
 
     partial class ThisRibbonCollection

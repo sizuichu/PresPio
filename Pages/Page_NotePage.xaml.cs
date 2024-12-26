@@ -355,7 +355,7 @@ namespace PresPio
                 
                 // 启用功能区按钮
                 MyRibbon RB = Globals.Ribbons.Ribbon1;
-                RB.splitButton15.Enabled = true;
+                RB.button124.Enabled = true;
             }
             catch (Exception ex)
             {

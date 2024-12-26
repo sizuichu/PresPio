@@ -6,10 +6,11 @@
              xmlns:hc="https://handyorg.github.io/handycontrol" 
              xmlns:local="clr-namespace:PresPio"
              mc:Ignorable="d" 
-             Title="PPT备注页面编辑"
+             Title="文稿备注"
+           Topmost="True"
              Height="680" Width="1000"
              WindowStartupLocation="CenterScreen"
-             x:Name="ManuscriptWindow">
+             x:Name="ManuscriptWindow" Closed="ManuscriptWindow_Closed">
     <hc:Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -170,7 +171,7 @@
                 </Button>
             </ToolBar>
 
-            <!-- 备注编��区 -->
+            <!-- 备注编辑区 -->
             <Grid Grid.Row="2">
                 <RichTextBox x:Name="NotesTextBox"
                             BorderBrush="LightGray"
@@ -286,15 +287,24 @@
 
             <!-- 导出选项 -->
             <StackPanel Grid.Row="2" Margin="0,5,0,0">
-                <!-- 页面方向选择 -->
-                <UniformGrid Columns="2" Margin="0,0,0,5">
-                    <RadioButton x:Name="LandscapeRadio" IsChecked="True" Margin="0,0,5,0">
+                <!-- 页面布局选择 -->
+                <UniformGrid Columns="3" Margin="0,0,0,5">
+                    <RadioButton x:Name="LandscapeSingleRadio" IsChecked="True" Margin="0,0,5,0">
                         <StackPanel>
                             <Path Data="M0,0 L16,0 L16,12 L0,12 Z" Width="24" Height="18" 
                                   Stroke="{DynamicResource BorderBrush}" 
                                   StrokeThickness="1" 
                                   Fill="Transparent"/>
-                            <TextBlock Text="横向" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+                            <TextBlock Text="横向单张" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton x:Name="LandscapeDoubleRadio" Margin="0,0,5,0">
+                        <StackPanel>
+                            <Path Data="M0,0 L8,0 L8,12 L0,12 Z M10,0 L18,0 L18,12 L10,12 Z" Width="24" Height="18" 
+                                  Stroke="{DynamicResource BorderBrush}" 
+                                  StrokeThickness="1" 
+                                  Fill="Transparent"/>
+                            <TextBlock Text="横向双张" HorizontalAlignment="Center" Margin="0,2,0,0"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton x:Name="PortraitRadio">
