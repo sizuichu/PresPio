@@ -170,7 +170,7 @@
                 </Button>
             </ToolBar>
 
-            <!-- 备注编辑区 -->
+            <!-- 备注编��区 -->
             <Grid Grid.Row="2">
                 <RichTextBox x:Name="NotesTextBox"
                             BorderBrush="LightGray"
@@ -285,12 +285,38 @@
             </GroupBox>
 
             <!-- 导出选项 -->
-            <GroupBox Grid.Row="2" Header="导出选项" Margin="0,5,0,0">
-                <UniformGrid Rows="1" Columns="2">
-                    <Button Content="导出选中" Style="{StaticResource ButtonSuccess}" Margin="0,0,2,0" x:Name="BtnExportSelected" Click="BtnExportSelected_Click"/>
-                    <Button Content="导出全部" Style="{StaticResource ButtonSuccess}" x:Name="BtnExportAll" Click="BtnExportAll_Click"/>
+            <StackPanel Grid.Row="2" Margin="0,5,0,0">
+                <!-- 页面方向选择 -->
+                <UniformGrid Columns="2" Margin="0,0,0,5">
+                    <RadioButton x:Name="LandscapeRadio" IsChecked="True" Margin="0,0,5,0">
+                        <StackPanel>
+                            <Path Data="M0,0 L16,0 L16,12 L0,12 Z" Width="24" Height="18" 
+                                  Stroke="{DynamicResource BorderBrush}" 
+                                  StrokeThickness="1" 
+                                  Fill="Transparent"/>
+                            <TextBlock Text="横向" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton x:Name="PortraitRadio">
+                        <StackPanel>
+                            <Path Data="M0,0 L12,0 L12,16 L0,16 Z" Width="18" Height="24" 
+                                  Stroke="{DynamicResource BorderBrush}" 
+                                  StrokeThickness="1" 
+                                  Fill="Transparent"/>
+                            <TextBlock Text="纵向" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </RadioButton>
                 </UniformGrid>
-            </GroupBox>
+                
+                <!-- 导出按钮 -->
+                <UniformGrid Rows="1" Columns="2">
+                    <Button Content="导出选中" Style="{StaticResource ButtonSuccess}" 
+                            Margin="0,0,2,0" x:Name="BtnExportSelected" 
+                            Click="BtnExportSelected_Click"/>
+                    <Button Content="导出全部" Style="{StaticResource ButtonSuccess}" 
+                            x:Name="BtnExportAll" Click="BtnExportAll_Click"/>
+                </UniformGrid>
+            </StackPanel>
         </Grid>
     </Grid>
 </hc:Window>

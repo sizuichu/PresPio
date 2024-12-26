@@ -25,6 +25,14 @@ using MediaColor = System.Windows.Media.Color;
 using Color = System.Windows.Media.Color;
 using MediaFontFamily = System.Windows.Media.FontFamily;
 using DrawingFontFamily = System.Drawing.FontFamily;
+using WpfSize = System.Windows.Size;
+using DrawingSize = System.Drawing.Size;
+using System.Windows.Markup;
+using System.Windows.Documents.Serialization;
+using System.Windows.Controls.Primitives;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
+using System.Printing;
 
 namespace PresPio
 {
@@ -177,7 +185,7 @@ namespace PresPio
                     LoadCurrentSlide();
 
                     EnableControls(true);
-                    StatusText.Text = "已加载PPT文件";
+                    StatusText.Text = "已加载PPT文";
                 }
                 catch (Exception ex)
                 {
@@ -326,7 +334,7 @@ namespace PresPio
                                 {
                                     if (inline is Run run)
                                     {
-                                        // 获取当前文本范围
+                                        // 获取当前文本��围
                                         var currentRange = textRange.InsertAfter(run.Text);
                                         
                                         // 应用字体样式
@@ -370,6 +378,157 @@ namespace PresPio
             }
         }
 
+        private void ExportToPDF(string filePath, List<int> slideIndices = null)
+        {
+            SaveCurrentNotes(); // 导出前保存当前备注
+
+            // 创建临时演示文稿
+            PowerPoint.Presentation tempPres = null;
+            try
+            {
+                // 创建新的演示文稿
+                tempPres = pptApplication.Presentations.Add(MsoTriState.msoFalse);
+                
+                // 设置页面大小为A4
+                tempPres.PageSetup.SlideSize = PowerPoint.PpSlideSizeType.ppSlideSizeA4Paper;
+
+                // 设置页面方向
+                bool isLandscape = LandscapeRadio.IsChecked == true;
+                if (isLandscape)
+                {
+                    tempPres.PageSetup.SlideWidth = 960;  // A4横向宽度
+                    tempPres.PageSetup.SlideHeight = 720; // A4横向高度
+                }
+                else
+                {
+                    tempPres.PageSetup.SlideWidth = 720;  // A4纵向宽度
+                    tempPres.PageSetup.SlideHeight = 960; // A4纵向高度
+                }
+                
+                // 获取要导出的幻灯片索引
+                var indices = slideIndices ?? Enumerable.Range(1, currentPresentation.Slides.Count).ToList();
+
+                // 为每个幻灯片创建新的页面
+                foreach (int index in indices)
+                {
+                    // 添加新的空白幻灯片
+                    PowerPoint.Slide newSlide = tempPres.Slides.Add(tempPres.Slides.Count + 1, PowerPoint.PpSlideLayout.ppLayoutBlank);
+                    
+                    // 获取原始幻灯片
+                    PowerPoint.Slide originalSlide = currentPresentation.Slides[index];
+                    
+                    // 导出原始幻灯片为图片
+                    string tempImagePath = Path.Combine(Path.GetTempPath(), $"slide_{index}.png");
+                    originalSlide.Export(tempImagePath, "PNG", 960, 720);
+                    
+                    // 在新幻灯片中添加图片
+                    float slideWidth = tempPres.PageSetup.SlideWidth;
+                    float slideHeight = tempPres.PageSetup.SlideHeight;
+                    float imageTop = 30; // 图片顶位置
+                    
+                    // 根据页面方向调整图片和文本的布局
+                    float imageHeight, imageWidth, textTop, textHeight;
+                    if (isLandscape)
+                    {
+                        // 横向布局：图片占60%高度
+                        imageHeight = slideHeight * 0.6f;
+                        imageWidth = slideWidth * 0.9f;
+                        textTop = imageTop + imageHeight + 20;
+                        textHeight = slideHeight - textTop - 30;
+                    }
+                    else
+                    {
+                        // 纵向布局：图片占35%高度，文本占55%高度
+                        imageHeight = slideHeight * 0.35f;
+                        imageWidth = slideWidth * 0.8f;
+                        textTop = imageTop + imageHeight + 20;
+                        textHeight = slideHeight * 0.55f;
+                    }
+                    
+                    float imageLeft = (slideWidth - imageWidth) / 2; // 图片水平居中
+                    
+                    PowerPoint.Shape imageShape = newSlide.Shapes.AddPicture(
+                        tempImagePath, MsoTriState.msoFalse, MsoTriState.msoTrue,
+                        imageLeft, imageTop, imageWidth, imageHeight);
+                    
+                    // 删除临时图片文件
+                    try { File.Delete(tempImagePath); } catch { }
+                    
+                    // 获取原始备注
+                    string notes = "";
+                    var notesPage = originalSlide.NotesPage;
+                    if (notesPage != null)
+                    {
+                        var notesShape = notesPage.Shapes.Placeholders[2];
+                        if (notesShape != null && notesShape.HasTextFrame == MsoTriState.msoTrue)
+                        {
+                            notes = notesShape.TextFrame.TextRange.Text.Trim();
+                        }
+                    }
+                    
+                    // 添加备注文本框
+                    if (!string.IsNullOrEmpty(notes))
+                    {
+                        PowerPoint.Shape textShape = newSlide.Shapes.AddTextbox(
+                            MsoTextOrientation.msoTextOrientationHorizontal,
+                            imageLeft, textTop, imageWidth, textHeight);
+                        
+                        // 获取原始备注的格式化文本
+                        var notesShape = originalSlide.NotesPage.Shapes.Placeholders[2];
+                        var originalTextRange = notesShape.TextFrame.TextRange;
+                        
+                        // 复制文本和格式
+                        var textRange = textShape.TextFrame.TextRange;
+                        textRange.Text = originalTextRange.Text;
+                        
+                        // 复制段落格式
+                        textRange.ParagraphFormat.Alignment = originalTextRange.ParagraphFormat.Alignment;
+                        textRange.ParagraphFormat.SpaceAfter = originalTextRange.ParagraphFormat.SpaceAfter;
+                        textRange.ParagraphFormat.SpaceBefore = originalTextRange.ParagraphFormat.SpaceBefore;
+                        textRange.ParagraphFormat.LineRuleWithin = MsoTriState.msoTrue;
+                        textRange.ParagraphFormat.SpaceWithin = 1.5f;  // 1.5倍行距
+                        
+                        // 复制字体格式
+                        textRange.Font.Name = originalTextRange.Font.Name;
+                        textRange.Font.Size = originalTextRange.Font.Size;
+                        textRange.Font.Bold = originalTextRange.Font.Bold;
+                        textRange.Font.Italic = originalTextRange.Font.Italic;
+                        textRange.Font.Underline = originalTextRange.Font.Underline;
+                        if (originalTextRange.Font.Color.RGB != 0)
+                        {
+                            textRange.Font.Color.RGB = originalTextRange.Font.Color.RGB;
+                        }
+                        
+                        // 设置文本框属性
+                        textShape.TextFrame.WordWrap = MsoTriState.msoTrue;
+                        textShape.TextFrame.AutoSize = PowerPoint.PpAutoSize.ppAutoSizeNone;
+                    }
+                }
+
+                // 导出为PDF
+                tempPres.SaveAs(filePath, PowerPoint.PpSaveAsFileType.ppSaveAsPDF, MsoTriState.msoTrue);
+
+                System.Diagnostics.Process.Start(filePath);
+                Growl.Success("导出完成");
+            }
+            catch (Exception ex)
+            {
+                Growl.Error($"导出时出错：{ex.Message}");
+            }
+            finally
+            {
+                if (tempPres != null)
+                {
+                    try
+                    {
+                        tempPres.Close();
+                        Marshal.ReleaseComObject(tempPres);
+                    }
+                    catch { }
+                }
+            }
+        }
+
         private void BtnExportSelected_Click(object sender, RoutedEventArgs e)
         {
             if (currentPresentation != null && SlideList.SelectedItems.Count > 0)
@@ -383,52 +542,12 @@ namespace PresPio
 
                 if (saveDialog.ShowDialog() == true)
                 {
-                    try
+                    var selectedIndices = new List<int>();
+                    foreach (SlideItem item in SlideList.SelectedItems)
                     {
-                        SaveCurrentNotes(); // 导出前保存当前备注
-                        string tempFile = saveDialog.FileName;
-                        var selectedIndices = new List<int>();
-                        foreach (SlideItem item in SlideList.SelectedItems)
-                        {
-                            selectedIndices.Add(item.Index);
-                        }
-
-                        var tempPres = pptApplication.Presentations.Add(MsoTriState.msoFalse);
-                        foreach (int index in selectedIndices)
-                        {
-                            // 复制幻灯片
-                            currentPresentation.Slides[index].Copy();
-                            var pastedSlide = tempPres.Slides.Paste()[1];
-
-                            // 添加边框
-                            var slideWidth = pastedSlide.Master.Width;
-                            var slideHeight = pastedSlide.Master.Height;
-                            var shape = pastedSlide.Shapes.AddShape(
-                                MsoAutoShapeType.msoShapeRectangle, 
-                                0, 0, slideWidth, slideHeight);
-                            
-                            // 转换颜色并设置边框
-                            var lightGray = DrawingColor.LightGray;
-                            shape.Line.ForeColor.RGB = (lightGray.R << 16) | (lightGray.G << 8) | lightGray.B;
-                            shape.Line.Weight = 1.0f;
-                            shape.ZOrder(MsoZOrderCmd.msoSendToBack);
-                        }
-
-                        tempPres.ExportAsFixedFormat(tempFile, PowerPoint.PpFixedFormatType.ppFixedFormatTypePDF,
-                            PowerPoint.PpFixedFormatIntent.ppFixedFormatIntentPrint, MsoTriState.msoFalse,
-                            PowerPoint.PpPrintHandoutOrder.ppPrintHandoutVerticalFirst,
-                            PowerPoint.PpPrintOutputType.ppPrintOutputNotesPages);
-
-                        tempPres.Close();
-                        Marshal.ReleaseComObject(tempPres);
-
-                        System.Diagnostics.Process.Start(tempFile);
-                        Growl.Success("导出完成");
+                        selectedIndices.Add(item.Index);
                     }
-                    catch (Exception ex)
-                    {
-                        Growl.Error($"导出时出错：{ex.Message}");
-                    }
+                    ExportToPDF(saveDialog.FileName, selectedIndices);
                 }
             }
         }
@@ -446,48 +565,64 @@ namespace PresPio
 
                 if (saveDialog.ShowDialog() == true)
                 {
-                    try
-                    {
-                        SaveCurrentNotes(); // 导出前保存当前备注
-                        string tempFile = saveDialog.FileName;
+                    ExportToPDF(saveDialog.FileName);
+                }
+            }
+        }
 
-                        // 创建临时演示文稿以添加边框
-                        var tempPres = pptApplication.Presentations.Add(MsoTriState.msoFalse);
-                        for (int i = 1; i <= currentPresentation.Slides.Count; i++)
-                        {
-                            // 复制幻灯片
-                            currentPresentation.Slides[i].Copy();
-                            var pastedSlide = tempPres.Slides.Paste()[1];
+        private void BtnPreview_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPresentation != null)
+            {
+                string tempFile = Path.Combine(Path.GetTempPath(), "preview.pdf");
+                ExportToPDF(tempFile);
+            }
+        }
 
-                            // 添加边框
-                            var slideWidth = pastedSlide.Master.Width;
-                            var slideHeight = pastedSlide.Master.Height;
-                            var shape = pastedSlide.Shapes.AddShape(
-                                MsoAutoShapeType.msoShapeRectangle, 
-                                0, 0, slideWidth, slideHeight);
-                            
-                            // 转换颜色并设置边框
-                            var lightGray = DrawingColor.LightGray;
-                            shape.Line.ForeColor.RGB = (lightGray.R << 16) | (lightGray.G << 8) | lightGray.B;
-                            shape.Line.Weight = 1.0f;
-                            shape.ZOrder(MsoZOrderCmd.msoSendToBack);
-                        }
+        private void PrintDocument(List<int> slideIndices = null)
+        {
+            if (currentPresentation != null)
+            {
+                try
+                {
+                    SaveCurrentNotes(); // 打印前保存当前备注
 
-                        tempPres.ExportAsFixedFormat(tempFile, PowerPoint.PpFixedFormatType.ppFixedFormatTypePDF,
-                            PowerPoint.PpFixedFormatIntent.ppFixedFormatIntentPrint, MsoTriState.msoFalse,
-                            PowerPoint.PpPrintHandoutOrder.ppPrintHandoutVerticalFirst,
-                            PowerPoint.PpPrintOutputType.ppPrintOutputNotesPages);
+                    // 设置打印选项
+                    currentPresentation.PrintOptions.OutputType = PowerPoint.PpPrintOutputType.ppPrintOutputNotesPages; // 幻灯片和备注
+                    currentPresentation.PrintOptions.FitToPage = MsoTriState.msoTrue;
+                    currentPresentation.PrintOptions.PrintHiddenSlides = MsoTriState.msoFalse;
+                    currentPresentation.PrintOptions.HighQuality = MsoTriState.msoTrue;
 
-                        tempPres.Close();
-                        Marshal.ReleaseComObject(tempPres);
+                    // 显示打印对话框并打印
+                    currentPresentation.PrintOut();
+                }
+                catch (Exception ex)
+                {
+                    Growl.Error($"打印时出错：{ex.Message}");
+                }
+            }
+        }
 
-                        System.Diagnostics.Process.Start(tempFile);
-                        Growl.Success("导出完成");
-                    }
-                    catch (Exception ex)
-                    {
-                        Growl.Error($"导出时出错：{ex.Message}");
-                    }
+        private void BtnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPresentation != null)
+            {
+                try
+                {
+                    SaveCurrentNotes(); // 打印前保存当前备注
+
+                    // 设置打印选项
+                    currentPresentation.PrintOptions.OutputType = PowerPoint.PpPrintOutputType.ppPrintOutputNotesPages; // 幻灯片和备注
+                    currentPresentation.PrintOptions.FitToPage = MsoTriState.msoTrue;
+                    currentPresentation.PrintOptions.PrintHiddenSlides = MsoTriState.msoFalse;
+                    currentPresentation.PrintOptions.HighQuality = MsoTriState.msoTrue;
+
+                    // 显示打印对话框并打印
+                    currentPresentation.PrintOut();
+                }
+                catch (Exception ex)
+                {
+                    Growl.Error($"打印时出错：{ex.Message}");
                 }
             }
         }
@@ -574,7 +709,7 @@ namespace PresPio
 
         private void UpdateUI()
         {
-            PageInfo.Text = $"第 {currentSlideIndex}/{totalSlides} 页";
+            PageInfo.Text = $"�� {currentSlideIndex}/{totalSlides} 页";
             BtnPrev.IsEnabled = currentSlideIndex > 1;
             BtnNext.IsEnabled = currentSlideIndex < totalSlides;
         }
@@ -608,71 +743,6 @@ namespace PresPio
                 timer.Stop();
             };
             timer.Start();
-        }
-
-        private void BtnPreview_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentPresentation != null)
-            {
-                try
-                {
-                    SaveCurrentNotes(); // 预览前保存当前备注
-                    string tempFile = Path.Combine(Path.GetTempPath(), "preview.pdf");
-
-                    // 创建临时演示文稿以添加边框
-                    var tempPres = pptApplication.Presentations.Add(MsoTriState.msoFalse);
-                    for (int i = 1; i <= currentPresentation.Slides.Count; i++)
-                    {
-                        // 复制幻灯片
-                        currentPresentation.Slides[i].Copy();
-                        var pastedSlide = tempPres.Slides.Paste()[1];
-
-                        // 添加边框
-                        var slideWidth = pastedSlide.Master.Width;
-                        var slideHeight = pastedSlide.Master.Height;
-                        var shape = pastedSlide.Shapes.AddShape(
-                            MsoAutoShapeType.msoShapeRectangle, 
-                            0, 0, slideWidth, slideHeight);
-                        
-                        // 转换颜色并设置边框
-                        var lightGray = DrawingColor.LightGray;
-                        shape.Line.ForeColor.RGB = (lightGray.R << 16) | (lightGray.G << 8) | lightGray.B;
-                        shape.Line.Weight = 1.0f;
-                        shape.ZOrder(MsoZOrderCmd.msoSendToBack);
-                    }
-
-                    tempPres.ExportAsFixedFormat(tempFile, PowerPoint.PpFixedFormatType.ppFixedFormatTypePDF,
-                        PowerPoint.PpFixedFormatIntent.ppFixedFormatIntentPrint, MsoTriState.msoFalse,
-                        PowerPoint.PpPrintHandoutOrder.ppPrintHandoutVerticalFirst,
-                        PowerPoint.PpPrintOutputType.ppPrintOutputNotesPages);
-
-                    tempPres.Close();
-                    Marshal.ReleaseComObject(tempPres);
-
-                    System.Diagnostics.Process.Start(tempFile);
-                }
-                catch (Exception ex)
-                {
-                    Growl.Error($"预览时出错：{ex.Message}");
-                }
-            }
-        }
-
-        private void BtnPrint_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentPresentation != null)
-            {
-                try
-                {
-                    SaveCurrentNotes(); // 打印前保存当前备注
-                    currentPresentation.PrintOptions.OutputType = PowerPoint.PpPrintOutputType.ppPrintOutputNotesPages;
-                    currentPresentation.PrintOut();
-                }
-                catch (Exception ex)
-                {
-                    Growl.Error($"打印时出错：{ex.Message}");
-                }
-            }
         }
 
         private void CleanupPPT()
@@ -829,7 +899,7 @@ namespace PresPio
                 SaveCurrentNotes();
                 currentSlideIndex = item.Index;
                 LoadCurrentSlide();
-                Growl.Info($"已跳转到第 {currentSlideIndex} 页");
+                Growl.Info($"已跳转到 {currentSlideIndex} 页");
             }
         }
 
