@@ -58,8 +58,6 @@
             this.button71 = this.Factory.CreateRibbonButton();
             this.button6 = this.Factory.CreateRibbonButton();
             this.splitButton16 = this.Factory.CreateRibbonSplitButton();
-            this.button227 = this.Factory.CreateRibbonButton();
-            this.button124 = this.Factory.CreateRibbonButton();
             this.toggleButton2 = this.Factory.CreateRibbonToggleButton();
             this.button3 = this.Factory.CreateRibbonButton();
             this.button4 = this.Factory.CreateRibbonButton();
@@ -276,6 +274,7 @@
             this.button129 = this.Factory.CreateRibbonButton();
             this.button8 = this.Factory.CreateRibbonButton();
             this.separator34 = this.Factory.CreateRibbonSeparator();
+            this.button15 = this.Factory.CreateRibbonButton();
             this.button158 = this.Factory.CreateRibbonButton();
             this.button173 = this.Factory.CreateRibbonButton();
             this.separator7 = this.Factory.CreateRibbonSeparator();
@@ -373,7 +372,6 @@
             this.button88 = this.Factory.CreateRibbonButton();
             this.button92 = this.Factory.CreateRibbonButton();
             this.button171 = this.Factory.CreateRibbonButton();
-            this.button15 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -412,6 +410,7 @@
             this.group2.Items.Add(this.menu21);
             this.group2.Items.Add(this.toggleButton1);
             this.group2.Items.Add(this.button228);
+            this.group2.Items.Add(this.toggleButton2);
             this.group2.Label = "配色组";
             this.group2.Name = "group2";
             // 
@@ -558,31 +557,14 @@
             // splitButton16
             // 
             this.splitButton16.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.splitButton16.Items.Add(this.button227);
-            this.splitButton16.Items.Add(this.button124);
-            this.splitButton16.Items.Add(this.toggleButton2);
             this.splitButton16.Label = "配色";
             this.splitButton16.Name = "splitButton16";
             this.splitButton16.OfficeImageId = "FontColorCycle";
             this.splitButton16.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.splitButton16_Click);
             // 
-            // button227
-            // 
-            this.button227.Label = "便捷配色盘";
-            this.button227.Name = "button227";
-            this.button227.ShowImage = true;
-            // 
-            // button124
-            // 
-            this.button124.Label = "渐变生成器";
-            this.button124.Name = "button124";
-            this.button124.OfficeImageId = "GroupGanttChartFormat";
-            this.button124.ShowImage = true;
-            this.button124.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button124_Click);
-            // 
             // toggleButton2
             // 
-            this.toggleButton2.Label = "适配窗格";
+            this.toggleButton2.Label = "适配";
             this.toggleButton2.Name = "toggleButton2";
             this.toggleButton2.OfficeImageId = "CurrentWindowDock";
             this.toggleButton2.ShowImage = true;
@@ -2346,6 +2328,13 @@
             // 
             this.separator34.Name = "separator34";
             // 
+            // button15
+            // 
+            this.button15.Label = "批量拆分";
+            this.button15.Name = "button15";
+            this.button15.ShowImage = true;
+            this.button15.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button15_Click_1);
+            // 
             // button158
             // 
             this.button158.Label = "单页拆分";
@@ -3167,13 +3156,6 @@
             this.button171.Name = "button171";
             this.button171.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button171_Click);
             // 
-            // button15
-            // 
-            this.button15.Label = "批量拆分";
-            this.button15.Name = "button15";
-            this.button15.ShowImage = true;
-            this.button15.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button15_Click_1);
-            // 
             // MyRibbon
             // 
             this.Name = "MyRibbon";
@@ -3375,7 +3357,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button10;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button11;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button52;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button124;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button125;
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator26;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button126;
@@ -3540,7 +3521,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator48;
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator49;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button226;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button227;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton toggleButton1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button228;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button15;

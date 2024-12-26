@@ -1,0 +1,236 @@
+<Window
+    x:Class="PresPio.Wpf_GradientMaker"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:PresPio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="渐变生成器"
+    Width="900"
+    Height="600"
+    MinWidth="800"
+    MinHeight="500"
+    Background="{DynamicResource RegionBrush}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 左侧面板：渐变设置 -->
+        <Border
+            Margin="0,0,8,0"
+            Background="{DynamicResource SecondaryRegionBrush}"
+            CornerRadius="8">
+            <DockPanel Margin="16">
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    FontSize="16"
+                    Text="渐变设置" />
+                <ScrollViewer
+                    Margin="0,16,0,0"
+                    DockPanel.Dock="Top"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <!-- 渐变类型 -->
+                        <GroupBox Header="渐变类型" Style="{StaticResource GroupBoxOriginal}">
+                            <StackPanel Margin="8">
+                                <RadioButton
+                                    x:Name="LinearGradientRadio"
+                                    Margin="0,0,0,8"
+                                    Content="线性渐变"
+                                    IsChecked="True" />
+                                <RadioButton x:Name="RadialGradientRadio" Content="径向渐变" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- 渐变参数 -->
+                        <GroupBox Header="渐变参数" Style="{StaticResource GroupBoxOriginal}">
+                            <StackPanel x:Name="GradientParamsPanel" Margin="8">
+                                <!-- 步进值控制 -->
+                                <DockPanel Margin="0,0,0,8">
+                                    <TextBlock
+                                        Width="60"
+                                        VerticalAlignment="Center"
+                                        Text="步进值" />
+                                    <hc:NumericUpDown
+                                        x:Name="StepInput"
+                                        Width="80"
+                                        Maximum="100"
+                                        Minimum="0"
+                                        Value="10" />
+                                    <Slider
+                                        x:Name="StepSlider"
+                                        Margin="8,0,0,0"
+                                        Maximum="100"
+                                        Minimum="0"
+                                        Value="{Binding ElementName=StepInput, Path=Value}" />
+                                </DockPanel>
+
+                                <!-- 色差值控制 -->
+                                <DockPanel Margin="0,0,0,8">
+                                    <TextBlock
+                                        Width="60"
+                                        VerticalAlignment="Center"
+                                        Text="色差值" />
+                                    <hc:NumericUpDown
+                                        x:Name="ColorDiffInput"
+                                        Width="80"
+                                        Maximum="100"
+                                        Minimum="0"
+                                        Value="50" />
+                                    <Slider
+                                        x:Name="ColorDiffSlider"
+                                        Margin="8,0,0,0"
+                                        Maximum="100"
+                                        Minimum="0"
+                                        Value="{Binding ElementName=ColorDiffInput, Path=Value}" />
+                                </DockPanel>
+
+                                <!-- 角度控制 -->
+                                <DockPanel Margin="0,0,0,8">
+                                    <TextBlock
+                                        Width="60"
+                                        VerticalAlignment="Center"
+                                        Text="角度值" />
+                                    <hc:NumericUpDown
+                                        x:Name="AngleInput"
+                                        Width="80"
+                                        Maximum="360"
+                                        Minimum="0"
+                                        Value="0" />
+                                    <Slider
+                                        x:Name="AngleSlider"
+                                        Margin="8,0,0,0"
+                                        Maximum="360"
+                                        Minimum="0"
+                                        Value="{Binding ElementName=AngleInput, Path=Value}" />
+                                </DockPanel>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- 操作按钮 -->
+                        <GroupBox Header="操作" Style="{StaticResource GroupBoxOriginal}">
+                            <UniformGrid Columns="2" Rows="2">
+                                <Button
+                                    x:Name="CopyBtn"
+                                    Margin="4"
+                                    Click="CopyBtn_Click"
+                                    Content="复制"
+                                    Style="{StaticResource ButtonPrimary}" />
+                                <Button
+                                    x:Name="PasteBtn"
+                                    Margin="4"
+                                    Click="PasteBtn_Click"
+                                    Content="粘贴"
+                                    Style="{StaticResource ButtonInfo}" />
+                                <Button
+                                    x:Name="ClearBtn"
+                                    Margin="4"
+                                    Click="ClearBtn_Click"
+                                    Content="清除"
+                                    Style="{StaticResource ButtonWarning}" />
+                                <Button
+                                    x:Name="GenerateBtn"
+                                    Margin="4"
+                                    Click="GenerateBtn_Click"
+                                    Content="生成"
+                                    Style="{StaticResource ButtonSuccess}" />
+                            </UniformGrid>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+
+        <!-- 中间面板：预览区域 -->
+        <Border
+            Grid.Column="1"
+            Margin="8"
+            Background="{DynamicResource SecondaryRegionBrush}"
+            CornerRadius="8">
+            <DockPanel Margin="16">
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    FontSize="16"
+                    Text="预览" />
+
+                <!-- 预览画布 -->
+                <Border
+                    Margin="0,16,0,0"
+                    Background="White"
+                    CornerRadius="4">
+                    <Grid>
+                        <!-- 背景网格 -->
+                        <Rectangle x:Name="GridBackground">
+                            <Rectangle.Fill>
+                                <DrawingBrush
+                                    TileMode="Tile"
+                                    Viewport="0,0,20,20"
+                                    ViewportUnits="Absolute">
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <GeometryDrawing Brush="#15000000">
+                                                <GeometryDrawing.Geometry>
+                                                    <RectangleGeometry Rect="0,0,10,10" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <!-- 渐变预览 -->
+                        <Rectangle x:Name="PreviewRect">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="#FF4B6CB7" />
+                                    <GradientStop Offset="1" Color="#FF182848" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Grid>
+                </Border>
+            </DockPanel>
+        </Border>
+
+        <!-- 右侧面板：预设和导出 -->
+        <Border
+            Grid.Column="2"
+            Margin="8,0,0,0"
+            Background="{DynamicResource SecondaryRegionBrush}"
+            CornerRadius="8">
+            <DockPanel Margin="16">
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    FontSize="16"
+                    Text="预设方案" />
+                <ListBox
+                    x:Name="PresetList"
+                    Margin="0,16,0,0"
+                    SelectionChanged="PresetList_SelectionChanged">
+                    <ListBoxItem Content="蓝色渐变" />
+                    <ListBoxItem Content="绿色渐变" />
+                    <ListBoxItem Content="红色渐变" />
+                    <ListBoxItem Content="紫色渐变" />
+                    <ListBoxItem Content="橙色渐变" />
+                </ListBox>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window> 

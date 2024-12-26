@@ -444,11 +444,8 @@
     <Compile Include="Helper\ImageHelper.cs" />
     <Compile Include="Function\MyCustomTaskPane.cs" />
     <Compile Include="Helper\RotationHelper.cs" />
-    <Compile Include="Page_ColorPane.xaml.cs">
+    <Compile Include="Pages\Page_ColorPane.xaml.cs">
       <DependentUpon>Page_ColorPane.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Page_Shapeset.xaml.cs">
-      <DependentUpon>Page_Shapeset.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Page_textPods.xaml.cs">
       <DependentUpon>Page_textPods.xaml</DependentUpon>
@@ -504,9 +501,6 @@
     </Compile>
     <Compile Include="Wpf_Form\Wpf_colorTheme.xaml.cs">
       <DependentUpon>Wpf_colorTheme.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Wpf_Form\Wpf_colorGrad.xaml.cs">
-      <DependentUpon>Wpf_colorGrad.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf_Form\Wpf_crossPage.xaml.cs">
       <DependentUpon>Wpf_crossPage.xaml</DependentUpon>
@@ -580,7 +574,7 @@
     <Compile Include="Wpf_Form\Wpf_Qrcode.xaml.cs">
       <DependentUpon>Wpf_Qrcode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_SplitPPT.xaml.cs">
+    <Compile Include="Wpf_Form\Wpf_SplitPPT.xaml.cs">
       <DependentUpon>Wpf_SplitPPT.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ComForm\Con_TextTools.resx">
@@ -914,11 +908,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page_ColorPane.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Page_Shapeset.xaml">
+    <Page Include="Pages\Page_ColorPane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -939,10 +929,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf_Form\Wpf_colorTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Wpf_Form\Wpf_colorGrad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1042,7 +1028,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_SplitPPT.xaml">
+    <Page Include="Wpf_Form\Wpf_SplitPPT.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

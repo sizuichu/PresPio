@@ -1,228 +1,260 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Window x:Class="PresPio.Wpf_Form.Wpf_SplitPPT"
+﻿<Window x:Class="PresPio.Wpf_Form.Wpf_SplitPPT"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:PresPio.Wpf_Form"
-        xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d" 
-        Title="PPT拆分工具" Height="700" Width="1000"
-        WindowStartupLocation="CenterScreen">
+        Title="超级拆分"
+        Height="700" Width="1200"
+        Topmost="True"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0">
     <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <hc:ThemeResources/>
-                <hc:Theme/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="CommonButtonStyle" TargetType="Button">
+            <Setter Property="Padding" Value="15,5"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1976D2"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#BDBDBD"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="GroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
     </Window.Resources>
 
-    <Grid Margin="20">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- 顶部标题 -->
-        <TextBlock Text="PPT拆分工具" 
-                 Style="{StaticResource TextBlockLargeBold}" 
-                 Margin="0,0,0,20"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- 主要内容区域 -->
-        <TabControl Grid.Row="1" Style="{StaticResource TabControlInLine}">
-            <!-- 单文件拆分 -->
-            <TabItem Header="单文件拆分">
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+            <!-- 左侧预览区域 -->
+            <Grid Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-                    <!-- 拆分设置 -->
-                    <GroupBox Header="拆分设置" 
-                             Margin="0,0,0,10" 
-                             Style="{StaticResource GroupBoxOriginal}">
-                        <StackPanel Margin="10">
-                            <StackPanel Orientation="Horizontal" 
-                                      Margin="0,0,0,10">
-                                <RadioButton x:Name="SinglePageRadio" 
-                                           Content="单页拆分" 
-                                           IsChecked="True" 
-                                           Margin="0,0,20,0"/>
-                                <RadioButton x:Name="CustomSplitRadio" 
-                                           Content="自定义拆分"/>
-                            </StackPanel>
-                            <Grid x:Name="CustomSplitPanel" 
-                                 Visibility="Collapsed">
-                                <TextBox x:Name="CustomSplitTextBox" 
-                                        hc:InfoElement.Placeholder="请输入页码范围，如: 1-3,4-6,7"
-                                        hc:InfoElement.Title="拆分范围"
-                                        Style="{StaticResource TextBoxExtend}"
-                                        Width="400" 
-                                        HorizontalAlignment="Left"/>
-                            </Grid>
-                        </StackPanel>
-                    </GroupBox>
-
-                    <!-- 预览区域 -->
-                    <GroupBox Grid.Row="1" 
-                             Header="预览" 
-                             Style="{StaticResource GroupBoxOriginal}"
-                             Margin="0,0,0,10">
-                        <Grid Margin="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <!-- 预览图片 -->
-                            <Border Background="{DynamicResource BackgroundBrush}" 
+                <!-- 预览区域 -->
+                <GroupBox Header="预览" Style="{StaticResource GroupBoxStyle}">
+                    <Grid>
+                        <Viewbox Stretch="Uniform" Margin="10">
+                            <Border Width="960" Height="540"
+                                    Background="#F5F5F5" 
                                     BorderThickness="1" 
-                                    BorderBrush="{DynamicResource BorderBrush}"
-                                    x:Name="PreviewBorder"
-                                    MouseLeftButtonUp="PreviewBorder_MouseLeftButtonUp">
+                                    BorderBrush="#E0E0E0"
+                                    CornerRadius="3"
+                                    x:Name="PreviewBorder">
                                 <Image x:Name="PreviewImage" 
                                        Stretch="Uniform" 
-                                       Margin="5"/>
+                                       RenderOptions.BitmapScalingMode="HighQuality"/>
                             </Border>
+                        </Viewbox>
+                    </Grid>
+                </GroupBox>
 
-                            <!-- 翻页控制 -->
-                            <StackPanel Grid.Column="1" 
-                                      Margin="10,0,0,0" 
-                                      VerticalAlignment="Center">
-                                <Button Content="上一页" 
-                                        x:Name="PrevButton"
-                                        Style="{StaticResource ButtonPrimary}"
-                                        Click="PrevButton_Click"
-                                        Margin="0,0,0,10"
-                                        Width="100"/>
-                                <TextBlock x:Name="PageNumberText" 
-                                         Text="0/0" 
-                                         HorizontalAlignment="Center"
-                                         Margin="0,0,0,10"/>
-                                <Button Content="下一页" 
-                                        x:Name="NextButton"
-                                        Style="{StaticResource ButtonPrimary}"
-                                        Click="NextButton_Click"
-                                        Width="100"/>
-                            </StackPanel>
-                        </Grid>
-                    </GroupBox>
-
-                    <!-- 进度区域 -->
-                    <GroupBox Grid.Row="2" 
-                             Header="处理进度" 
-                             Style="{StaticResource GroupBoxOriginal}">
-                        <Grid Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- 文件名显示 -->
-                            <TextBlock x:Name="FileNameBlock" 
-                                     Text="{Binding FileName}" 
-                                     Margin="0,0,0,10"/>
-
-                            <!-- 进度条 -->
-                            <ProgressBar Grid.Row="1" 
-                                       x:Name="ProgressBar"
-                                       Height="15" 
-                                       Margin="0,0,0,10"/>
-
-                            <!-- 进度信息和按钮 -->
-                            <Grid Grid.Row="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock x:Name="ProgressText" 
-                                             Text="0/0" 
-                                             Margin="0,0,20,0"/>
-                                    <TextBlock x:Name="PercentText" 
-                                             Text="0%"/>
-                                </StackPanel>
-
-                                <StackPanel Grid.Column="2" 
-                                          Orientation="Horizontal">
-                                    <Button Content="取消" 
-                                            x:Name="CancelButton"
-                                            Style="{StaticResource ButtonDefault}"
-                                            Click="CancelButton_Click"
-                                            Margin="0,0,10,0"/>
-                                    <Button Content="开始拆分" 
-                                            x:Name="StartButton"
-                                            Style="{StaticResource ButtonPrimary}"
-                                            Click="StartButton_Click"/>
-                                    <Button Content="完成" 
-                                            x:Name="CompleteButton"
-                                            Style="{StaticResource ButtonSuccess}"
-                                            Click="CompleteButton_Click"
-                                            Visibility="Collapsed"/>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </GroupBox>
+                <!-- 页面导航 -->
+                <Grid Grid.Row="1" Margin="0,9,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="上一页" 
+                            x:Name="PrevButton"
+                            Style="{StaticResource CommonButtonStyle}"
+                            Click="PrevButton_Click"
+                            Height="32"
+                            Grid.Column="1"/>
+                    <TextBlock x:Name="PageNumberText" 
+                             Text="0/0" 
+                             Grid.Column="2"
+                             VerticalAlignment="Center"
+                             Margin="15,0"
+                             FontSize="14"/>
+                    <Button Content="下一页" 
+                            x:Name="NextButton"
+                            Style="{StaticResource CommonButtonStyle}"
+                            Click="NextButton_Click"
+                            Height="32"
+                            Grid.Column="3"
+                            HorizontalAlignment="Left"/>
                 </Grid>
-            </TabItem>
+            </Grid>
 
-            <!-- 批量拆分 -->
-            <TabItem Header="批量拆分">
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+            <!-- 右侧控制面板 -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                    <!-- 文件选择 -->
-                    <Button Content="选择PPT文件" 
-                            x:Name="SelectFilesButton"
-                            Style="{StaticResource ButtonPrimary}"
-                            Click="SelectFilesButton_Click"
-                            HorizontalAlignment="Left"
-                            Margin="0,0,0,10"/>
+                <!-- 拆分设置 -->
+                <GroupBox Header="拆分设置" Style="{StaticResource GroupBoxStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <!-- 文件列表 -->
-                    <ListView Grid.Row="1" 
-                              x:Name="FileListView"
-                              Margin="0,0,0,10">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="文件名" 
-                                              Width="400" 
-                                              DisplayMemberBinding="{Binding Name}"/>
-                                <GridViewColumn Header="状态" 
-                                              Width="100" 
-                                              DisplayMemberBinding="{Binding Status}"/>
-                                <GridViewColumn Header="进度" Width="300">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <ProgressBar Value="{Binding Progress}" 
-                                                       Width="280" 
-                                                       Height="15"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                        <!-- 文件列表 -->
+                        <DockPanel>
+                            <Button Content="添加文件" 
+                                    x:Name="AddFilesButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Click="AddFilesButton_Click"
+                                    Height="32"
+                                    DockPanel.Dock="Right"
+                                    Margin="5,0,0,0"/>
+                            <Button Content="清空列表" 
+                                    x:Name="ClearButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Click="ClearButton_Click"
+                                    Height="32"
+                                    DockPanel.Dock="Right"
+                                    Margin="5,0"/>
+                            <TextBlock Text="已选择文件："
+                                     VerticalAlignment="Center"/>
+                        </DockPanel>
 
-                    <!-- 批量处理按钮 -->
-                    <Button Grid.Row="2" 
-                            Content="开始批量拆分" 
-                            x:Name="StartBatchButton"
-                            Style="{StaticResource ButtonPrimary}"
-                            Click="StartBatchButton_Click"
-                            HorizontalAlignment="Right"/>
-                </Grid>
-            </TabItem>
-        </TabControl>
+                        <ListView x:Name="FileListView" 
+                                 Grid.Row="1"
+                                 Margin="0,8"
+                                 BorderThickness="1"
+                                 BorderBrush="#E0E0E0"
+                                 SelectionMode="Single"
+                                 SelectionChanged="FileListView_SelectionChanged"/>
+
+                        <!-- 拆分选项 -->
+                        <StackPanel Grid.Row="2" Margin="0,8">
+                            <GroupBox Header="拆分方式">
+                                <Grid Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    
+                                    <UniformGrid Columns="3">
+                                        <RadioButton x:Name="SinglePageRadio" 
+                                                   Content="当前页" 
+                                                   IsChecked="True" 
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="5"/>
+                                        <RadioButton x:Name="AllPagesRadio"
+                                                   Content="所有页面"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="5"/>
+                                        <RadioButton x:Name="CustomRangeRadio" 
+                                                   Content="自定范围"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="5"/>
+                                    </UniformGrid>
+                                    
+                                    <TextBox Grid.Row="1"
+                                            x:Name="CustomRangeTextBox" 
+                                            Margin="5"
+                                            Padding="5"
+                                            Height="30"
+                                            IsEnabled="{Binding IsChecked, ElementName=CustomRangeRadio}"
+                                            ToolTip="请输入页码范围，如: 1-3,4-6,7"/>
+                                </Grid>
+                            </GroupBox>
+                        </StackPanel>
+
+                        <!-- 操作按钮 -->
+                        <StackPanel Grid.Row="3" Margin="0,8,0,0">
+                            <Button Content="开始拆分" 
+                                    x:Name="StartButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Click="StartButton_Click"
+                                    Height="32"
+                                    Margin="0,0,0,8"/>
+                            <Button Content="取消" 
+                                    x:Name="CancelButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Background="#F44336"
+                                    Click="CancelButton_Click"
+                                    Height="32"
+                                    Margin="0,0,0,8"/>
+                            <Button Content="完成" 
+                                    x:Name="CompleteButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Background="#4CAF50"
+                                    Click="CompleteButton_Click"
+                                    Height="32"
+                                    Visibility="Collapsed"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+
+        <!-- 底部进度条 -->
+        <Grid Grid.Row="1" Margin="5,10,5,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="处理进度："
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"/>
+            <ProgressBar x:Name="ProgressBar"
+                       Grid.Column="1"
+                       Height="15"
+                       Background="#E0E0E0"
+                       Foreground="#2196F3"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="2"
+                     x:Name="ProgressText" 
+                     Text="0/0" 
+                     Margin="10,0,0,0"
+                     VerticalAlignment="Center"/>
+        </Grid>
     </Grid>
-</Window> 
+</Window>

@@ -4226,10 +4226,8 @@ namespace PresPio
 
         private void button124_Click(object sender, RibbonControlEventArgs e)
             {
-            //Form_CreatGrad form_CreatGrad = GenericSingleton<Form_CreatGrad>.CreateInstrance();
-            //form_CreatGrad.Show();
-            Wpf_colorGrad wpf_ColorGrad = new Wpf_colorGrad();
-            wpf_ColorGrad.Show();
+          
+          
 
             }
 
@@ -6665,11 +6663,10 @@ namespace PresPio
             //Wpf_NameUnification wpf_NameUnification = new Wpf_NameUnification();
             //wpf_NameUnification.Show();
             // 创建并显示 XWindow1
-            XWindow1 window = new XWindow1();
-            window.OpenWindow(@"file:///C:/Users/Administrator/Desktop/Demo/Untitled-6.html", 560, 600);
-            //window.OpenWindow(@"https://chat.tinycms.xyz:2024/#/profile",1200,600);
-            //Page_Shapeset page_Shapeset = new Page_Shapeset();
-            //page_Shapeset.Show();
+            //XWindow1 window = new XWindow1();
+            //window.OpenWindow(@"file:///C:/Users/Administrator/Desktop/Demo/Untitled-6.html", 560, 600);
+            ////window.OpenWindow(@"https://chat.tinycms.xyz:2024/#/profile",1200,600);
+       
 
             }
 
@@ -7893,6 +7890,11 @@ namespace PresPio
             {
             PresPio.Wpf_Form.Wpf_SplitPPT wpf_SplitPPT = new Wpf_Form.Wpf_SplitPPT();
             wpf_SplitPPT.Show();
+            }
+
+        private void button227_Click(object sender, RibbonControlEventArgs e)
+            {
+
             }
         }
     }
