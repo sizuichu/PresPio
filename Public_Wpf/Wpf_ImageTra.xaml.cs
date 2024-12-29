@@ -1,5 +1,4 @@
-﻿using HandyControl.Controls;
-using Microsoft.Office.Core;
+﻿using Microsoft.Office.Core;
 using Microsoft.Office.Interop.PowerPoint;
 using System;
 using System.ComponentModel;
@@ -21,6 +20,7 @@ namespace PresPio
 
         // 图像参数
         private double _overallOpacity = 100;
+
         private double _gradientOpacity = 0;
         private double _gradientAngle = 0;
         private double _brightness = 0;
@@ -33,6 +33,7 @@ namespace PresPio
         public event PropertyChangedEventHandler PropertyChanged;
 
         #region 属性定义
+
         public double OverallOpacity
             {
             get => _overallOpacity;
@@ -130,7 +131,8 @@ namespace PresPio
                     }
                 }
             }
-        #endregion
+
+        #endregion 属性定义
 
         private bool _isInPreviewUpdate = false;
 
@@ -276,6 +278,7 @@ namespace PresPio
             }
 
         #region 滤镜预设
+
         private void OnFilterSoft(object sender, RoutedEventArgs e)
             {
             Brightness = 10;
@@ -313,7 +316,8 @@ namespace PresPio
             Contrast = 10;
             UpdatePreview();
             }
-        #endregion
+
+        #endregion 滤镜预设
 
         private void OnDirectionChanged(object sender, RoutedEventArgs e)
             {

@@ -11,17 +11,17 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <hc:ThemeResources/>
-                <hc:Theme/>
+                <hc:ThemeResources />
+                <hc:Theme />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="ColorButton" TargetType="ToggleButton">
-                <Setter Property="Width" Value="30"/>
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Margin" Value="2"/>
-                <Setter Property="Background" Value="Gray"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <EventSetter Event="Click" Handler="ColorButton_Click"/>
+                <Setter Property="Width" Value="30" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="Background" Value="Gray" />
+                <Setter Property="BorderThickness" Value="0" />
+                <EventSetter Event="Click" Handler="ColorButton_Click" />
             </Style>
         </ResourceDictionary>
     </Window.Resources>
@@ -29,47 +29,47 @@
     <Border Padding="15" Background="#f5f5f5" Height="537" VerticalAlignment="Center" Margin="0,0,2,0">
         <Grid Margin="0,0,-1,-2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="575*"/>
-                <ColumnDefinition Width="296*"/>
+                <ColumnDefinition Width="575*" />
+                <ColumnDefinition Width="296*" />
             </Grid.ColumnDefinitions>
 
             <!-- 左侧面板 -->
-            <Border Background="White" 
-                    CornerRadius="8" 
+            <Border Background="White"
+                    CornerRadius="8"
                     Padding="15"
                     Margin="0,0,18,13">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <!-- 顶部工具栏 -->
                     <DockPanel Grid.Row="0" Margin="0,0,0,10">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="loadImgBtn" 
+                            <Button x:Name="loadImgBtn"
                                     Content="从PPT导入"
                                     Click="loadImgBtn_Click"
                                     Width="80"
-                                    Margin="0,0,8,0"/>
+                                    Margin="0,0,8,0" />
                             <Button Content="本地图片"
                                     Click="Button_Click"
-                                    Width="80"/>
+                                    Width="80" />
                             <TextBlock Text="支持jpg、png等常见图片格式"
                                       Margin="15,0,0,0"
                                       VerticalAlignment="Center"
-                                      Foreground="#666"/>
+                                      Foreground="#666" />
                         </StackPanel>
                     </DockPanel>
 
                     <!-- 图片预览区 -->
-                    <Border Grid.Row="1" 
+                    <Border Grid.Row="1"
                             Background="#fafafa"
                             CornerRadius="4"
                             Margin="0,0,0,10">
-                        <hc:ImageViewer x:Name="ImageViewer"/>
+                        <hc:ImageViewer x:Name="ImageViewer" />
                     </Border>
 
                     <!-- 图片操作按钮组 -->
@@ -77,75 +77,75 @@
                         <Button Content="提取主色"
                                 Click="ExtractMainColor_Click"
                                 Width="80"
-                                Margin="0,0,8,0"/>
+                                Margin="0,0,8,0" />
                         <Button Content="分析配色"
                                 Click="AnalyzeColorScheme_Click"
                                 Width="80"
-                                Margin="0,0,8,0"/>
+                                Margin="0,0,8,0" />
                         <Button Content="智能配色"
                                 Click="SmartColorMatch_Click"
                                 Width="80"
-                                Margin="0,0,8,0"/>
+                                Margin="0,0,8,0" />
                         <Button Content="色彩平衡"
                                 Click="ColorBalance_Click"
-                                Width="80"/>
+                                Width="80" />
                     </WrapPanel>
 
                     <!-- 底部调色板区域 -->
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="109*"/>
-                            <ColumnDefinition Width="86*"/>
+                            <ColumnDefinition Width="109*" />
+                            <ColumnDefinition Width="86*" />
                         </Grid.ColumnDefinitions>
 
                         <!-- 左侧配色组 -->
                         <StackPanel Grid.Column="0" Margin="0,0,10,0">
                             <!-- 主要配色 -->
                             <DockPanel Margin="0,0,0,5">
-                                <TextBlock Text="主要配色" 
+                                <TextBlock Text="主要配色"
                                          FontSize="13"
                                          FontWeight="Bold"
-                                         VerticalAlignment="Center"/>
+                                         VerticalAlignment="Center" />
                                 <Button Content="应用"
                                         Click="Shield_Click"
                                         DockPanel.Dock="Right"
                                         Width="60"
                                         Height="30"
-                                        Margin="140,0,0,0" RenderTransformOrigin="1.303,0.539"/>
+                                        Margin="140,0,0,0" RenderTransformOrigin="1.303,0.539" />
                             </DockPanel>
                             <UniformGrid Rows="1" Columns="8" Margin="0,0,0,0">
-                                <ToggleButton x:Name="ToggleButton1" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton2" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton3" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton4" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton5" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton6" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton7" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton8" Style="{StaticResource ColorButton}"/>
+                                <ToggleButton x:Name="ToggleButton1" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton2" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton3" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton4" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton5" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton6" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton7" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton8" Style="{StaticResource ColorButton}" />
                             </UniformGrid>
 
                             <!-- 辅助配色 -->
                             <DockPanel Margin="0,10,0,5">
-                                <TextBlock Text="辅助配色" 
+                                <TextBlock Text="辅助配色"
                                          FontSize="13"
                                          FontWeight="Bold"
-                                         VerticalAlignment="Center"/>
+                                         VerticalAlignment="Center" />
                                 <Button Content="应用"
                                         Click="Shield_Click_1"
                                         DockPanel.Dock="Right"
                                         Width="60"
                                         Height="30"
-                                        Margin="140,0,3,0" RenderTransformOrigin="1.119,0.648"/>
+                                        Margin="140,0,3,0" RenderTransformOrigin="1.119,0.648" />
                             </DockPanel>
                             <UniformGrid Rows="1" Columns="8" Margin="0,0,0,0">
-                                <ToggleButton x:Name="ToggleButton9" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton10" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton11" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton12" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton13" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton14" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton15" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton16" Style="{StaticResource ColorButton}"/>
+                                <ToggleButton x:Name="ToggleButton9" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton10" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton11" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton12" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton13" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton14" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton15" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton16" Style="{StaticResource ColorButton}" />
                             </UniformGrid>
                         </StackPanel>
 
@@ -153,30 +153,30 @@
                         <StackPanel Grid.Column="1" Margin="10,0,0,0">
                             <!-- 主题配色 -->
                             <DockPanel Margin="0,0,0,5">
-                                <TextBlock Text="主题配色" 
+                                <TextBlock Text="主题配色"
                                          FontSize="13"
                                          FontWeight="Bold"
-                                         VerticalAlignment="Center"/>
+                                         VerticalAlignment="Center" />
                                 <Button Content="应用"
                                         Click="Shield_Click_2"
                                         DockPanel.Dock="Right"
                                         Width="60"
                                         Height="30"
-                                        Margin="95,0,5,0"/>
+                                        Margin="95,0,5,0" />
                             </DockPanel>
                             <UniformGrid Rows="2" Columns="6" Margin="5,0,5,0">
-                                <ToggleButton x:Name="ToggleButton17" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton18" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton19" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton20" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton21" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton22" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton23" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton24" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton25" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton26" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton27" Style="{StaticResource ColorButton}"/>
-                                <ToggleButton x:Name="ToggleButton28" Style="{StaticResource ColorButton}"/>
+                                <ToggleButton x:Name="ToggleButton17" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton18" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton19" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton20" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton21" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton22" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton23" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton24" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton25" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton26" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton27" Style="{StaticResource ColorButton}" />
+                                <ToggleButton x:Name="ToggleButton28" Style="{StaticResource ColorButton}" />
                             </UniformGrid>
                         </StackPanel>
                     </Grid>
@@ -184,52 +184,52 @@
             </Border>
 
             <!-- 右侧面板 -->
-            <Border Grid.Column="1" 
+            <Border Grid.Column="1"
                     Background="White"
                     CornerRadius="8"
                     Padding="15"
                     Margin="10,0,0,15">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <!-- 颜色选择器弹出框 -->
-                    <Popup x:Name="ColorPickerPopup" 
-                           StaysOpen="False" 
+                    <Popup x:Name="ColorPickerPopup"
+                           StaysOpen="False"
                            Placement="Mouse"
                            Closed="ColorPickerPopup_Closed">
-                        <Border Background="White" 
-                                BorderBrush="#ddd" 
-                                BorderThickness="1" 
+                        <Border Background="White"
+                                BorderBrush="#ddd"
+                                BorderThickness="1"
                                 CornerRadius="4"
                                 Padding="10">
                             <hc:ColorPicker x:Name="ColorPicker"
                                            Width="240"
                                            Height="360"
                                            Confirmed="ColorPicker_Confirmed"
-                                           SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
+                                           SelectedColorChanged="ColorPicker_SelectedColorChanged" />
                         </Border>
                     </Popup>
 
                     <!-- 功能按钮区 -->
-                    <ScrollViewer Grid.Row="1" 
+                    <ScrollViewer Grid.Row="1"
                                  VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <!-- 预设方案 -->
                             <GroupBox Header="预设方案" Margin="0,0,0,10">
                                 <StackPanel>
                                     <ComboBox x:Name="PresetComboBox" Margin="0,5,0,5">
-                                        <ComboBoxItem Content="经典配色"/>
-                                        <ComboBoxItem Content="现代简约"/>
-                                        <ComboBoxItem Content="自然清新"/>
-                                        <ComboBoxItem Content="科技感"/>
-                                        <ComboBoxItem Content="商务专业"/>
+                                        <ComboBoxItem Content="经典配色" />
+                                        <ComboBoxItem Content="现代简约" />
+                                        <ComboBoxItem Content="自然清新" />
+                                        <ComboBoxItem Content="科技感" />
+                                        <ComboBoxItem Content="商务专业" />
                                     </ComboBox>
-                                    <Button Content="应用预设" 
+                                    <Button Content="应用预设"
                                             Click="ApplyPreset_Click"
-                                            Margin="0,5,0,0"/>
+                                            Margin="0,5,0,0" />
                                 </StackPanel>
                             </GroupBox>
 
@@ -239,11 +239,11 @@
                                     <Button Content="创建主题"
                                             Click="Button_Click_2"
                                             Width="100"
-                                            Margin="5,5,5,5"/>
+                                            Margin="5,5,5,5" />
                                     <Button Content="导入主题"
                                             Click="GetThemeColor_Click"
                                             Width="100"
-                                            Margin="5,5,0,5"/>
+                                            Margin="5,5,0,5" />
                                 </WrapPanel>
                             </GroupBox>
 
@@ -253,15 +253,15 @@
                                     <Button Content="保存配色"
                                             Click="SaveColorScheme_Click"
                                              Width="100"
-  Margin="5,5,0,5"/>
+  Margin="5,5,0,5" />
     <Button Content="导入配色"
                                             Click="ImportColorScheme_Click"
                                              Width="100"
-  Margin="5,5,0,5"/>
+  Margin="5,5,0,5" />
                                     <Button Content="导出色卡"
                                             Click="ExportPalette_Click"
                                              Width="100"
-  Margin="5,5,0,5"/>
+  Margin="5,5,0,5" />
                                 </WrapPanel>
                             </GroupBox>
 
@@ -271,11 +271,11 @@
                                     <Button Content="复制色值"
                                             Click="CopyColorValue_Click"
                                              Width="100"
-  Margin="5,5,0,5"/>
+  Margin="5,5,0,5" />
                                     <Button Content="粘贴色值"
                                             Click="PasteColorValue_Click"
                                             Width="100"
-  Margin="5,5,0,5"/>
+  Margin="5,5,0,5" />
                                 </WrapPanel>
                             </GroupBox>
                         </StackPanel>

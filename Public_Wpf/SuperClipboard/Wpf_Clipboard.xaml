@@ -107,14 +107,10 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-
                             </UniformGrid>
                         </DataTemplate>
                     </TabControl.ContentTemplate>
                 </TabControl>
-
-
-
             </Grid>
         </StackPanel>
         <hc:Drawer
@@ -182,10 +178,6 @@
             <Button Content="按钮名称" />
             <Button Content="按钮名称" />
             <Button Content="按钮名称" />
-
         </hc:ButtonGroup>
-
-
-
     </Grid>
 </Window>

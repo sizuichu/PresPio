@@ -1,30 +1,32 @@
-﻿using System;
+﻿using Microsoft.Office.Core;
 
-using Microsoft.Office.Core;
+using System;
 
 namespace PresPio.Function
     {
-    internal class MyCustomTaskPane {
-   
+    internal class MyCustomTaskPane
+        {
         private CustomTaskPane taskPane;
 
-        public MyCustomTaskPane() {
+        public MyCustomTaskPane()
+            {
             // 创建自定义窗格
-       
-        
-         }
+            }
 
-        void taskPane_DialogLauncherClick(object sender, EventArgs e) {
+        private void taskPane_DialogLauncherClick(object sender, EventArgs e)
+            {
             CustomTaskPane taskPane = (CustomTaskPane)sender;
 
-            if (taskPane.Visible) {
+            if (taskPane.Visible)
+                {
                 // 自定义窗格已经打开，将其关闭
                 taskPane.Visible = false;
-            }
-            else {
+                }
+            else
+                {
                 // 自定义窗格尚未打开，将其打开
                 taskPane.Visible = true;
+                }
             }
         }
     }
-}

@@ -26,34 +26,34 @@
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="350" />
         </Grid.ColumnDefinitions>
 
         <!-- 左侧区域：预览和历史记录 -->
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="200" />
             </Grid.RowDefinitions>
 
             <!-- 预览区域 -->
-            <TextBlock Text="图片预览" FontSize="12" Style="{StaticResource TextBlockTitle}" Margin="0,0,0,5"/>
+            <TextBlock Text="图片预览" FontSize="12" Style="{StaticResource TextBlockTitle}" Margin="0,0,0,5" />
             <DockPanel Grid.Row="1">
                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                    <Button Content="上一张" Width="80" Height="30" Margin="0,0,10,0" Click="PreviousSlide_Click"/>
-                    <TextBlock x:Name="SlideCountText" VerticalAlignment="Center" Margin="10,0"/>
-                    <Button Content="下一张" Width="80" Height="30" Margin="10,0,0,0" Click="NextSlide_Click"/>
+                    <Button Content="上一张" Width="80" Height="30" Margin="0,0,10,0" Click="PreviousSlide_Click" />
+                    <TextBlock x:Name="SlideCountText" VerticalAlignment="Center" Margin="10,0" />
+                    <Button Content="下一张" Width="80" Height="30" Margin="10,0,0,0" Click="NextSlide_Click" />
                 </StackPanel>
-                <Border BorderBrush="{DynamicResource BorderBrush}" 
-                        BorderThickness="1" 
+                <Border BorderBrush="{DynamicResource BorderBrush}"
+                        BorderThickness="1"
                         CornerRadius="4">
                     <hc:ImageViewer
                         Name="ImageViewer"
-                        Background="WhiteSmoke"/>
+                        Background="WhiteSmoke" />
                 </Border>
             </DockPanel>
 
@@ -65,11 +65,11 @@
                 <ListView ItemsSource="{Binding ExportHistories}" Margin="10">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="时间" DisplayMemberBinding="{Binding ExportTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" Width="150"/>
-                            <GridViewColumn Header="格式" DisplayMemberBinding="{Binding Format}" Width="50"/>
-                            <GridViewColumn Header="DPI" DisplayMemberBinding="{Binding DPI}" Width="50"/>
-                            <GridViewColumn Header="数量" DisplayMemberBinding="{Binding SlideCount}" Width="50"/>
-                            <GridViewColumn Header="路径" DisplayMemberBinding="{Binding Path}" Width="200"/>
+                            <GridViewColumn Header="时间" DisplayMemberBinding="{Binding ExportTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" Width="150" />
+                            <GridViewColumn Header="格式" DisplayMemberBinding="{Binding Format}" Width="50" />
+                            <GridViewColumn Header="DPI" DisplayMemberBinding="{Binding DPI}" Width="50" />
+                            <GridViewColumn Header="数量" DisplayMemberBinding="{Binding SlideCount}" Width="50" />
+                            <GridViewColumn Header="路径" DisplayMemberBinding="{Binding Path}" Width="200" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -85,24 +85,24 @@
                      Header="基本设置">
                 <StackPanel Margin="10">
                     <DockPanel Margin="0,0,0,10">
-                        <TextBlock Text="格式：" Width="60" VerticalAlignment="Center"/>
+                        <TextBlock Text="格式：" Width="60" VerticalAlignment="Center" />
                         <hc:ButtonGroup Name="ButtonGroups">
-                            <RadioButton x:Name="RadioButtonJpg" Content="Jpg" Style="{StaticResource RadioButtonIcon}" Checked="RadioButton_Checked"/>
-                            <RadioButton x:Name="RadioButtonPng" Content="Png" Style="{StaticResource RadioButtonIcon}" IsChecked="True" Checked="RadioButton_Checked"/>
-                            <RadioButton x:Name="RadioButtonGif" Content="Gif" Style="{StaticResource RadioButtonIcon}" Checked="RadioButton_Checked"/>
-                            <RadioButton x:Name="RadioButtonTif" Content="Tif" Style="{StaticResource RadioButtonIcon}" Checked="RadioButton_Checked"/>
-                            <RadioButton x:Name="RadioButtonBmp" Content="Bmp" Style="{StaticResource RadioButtonIcon}" Checked="RadioButton_Checked"/>
+                            <RadioButton x:Name="RadioButtonJpg" Content="Jpg" Style="{StaticResource RadioButtonIcon}" Checked="RadioButton_Checked" />
+                            <RadioButton x:Name="RadioButtonPng" Content="Png" Style="{StaticResource RadioButtonIcon}" IsChecked="True" Checked="RadioButton_Checked" />
+                            <RadioButton x:Name="RadioButtonGif" Content="Gif" Style="{StaticResource RadioButtonIcon}" Checked="RadioButton_Checked" />
+                            <RadioButton x:Name="RadioButtonTif" Content="Tif" Style="{StaticResource RadioButtonIcon}" Checked="RadioButton_Checked" />
+                            <RadioButton x:Name="RadioButtonBmp" Content="Bmp" Style="{StaticResource RadioButtonIcon}" Checked="RadioButton_Checked" />
                         </hc:ButtonGroup>
                     </DockPanel>
 
                     <DockPanel Margin="0,0,0,10">
-                        <TextBlock Text="DPI：" Width="60" VerticalAlignment="Center"/>
-                        <hc:ComboBox Name="DpiComBox" SelectionChanged="DpiComBox_SelectionChanged" Width="120"/>
+                        <TextBlock Text="DPI：" Width="60" VerticalAlignment="Center" />
+                        <hc:ComboBox Name="DpiComBox" SelectionChanged="DpiComBox_SelectionChanged" Width="120" />
                     </DockPanel>
 
                     <DockPanel>
-                        <TextBlock Text="尺寸：" Width="60" VerticalAlignment="Center"/>
-                        <TextBox Name="SizeTextBox" IsReadOnly="True"/>
+                        <TextBlock Text="尺寸：" Width="60" VerticalAlignment="Center" />
+                        <TextBox Name="SizeTextBox" IsReadOnly="True" />
                     </DockPanel>
                 </StackPanel>
             </hc:Card>
@@ -114,60 +114,60 @@
                      Header="高级设置">
                 <StackPanel Margin="10">
                     <DockPanel Margin="0,0,0,10">
-                        <TextBlock Text="JPG质量：" Width="60" VerticalAlignment="Center"/>
-                        <hc:NumericUpDown Name="QualityUpDown" Value="{Binding Settings.Quality}" Minimum="1" Maximum="100" Width="100"/>
-                        <TextBlock Text="%" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="JPG质量：" Width="60" VerticalAlignment="Center" />
+                        <hc:NumericUpDown Name="QualityUpDown" Value="{Binding Settings.Quality}" Minimum="1" Maximum="100" Width="100" />
+                        <TextBlock Text="%" Margin="5,0,0,0" VerticalAlignment="Center" />
                     </DockPanel>
 
                     <DockPanel Margin="0,0,0,10">
-                        <TextBlock Text="命名规则：" Width="60" VerticalAlignment="Center"/>
-                        <TextBox Text="{Binding Settings.NamePattern}" ToolTip="可用变量：{filename} - 文件名，{number} - 页码"/>
+                        <TextBlock Text="命名规则：" Width="60" VerticalAlignment="Center" />
+                        <TextBox Text="{Binding Settings.NamePattern}" ToolTip="可用变量：{filename} - 文件名，{number} - 页码" />
                     </DockPanel>
 
                     <DockPanel>
-                        <TextBlock Text="选项：" Width="60" VerticalAlignment="Top"/>
+                        <TextBlock Text="选项：" Width="60" VerticalAlignment="Top" />
                         <StackPanel>
-                            <CheckBox Content="导出后打开文件夹" IsChecked="{Binding Settings.OpenAfterExport}" Margin="0,0,0,5"/>
-                            <CheckBox Content="创建子文件夹" IsChecked="{Binding Settings.CreateSubFolder}"/>
+                            <CheckBox Content="导出后打开文件夹" IsChecked="{Binding Settings.OpenAfterExport}" Margin="0,0,0,5" />
+                            <CheckBox Content="创建子文件夹" IsChecked="{Binding Settings.CreateSubFolder}" />
                         </StackPanel>
                     </DockPanel>
                 </StackPanel>
             </hc:Card>
 
             <!-- 导出路径区域 -->
-            <Border BorderBrush="{DynamicResource BorderBrush}" 
-                    BorderThickness="1" 
+            <Border BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
                     CornerRadius="4"
                     Padding="10"
                     Margin="0,0,0,10">
                 <DockPanel>
-                    <TextBlock Text="导出路径：" Width="60" VerticalAlignment="Center"/>
-                    <Button Name="FolderSelect" 
-                            Content="浏览" 
-                            Width="60" 
+                    <TextBlock Text="导出路径：" Width="60" VerticalAlignment="Center" />
+                    <Button Name="FolderSelect"
+                            Content="浏览"
+                            Width="60"
                             Height="30"
-                            Click="FolderSelect_Click" 
-                            DockPanel.Dock="Right"/>
-                    <TextBox Name="filePath" 
-                            Text="{Binding ExportPath}" 
-                            Margin="0,0,10,0" 
+                            Click="FolderSelect_Click"
+                            DockPanel.Dock="Right" />
+                    <TextBox Name="filePath"
+                            Text="{Binding ExportPath}"
+                            Margin="0,0,10,0"
                             Height="30"
-                            VerticalContentAlignment="Center"/>
+                            VerticalContentAlignment="Center" />
                 </DockPanel>
             </Border>
 
             <!-- 进度条 -->
-            <Border BorderBrush="{DynamicResource BorderBrush}" 
-                    BorderThickness="1" 
+            <Border BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
                     CornerRadius="4"
                     Padding="10"
                     Margin="0,0,0,10">
                 <StackPanel>
-                    <ProgressBar Name="ProgressBar" Height="20"/>
-                    <TextBlock Name="ProgressText" 
-                              Text="准备就绪" 
-                              HorizontalAlignment="Center" 
-                              Margin="0,5,0,0"/>
+                    <ProgressBar Name="ProgressBar" Height="20" />
+                    <TextBlock Name="ProgressText"
+                              Text="准备就绪"
+                              HorizontalAlignment="Center"
+                              Margin="0,5,0,0" />
                 </StackPanel>
             </Border>
 
@@ -175,7 +175,7 @@
             <Button Content="导出图片"
                     Style="{StaticResource ButtonPrimary}"
                     Height="40"
-                    Click="Button_Click"/>
+                    Click="Button_Click" />
         </StackPanel>
     </Grid>
 </hc:Window>

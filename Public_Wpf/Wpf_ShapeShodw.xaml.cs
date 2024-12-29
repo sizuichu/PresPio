@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Media;
-using HandyControl.Controls;
+﻿using HandyControl.Controls;
 using HandyControl.Tools;
 using Microsoft.Office.Core;
+using System.Windows;
+using System.Windows.Media;
 
 namespace PresPio
     {
@@ -10,16 +10,17 @@ namespace PresPio
     /// Wpf_ShapeShodw.xaml 的交互逻辑
     /// </summary>
     public partial class Wpf_ShapeShodw
-    {
+        {
         public Wpf_ShapeShodw()
-        {
+            {
             InitializeComponent();
-        }
+            }
+
         private void GrowWinDow_Loaded(object sender, RoutedEventArgs e)
-        {
+            {
             //获取设置
-           ShodwTra.Value = (int)Properties.Settings.Default.ShodwTra;
-           ShodwSize.Value = (int)Properties.Settings.Default.ShodwSize;
+            ShodwTra.Value = (int)Properties.Settings.Default.ShodwTra;
+            ShodwSize.Value = (int)Properties.Settings.Default.ShodwSize;
             ShodwBlur.Value = (int)Properties.Settings.Default.ShodwBlur;
             ShodwX.Value = (int)Properties.Settings.Default.ShodwX;
 
@@ -36,58 +37,56 @@ namespace PresPio
 
             //加载边框按钮
             if (Properties.Settings.Default.ShodwCheck == MsoTriState.msoTrue)
-            {
+                {
                 CheckBtn.IsChecked = true;
-            }
+                }
             else
-            {
+                {
                 CheckBtn.IsChecked = false;
+                }
             }
-        }
 
         private void CheckBtn_Checked(object sender, RoutedEventArgs e)
-        {
-            if (CheckBtn.IsChecked==true)
             {
+            if (CheckBtn.IsChecked == true)
+                {
                 Properties.Settings.Default.ShodwCheck = Microsoft.Office.Core.MsoTriState.msoTrue;
-            }
+                }
             else
-            {
+                {
                 Properties.Settings.Default.ShodwCheck = Microsoft.Office.Core.MsoTriState.msoFalse;
-
-            }
+                }
             Properties.Settings.Default.Save();
-        }
+            }
 
         private void ShodwTra_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
-        {
-          
+            {
             Properties.Settings.Default.ShodwTra = ShodwTra.Value;
             Properties.Settings.Default.Save();
-        }
+            }
 
         private void ShodwSize_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
-        {
+            {
             Properties.Settings.Default.ShodwSize = (float)ShodwSize.Value;
             Properties.Settings.Default.Save();
-        }
+            }
 
         private void ShodwBlur_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
-        {
+            {
             Properties.Settings.Default.ShodwBlur = (float)ShodwBlur.Value;
             Properties.Settings.Default.Save();
-        }
+            }
 
         private void ShodwX_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
-        {
+            {
             Properties.Settings.Default.ShodwX = (float)ShodwX.Value;
             Properties.Settings.Default.Save();
-        }
+            }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
+            {
             //恢复默认值
-           CheckBtn.IsChecked = false;
+            CheckBtn.IsChecked = false;
             Properties.Settings.Default.ShodwTra = 85;
             ShodwTra.Value = 85;
             Properties.Settings.Default.ShodwSize = 102;
@@ -97,19 +96,19 @@ namespace PresPio
             Properties.Settings.Default.ShodwX = 0;
             ShodwX.Value = 0;
             Properties.Settings.Default.Save();
-        }
+            }
 
         private void ColorBtn_Click(object sender, RoutedEventArgs e)
-        {
+            {
             var picker = SingleOpenHelper.CreateControl<ColorPicker>();
             var window = new PopupWindow
-            {
+                {
                 PopupElement = picker,
                 AllowsTransparency = true,
                 WindowStyle = WindowStyle.None,
                 MinWidth = 0,
                 MinHeight = 0,
-            };
+                };
 
             // 获取当前窗口的位置
             var ownerWindow = System.Windows.Window.GetWindow(this);
@@ -143,17 +142,17 @@ namespace PresPio
             picker.Canceled += (colorPicker, args) => window.Close();
 
             window.Show();
-        }
+            }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
+            {
             this.Close();
-        }
+            }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
+            {
             Growl.SuccessGlobal("设置成功！");
             this.Close();
+            }
         }
     }
-}

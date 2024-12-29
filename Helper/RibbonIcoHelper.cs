@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Text;
-using System.IO;
 using System.Runtime.InteropServices;
 
 namespace PresPio
@@ -9,6 +8,7 @@ namespace PresPio
     public class RibbonIcoHelper
         {
         private static Font segoeFluentFont;
+
         // 从应用程序设置中获取图标颜色
         public Color iconColor = Properties.Settings.Default.iconColor;
 
@@ -156,7 +156,7 @@ namespace PresPio
                 }
             catch (Exception ex)
                 {
-                System.Windows.Forms.MessageBox.Show($"加载图标时出错: {ex.Message}", "错误", 
+                System.Windows.Forms.MessageBox.Show($"加载图标时出错: {ex.Message}", "错误",
                     System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 }
             }

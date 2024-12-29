@@ -1,12 +1,12 @@
-﻿using System;
+﻿using HandyControl.Controls;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using HandyControl.Controls;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
+
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 
 namespace PresPio
@@ -17,6 +17,7 @@ namespace PresPio
     public partial class Wpf_shapeCohesion : HandyControl.Controls.Window
         {
         public PowerPoint.Application app;
+
         public Wpf_shapeCohesion()
             {
             InitializeComponent();
@@ -276,11 +277,7 @@ namespace PresPio
 
                             break;
                             }
-
-
                     }
-
-
                 }
             else
                 Growl.Warning("请选择两个形状");

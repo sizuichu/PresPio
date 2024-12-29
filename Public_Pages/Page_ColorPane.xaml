@@ -12,8 +12,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- 顶部控制面板 -->
@@ -29,38 +29,38 @@
                         BorderBrush="Gray"
                         BorderThickness="1"
                         CornerRadius="5"
-                        Margin="0,0,5,0"/>
+                        Margin="0,0,5,0" />
 
                 <!-- 颜色值输入框 -->
                 <TextBox x:Name="HexInput"
                          Text="{Binding CurrentColorHex, UpdateSourceTrigger=PropertyChanged}"
                          hc:InfoElement.Placeholder="#RRGGBB"
-                         VerticalAlignment="Center"/>
+                         VerticalAlignment="Center" />
             </DockPanel>
 
             <!-- 透明度滑块 -->
             <DockPanel Margin="0,0,0,5">
-                <TextBlock Text="透明度:" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                <TextBlock Text="{Binding CurrentOpacity, StringFormat={}{0:F0}%}" DockPanel.Dock="Right" Width="35" TextAlignment="Right" VerticalAlignment="Center"/>
+                <TextBlock Text="透明度:" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,0,5,0" />
+                <TextBlock Text="{Binding CurrentOpacity, StringFormat={}{0:F0}%}" DockPanel.Dock="Right" Width="35" TextAlignment="Right" VerticalAlignment="Center" />
                 <Slider x:Name="OpacitySlider"
                         Minimum="0"
                         Maximum="100"
                         Value="{Binding CurrentOpacity}"
                         TickFrequency="10"
                         TickPlacement="None"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Center" />
             </DockPanel>
 
             <!-- 分隔线 -->
-            <Separator Margin="0,5"/>
+            <Separator Margin="0,5" />
 
             <!-- 最近使用的颜色 -->
-            <TextBlock Text="最近使用" Margin="0,5"/>
+            <TextBlock Text="最近使用" Margin="0,5" />
             <WrapPanel Width="210">
                 <ItemsControl ItemsSource="{Binding RecentColors}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel/>
+                            <WrapPanel />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
@@ -73,7 +73,7 @@
                                     BorderThickness="1"
                                     MouseDown="OnRecentColorClick">
                                 <Border.Clip>
-                                    <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14"/>
+                                    <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14" />
                                 </Border.Clip>
                             </Border>
                         </DataTemplate>
@@ -83,11 +83,11 @@
 
             <!-- 收藏夹颜色 -->
             <DockPanel Margin="0,5">
-                <TextBlock Text="收藏夹" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="收藏夹" DockPanel.Dock="Left" VerticalAlignment="Center" />
                 <ItemsControl ItemsSource="{Binding FavoriteColors}" DockPanel.Dock="Right">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Width="198"/>
+                            <WrapPanel Width="198" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
@@ -101,7 +101,7 @@
                                     MouseDown="OnFavoriteColorClick"
                                     ToolTip="点击应用颜色">
                                 <Border.Clip>
-                                    <EllipseGeometry Center="7.5,7.5" RadiusX="7" RadiusY="7"/>
+                                    <EllipseGeometry Center="7.5,7.5" RadiusX="7" RadiusY="7" />
                                 </Border.Clip>
                             </Border>
                         </DataTemplate>
@@ -118,22 +118,22 @@
                     <ItemsControl ItemsSource="{Binding Colors}" Margin="5">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="6"/>
+                                <UniformGrid Columns="6" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Width="30" Height="30" Margin="3" 
+                                <Button Width="30" Height="30" Margin="3"
                                         Click="ColorButton_Click"
                                         ToolTip="{Binding ColorName}">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Grid>
-                                                <Ellipse Fill="{Binding BackgroundColor}" 
+                                                <Ellipse Fill="{Binding BackgroundColor}"
                                                          Stroke="LightGray"
-                                                         StrokeThickness="1"/>
-                                                <ContentPresenter HorizontalAlignment="Center" 
-                                                                VerticalAlignment="Center"/>
+                                                         StrokeThickness="1" />
+                                                <ContentPresenter HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center" />
                                             </Grid>
                                         </ControlTemplate>
                                     </Button.Template>
@@ -152,11 +152,11 @@
                             <DataTemplate>
                                 <Border Margin="5" BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
                                     <StackPanel>
-                                        <TextBlock Text="{Binding GroupName}" Margin="5" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding GroupName}" Margin="5" FontWeight="Bold" />
                                         <ItemsControl ItemsSource="{Binding Colors}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <UniformGrid Columns="6" Rows="2"/>
+                                                    <UniformGrid Columns="6" Rows="2" />
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
@@ -170,7 +170,7 @@
                                                             MouseDown="OnMorandiColorClick"
                                                             ToolTip="{Binding ColorName}">
                                                         <Border.Clip>
-                                                            <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14"/>
+                                                            <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14" />
                                                         </Border.Clip>
                                                     </Border>
                                                 </DataTemplate>
@@ -192,11 +192,11 @@
                             <DataTemplate>
                                 <Border Margin="5" BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
                                     <StackPanel>
-                                        <TextBlock Text="{Binding GroupName}" Margin="5" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding GroupName}" Margin="5" FontWeight="Bold" />
                                         <ItemsControl ItemsSource="{Binding Colors}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <UniformGrid Columns="6" Rows="2"/>
+                                                    <UniformGrid Columns="6" Rows="2" />
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
@@ -210,7 +210,7 @@
                                                             MouseDown="OnMorandiColorClick"
                                                             ToolTip="{Binding ColorName}">
                                                         <Border.Clip>
-                                                            <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14"/>
+                                                            <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14" />
                                                         </Border.Clip>
                                                     </Border>
                                                 </DataTemplate>
@@ -232,11 +232,11 @@
                             <DataTemplate>
                                 <Border Margin="5" BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
                                     <StackPanel>
-                                        <TextBlock Text="{Binding GroupName}" Margin="5" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding GroupName}" Margin="5" FontWeight="Bold" />
                                         <ItemsControl ItemsSource="{Binding Colors}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <UniformGrid Columns="6" Rows="2"/>
+                                                    <UniformGrid Columns="6" Rows="2" />
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
@@ -250,7 +250,7 @@
                                                             MouseDown="OnMorandiColorClick"
                                                             ToolTip="{Binding ColorName}">
                                                         <Border.Clip>
-                                                            <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14"/>
+                                                            <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14" />
                                                         </Border.Clip>
                                                     </Border>
                                                 </DataTemplate>
@@ -272,11 +272,11 @@
                             <DataTemplate>
                                 <Border Margin="5" BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
                                     <StackPanel>
-                                        <TextBlock Text="{Binding GroupName}" Margin="5" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding GroupName}" Margin="5" FontWeight="Bold" />
                                         <ItemsControl ItemsSource="{Binding Colors}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <UniformGrid Columns="6" Rows="2"/>
+                                                    <UniformGrid Columns="6" Rows="2" />
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
@@ -290,7 +290,7 @@
                                                             MouseDown="OnMorandiColorClick"
                                                             ToolTip="{Binding ColorName}">
                                                         <Border.Clip>
-                                                            <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14"/>
+                                                            <EllipseGeometry Center="15,15" RadiusX="14" RadiusY="14" />
                                                         </Border.Clip>
                                                     </Border>
                                                 </DataTemplate>

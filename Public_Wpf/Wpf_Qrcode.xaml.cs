@@ -1,19 +1,15 @@
-﻿using System;
+﻿using HandyControl.Controls;
+using QRCoder;
+using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Microsoft.Win32;
-using QRCoder;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Drawing.Imaging;
-using Microsoft.Office.Interop.PowerPoint;
-using Microsoft.Office.Core;
-using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
-using HandyControl.Controls;
+using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 
 namespace PresPio
     {
@@ -60,12 +56,15 @@ namespace PresPio
                 case "中 (M)":
                     eccLevel = QRCodeGenerator.ECCLevel.M;
                     break;
+
                 case "较高 (Q)":
                     eccLevel = QRCodeGenerator.ECCLevel.Q;
                     break;
+
                 case "高 (H)":
                     eccLevel = QRCodeGenerator.ECCLevel.H;
                     break;
+
                 default:
                     eccLevel = QRCodeGenerator.ECCLevel.L;
                     break;

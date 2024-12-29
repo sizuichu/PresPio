@@ -1,16 +1,17 @@
-﻿using System;
+﻿using HandyControl.Controls;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
-using HandyControl.Controls;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using MessageBox = System.Windows.Forms.MessageBox;
-using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using System.Xml.Linq;
+using MessageBox = System.Windows.Forms.MessageBox;
+
+using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 
 namespace PresPio
     {
@@ -122,7 +123,7 @@ namespace PresPio
             try
                 {
                 mockupItems.Clear();
-                
+
                 // 加载配置文件中的样机
                 LoadMockupConfig();
 
@@ -170,8 +171,8 @@ namespace PresPio
             if (!string.IsNullOrWhiteSpace(searchText))
                 {
                 searchText = searchText.ToLower();
-                query = query.Where(item => 
-                    item.Name.ToLower().Contains(searchText) || 
+                query = query.Where(item =>
+                    item.Name.ToLower().Contains(searchText) ||
                     item.Path.ToLower().Contains(searchText));
                 }
 
@@ -219,7 +220,7 @@ namespace PresPio
                         mockupItems.Add(newMockup);
                         SaveMockupConfig();
                         LoadMockupList();
-                        
+
                         if (newMockup.IsDefault)
                             {
                             Properties.Settings.Default.MockupUrl = targetPath;
@@ -263,7 +264,7 @@ namespace PresPio
                 {
                 try
                     {
-                    if (MessageBox.Show("确定要删除这个样机吗？", "确认删除", 
+                    if (MessageBox.Show("确定要删除这个样机吗？", "确认删除",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                         {
                         File.Delete(mockupPath);
@@ -372,9 +373,9 @@ namespace PresPio
                 // 为每个样机创建唯一的预览文件夹
                 string mockupName = Path.GetFileNameWithoutExtension(mockupPath);
                 string previewFolderPath = Path.Combine(location, "MocKup", "Previews", mockupName);
-                
+
                 // 检查是否需要生成预览图
-                bool needsGenerate = forceGenerate || !Directory.Exists(previewFolderPath) || 
+                bool needsGenerate = forceGenerate || !Directory.Exists(previewFolderPath) ||
                                    !Directory.GetFiles(previewFolderPath, "*.png").Any();
 
                 if (!needsGenerate)
@@ -412,7 +413,7 @@ namespace PresPio
                         int num = pre.Slides.Count;
 
                         // 导出新的预览图
-                        for (int i = 1; i <= num; i++)
+                        for (int i = 1 ; i <= num ; i++)
                             {
                             string tempImagePath = Path.Combine(previewFolderPath, $"Slide_{i}.png");
                             float slideWidth = pre.SlideMaster.Width;
@@ -481,7 +482,7 @@ namespace PresPio
                     {
                     var imageFiles = Directory.GetFiles(previewFolderPath, "*.png")
                                             .OrderBy(f => int.Parse(Path.GetFileNameWithoutExtension(f).Split('_')[1]));
-                    
+
                     if (imageFiles.Any())
                         {
                         var imageList = new List<System.Windows.Media.Imaging.BitmapImage>();
@@ -495,27 +496,27 @@ namespace PresPio
                             bitmap.Freeze(); // 提高性能
                             imageList.Add(bitmap);
                             }
-                        
+
                         // 使用Dispatcher确保在UI线程上更新
                         System.Windows.Application.Current.Dispatcher.Invoke(() =>
                             {
-                            CoverFlowMain.Items.Clear();
-                            foreach (var image in imageList)
-                                {
-                                CoverFlowMain.Items.Add(image);
-                                }
-                            if (CoverFlowMain.Items.Count > 0)
-                                {
-                                CoverFlowMain.SelectedIndex = 0;
-                                CoverFlowMain.ScrollIntoView(CoverFlowMain.SelectedItem);
-                                }
+                                CoverFlowMain.Items.Clear();
+                                foreach (var image in imageList)
+                                    {
+                                    CoverFlowMain.Items.Add(image);
+                                    }
+                                if (CoverFlowMain.Items.Count > 0)
+                                    {
+                                    CoverFlowMain.SelectedIndex = 0;
+                                    CoverFlowMain.ScrollIntoView(CoverFlowMain.SelectedItem);
+                                    }
                             });
                         }
                     else
                         {
                         System.Windows.Application.Current.Dispatcher.Invoke(() =>
                             {
-                            CoverFlowMain.Items.Clear();
+                                CoverFlowMain.Items.Clear();
                             });
                         Growl.InfoGlobal("当前样机没有预览图");
                         }
@@ -637,7 +638,7 @@ namespace PresPio
 
                 // 检查是否已经存在样机
                 bool foundExisting = false;
-                for (int i = num; i > 0; i--)
+                for (int i = num ; i > 0 ; i--)
                     {
                     try
                         {

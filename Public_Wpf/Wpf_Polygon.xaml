@@ -1,0 +1,186 @@
+﻿<Window x:Class="PresPio.Public_Wpf.Wpf_Polygon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:PresPio.Public_Wpf"
+        mc:Ignorable="d"
+        Title="形状生成器"
+        Height="460" Width="700"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Topmost="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 预览区 -->
+        <Border Grid.Column="0"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                Margin="0,0,10,0">
+            <Canvas x:Name="PreviewCanvas"
+                    Background="White"
+                    ClipToBounds="True">
+                <Polygon x:Name="PreviewPolygon"
+                         Fill="#4472C4"
+                         Stroke="Black"
+                         StrokeThickness="2" />
+            </Canvas>
+        </Border>
+
+        <!-- 操作区 -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="0,0,5,0">
+                <TextBlock Text="形状类型：" Margin="0,0,0,5" />
+                <ComboBox x:Name="ShapeTypeComboBox"
+                         Margin="0,0,0,10"
+                         SelectionChanged="ShapeType_SelectionChanged">
+                    <ComboBoxItem Content="正多边形" IsSelected="True" />
+                    <ComboBoxItem Content="星形" />
+                    <ComboBoxItem Content="椭圆" />
+                    <ComboBoxItem Content="箭头" />
+                    <ComboBoxItem Content="十字形" />
+                    <ComboBoxItem Content="心形" />
+                    <ComboBoxItem Content="菱形" />
+                </ComboBox>
+
+                <!-- 正多边形参数 -->
+                <StackPanel x:Name="PolygonPanel">
+                    <TextBlock Text="边数：" Margin="0,0,0,5" />
+                    <hc:NumericUpDown x:Name="SidesInput"
+                                     Minimum="3"
+                                     Maximum="12"
+                                     Value="6"
+                                     ValueChanged="Parameter_ValueChanged"
+                                     Margin="0,0,0,10" />
+                </StackPanel>
+
+                <!-- 星形参数 -->
+                <StackPanel x:Name="StarPanel" Visibility="Collapsed">
+                    <TextBlock Text="角数：" Margin="0,0,0,5" />
+                    <hc:NumericUpDown x:Name="StarPointsInput"
+                                     Minimum="3"
+                                     Maximum="12"
+                                     Value="5"
+                                     ValueChanged="Parameter_ValueChanged"
+                                     Margin="0,0,0,10" />
+                    <TextBlock Text="内径比例：" Margin="0,0,0,5" />
+                    <hc:NumericUpDown x:Name="StarInnerRadiusInput"
+                                     Minimum="0.2"
+                                     Maximum="0.8"
+                                     Value="0.4"
+                                     ValueChanged="Parameter_ValueChanged"
+                                     Margin="0,0,0,10" />
+                </StackPanel>
+
+                <!-- 椭圆参数 -->
+                <StackPanel x:Name="EllipsePanel" Visibility="Collapsed">
+                    <TextBlock Text="长轴：" Margin="0,0,0,5" />
+                    <hc:NumericUpDown x:Name="MajorAxisInput"
+                                     Minimum="50"
+                                     Maximum="300"
+                                     Value="200"
+                                     ValueChanged="Parameter_ValueChanged"
+                                     Margin="0,0,0,10" />
+                    <TextBlock Text="短轴：" Margin="0,0,0,5" />
+                    <hc:NumericUpDown x:Name="MinorAxisInput"
+                                     Minimum="50"
+                                     Maximum="300"
+                                     Value="100"
+                                     ValueChanged="Parameter_ValueChanged"
+                                     Margin="0,0,0,10" />
+                </StackPanel>
+
+                <!-- 箭头参数 -->
+                <StackPanel x:Name="ArrowPanel" Visibility="Collapsed">
+                    <TextBlock Text="箭头宽度：" Margin="0,0,0,5" />
+                    <hc:NumericUpDown x:Name="ArrowWidthInput"
+                                     Minimum="0.2"
+                                     Maximum="1.0"
+                                     Value="0.5"
+                                     ValueChanged="Parameter_ValueChanged"
+                                     Margin="0,0,0,10" />
+                    <TextBlock Text="箭头头部长度：" Margin="0,0,0,5" />
+                    <hc:NumericUpDown x:Name="ArrowHeadLengthInput"
+                                     Minimum="0.2"
+                                     Maximum="1.0"
+                                     Value="0.4"
+                                     ValueChanged="Parameter_ValueChanged"
+                                     Margin="0,0,0,10" />
+                </StackPanel>
+
+                <!-- 十字形参数 -->
+                <StackPanel x:Name="CrossPanel" Visibility="Collapsed">
+                    <TextBlock Text="臂长比例：" Margin="0,0,0,5" />
+                    <hc:NumericUpDown x:Name="CrossArmLengthInput"
+                                     Minimum="0.2"
+                                     Maximum="1.0"
+                                     Value="0.3"
+                                     ValueChanged="Parameter_ValueChanged"
+                                     Margin="0,0,0,10" />
+                    <TextBlock Text="臂宽比例：" Margin="0,0,0,5" />
+                    <hc:NumericUpDown x:Name="CrossArmWidthInput"
+                                     Minimum="0.1"
+                                     Maximum="0.5"
+                                     Value="0.2"
+                                     ValueChanged="Parameter_ValueChanged"
+                                     Margin="0,0,0,10" />
+                </StackPanel>
+
+                <!-- 通用参数 -->
+                <TextBlock Text="大小：" Margin="0,0,0,5" />
+                <hc:NumericUpDown x:Name="RadiusInput"
+                                 Minimum="50"
+                                 Maximum="200"
+                                 Value="100"
+                                 ValueChanged="Parameter_ValueChanged"
+                                 Margin="0,0,0,10" />
+
+                <TextBlock Text="旋转角度：" Margin="0,0,0,5" />
+                <hc:NumericUpDown x:Name="RotationInput"
+                                 Minimum="0"
+                                 Maximum="360"
+                                 Value="0"
+                                 ValueChanged="Parameter_ValueChanged"
+                                 Margin="0,0,0,10" />
+
+                <TextBlock Text="插入位置：" Margin="0,0,0,5" />
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="X:" Margin="0,0,0,5" />
+                        <hc:NumericUpDown x:Name="XPositionInput"
+                                        Value="200" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                        <TextBlock Text="Y:" Margin="0,0,0,5" />
+                        <hc:NumericUpDown x:Name="YPositionInput"
+                                        Value="200" />
+                    </StackPanel>
+                </Grid>
+
+                <Button Content="插入到PPT"
+                        Background="#4472C4"
+                        Foreground="White"
+                        Click="InsertToPPT_Click"
+                        Margin="0,0,0,10" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

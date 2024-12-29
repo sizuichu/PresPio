@@ -566,6 +566,9 @@
     <Compile Include="Public_Wpf\Wpf_Manuscript.xaml.cs">
       <DependentUpon>Wpf_Manuscript.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Public_Wpf\Wpf_Polygon.xaml.cs">
+      <DependentUpon>Wpf_Polygon.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Public_Customize\Con_TextTools.resx">
       <DependentUpon>Con_TextTools.cs</DependentUpon>
     </EmbeddedResource>
@@ -1000,6 +1003,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Public_Wpf\Wpf_Polygon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1044,6 +1051,7 @@
   </Target>
   <Import Project="packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets')" />
   <ItemGroup>
+    <PackageReference Include="HandyControl" Version="3.4.0" />
     <PackageReference Include="LiteDB">
       <Version>5.0.17</Version>
     </PackageReference>
@@ -1056,5 +1064,11 @@
     </PackageReference>
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
     <PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
 </Project>

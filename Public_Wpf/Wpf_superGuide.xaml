@@ -25,14 +25,13 @@
 
             <!-- NumericUpDown 的基础样式 -->
             <Style x:Key="BaseNumericUpDown" TargetType="hc:NumericUpDown">
-                <Setter Property="Margin" Value="5"/>
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Minimum" Value="0"/>
-                <Setter Property="Maximum" Value="1000"/>
-                <Setter Property="Value" Value="0"/>
-                <Setter Property="hc:InfoElement.TitleWidth" Value="70"/>
-                <Setter Property="hc:InfoElement.TitlePlacement" Value="Left"/>
-
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Minimum" Value="0" />
+                <Setter Property="Maximum" Value="1000" />
+                <Setter Property="Value" Value="0" />
+                <Setter Property="hc:InfoElement.TitleWidth" Value="70" />
+                <Setter Property="hc:InfoElement.TitlePlacement" Value="Left" />
             </Style>
         </ResourceDictionary>
     </Window.Resources>
@@ -45,84 +44,84 @@
 
         <!-- 左侧面板 -->
         <DockPanel Grid.Column="0">
-            <TextBlock DockPanel.Dock="Top" Text="预设方案" Margin="0,0,0,5" FontSize="14" FontWeight="Bold"/>
-            <ListBox x:Name="GrideListBox" 
+            <TextBlock DockPanel.Dock="Top" Text="预设方案" Margin="0,0,0,5" FontSize="14" FontWeight="Bold" />
+            <ListBox x:Name="GrideListBox"
                      DockPanel.Dock="Top"
                      Height="Auto"
                      Margin="0,0,0,10"
-                     SelectionChanged="GrideListBox_SelectedIndexChanged"/>
+                     SelectionChanged="GrideListBox_SelectedIndexChanged" />
         </DockPanel>
 
         <!-- 右侧面板 -->
         <Grid Grid.Column="1" Margin="5,0,10,5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- 参数设置区域 -->
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.ColumnSpan="2" Text="参数设置" Margin="0,0,0,10" FontSize="14" FontWeight="Bold"/>
+                <TextBlock Grid.ColumnSpan="2" Text="参数设置" Margin="0,0,0,10" FontSize="14" FontWeight="Bold" />
 
                 <!-- 添加位置选择 -->
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="添加位置：" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <RadioButton x:Name="RadioNormal" Content="普通页面" IsChecked="True" Margin="0,0,10,0" Checked="RadioButton_Checked"/>
-                    <RadioButton x:Name="RadioMaster" Content="母版页面" Margin="0,0,10,0" Checked="RadioButton_Checked"/>
+                    <TextBlock Text="添加位置：" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <RadioButton x:Name="RadioNormal" Content="普通页面" IsChecked="True" Margin="0,0,10,0" Checked="RadioButton_Checked" />
+                    <RadioButton x:Name="RadioMaster" Content="母版页面" Margin="0,0,10,0" Checked="RadioButton_Checked" />
                 </StackPanel>
 
                 <hc:NumericUpDown x:Name="NumericUpDown1" Grid.Row="2" Grid.Column="0" Margin="0,5,5,5"
-                              
-                  Style="{StaticResource NumericUpDownExtend}" 
+
+                  Style="{StaticResource NumericUpDownExtend}"
                                  hc:InfoElement.Title="顶部距离"
                                  hc:InfoElement.Necessary="True"
-                                 Increment="10"/>
+                                 Increment="10" />
                 <hc:NumericUpDown x:Name="NumericUpDown2" Grid.Row="2" Grid.Column="1" Margin="5,5,0,5"
-                               Style="{StaticResource NumericUpDownExtend}" 
+                               Style="{StaticResource NumericUpDownExtend}"
                                  hc:InfoElement.Title="底部距离"
-                              
+
                                  hc:InfoElement.Necessary="True"
-                                 Increment="10"/>
+                                 Increment="10" />
                 <hc:NumericUpDown x:Name="NumericUpDown3" Grid.Row="3" Grid.Column="0" Margin="0,5,5,5"
-                                 Style="{StaticResource NumericUpDownExtend}" 
+                                 Style="{StaticResource NumericUpDownExtend}"
                                  hc:InfoElement.Title="左边距离"
-                               
+
                                  hc:InfoElement.Necessary="True"
-                                 Increment="10"/>
+                                 Increment="10" />
                 <hc:NumericUpDown x:Name="NumericUpDown4" Grid.Row="3" Grid.Column="1" Margin="5,5,0,5"
-                                 Style="{StaticResource NumericUpDownExtend}" 
+                                 Style="{StaticResource NumericUpDownExtend}"
                                  hc:InfoElement.Title="右边距离"
-                               
+
                                  hc:InfoElement.Necessary="True"
-                                 Increment="10"/>
+                                 Increment="10" />
                 <hc:NumericUpDown x:Name="NumericUpDown5" Grid.Row="4" Grid.Column="0" Margin="0,5,5,5"
-                                Style="{StaticResource NumericUpDownExtend}" 
+                                Style="{StaticResource NumericUpDownExtend}"
                                  hc:InfoElement.Title="行间距数"
-                                
-                                 hc:InfoElement.Necessary="True"/>
+
+                                 hc:InfoElement.Necessary="True" />
                 <hc:NumericUpDown x:Name="NumericUpDown6" Grid.Row="4" Grid.Column="1" Margin="5,5,0,5"
-                                 Style="{StaticResource NumericUpDownExtend}" 
+                                 Style="{StaticResource NumericUpDownExtend}"
                                  hc:InfoElement.Title="列间距数"
-                          
-                                 hc:InfoElement.Necessary="True"/>
+
+                                 hc:InfoElement.Necessary="True" />
             </Grid>
 
             <!-- 预览区域 -->
             <Border Grid.Row="1" Margin="0,10" BorderBrush="#DDDDDD" BorderThickness="1">
-                <Canvas x:Name="PreviewCanvas" 
+                <Canvas x:Name="PreviewCanvas"
                         Background="White"
                         SizeChanged="PreviewCanvas_SizeChanged">
                     <!-- 预览内容将在代码中动态生成 -->
@@ -131,9 +130,9 @@
 
             <!-- 底部按钮区域 -->
             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <Button Content="调整参考线" Width="100" Height="35" Margin="10"  Click="Button_Click_2"/>
-                <Button Content="添加至母版" Width="100" Height="35"  Margin="10" Click="Button_Click_1"/>
-                <Button Content="去除参考线" Width="100" Height="35" Margin="10" Click="Button_Click"/>
+                <Button Content="调整参考线" Width="100" Height="35" Margin="10"  Click="Button_Click_2" />
+                <Button Content="添加至母版" Width="100" Height="35"  Margin="10" Click="Button_Click_1" />
+                <Button Content="去除参考线" Width="100" Height="35" Margin="10" Click="Button_Click" />
             </StackPanel>
         </Grid>
 
@@ -142,6 +141,6 @@
                         Grid.Column="1"
                         Visibility="Collapsed"
                         Canceled="colorPicker_Canceled"
-                        Confirmed="colorPicker_Confirmed"/>
+                        Confirmed="colorPicker_Confirmed" />
     </Grid>
 </Window>

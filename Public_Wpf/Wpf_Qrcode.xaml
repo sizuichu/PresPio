@@ -30,22 +30,22 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="73.44" />
-            <RowDefinition Height="4.88"/>
+            <RowDefinition Height="4.88" />
         </Grid.RowDefinitions>
 
         <!-- 输入区域 -->
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,5,5,5">
-            <TextBlock Text="二维码内容：" Margin="0,0,0,5"/>
-            <TextBox x:Name="InputTextBox" Height="25" Width="210"/>
+            <TextBlock Text="二维码内容：" Margin="0,0,0,5" />
+            <TextBox x:Name="InputTextBox" Height="25" Width="210" />
 
-            <TextBlock Text="大小：" Margin="0,10,0,5"/>
+            <TextBlock Text="大小：" Margin="0,10,0,5" />
             <ComboBox x:Name="SizeComboBox" Height="25" Width="210">
-                <ComboBoxItem Content="200x200" IsSelected="True"/>
-                <ComboBoxItem Content="300x300"/>
-                <ComboBoxItem Content="400x400"/>
+                <ComboBoxItem Content="200x200" IsSelected="True" />
+                <ComboBoxItem Content="300x300" />
+                <ComboBoxItem Content="400x400" />
             </ComboBox>
 
-            <TextBlock Text="错误纠正级别：" Margin="0,10,0,5"/>
+            <TextBlock Text="错误纠正级别：" Margin="0,10,0,5" />
             <ComboBox x:Name="ErrorCorrectionComboBox" Height="25" Width="210">
                 <ComboBoxItem Content="低 (L)" />
                 <ComboBoxItem Content="中 (M)" />
@@ -53,14 +53,14 @@
                 <ComboBoxItem Content="高 (H)" IsSelected="True" />
             </ComboBox>
 
-            <TextBlock Text="前景色：" Margin="0,10,0,5"/>
-            <Button x:Name="ForegroundColorButton" Content="选择颜色" Height="25" Click="ForegroundColorButton_Click" Width="210"/>
+            <TextBlock Text="前景色：" Margin="0,10,0,5" />
+            <Button x:Name="ForegroundColorButton" Content="选择颜色" Height="25" Click="ForegroundColorButton_Click" Width="210" />
 
-            <TextBlock Text="背景色：" Margin="0,10,0,5"/>
-            <Button x:Name="BackgroundColorButton" Content="选择颜色" Height="25" Click="BackgroundColorButton_Click" Width="210"/>
+            <TextBlock Text="背景色：" Margin="0,10,0,5" />
+            <Button x:Name="BackgroundColorButton" Content="选择颜色" Height="25" Click="BackgroundColorButton_Click" Width="210" />
 
-            <TextBlock Text="添加Logo：" Margin="0,10,0,5"/>
-            <Button x:Name="AddLogoButton" Content="选择图片" Height="25" Click="AddLogoButton_Click" Width="210"/>
+            <TextBlock Text="添加Logo：" Margin="0,10,0,5" />
+            <Button x:Name="AddLogoButton" Content="选择图片" Height="25" Click="AddLogoButton_Click" Width="210" />
         </StackPanel>
 
         <!-- 显示二维码区域 -->

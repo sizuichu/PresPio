@@ -1,15 +1,13 @@
 ﻿using HandyControl.Controls;
+using Microsoft.Office.Core;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.IO;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
 using Application = Microsoft.Office.Interop.PowerPoint.Application;
 
 namespace PresPio
@@ -19,6 +17,7 @@ namespace PresPio
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ObservableCollection<ColorCard> _colorCards;
+
         public ObservableCollection<ColorCard> ColorCards
             {
             get => _colorCards;
@@ -58,15 +57,19 @@ namespace PresPio
                 case "Monochrome":
                     OnMonochrome(null, null);
                     break;
+
                 case "Complementary":
                     OnComplementary(null, null);
                     break;
+
                 case "Triadic":
                     OnTriadic(null, null);
                     break;
+
                 case "Analogous":
                     OnAnalogous(null, null);
                     break;
+
                 case "SplitComplementary":
                     OnSplitComplementary(null, null);
                     break;
@@ -74,6 +77,7 @@ namespace PresPio
             }
 
         #region 色卡生成方法
+
         private void OnMonochrome(object sender, RoutedEventArgs e)
             {
             _currentScheme = "Monochrome";
@@ -189,9 +193,11 @@ namespace PresPio
                 AddColorCard($"分裂2-{i + 1}", HSVToColor(splitHue2, hsv.s, value));
                 }
             }
-        #endregion
+
+        #endregion 色卡生成方法
 
         #region 辅助方法
+
         private void AddColorCard(string name, Color color)
             {
             ColorCards.Add(new ColorCard
@@ -259,9 +265,11 @@ namespace PresPio
                               0.114 * backgroundColor.B) / 255;
             return luminance > 0.5 ? Colors.Black : Colors.White;
             }
-        #endregion
+
+        #endregion 辅助方法
 
         #region 导出功能
+
         private void OnExport(object sender, RoutedEventArgs e)
             {
             if (ColorCards.Count == 0)
@@ -375,7 +383,8 @@ namespace PresPio
                 encoder.Save(stream);
                 }
             }
-        #endregion
+
+        #endregion 导出功能
 
         private void OnColorCardClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
             {

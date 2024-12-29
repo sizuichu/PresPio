@@ -1,6 +1,4 @@
-﻿using HandyControl.Themes;
-using System.Windows;
-using System.Windows.Media;
+﻿using System.Windows;
 
 namespace PresPio
     {

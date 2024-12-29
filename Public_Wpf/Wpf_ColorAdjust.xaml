@@ -20,15 +20,15 @@
 
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
 
         <!-- 左侧内容区 -->
         <Grid Grid.Column="0" Margin="0,0,20,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- 色卡展示区 -->
@@ -39,12 +39,12 @@
                             HorizontalAlignment="Center">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel HorizontalAlignment="Center"/>
+                            <WrapPanel HorizontalAlignment="Center" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Width="150" 
+                            <Border Width="150"
                                     Height="90"
                                     Margin="5"
                                     BorderThickness="1"
@@ -55,25 +55,25 @@
                                     Cursor="Hand">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Text="{Binding ColorName}"
                                              Foreground="{Binding TextBrush}"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             FontSize="14"/>
-                                    <Border Grid.Row="1" 
+                                             FontSize="14" />
+                                    <Border Grid.Row="1"
                                             Background="#80000000"
                                             Padding="5">
                                         <StackPanel>
                                             <TextBlock Text="{Binding ColorCode}"
                                                      Foreground="White"
-                                                     HorizontalAlignment="Center"/>
+                                                     HorizontalAlignment="Center" />
                                             <TextBlock Text="{Binding RgbValue}"
                                                      Foreground="White"
                                                      HorizontalAlignment="Center"
-                                                     FontSize="11"/>
+                                                     FontSize="11" />
                                         </StackPanel>
                                     </Border>
                                 </Grid>
@@ -85,43 +85,43 @@
 
             <!-- 底部控制栏 -->
            <!-- 修改底部控制栏部分 -->
-<UniformGrid Grid.Row="1" 
+<UniformGrid Grid.Row="1"
              Rows="1">
     <Button Content="单色"
             Name="OnMonochromeBtn"
             Margin="5"
-            Click="OnMonochrome"/>
-    <Button Content="互补色" 
+            Click="OnMonochrome" />
+    <Button Content="互补色"
             Margin="5"
-            Click="OnComplementary"/>
-    <Button Content="三色" 
+            Click="OnComplementary" />
+    <Button Content="三色"
             Margin="5"
-            Click="OnTriadic"/>
-    <Button Content="类比色" 
+            Click="OnTriadic" />
+    <Button Content="类比色"
             Margin="5"
-            Click="OnAnalogous"/>
-    <Button Content="分裂色" 
+            Click="OnAnalogous" />
+    <Button Content="分裂色"
             Margin="5"
-            Click="OnSplitComplementary"/>
-    <Button Content="导出" 
+            Click="OnSplitComplementary" />
+    <Button Content="导出"
             Margin="5"
-            Click="OnExport"/>
-    <Button Content="应用" 
+            Click="OnExport" />
+    <Button Content="应用"
             Margin="5"
             Style="{StaticResource ButtonPrimary}"
-            Click="OnApplyColors"/>
+            Click="OnApplyColors" />
 </UniformGrid>
         </Grid>
 
         <!-- 右侧色盘区 -->
         <StackPanel Grid.Column="1">
-            <GroupBox Header="选择主色调" 
+            <GroupBox Header="选择主色调"
                      Padding="15" Height="584">
                 <StackPanel>
-                    <hc:ColorPicker x:Name="MainColorPicker" 
-                                  Height="392" Width="250"/>
+                    <hc:ColorPicker x:Name="MainColorPicker"
+                                  Height="392" Width="250" />
                     <TextBox Margin="0,10,0,0"
-                             Text="{Binding ElementName=MainColorPicker, Path=SelectedBrush, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding ElementName=MainColorPicker, Path=SelectedBrush, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </GroupBox>
 

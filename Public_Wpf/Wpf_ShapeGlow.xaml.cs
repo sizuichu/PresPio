@@ -1,8 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Media;
-using HandyControl.Controls;
+﻿using HandyControl.Controls;
 using HandyControl.Tools;
-
+using System.Windows;
+using System.Windows.Media;
 
 namespace PresPio
     {
@@ -10,15 +9,15 @@ namespace PresPio
     /// Wpf_ShapeGlow.xaml 的交互逻辑
     /// </summary>
     public partial class Wpf_ShapeGlow
-    {
-        public Wpf_ShapeGlow()
         {
+        public Wpf_ShapeGlow()
+            {
             InitializeComponent();
             LoadSet();
-        }
+            }
 
-      public void LoadSet()
-        {
+        public void LoadSet()
+            {
             //发光值设置
             sizeBtn.Value = Properties.Settings.Default.GlowNum;
 
@@ -37,25 +36,25 @@ namespace PresPio
 
             // 将按钮的背景颜色设置为这个画刷
             ColorButton.Background = brush;
-        }
+            }
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
-        {
+            {
             this.Close();
             Growl.Info("设置成功！");
-        }
+            }
 
         private void ColorButton_Click(object sender, RoutedEventArgs e)
-        {
+            {
             var picker = SingleOpenHelper.CreateControl<ColorPicker>();
             var window = new PopupWindow
-            {
+                {
                 PopupElement = picker,
                 AllowsTransparency = true,
                 WindowStyle = WindowStyle.None,
                 MinWidth = 0,
                 MinHeight = 0,
-            };
+                };
 
             // 获取当前窗口的位置
             var ownerWindow = System.Windows.Window.GetWindow(this);
@@ -69,7 +68,7 @@ namespace PresPio
             picker.Confirmed += (colorPicker, args) =>
             {
                 var selectedColor = picker.SelectedBrush;
-                 ColorButton.Background = selectedColor;
+                ColorButton.Background = selectedColor;
 
                 // 先将Brush转换为SolidColorBrush
                 SolidColorBrush solidColorBrush = selectedColor as SolidColorBrush;
@@ -81,7 +80,7 @@ namespace PresPio
                 System.Drawing.Color drawingColor = System.Drawing.Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
 
                 Properties.Settings.Default.GlowColor = drawingColor;
-                 Properties.Settings.Default.Save();
+                Properties.Settings.Default.Save();
                 window.Close();
             };
 
@@ -89,20 +88,18 @@ namespace PresPio
             picker.Canceled += (colorPicker, args) => window.Close();
 
             window.Show();
-        }
+            }
 
         private void sizeBtn_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
-        {
+            {
             Properties.Settings.Default.GlowNum = (int)sizeBtn.Value;
             Properties.Settings.Default.Save();
-
-        }
+            }
 
         private void growBtn_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
-        {
-            
+            {
             Properties.Settings.Default.GlowTra = growBtn.Value;
             Properties.Settings.Default.Save();
+            }
         }
     }
-}

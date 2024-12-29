@@ -25,8 +25,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- 顶部工具栏 -->
@@ -36,55 +36,55 @@
                     <!-- 样机设置组 -->
                     <GroupBox Header="样机设置" Margin="5,0" Padding="8">
                         <StackPanel Orientation="Horizontal">
-                            <Button Name="SeltMockup" 
-                                    Content="选择样机" 
+                            <Button Name="SeltMockup"
+                                    Content="选择样机"
                                     Width="100"
                                     Height="30"
                                     Margin="0,0,8,0"
                                     Style="{StaticResource ButtonPrimary}"
-                                    Click="SeltMockup_Click"/>
-                            <Button Name="OpenFile" 
-                                    Content="打开文件夹" 
+                                    Click="SeltMockup_Click" />
+                            <Button Name="OpenFile"
+                                    Content="打开文件夹"
                                     Width="80"
                                     Height="30"
                                     Style="{StaticResource ButtonInfo}"
-                                    Click="OpenFile_Click"/>
+                                    Click="OpenFile_Click" />
                         </StackPanel>
                     </GroupBox>
 
                     <!-- 页面选择组 -->
                     <GroupBox Header="页面选择" Margin="5,0" Padding="8">
                         <StackPanel Orientation="Horizontal">
-                            <RadioButton x:Name="SelAll" 
-                                       Content="全部页面" 
+                            <RadioButton x:Name="SelAll"
+                                       Content="全部页面"
                                        Margin="0,0,8,0"
                                        Style="{StaticResource RadioButtonIcon}"
-                                       Checked="SelAll_Checked"/>
-                            <RadioButton x:Name="SelBtn" 
-                                       Content="所选页面" 
+                                       Checked="SelAll_Checked" />
+                            <RadioButton x:Name="SelBtn"
+                                       Content="所选页面"
                                        Margin="0,0,8,0"
                                        Style="{StaticResource RadioButtonIcon}"
-                                       IsChecked="True"/>
-                            <Label Name="LabelNum" 
-                                   Content="选择数量: 0" 
-                                   VerticalAlignment="Center"/>
+                                       IsChecked="True" />
+                            <Label Name="LabelNum"
+                                   Content="选择数量: 0"
+                                   VerticalAlignment="Center" />
                         </StackPanel>
                     </GroupBox>
 
                     <!-- 操作组 -->
                     <GroupBox Header="操作" Margin="5,0" Padding="8">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="生成样机" 
+                            <Button Content="生成样机"
                                     Width="100"
                                     Height="30"
                                     Margin="0,0,8,0"
                                     Style="{StaticResource ButtonPrimary}"
-                                    Click="Button_Click"/>
-                            <Button Content="删除样机" 
+                                    Click="Button_Click" />
+                            <Button Content="删除样机"
                                     Width="80"
                                     Height="30"
                                     Style="{StaticResource ButtonDanger}"
-                                    Click="Button_Click_1"/>
+                                    Click="Button_Click_1" />
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
@@ -94,8 +94,8 @@
         <!-- 主要内容区域 -->
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <!-- 左侧面板 -->
@@ -104,25 +104,25 @@
                     <StackPanel DockPanel.Dock="Top" Margin="0,0,0,5">
                         <Grid Margin="5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <hc:SearchBar Name="SearchBox"
                                 Grid.Column="0"
                                 Height="30"
                                 Margin="0,0,5,0"
                                 hc:InfoElement.Placeholder="搜索样机..."
-                                TextChanged="SearchBox_TextChanged"/>
+                                TextChanged="SearchBox_TextChanged" />
                             <Button Name="AddMockup"
                                 Grid.Column="1"
                                 Content="新增"
                                 Width="60"
                                 Height="30"
                                 Style="{StaticResource ButtonSuccess}"
-                                Click="AddMockup_Click"/>
+                                Click="AddMockup_Click" />
                         </Grid>
                     </StackPanel>
-                    <ListView Name="MockupListView" 
+                    <ListView Name="MockupListView"
                              Margin="5"
                              SelectionMode="Single"
                              SelectionChanged="MockupListView_SelectionChanged">
@@ -130,21 +130,21 @@
                             <DataTemplate>
                                 <Grid Margin="0,5">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                                        <TextBlock Text="{Binding Name}" 
+                                        <TextBlock Text="{Binding Name}"
                                                  FontWeight="Bold"
                                                  TextWrapping="NoWrap"
-                                                 TextTrimming="CharacterEllipsis"/>
+                                                 TextTrimming="CharacterEllipsis" />
                                         <TextBlock Text="{Binding Path}"
                                                  FontSize="10"
                                                  TextWrapping="NoWrap"
                                                  TextTrimming="CharacterEllipsis"
-                                                 Opacity="0.6"/>
+                                                 Opacity="0.6" />
                                     </StackPanel>
-                                    <StackPanel Grid.Column="1" 
+                                    <StackPanel Grid.Column="1"
                                               Orientation="Horizontal">
                                         <Button Style="{StaticResource ButtonInfo}"
                                                 Width="24"
@@ -153,20 +153,16 @@
                                                 Padding="3"
                                                 Click="EditMockup_Click"
                                                 Tag="{Binding Path}"
-                                                hc:IconElement.Geometry="{StaticResource WindowsGeometry}"
-                                                >
-                                           
+                                                hc:IconElement.Geometry="{StaticResource WindowsGeometry}">
                                         </Button>
                                         <Button Style="{StaticResource ButtonDanger}"
                                                 Width="24"
                                                 Height="24"
                                                 Padding="3"
                                                   hc:IconElement.Geometry="{StaticResource DeleteGeometry}"
-                                             
+
                                                 Click="DeleteMockup_Click"
-                                                Tag="{Binding Path}"
-                                                >
-                                          
+                                                Tag="{Binding Path}">
                                         </Button>
                                     </StackPanel>
                                 </Grid>
@@ -179,7 +175,7 @@
             <!-- 右侧预览区域 -->
             <GroupBox Header="样机预览" Grid.Column="1">
                 <Grid>
-                    <ListBox x:Name="CoverFlowMain" 
+                    <ListBox x:Name="CoverFlowMain"
                             Background="White"
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListBox.ItemsPanel>
@@ -189,15 +185,15 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Margin="5" 
-                                        BorderThickness="1" 
-                                        BorderBrush="#DDDDDD" 
+                                <Border Margin="5"
+                                        BorderThickness="1"
+                                        BorderBrush="#DDDDDD"
                                         CornerRadius="3">
                                     <Image Source="{Binding}"
                                            Stretch="Uniform"
                                            Width="200"
                                            Height="150"
-                                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                                           RenderOptions.BitmapScalingMode="HighQuality" />
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

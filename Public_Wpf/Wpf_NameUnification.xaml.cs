@@ -1,20 +1,5 @@
-﻿using Microsoft.Office.Interop.PowerPoint;
-using PowerPoint= Microsoft.Office.Interop.PowerPoint;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
+﻿using System.Windows;
+using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 
 namespace PresPio
     {
@@ -24,15 +9,14 @@ namespace PresPio
     public partial class Wpf_NameUnification
         {
         public PowerPoint.Application app { get; set; }
+
         public Wpf_NameUnification()
             {
             InitializeComponent();
             }
-      
+
         private void NameWindow_Loaded(object sender, RoutedEventArgs e)
             {
-
-      
             // 获取 PowerPoint 应用程序和当前幻灯片
             var app = Globals.ThisAddIn.Application;
             PowerPoint.Slide slide = app.ActiveWindow.View.Slide;
@@ -41,10 +25,9 @@ namespace PresPio
             foreach (PowerPoint.Shape shape in slide.Shapes)
                 {
                 // 将 listViewItems
-                string ItemName=shape.Name ;
+                string ItemName = shape.Name;
                 NameListView.Items.Add(ItemName);
                 }
-
             }
         }
-  }
+    }

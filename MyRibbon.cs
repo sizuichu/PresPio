@@ -1,4 +1,9 @@
-﻿using System;
+﻿using HandyControl.Controls;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
+using Microsoft.Office.Tools.Ribbon;
+using PresPio.Properties;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,28 +15,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using Emgu.CV.Structure;
-using Emgu.CV;
-using HandyControl.Controls;
-using HandyControl.Tools.Extension;
-using PresPio.Function;
-using PresPio.Properties;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using Microsoft.Office.Tools.Ribbon;
 using static PresPio.ThisAddIn;
 using Color = System.Drawing.Color;
 using Control = System.Windows.Forms.Control;
 using MessageBox = System.Windows.Forms.MessageBox;
+
 using Office = Microsoft.Office.Core;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
+
 using Shape = Microsoft.Office.Interop.PowerPoint.Shape;
-using System.Text;
-using System.Drawing.Imaging;
 
 namespace PresPio
     {
-
     public partial class MyRibbon
         {
         public PowerPoint.Application app; //加载PPT项目
@@ -39,7 +34,6 @@ namespace PresPio
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
             {
             new App().InitializeComponent(); //加载WPF
-
 
             app = Globals.ThisAddIn.Application;//初始化项目
 
@@ -53,8 +47,8 @@ namespace PresPio
             Globals.Ribbons.Ribbon1.group5.Visible = Properties.Settings.Default.Group5;
             Globals.Ribbons.Ribbon1.tab2.Visible = Properties.Settings.Default.Group6;
             //Globals.Ribbons.Ribbon1.group7.Visible = Properties.Settings.Default.Group7;
-
             }
+
         //以下为公用字段
         /// <summary>
         /// Temp_Path为临时文件夹所在
@@ -70,7 +64,6 @@ namespace PresPio
             {
             Wpf_Colortheif wpf_Colortheif = new Wpf_Colortheif();
             wpf_Colortheif.Show();
-
             }
 
         private void button3_Click(object sender, RibbonControlEventArgs e)
@@ -297,12 +290,10 @@ namespace PresPio
 
         private void button12_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button13_Click(object sender, RibbonControlEventArgs e)
             {
-
             PowerPoint.Selection sel = Globals.ThisAddIn.Application.ActiveWindow.Selection;
             if (sel.Type == PowerPoint.PpSelectionType.ppSelectionShapes)
                 {
@@ -332,25 +323,20 @@ namespace PresPio
                         }
                     }
                 }
-
-
             }
 
         private void button14_Click(object sender, RibbonControlEventArgs e)
             {
-
-
-
             }
 
         private void splitButton1_Click(object sender, RibbonControlEventArgs e)
             {
-       
-
             Wpf_Publish wpf_Publish = new Wpf_Publish();
             wpf_Publish.ShowDialog();
             }
+
         public static Microsoft.Office.Tools.CustomTaskPane taskPane;
+
         private void toggleButton2_Click(object sender, RibbonControlEventArgs e)
             {
             //if (toggleButton2.Checked)
@@ -373,7 +359,6 @@ namespace PresPio
             //TaskPaneShared.taskPane.VisibleChanged += new System.EventHandler(taskpane2_VisibleChanged);
             Wpf_colorTheme wpf_ColorTheme = new Wpf_colorTheme();
             wpf_ColorTheme.Show();
-
             }
 
         private void taskpane2_VisibleChanged(object sender, EventArgs e)//回调用户窗体事件
@@ -387,15 +372,10 @@ namespace PresPio
                 {
                 ribbon.toggleButton2.Checked = false;
                 }
-
             }
-
-
 
         private void button15_Click(object sender, RibbonControlEventArgs e)
             {
-
-
             }
 
         private void splitButton2_Click(object sender, RibbonControlEventArgs e)
@@ -453,7 +433,6 @@ namespace PresPio
                 pic.Left = original.Left + original.Width / 2 - pic.Width / 2;
                 pic.Top = original.Top + original.Height / 2 - pic.Height / 2;
                 }
-
             }
 
         private void button17_Click(object sender, RibbonControlEventArgs e)
@@ -463,8 +442,6 @@ namespace PresPio
             if (sel.Type == PowerPoint.PpSelectionType.ppSelectionNone)
                 {
                 Growl.WarningGlobal("请选中元素或幻灯片，且做好备份！");
-
-
                 }
             else if (sel.Type == PowerPoint.PpSelectionType.ppSelectionShapes)
                 {
@@ -570,8 +547,6 @@ namespace PresPio
                     Process.Start("Explorer.exe", cPath);
                     break;
                 }
-
-
             }
 
         private void button19_Click(object sender, RibbonControlEventArgs e)
@@ -637,8 +612,6 @@ namespace PresPio
 
                 System.Diagnostics.Process.Start("Explorer.exe", cPath);
                 }
-
-
             }
 
         private void button20_Click(object sender, RibbonControlEventArgs e)
@@ -698,11 +671,12 @@ namespace PresPio
             // 打开导出文件所在的文件夹
             System.Diagnostics.Process.Start("explorer.exe", exportFolderPath);
             }
+
         /// <summary>
         /// 新增板式的函数
         /// </summary>
         /// <param name="type"></param>
-        /// 
+        ///
         /// <param name="left"></param>
         /// <param name="top"></param>
         /// <param name="width"></param>
@@ -745,6 +719,7 @@ namespace PresPio
                     }
                 }
             }
+
         private void splitButton3_Click(object sender, RibbonControlEventArgs e)
             {
             Selection sel = app.ActiveWindow.Selection;
@@ -756,7 +731,6 @@ namespace PresPio
                 }
             else
                 {
-
                 if (sel.Type == PpSelectionType.ppSelectionShapes)
                     {
                     PowerPoint.ShapeRange range = sel.ShapeRange;
@@ -803,11 +777,9 @@ namespace PresPio
                                 DelePla();
                                 slide.CustomLayout = slide.CustomLayout; //刷新当前板式
                                 }
-
                             }
                         else if (shr.Type == MsoShapeType.msoSmartArt) //Smart图形
                             {
-
                             addPla(PpPlaceholderType.ppPlaceholderOrgChart, left, top, width, height);
                             }
                         else if (shr.Type == MsoShapeType.msoMedia) //媒体
@@ -843,15 +815,12 @@ namespace PresPio
                             shr.Delete(); //删除源件
                             }
                         }
-
                     }
                 else
                     {
                     Growl.Warning("请先选择内容对象！");
                     }
-
                 }
-
             }
 
         private void button23_Click(object sender, RibbonControlEventArgs e)
@@ -874,21 +843,19 @@ namespace PresPio
                 Slide newSlide = slides.AddSlide(count + 1, customLayout);
                 newSlide.Layout = PpSlideLayout.ppLayoutBlank;
                 }
-
             }
+
         /// <summary>
         /// 删除形状
         /// </summary>
         /// <param name="shapes"></param>
-        void DeleteShapes(PowerPoint.Shapes shapes)
+        private void DeleteShapes(PowerPoint.Shapes shapes)
             {
             foreach (PowerPoint.Shape shape in shapes.Cast<PowerPoint.Shape>().ToList())
                 {
                 shape.Delete();
                 }
             }
-
-
 
         private void button24_Click(object sender, RibbonControlEventArgs e)
             {
@@ -948,7 +915,6 @@ namespace PresPio
                 {
                 Growl.Warning("没有找到版式", "温馨提示");
                 }
-
             }
 
         private void button21_Click(object sender, RibbonControlEventArgs e)
@@ -1011,7 +977,6 @@ namespace PresPio
 
         private void button27_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button29_Click(object sender, RibbonControlEventArgs e)
@@ -1025,9 +990,7 @@ namespace PresPio
             string fileName = saveFileDialog1.FileName;
             if (dr == System.Windows.Forms.DialogResult.OK && !string.IsNullOrEmpty(fileName))
                 {
-
                 app.Presentations[1].SaveAs(fileName, PpSaveAsFileType.ppSaveAsTemplate, MsoTriState.msoTriStateMixed);//导出PDF
-
                 }
             else
                 {
@@ -1051,15 +1014,11 @@ namespace PresPio
             string fileName = saveFileDialog1.FileName;
             if (dr == System.Windows.Forms.DialogResult.OK && !string.IsNullOrEmpty(fileName))
                 {
-
                 app.Presentations[1].SaveAs(fileName, PpSaveAsFileType.ppSaveAsBMP, MsoTriState.msoTriStateMixed);//导出PDF
-
                 }
             else
                 {
-
                 Growl.WarningGlobal("您未选择文件夹，导出失败！");
-
                 }
             }
 
@@ -1095,6 +1054,7 @@ namespace PresPio
             Effect eff2 = slide.TimeLine.InteractiveSequences[1].AddTriggerEffect(shp2, type, MsoAnimTriggerType.msoAnimTriggerOnShapeClick, shp1);
             eff2.Exit = MsoTriState.msoTrue;//退出效果
             }
+
         private void button35_Click(object sender, RibbonControlEventArgs e)
             {
             // 获取当前视图中的幻灯片
@@ -1141,11 +1101,9 @@ namespace PresPio
                         PowerPoint.Shape shp2 = slide.Shapes.AddShape(MsoAutoShapeType.msoShapeRoundedRectangularCallout, left, top, width, height);
                         addTips(shp1, shp2, MsoAnimEffect.msoAnimEffectAppear);
                         }
-
                     }
                 catch
                     {
-
                     }
                 }
             }
@@ -1160,7 +1118,6 @@ namespace PresPio
                     {
                     foreach (object shp in sel.ShapeRange)
                         {
-
                         PowerPoint.Shape shp2 = shp as PowerPoint.Shape;
                         float width = shp2.Width;
                         float height = shp2.Height;
@@ -1173,11 +1130,9 @@ namespace PresPio
                         shp1.Line.Visible = MsoTriState.msoFalse;
                         addTips(shp1, shp2, MsoAnimEffect.msoAnimEffectAppear);
                         }
-
                     }
                 catch
                     {
-
                     }
                 }
             }
@@ -1238,7 +1193,6 @@ namespace PresPio
             shape.Height = height;
             shape.Left = 0f;
             shape.Top = 0f;
-
             }
 
         private void button39_Click(object sender, RibbonControlEventArgs e)
@@ -1265,7 +1219,6 @@ namespace PresPio
             Presentation pre = app.ActivePresentation;
             try
                 {
-
                 pre.PageSetup.SlideWidth = 900f;
                 pre.PageSetup.SlideHeight = 383f;
                 }
@@ -1280,7 +1233,6 @@ namespace PresPio
             Presentation pre = app.ActivePresentation;
             try
                 {
-
                 pre.PageSetup.SlideWidth = 200 * 2.834f;
                 pre.PageSetup.SlideHeight = 200 * 2.834f;
                 }
@@ -1324,7 +1276,6 @@ namespace PresPio
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return;
                 }
-
             }
 
         private void button43_Click(object sender, RibbonControlEventArgs e)
@@ -1332,10 +1283,8 @@ namespace PresPio
             Presentation pre = app.ActivePresentation;
             try
                 {
-
                 pre.PageSetup.SlideWidth = 92 * 2.834f;
                 pre.PageSetup.SlideHeight = 56 * 2.834f;
-
                 }
             catch
                 {
@@ -1348,7 +1297,6 @@ namespace PresPio
             Presentation pre = app.ActivePresentation;
             try
                 {
-
                 pre.PageSetup.SlideWidth = 800f;
                 pre.PageSetup.SlideHeight = 800f;
                 }
@@ -1363,7 +1311,6 @@ namespace PresPio
             Presentation pre = app.ActivePresentation;
             try
                 {
-
                 pre.PageSetup.SlideWidth = 1920 / 2f;
                 pre.PageSetup.SlideHeight = 1080 / 2f;
                 }
@@ -1378,7 +1325,6 @@ namespace PresPio
             Presentation pre = app.ActivePresentation;
             try
                 {
-
                 pre.PageSetup.SlideWidth = 750 * 2.834f;
                 pre.PageSetup.SlideHeight = 280 * 2.834f;
                 }
@@ -1600,23 +1546,16 @@ namespace PresPio
 
         private void checkBox1_Click(object sender, RibbonControlEventArgs e)
             {
-
             Properties.Settings.Default.Replace = checkBox1.Checked;
             Properties.Settings.Default.Save();
-
             }
 
         private void toggleButton1_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
-
-
-
 
         private void toggleButton3_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         //删除配色色块
@@ -1637,6 +1576,7 @@ namespace PresPio
                     }
                 }
             }
+
         private void button54_Click(object sender, RibbonControlEventArgs e)
             {
             Selection sel = app.ActiveWindow.Selection;
@@ -1669,20 +1609,19 @@ namespace PresPio
             }
 
         #region
+
         private void button55_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
+
         #endregion
+
         private void button52_Click(object sender, RibbonControlEventArgs e)
             {
-
-
             }
 
         private void button51_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button60_Click(object sender, RibbonControlEventArgs e)
@@ -1719,7 +1658,6 @@ namespace PresPio
                 {
                 Console.WriteLine("Error processing shapes: " + ex.Message);
                 }
-
             }
 
         private void button57_Click(object sender, RibbonControlEventArgs e)
@@ -1769,7 +1707,6 @@ namespace PresPio
 
         private void button58_Click(object sender, RibbonControlEventArgs e)
             {
-
             Selection sel = app.ActiveWindow.Selection;
             PowerPoint.Shape oShp;
             string okeyWord;
@@ -1779,7 +1716,6 @@ namespace PresPio
                 }
             else if (sel.Type == PpSelectionType.ppSelectionShapes)
                 {
-
                 okeyWord = sel.ShapeRange.TextFrame.TextRange.Text;
                 string Text3 = NPinyin.Pinyin.GetPinyin(okeyWord, false, 3);
                 oShp = sel.ShapeRange[1];
@@ -1818,12 +1754,10 @@ namespace PresPio
 
         private void button69_Click(object sender, RibbonControlEventArgs e)
             {
-
             // 创建 Wpf_superGuide 对象实例
             Wpf_superGuide wpf_SuperGuide = new Wpf_superGuide();
             // 显示窗口
             wpf_SuperGuide.Show();
-
             }
 
         private void button70_Click(object sender, RibbonControlEventArgs e)
@@ -1858,7 +1792,6 @@ namespace PresPio
                         }
                     }
                 }
-
             }
 
         private void splitButton5_Click(object sender, RibbonControlEventArgs e)
@@ -1886,22 +1819,16 @@ namespace PresPio
                 }
             else
                 {
-
                 Growl.WarningGlobal("请先选择幻灯片或元素");
-
                 }
-
-
             }
 
         private void button53_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void comboBox1_TextChanged(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button71_Click(object sender, RibbonControlEventArgs e)
@@ -1916,8 +1843,6 @@ namespace PresPio
 
             //    }
             }
-
-
 
         private void splitButton4_Click(object sender, RibbonControlEventArgs e)
             {
@@ -1953,14 +1878,11 @@ namespace PresPio
             else
                 {
                 MessageBox.Show("请选择幻灯片！", "温馨提示");
-               
                 }
-
-                }
+            }
 
         private void button73_Click(object sender, RibbonControlEventArgs e)
             {
-
             Presentation pre = app.ActivePresentation;
             Selection sel = app.ActiveWindow.Selection;
             if (sel.Type == PpSelectionType.ppSelectionShapes)
@@ -1980,19 +1902,13 @@ namespace PresPio
                         shr1.Top = shape.Top;
                         shr1.Left = shape.Left;
                         shape.TextFrame.TextRange.Text = "";
-
                         }
                     }
                 else
                     {
                     Growl.Warning("请选择带有文本的形状", "温馨提示");
                     }
-
-
                 }
-
-
-
             }
 
         private void button74_Click(object sender, RibbonControlEventArgs e)
@@ -2059,9 +1975,7 @@ namespace PresPio
 
         private void button90_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
-
 
         private void splitButton6_Click(object sender, RibbonControlEventArgs e)
             {
@@ -2127,9 +2041,8 @@ namespace PresPio
 
             // 添加遮罩或衬底
             AddShapeToSlide(isCtrlPressed ? "遮罩" : "衬底");
-
-
             }
+
         /// <summary>
         /// 添加形状
         /// </summary>
@@ -2165,7 +2078,6 @@ namespace PresPio
             // 可以设置矩形的属性，如填充颜色、边框颜色等
             //rectangle.Fill.ForeColor.RGB = System.Drawing.Color.FromArgb(255, 255, 255).ToArgb();
             //rectangle.Line.ForeColor.RGB = System.Drawing.Color.FromArgb(0, 0, 0).ToArgb();
-
             }
 
         private void button81_Click(object sender, RibbonControlEventArgs e)
@@ -2210,8 +2122,6 @@ namespace PresPio
 
         private void button92_Click(object sender, RibbonControlEventArgs e)
             {
-
-
             }
 
         //底层函数
@@ -2220,14 +2130,14 @@ namespace PresPio
             //颜色转换函数
             public void RGB2HSL()
                 {
-
-
                 }
+
             public int RGB2Int(int R, int G, int B)
                 {
                 int PPTRGB = R + G * 256 + B * 256 * 256;
                 return PPTRGB;
                 }
+
             public Color Int2RGB(int color)
                 {
                 int B = color / (256 * 256);
@@ -2299,6 +2209,7 @@ namespace PresPio
                     }
                 return (int)num + (int)num5 * 256 + (int)num4 * 256 * 256;
                 }
+
             public int Hsl2Rgb(int h, int s, int l)
                 {
                 float num = (float)h / 255f;
@@ -2439,7 +2350,6 @@ namespace PresPio
                     {
                     if (gshape[0].GroupItems[i].Visible == MsoTriState.msoTrue && gshape[0].GroupItems[i].Name != sel.ShapeRange[0].Name)
                         {
-
                         gshape[0].GroupItems[i].Select(MsoTriState.msoFalse);
                         //shps.Add(gshape[0].GroupItems[i].Name);
                         }
@@ -2465,7 +2375,6 @@ namespace PresPio
 
         private void button79_Click(object sender, RibbonControlEventArgs e)
             {
-
             var sel = app.ActiveWindow.Selection;
 
             if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Control) //判断Ctrl键
@@ -2494,8 +2403,6 @@ namespace PresPio
                     return;
                     }
                 }
-
-
             }
 
         private void button94_Click(object sender, RibbonControlEventArgs e)
@@ -2526,7 +2433,6 @@ namespace PresPio
 
                 // 设置文本框的字体颜色为灰色
                 textBox.TextFrame.TextRange.Font.Color.RGB = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Gray);
-
                 }
             else
                 {
@@ -2534,7 +2440,6 @@ namespace PresPio
                 wpf_WaterMark.ShowDialog();
                 }
             }
-
 
         private void button84_Click(object sender, RibbonControlEventArgs e)
             {
@@ -2556,7 +2461,6 @@ namespace PresPio
                 }
             else
                 {
-
                 Growl.WarningGlobal("请选择单一对象后操作！");
                 }
             }
@@ -2596,7 +2500,6 @@ namespace PresPio
 
         private void button95_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void group4_DialogLauncherClick(object sender, RibbonControlEventArgs e)
@@ -2606,7 +2509,6 @@ namespace PresPio
 
         private void button87_Click(object sender, RibbonControlEventArgs e)
             {
-
             Slide slide = app.ActiveWindow.View.Slide;
             int count = slide.Shapes.Count;
             for (int i = 0 ; i < count ; count--)
@@ -2620,7 +2522,6 @@ namespace PresPio
 
         public void LockObj(Slide slide)
             {
-
             //名称、选择、类型
             int i = slide.Shapes.Count;
 
@@ -2632,11 +2533,10 @@ namespace PresPio
                 }
 
             Growl.SuccessGlobal("全文对象已锁定！");
-
             }
+
         private void button88_Click(object sender, RibbonControlEventArgs e)
             {
-
             Slide slide = app.ActiveWindow.View.Slide;
             int count = slide.Shapes.Count;
             for (int i = 0 ; i < count ; count--)
@@ -2664,8 +2564,6 @@ namespace PresPio
                             shp.Nodes.SetEditingType(count, MsoEditingType.msoEditingAuto);//平滑顶点
                             }
                         }
-
-
                     }
                 }
             else
@@ -2676,11 +2574,9 @@ namespace PresPio
                     }
                 else
                     {
-
                     Growl.WarningGlobal("请选择形状后再试！");
                     }
                 }
-
             }
 
         private void button97_Click(object sender, RibbonControlEventArgs e)
@@ -2694,20 +2590,16 @@ namespace PresPio
                     {
                     Globals.ThisAddIn.Application.CommandBars.ExecuteMso("PicturesCompress");
                     Growl.WarningGlobal("压缩窗体已开启！");
-
                     }
                 else
                     {
                     Growl.WarningGlobal("请选择图片后再试！");
                     }
-
                 }
             else
                 {
                 Growl.WarningGlobal("请选择图片后再试！");
                 }
-
-
             }
 
         private void splitButton7_Click(object sender, RibbonControlEventArgs e)
@@ -2724,7 +2616,6 @@ namespace PresPio
             //    {
             //    Growl.WarningGlobal("请选择图片后重试！");
             //    }
-
             }
 
         private void button12_Click_1(object sender, RibbonControlEventArgs e)
@@ -2742,14 +2633,12 @@ namespace PresPio
                     {
                     Growl.WarningGlobal("请选择图片后再试！");
                     }
-
                 }
             else
                 {
                 Growl.WarningGlobal("请选择图片后再试！");
                 }
             }
-
 
         private void gallery1_ButtonClick(object sender, RibbonControlEventArgs e)
             {
@@ -2766,7 +2655,6 @@ namespace PresPio
                     {
                     Growl.WarningGlobal("请选择图片后再试！");
                     }
-
                 }
             else
                 {
@@ -2781,14 +2669,11 @@ namespace PresPio
                 {
                 PowerPoint.ShapeRange shr = sel.ShapeRange;
                 app.CommandBars.ExecuteMso("ObjectSaveAsPicture");
-
-
                 }
             else
                 {
                 Growl.WarningGlobal("请选择内容后再试！");
                 }
-
             }
 
         private void button78_Click(object sender, RibbonControlEventArgs e)
@@ -2818,14 +2703,12 @@ namespace PresPio
 
         private void button103_Click(object sender, RibbonControlEventArgs e)
             {
-
             Growl.WarningGlobal("此功能要在存在节的文档中使用哦！");
             app.CommandBars.ExecuteMso("SectionCollapseAll");
             }
 
         private void button104_Click(object sender, RibbonControlEventArgs e)
             {
-
             app.CommandBars.ExecuteMso("SectionExpandAll");
             Growl.SuccessGlobal("所有分节已展开！");
             }
@@ -2838,7 +2721,6 @@ namespace PresPio
 
         private void button106_Click(object sender, RibbonControlEventArgs e)
             {
-
             app.CommandBars.ExecuteMso("SectionRemoveAll");
             Growl.SuccessGlobal("所有分节已移除！");
             }
@@ -2907,8 +2789,6 @@ namespace PresPio
                 {
                 Growl.Warning("请选择一个或多个文本框内容后再操作！", "温馨提示");
                 }
-
-
             }
 
         private void button109_Click(object sender, RibbonControlEventArgs e)
@@ -2936,7 +2816,6 @@ namespace PresPio
                 }
             else
                 {
-
                 Growl.WarningGlobal("请选择对象后再试！");
                 }
             }
@@ -2950,15 +2829,12 @@ namespace PresPio
             List<PowerPoint.Shape> shps = new List<PowerPoint.Shape>();
             for (int i = 0 ; i <= count ; count--)
                 {
-
                 if (myDocument.Shapes[count].Visible == MsoTriState.msoFalse)
                     {
                     myDocument.Shapes[count].Visible = MsoTriState.msoTrue;
                     break;
                     }
-
                 }
-
             }
 
         private void button111_Click(object sender, RibbonControlEventArgs e)
@@ -2970,8 +2846,6 @@ namespace PresPio
             {
             Globals.ThisAddIn.Application.CommandBars.ExecuteMso("ObjectsUngroup");//组合
             }
-
-
 
         private void button85_Click(object sender, RibbonControlEventArgs e)
             {
@@ -3052,7 +2926,6 @@ namespace PresPio
                 }
             else
                 {
-
                 Growl.WarningGlobal("请先选择形状！");
                 }
             }
@@ -3126,7 +2999,6 @@ namespace PresPio
 
             if (sel.Type != PpSelectionType.ppSelectionShapes)
                 {
-
                 Growl.WarningGlobal("请选择内容后再试！");
                 }
             else
@@ -3164,8 +3036,6 @@ namespace PresPio
                 sel.Unselect();
                 slide.Shapes.Range(shps.ToArray()).Select(MsoTriState.msoTrue);
                 }
-
-
             }
 
         private void button118_Click(object sender, RibbonControlEventArgs e)
@@ -3224,7 +3094,6 @@ namespace PresPio
                 PowerPoint.ShapeRange newShapeRange = slide.Shapes.Range(newShapes.Select(shape => shape.Name).ToArray());
                 newShapeRange.Select(MsoTriState.msoTrue);
                 }
-
             }
 
         private void toggleButton4_Click(object sender, RibbonControlEventArgs e)
@@ -3259,10 +3128,8 @@ namespace PresPio
                 TaskPaneShared.taskPane.VisibleChanged += new System.EventHandler(taskpane4_VisibleChanged);
                 }
             #endregion
-
-
-
             }
+
         private void taskpane4_VisibleChanged(object sender, EventArgs e)//回调用户窗体事件
             {
             MyRibbon ribbon = Globals.Ribbons.GetRibbon<MyRibbon>();//获得功能区
@@ -3273,10 +3140,9 @@ namespace PresPio
             else
                 {
                 ribbon.toggleButton4.Checked = false;
-
                 }
-
             }
+
         /// <summary>
         /// 单例窗体调用 GenericSingleton
         /// </summary>
@@ -3284,6 +3150,7 @@ namespace PresPio
         public class GenericSingleton<T> where T : Form, new()
             {
             private static T t = null;
+
             public static T CreateInstrance()
                 {
                 if (t == null || t.IsDisposed)
@@ -3292,13 +3159,12 @@ namespace PresPio
                     }
                 else
                     {
-                    t.Activate(); //如果已经打开过就让其获得焦点  
+                    t.Activate(); //如果已经打开过就让其获得焦点
                     t.WindowState = FormWindowState.Normal;//使Form恢复正常窗体大小
                     }
                 return t;
                 }
             }
-
 
         private void group5_DialogLauncherClick(object sender, RibbonControlEventArgs e)
             {
@@ -3310,10 +3176,7 @@ namespace PresPio
 
         private void button119_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
-
-
 
         private void button108_Click_1(object sender, RibbonControlEventArgs e)
             {
@@ -3332,11 +3195,9 @@ namespace PresPio
                         }
                     shp2.TextFrame.TextRange.Text = Text;
                     }
-
                 }
             else
                 {
-
                 Growl.WarningGlobal("请选择形状后再试！");
                 }
             }
@@ -3381,7 +3242,6 @@ namespace PresPio
 
         private void button7_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button109_Click_1(object sender, RibbonControlEventArgs e)
@@ -3468,7 +3328,6 @@ namespace PresPio
             MyFunction F = new MyFunction();
             if (sel.Type != PpSelectionType.ppSelectionShapes)
                 {
-
                 Growl.WarningGlobal("请选择内容后再试！");
                 }
             else
@@ -3496,13 +3355,10 @@ namespace PresPio
 
         private void button98_Click_1(object sender, RibbonControlEventArgs e)
             {
-
-
             }
 
         private void button98_Click_2(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button112_Click_1(object sender, RibbonControlEventArgs e)
@@ -3510,11 +3366,9 @@ namespace PresPio
             Selection sel = app.ActiveWindow.Selection;
             if (sel.Type == PpSelectionType.ppSelectionShapes)
                 {
-
                 if (sel.ShapeRange.TextFrame.AutoSize == PpAutoSize.ppAutoSizeNone)
                     {
                     sel.ShapeRange.TextFrame.AutoSize = PpAutoSize.ppAutoSizeShapeToFitText;
-
                     }
                 else
                     {
@@ -3539,8 +3393,6 @@ namespace PresPio
                             shp.Nodes.SetEditingType(count, MsoEditingType.msoEditingAuto);//平滑顶点
                             }
                         }
-
-
                     }
                 }
             catch
@@ -3557,7 +3409,6 @@ namespace PresPio
             MyFunction F = new MyFunction();
             if (sel.Type != PpSelectionType.ppSelectionShapes)
                 {
-
                 Growl.WarningGlobal("请选择内容后再试！");
                 }
             else
@@ -3585,8 +3436,6 @@ namespace PresPio
 
         private void button114_Click(object sender, RibbonControlEventArgs e)
             {
-
-
             }
 
         private void button119_Click_1(object sender, RibbonControlEventArgs e)
@@ -3621,7 +3470,6 @@ namespace PresPio
                 {
                 Growl.Warning("请选择一个或多个文本框内容后再操作！", "温馨提示");
                 }
-
             }
 
         private void button77_Click(object sender, RibbonControlEventArgs e)
@@ -3643,13 +3491,11 @@ namespace PresPio
                     {
                     PowerPoint.Shape shp = sel.ShapeRange[count];//选择的图形
                     shps.Add(shp.Name);
-
                     }
                 slide.Shapes.Range(shps.ToArray()).Select(MsoTriState.msoTrue);
                 sel.ShapeRange.MergeShapes(MsoMergeCmd.msoMergeFragment, null);
                 foreach (PowerPoint.Shape shp in slide.Shapes)
                     {
-
                     if (shp.Left == -30)
                         {
                         shp.Delete();
@@ -3700,8 +3546,6 @@ namespace PresPio
                     Growl.SuccessGlobal("存在没有分段的文本框");
                     }
                 }
-
-
             }
 
         private void button121_Click(object sender, RibbonControlEventArgs e)
@@ -3809,8 +3653,6 @@ namespace PresPio
                     Growl.WarningGlobal("请选择一个文本框。");
                     }
                 }
-
-
             }
 
         private void button122_Click(object sender, RibbonControlEventArgs e)
@@ -3866,7 +3708,6 @@ namespace PresPio
 
                 text.Select();
                 }
-
             }
 
         private void button123_Click(object sender, RibbonControlEventArgs e)
@@ -3904,12 +3745,11 @@ namespace PresPio
         private void button8_Click_1(object sender, RibbonControlEventArgs e)
             {
             Globals.ThisAddIn.Application.CommandBars.ExecuteMso("MSPPTInsertTableofContents");//插入缩放
-
             }
+
         //发光质感功能开始
         private void button9_Click_1(object sender, RibbonControlEventArgs e)
             {
-
             MyFunction F = new MyFunction();
             Selection selection = this.app.ActiveWindow.Selection;
             int num1 = Properties.Settings.Default.GradeColorN;
@@ -3936,9 +3776,6 @@ namespace PresPio
                     shp.Glow.Radius = GlowNum;
                     }
                 }
-
-
-
             }
 
         private void splitButton8_Click(object sender, RibbonControlEventArgs e)
@@ -3955,7 +3792,6 @@ namespace PresPio
                 {
                 if (selection.Type == PpSelectionType.ppSelectionNone)
                     {
-
                     Growl.WarningGlobal("请选择内容后再试！");
                     return;
                     }
@@ -4025,9 +3861,7 @@ namespace PresPio
                                     }
                                 else
                                     {
-
                                     Growl.WarningGlobal("所选非渐变！");
-
                                     }
                                 }
                             continue;
@@ -4083,11 +3917,9 @@ namespace PresPio
                     else
                         {
                         Growl.WarningGlobal("请选择内容后再试！");
-
                         }
                     }
                 }
-
             }
 
         private void button10_Click_1(object sender, RibbonControlEventArgs e)
@@ -4103,8 +3935,6 @@ namespace PresPio
             MyFunction F = new MyFunction();
             try
                 {
-
-
                 int num1 = Properties.Settings.Default.GradeColorN;
                 if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Control)  //判断Ctrl键
                     {
@@ -4115,12 +3945,10 @@ namespace PresPio
                     {
                     if (sel.Type != PpSelectionType.ppSelectionShapes)
                         {
-
                         Growl.WarningGlobal("请选择内容后再试！");
                         }
                     else
                         {
-
                         int count = sel.ShapeRange.Count;
                         for (int i = 0 ; i <= count ; count--)
                             {
@@ -4135,7 +3963,6 @@ namespace PresPio
                             shp.Shadow.RotateWithShape = MsoTriState.msoTrue;//旋转角度
                             shp.Shadow.IncrementOffsetX(0);
                             shp.Shadow.IncrementOffsetY(0);
-
                             }
                         }
                     }
@@ -4156,23 +3983,15 @@ namespace PresPio
                     shp.Shadow.RotateWithShape = MsoTriState.msoTrue;//旋转角度
                     shp.Shadow.IncrementOffsetX(0);
                     shp.Shadow.IncrementOffsetY(0);
-
                     }
                 }
-
             }
-
-
-
 
         private void button86_Click(object sender, RibbonControlEventArgs e)
             {
             Wpf_ImageExport wpf_ImageExport = new Wpf_ImageExport();
             wpf_ImageExport.Show();
-
             }
-
-
 
         private void button52_Click_1(object sender, RibbonControlEventArgs e)
             {
@@ -4221,19 +4040,14 @@ namespace PresPio
                 shape.TextFrame.TextRange.Font.Color.RGB = shape.Fill.ForeColor.RGB;
                 shape.TextFrame.TextRange.Text = F.RGB2Int(r, g, b).ToString();
                 }
-
             }
 
         private void button124_Click(object sender, RibbonControlEventArgs e)
             {
-          
-          
-
             }
 
         private void button125_Click(object sender, RibbonControlEventArgs e)
             {
-
             PowerPoint.Selection sel = app.ActiveWindow.Selection;
 
             if (sel.Type == PpSelectionType.ppSelectionText || sel.Type == PpSelectionType.ppSelectionShapes)
@@ -4262,7 +4076,6 @@ namespace PresPio
                 {
                 Growl.WarningGlobal("请选择文本内容！");
                 }
-
             }
 
         private void button27_Click_1(object sender, RibbonControlEventArgs e)
@@ -4270,9 +4083,7 @@ namespace PresPio
             PowerPoint.Selection sel = app.ActiveWindow.Selection;
             if (sel.Type != PowerPoint.PpSelectionType.ppSelectionShapes)
                 {
-
                 Growl.SuccessGlobal("同时选中当前页面中与所选形状相同填充颜色的形状！");
-
                 }
             else
                 {
@@ -4315,9 +4126,7 @@ namespace PresPio
             PowerPoint.Selection sel = app.ActiveWindow.Selection;
             if (sel.Type != PowerPoint.PpSelectionType.ppSelectionShapes)
                 {
-
                 Growl.SuccessGlobal("同时选中当前页面中与所选形状相同线条颜色的形状！");
-
                 }
             else
                 {
@@ -4360,9 +4169,7 @@ namespace PresPio
             PowerPoint.Selection sel = app.ActiveWindow.Selection;
             if (sel.Type != PowerPoint.PpSelectionType.ppSelectionShapes)
                 {
-
                 Growl.SuccessGlobal("同时选中当前页面中与所选形状相同线条粗细的形状！");
-
                 }
             else
                 {
@@ -4395,9 +4202,7 @@ namespace PresPio
                     }
                 else
                     {
-
                     Growl.WarningGlobal("形状无线条！");
-
                     }
                 }
             }
@@ -4407,7 +4212,6 @@ namespace PresPio
             PowerPoint.Selection sel = app.ActiveWindow.Selection;
             if (sel.Type != PowerPoint.PpSelectionType.ppSelectionShapes)
                 {
-
                 Growl.SuccessGlobal("同时选中当前页面中与所选形状相同类型的形状！");
                 }
             else
@@ -4444,9 +4248,7 @@ namespace PresPio
             PowerPoint.Selection sel = app.ActiveWindow.Selection;
             if (sel.Type != PowerPoint.PpSelectionType.ppSelectionShapes)
                 {
-
                 Growl.SuccessGlobal("同时选中当前页面中与所选形状相同类型的形状！");
-
                 }
             else
                 {
@@ -4487,11 +4289,8 @@ namespace PresPio
                 }
             }
 
-
-
         private void button128_Click(object sender, RibbonControlEventArgs e)
             {
-
             PowerPoint.Selection sel = app.ActiveWindow.Selection;
             if (sel.Type != PowerPoint.PpSelectionType.ppSelectionShapes)
                 {
@@ -4552,27 +4351,20 @@ namespace PresPio
             string fileName = saveFileDialog1.FileName;
             if (dr == System.Windows.Forms.DialogResult.OK && !string.IsNullOrEmpty(fileName))
                 {
-
                 app.Presentations[1].SaveAs(fileName, PpSaveAsFileType.ppSaveAsOpenXMLPicturePresentation, MsoTriState.msoTriStateMixed);//导出PDF
-
                 }
             else
                 {
-
                 Growl.WarningGlobal("您未选择文件夹，导出失败！");
                 }
             }
 
-
-
         private void button133_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void group3_DialogLauncherClick(object sender, RibbonControlEventArgs e)
             {
-
             //独立窗口
             Wpf_Clipboard wpf_Clipboard = new Wpf_Clipboard();
             wpf_Clipboard.Show();
@@ -4590,7 +4382,6 @@ namespace PresPio
             if (sel.Type == PowerPoint.PpSelectionType.ppSelectionNone)
                 {
                 Growl.WarningGlobal("请选中至少1个文本框");
-
                 }
             else
                 {
@@ -4607,10 +4398,10 @@ namespace PresPio
                     paragraphFormat.LineRuleWithin = MsoTriState.msoTrue;//设置为行数
                     paragraphFormat.SpaceWithin = num;//段落间距
                                                       // paragraphFormat.Alignment = PpParagraphAlignment.ppAlignJustify;//两端对齐
-
                     }
                 }
             }
+
         private void splitButton9_Click(object sender, RibbonControlEventArgs e)
             {
             //Form_Dialog form_Dialog = new Form_Dialog();
@@ -4628,9 +4419,6 @@ namespace PresPio
             //{
             //    Paragraph((float)value);
             //}
-
-
-
             }
 
         private void button133_Click_1(object sender, RibbonControlEventArgs e)
@@ -4672,8 +4460,6 @@ namespace PresPio
 
         private void button138_Click(object sender, RibbonControlEventArgs e)
             {
-
-
             }
 
         private void splitButton10_Click(object sender, RibbonControlEventArgs e)
@@ -4687,22 +4473,19 @@ namespace PresPio
                 {
                 AdjustTextBox(sel, 0, 0, 0, 0);
                 }
-
-
             }
+
         /// <summary>
         /// 自适应调整文本边框
         /// </summary>
         /// <param name="shr"></param>
         public void AutoTextBox(Selection sel)
             {
-
             PowerPoint.Slide slide = app.ActiveWindow.View.Slide;
 
             if (sel.Type == PowerPoint.PpSelectionType.ppSelectionNone)
                 {
                 Growl.WarningGlobal("请选中至少1个文本框");
-
                 }
             else
                 {
@@ -4719,6 +4502,7 @@ namespace PresPio
                     }
                 }
             }
+
         /// <summary>
         /// 调整文本边距
         /// </summary>
@@ -4729,13 +4513,10 @@ namespace PresPio
         /// <param name="bottomMargin"></param>
         public void AdjustTextBox(Selection sel, float leftMargin, float topMargin, float rightMargin, float bottomMargin)
             {
-
-
             PowerPoint.Slide slide = app.ActiveWindow.View.Slide;
             if (sel.Type == PowerPoint.PpSelectionType.ppSelectionNone)
                 {
                 Growl.WarningGlobal("请选中至少1个文本框");
-
                 }
             else
                 {
@@ -4754,7 +4535,6 @@ namespace PresPio
                     shape.TextFrame.MarginBottom = bottomMargin;
                     }
                 }
-
             }
 
         private void splitButton11_Click(object sender, RibbonControlEventArgs e)
@@ -4789,8 +4569,6 @@ namespace PresPio
                 {
                 Console.WriteLine("Error in IndentFirstLine: " + ex.Message);
                 }
-
-
             }
 
         private void button139_Click(object sender, RibbonControlEventArgs e)
@@ -4866,9 +4644,6 @@ namespace PresPio
             MyFunction F = new MyFunction();
             shape1.Fill.ForeColor.RGB = F.RGB2Int(newR, newG, newB);
             shape1.TextFrame.TextRange.Text = "已定稿";
-
-
-
             }
 
         private void button140_Click(object sender, RibbonControlEventArgs e)
@@ -4926,7 +4701,6 @@ namespace PresPio
                 }
             }
 
-
         public void button142_Click(object sender, RibbonControlEventArgs e)
             {
             PowerPoint.Selection selection = app.ActiveWindow.Selection;
@@ -4954,7 +4728,6 @@ namespace PresPio
                         }
                     }
                 }
-
             }
 
         private void button143_Click(object sender, RibbonControlEventArgs e)
@@ -4981,11 +4754,9 @@ namespace PresPio
                         float shapeTop = selection.ShapeRange[1].Top;
                         float shapeLeft = selection.ShapeRange[1].Left;
                         shape.Height = shapeHeight;
-
                         }
                     }
                 }
-
             }
 
         private void button146_Click(object sender, RibbonControlEventArgs e)
@@ -5011,14 +4782,11 @@ namespace PresPio
                         }
                     }
                 }
-
             }
 
         private void button144_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
-
 
         /// <summary>
         /// 判断形状是否在周围
@@ -5081,7 +4849,6 @@ namespace PresPio
             System.Windows.Clipboard.Clear();
             }
 
-
         private void button147_Click(object sender, RibbonControlEventArgs e)
             {
             app.CommandBars.ExecuteMso("AutoShapeInsert");
@@ -5097,7 +4864,6 @@ namespace PresPio
                 PowerPoint.Shape firstshp = selection.ShapeRange[1];
                 if (firstshp.HasTextFrame == MsoTriState.msoTrue)
                     {
-
                     float FontSize = firstshp.TextFrame.TextRange.Font.Size;
                     int count = slide.Shapes.Count;
                     for (int i = 0 ; i < count ; count--)
@@ -5115,15 +4881,11 @@ namespace PresPio
                     selection.Unselect();
                     slide.Shapes.Range(Shps.ToArray()).Select(MsoTriState.msoTrue);
                     }
-
                 }
             else
                 {
-
                 Growl.WarningGlobal("请选择内容后再试");
-
                 }
-
             }
 
         private void button67_Click(object sender, RibbonControlEventArgs e)
@@ -5136,7 +4898,6 @@ namespace PresPio
                 PowerPoint.Shape firstshp = selection.ShapeRange[1];
                 if (firstshp.HasTextFrame == MsoTriState.msoTrue)
                     {
-
                     int FontColor = firstshp.TextFrame.TextRange.Font.Color.RGB;
                     int count = slide.Shapes.Count;
                     for (int i = 0 ; i < count ; count--)
@@ -5154,13 +4915,10 @@ namespace PresPio
                     selection.Unselect();
                     slide.Shapes.Range(Shps.ToArray()).Select(MsoTriState.msoTrue);
                     }
-
                 }
             else
                 {
-
                 Growl.WarningGlobal("请选择内容后再试");
-
                 }
             }
 
@@ -5174,7 +4932,6 @@ namespace PresPio
                 PowerPoint.Shape firstshp = selection.ShapeRange[1];
                 if (firstshp.HasTextFrame == MsoTriState.msoTrue)
                     {
-
                     string FontName = firstshp.TextFrame.TextRange.Font.Name;
                     int count = slide.Shapes.Count;
                     for (int i = 0 ; i < count ; count--)
@@ -5192,13 +4949,10 @@ namespace PresPio
                     selection.Unselect();
                     slide.Shapes.Range(Shps.ToArray()).Select(MsoTriState.msoTrue);
                     }
-
                 }
             else
                 {
-
                 Growl.WarningGlobal("请选择内容后再试");
-
                 }
             }
 
@@ -5222,7 +4976,6 @@ namespace PresPio
             Selection sel = app.ActiveWindow.Selection;
             if (sel.Type == PpSelectionType.ppSelectionSlides)
                 {
-
                 foreach (Slide item in sel.SlideRange)
                     {
                     foreach (PowerPoint.Shape shp in item.Shapes)
@@ -5240,16 +4993,11 @@ namespace PresPio
                             }
                         }
                     }
-
                 }
             else
                 {
-
                 Growl.WarningGlobal("请先选择幻灯片！");
-
                 }
-
-
             }
 
         private void button149_Click(object sender, RibbonControlEventArgs e)
@@ -5274,7 +5022,6 @@ namespace PresPio
                         }
                     }
                 }
-
             }
 
         private void button150_Click(object sender, RibbonControlEventArgs e)
@@ -5302,7 +5049,6 @@ namespace PresPio
             int count = pre.Slides.Count;
             string Text = "已处理" + count + "页幻灯片的文本内容";
             Growl.WarningGlobal(Text);
-
             }
 
         private void button107_Click_1(object sender, RibbonControlEventArgs e)
@@ -5316,7 +5062,6 @@ namespace PresPio
             string svgData = System.Windows.Forms.Clipboard.GetText();
             if (!svgData.Contains("<svg"))
                 {
-
                 Growl.WarningGlobal("剪贴板不含svg数据");
 
                 return;
@@ -5392,9 +5137,7 @@ namespace PresPio
                 }
             else
                 {
-
                 Growl.WarningGlobal("请选择单个文件");
-
                 }
             }
 
@@ -5406,7 +5149,6 @@ namespace PresPio
             MyFunction F = new MyFunction();
             if (sel.Type != PpSelectionType.ppSelectionShapes)
                 {
-
                 Growl.WarningGlobal("请选择内容后再试！");
                 }
             else
@@ -5432,11 +5174,8 @@ namespace PresPio
             slide.Shapes.Range(shps.ToArray()).Select(MsoTriState.msoTrue);
             }
 
-
-
         private void splitButton12_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button147_Click_1(object sender, RibbonControlEventArgs e)
@@ -5511,7 +5250,6 @@ namespace PresPio
                 var shape = selectedShapes[i];
                 shape.Left = lastShapeLeft - shape.Width / 2;
                 }
-
             }
 
         private void button156_Click(object sender, RibbonControlEventArgs e)
@@ -5587,9 +5325,7 @@ namespace PresPio
                 var offsetY = lastBottom - shapeBottom;
                 shape.Top += offsetY;
                 }
-
             }
-
 
         /// <summary>
         /// 获取选中组中的子项名称
@@ -5632,7 +5368,6 @@ namespace PresPio
 
         private void button127_Click(object sender, RibbonControlEventArgs e)
             {
-
             PowerPoint.Application pptApp = Globals.ThisAddIn.Application;
             PowerPoint.Selection sel = pptApp.ActiveWindow.Selection;
 
@@ -5655,13 +5390,8 @@ namespace PresPio
                 }
             else
                 {
-
                 Growl.WarningGlobal("请选择内容后再试！ ");
                 }
-
-
-
-
             }
 
         private void button132_Click(object sender, RibbonControlEventArgs e)
@@ -5693,13 +5423,9 @@ namespace PresPio
                 }
             else
                 {
-
                 Growl.WarningGlobal("请选择内容后再试！ ");
                 }
-
             }
-
-
 
         /// <summary>
         /// 跳转网址到浏览器
@@ -5725,8 +5451,8 @@ namespace PresPio
                 }
 
             Growl.Warning("没有可用的网络连接");
-
             }
+
         private void button56_Click(object sender, RibbonControlEventArgs e)
             {
             Gotoweb("https://unsplash.com/");
@@ -5789,9 +5515,9 @@ namespace PresPio
 
         private void button171_Click(object sender, RibbonControlEventArgs e)
             {
-
             Growl.WarningGlobal("AI功能更新中");
             }
+
         /// <summary>
         /// 搜索替换文字内容
         /// </summary>
@@ -5814,7 +5540,6 @@ namespace PresPio
                     }
                 }
             }
-
 
         private void button172_Click(object sender, RibbonControlEventArgs e)
             {
@@ -5842,15 +5567,10 @@ namespace PresPio
                 {
                 ReplaceText(shape, " ", "");
                 }
-
-
             }
-
-
 
         private void button158_Click(object sender, RibbonControlEventArgs e)
             {
-            
             Presentation presentation = app.ActivePresentation;
             string WithoutExtension = System.IO.Path.GetFileNameWithoutExtension(presentation.Name);
 
@@ -5889,10 +5609,7 @@ namespace PresPio
                 {
                 Growl.Warning("请打开要拆分的 PowerPoint 文件！");
                 }
-
-
             }
-
 
         private void button173_Click(object sender, RibbonControlEventArgs e)
             {
@@ -5916,12 +5633,7 @@ namespace PresPio
             //        sourcePresentation.Close();
             //        }
             //    }
-
             }
-
-
-
-
 
         private void button174_Click(object sender, RibbonControlEventArgs e)
             {
@@ -5993,25 +5705,18 @@ namespace PresPio
                     Process.Start("Explorer.exe", cPath);
                     break;
                 }
-
-
             }
 
         private void button175_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
-
-
 
         private void splitButton13_Click(object sender, RibbonControlEventArgs e)
             {
-
             Slide slide = Globals.ThisAddIn.Application.ActiveWindow.View.Slide;
             var app = Globals.ThisAddIn.Application;
 
             Selection sel = app.ActiveWindow.Selection;
-
 
             if (sel.Type == PpSelectionType.ppSelectionSlides)
                 {
@@ -6170,7 +5875,6 @@ namespace PresPio
                         }
                     Growl.SuccessGlobal("所选页面的动画已删除！");
                     }
-
                 else
                     {
                     // 如果没有选中幻灯片，则删除当前幻灯片中的所有动画效果
@@ -6183,7 +5887,6 @@ namespace PresPio
                     }
                 Growl.SuccessGlobal("当前页面的动画已删除！");
                 }
-
             }
 
         private void button176_Click(object sender, RibbonControlEventArgs e)
@@ -6242,14 +5945,12 @@ namespace PresPio
 
         private void button178_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button179_Click(object sender, RibbonControlEventArgs e)
             {
             Presentation pre = this.app.ActivePresentation;//定义幻灯片对象
             pre.RemoveDocumentInformation(PpRemoveDocInfoType.ppRDIAll);//删除演示文档信息
-
             }
 
         private void button180_Click(object sender, RibbonControlEventArgs e)
@@ -6285,7 +5986,6 @@ namespace PresPio
                 {
                 Growl.Success("未找到任何占位符。", "提示");
                 }
-
             }
 
         private void button181_Click(object sender, RibbonControlEventArgs e)
@@ -6385,8 +6085,8 @@ namespace PresPio
                 {
                 Growl.Warning("当前幻灯片中不存在空白文本框。");
                 }
-
             }
+
         /// <summary>
         /// 删除媒体
         /// </summary>
@@ -6494,7 +6194,6 @@ namespace PresPio
 
         private void button195_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button197_Click(object sender, RibbonControlEventArgs e)
@@ -6535,7 +6234,6 @@ namespace PresPio
 
         private void button202_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button203_Click(object sender, RibbonControlEventArgs e)
@@ -6594,13 +6292,10 @@ namespace PresPio
                     Growl.Warning("请选中一张图片"); // 提示用户选择一张图片
                     }
                 }
-
-
             }
 
         private void button55_Click_1(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button204_Click(object sender, RibbonControlEventArgs e)
@@ -6609,7 +6304,6 @@ namespace PresPio
 
         private void bindingSource1_CurrentChanged(object sender, EventArgs e)
             {
-
             }
 
         private void button204_Click_1(object sender, RibbonControlEventArgs e)
@@ -6627,30 +6321,18 @@ namespace PresPio
             Gotoweb("https://dribbble.com/?ref=ppask.cn");
             }
 
-
-
-
-
-
         private void button138_Click_1(object sender, RibbonControlEventArgs e)
             {
-
-
             }
 
         private void button55_Click_2(object sender, RibbonControlEventArgs e)
             {
-
-
-
             }
 
         private void button7_Click_1(object sender, RibbonControlEventArgs e)
             {
             Wpf_shapeCopy wpf_ShapeCopy = new Wpf_shapeCopy();
             wpf_ShapeCopy.Show();
-
-
             }
 
         //// 创建并显示 XWindow1
@@ -6659,23 +6341,15 @@ namespace PresPio
 
         private void button138_Click_2(object sender, RibbonControlEventArgs e)
             {
-               
             //Wpf_NameUnification wpf_NameUnification = new Wpf_NameUnification();
             //wpf_NameUnification.Show();
             // 创建并显示 XWindow1
             //XWindow1 window = new XWindow1();
             //window.OpenWindow(@"file:///C:/Users/Administrator/Desktop/Demo/Untitled-6.html", 560, 600);
             ////window.OpenWindow(@"https://chat.tinycms.xyz:2024/#/profile",1200,600);
-       
-
             }
 
-
-        #region 
-
-
-
-
+        #region
 
         private float CalculateOpacity(byte alpha, float minOpacity, float maxOpacity)
             {
@@ -6684,9 +6358,7 @@ namespace PresPio
             return minOpacity + normalizedAlpha * opacityRange;
             }
 
-
         #endregion
-
 
         /// <summary>
         /// 插入SVG
@@ -6703,9 +6375,9 @@ namespace PresPio
 
         private void button207_Click(object sender, RibbonControlEventArgs e)
             {
-            Wpf_Manuscript wpf_Manuscript = new Wpf_Manuscript();
-            wpf_Manuscript.Show();
-            
+            // Replace the problematic code with the following
+            PresPio.Public_Wpf.Wpf_Polygon wpf_Polygon = new PresPio.Public_Wpf.Wpf_Polygon();
+            wpf_Polygon.Show();
             }
 
         private void button208_Click(object sender, RibbonControlEventArgs e)
@@ -6740,18 +6412,14 @@ namespace PresPio
                     shp.Delete();
                     }
                 }
-
             }
 
         private void button209_Click(object sender, RibbonControlEventArgs e)
             {
-
-
             }
 
         private void button210_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         /// <summary>
@@ -6809,7 +6477,6 @@ namespace PresPio
                 }
             }
 
-
         private void button211_Click(object sender, RibbonControlEventArgs e)
             {
             try
@@ -6842,12 +6509,10 @@ namespace PresPio
                 {
                 Console.WriteLine("Error in IndentFirstLine: " + ex.Message);
                 }
-
             }
 
         private void button213_Click(object sender, RibbonControlEventArgs e)
             {
-
             // 获取当前演示文稿
             Presentation presentation = app.ActivePresentation;
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
@@ -6892,7 +6557,6 @@ namespace PresPio
                 {
                 Growl.WarningGlobal("未选择文件夹路径。");
                 }
-
             }
 
         private void button214_Click(object sender, RibbonControlEventArgs e)
@@ -6953,13 +6617,10 @@ namespace PresPio
                 {
                 Growl.WarningGlobal("未选择备注文本文件。");
                 }
-
-
             }
 
         private void button55_Click_3(object sender, RibbonControlEventArgs e)
             {
-
             Selection selection = app.ActiveWindow.Selection;
 
             // 检查选择条件
@@ -7013,8 +6674,6 @@ namespace PresPio
                     }
                 return shapes;
                 }
-
-
             }
 
         private void DistributeShapesAlongLine(Shape lineShape, List<Shape> shapesToDistribute)
@@ -7110,9 +6769,8 @@ namespace PresPio
             //Wpf_FileSteward wpf_FileSteward=new Wpf_FileSteward();
             //wpf_FileSteward.Show();
             PresPio.Wpf_Form.Wpf_SplitPPT wpf_SplitPPT = new Wpf_Form.Wpf_SplitPPT();
-     
-            wpf_SplitPPT.Show();
 
+            wpf_SplitPPT.Show();
             }
 
         private void button114_Click_2(object sender, RibbonControlEventArgs e)
@@ -7172,15 +6830,10 @@ namespace PresPio
                     }
                 Growl.SuccessGlobal("已将当前页面中的所有元素转为png图片");
                 }
-
-
-
             }
 
         private void button140_Click_1(object sender, RibbonControlEventArgs e)
             {
-
-
             }
 
         private void button140_Click_2(object sender, RibbonControlEventArgs e)
@@ -7193,7 +6846,8 @@ namespace PresPio
         /// </summary>
         /// <param name="align_type"></param>
         #region
-        bool is_to_shape = true;
+        private bool is_to_shape = true;
+
         private void align_shapes(string align_type)
             {
             try
@@ -7235,7 +6889,6 @@ namespace PresPio
                     int i = 0;
                     foreach (PowerPoint.Shape shp in shapeRange)
                         {
-
                         float w = shp.Width;
                         float h = shp.Height;
                         float t = shp.Top;
@@ -7311,7 +6964,6 @@ namespace PresPio
                             int k = 0;
                             foreach (PowerPoint.Shape shp in shapeRange)
                                 {
-
                                 if (id == k)
                                     {
                                     float shp_w = shp.Width;
@@ -7324,7 +6976,6 @@ namespace PresPio
                                 k++;
                                 }
                             }
-
                         }
                     else if (align_type == "vert_dist")
                         {
@@ -7356,7 +7007,6 @@ namespace PresPio
                             int k = 0;
                             foreach (PowerPoint.Shape shp in shapeRange)
                                 {
-
                                 if (id == k)
                                     {
                                     float shp_h = shp.Height;
@@ -7410,6 +7060,7 @@ namespace PresPio
                                 case "horizontal":
                                     shp.Top = centers_y[count - 1] - sizes[i, 1] / 2;
                                     break;
+
                                 case "vertical":
                                     shp.Left = centers_x[count - 1] - sizes[i, 0] / 2;
                                     break;
@@ -7417,6 +7068,7 @@ namespace PresPio
                                 case "left":
                                     shp.Left = corners[count - 1, 0];
                                     break;
+
                                 case "right":
                                     shp.Left = (corners[count - 1, 0] + sizes[count - 1, 0] - sizes[i, 0]);
                                     break;
@@ -7424,6 +7076,7 @@ namespace PresPio
                                 case "top":
                                     shp.Top = corners[count - 1, 1];
                                     break;
+
                                 case "bottom":
                                     shp.Top = (corners[count - 1, 1] + sizes[count - 1, 1] - sizes[i, 1]);
                                     break;
@@ -7435,26 +7088,17 @@ namespace PresPio
                             }
                         }
                     }
-
                 }
             catch (Exception)
                 {
-
                 }
-
             }
-
-
 
         private void update_enable()
             {
             to_shape.Enabled = !is_to_shape;
             to_slide.Enabled = is_to_shape;
             }
-
-
-
-
 
         #endregion
 
@@ -7495,7 +7139,6 @@ namespace PresPio
 
         private void button153_Click_1(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button155_Click_1(object sender, RibbonControlEventArgs e)
@@ -7548,7 +7191,6 @@ namespace PresPio
                     }
                 }
 
-
             Growl.SuccessGlobal("数量+1");
             }
 
@@ -7556,50 +7198,42 @@ namespace PresPio
             {
             ComHelper comHelper = new ComHelper();
             comHelper.DuplicateShapes("left");     // 将形状复制到左侧
-
             }
 
         private void button153_Click_2(object sender, RibbonControlEventArgs e)
             {
             ComHelper comHelper = new ComHelper();
             comHelper.DuplicateShapes("right");      // 将形状复制到右侧
-
-
             }
 
         private void button154_Click_1(object sender, RibbonControlEventArgs e)
             {
             ComHelper comHelper = new ComHelper();
             comHelper.DuplicateShapes("up");        // 将形状复制到上侧
-
             }
 
         private void button157_Click_1(object sender, RibbonControlEventArgs e)
             {
             ComHelper comHelper = new ComHelper();
             comHelper.DuplicateShapes("down");      // 将形状复制到下侧
-
             }
 
         private void button215_Click(object sender, RibbonControlEventArgs e)
             {
             ComHelper comHelper = new ComHelper();
             comHelper.DuplicateShapes("leftup");    // 将形状复制到左上侧
-
             }
 
         private void button216_Click(object sender, RibbonControlEventArgs e)
             {
             ComHelper comHelper = new ComHelper();
             comHelper.DuplicateShapes("leftdown");  // 将形状复制到左下侧
-
             }
 
         private void button217_Click(object sender, RibbonControlEventArgs e)
             {
             ComHelper comHelper = new ComHelper();
             comHelper.DuplicateShapes("rightup");   // 将形状复制到右上侧
-
             }
 
         private void button218_Click(object sender, RibbonControlEventArgs e)
@@ -7633,7 +7267,6 @@ namespace PresPio
             Wpf_Colortheif wpf_Colortheif = new Wpf_Colortheif();
             wpf_Colortheif.Show();
             }
-
 
         /// <summary>
         /// 格式化当前选定文本的属性，包括字体、大小、颜色、对齐方式等。
@@ -7709,8 +7342,6 @@ namespace PresPio
                 isItalic: false,
                 spaceBefore: 10,
                 spaceAfter: 10);
-
-
             }
 
         private void splitButton17_Click(object sender, RibbonControlEventArgs e)
@@ -7722,7 +7353,7 @@ namespace PresPio
             float tempLeft = 0;
 
             // 检查是否选中了至少两个形状
-            if (selection.ShapeRange.Count >1)
+            if (selection.ShapeRange.Count > 1)
                 {
                 // 获取选中的所有形状
                 selectedShapes = selection.ShapeRange;
@@ -7754,7 +7385,6 @@ namespace PresPio
 
         private void splitButton18_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button222_Click(object sender, RibbonControlEventArgs e)
@@ -7771,7 +7401,6 @@ namespace PresPio
 
         private void button223_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button175_Click_1(object sender, RibbonControlEventArgs e)
@@ -7855,10 +7484,7 @@ namespace PresPio
                 TaskPaneShared.taskPane.VisibleChanged += new System.EventHandler(taskpane1_VisibleChanged);
                 }
             #endregion
-
             }
-
-
 
         private void taskpane1_VisibleChanged(object sender, EventArgs e)//回调用户窗体事件
             {
@@ -7870,9 +7496,7 @@ namespace PresPio
             else
                 {
                 ribbon.toggleButton1.Checked = false;
-
                 }
-
             }
 
         private void button228_Click(object sender, RibbonControlEventArgs e)
@@ -7895,7 +7519,6 @@ namespace PresPio
 
         private void button227_Click(object sender, RibbonControlEventArgs e)
             {
-
             }
 
         private void button124_Click_1(object sender, RibbonControlEventArgs e)
@@ -7905,8 +7528,11 @@ namespace PresPio
             MyRibbon RB = Globals.Ribbons.Ribbon1;
             RB.button124.Enabled = false;
             }
+
+        private void button227_Click_1(object sender, RibbonControlEventArgs e)
+            {
+            PresPio.Public_Wpf.Wpf_Polygon wpf_Polygon = new PresPio.Public_Wpf.Wpf_Polygon();
+            wpf_Polygon.Show();
+            }
         }
     }
-
-
-

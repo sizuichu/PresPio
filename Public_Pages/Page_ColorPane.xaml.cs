@@ -1,47 +1,46 @@
-﻿using System;
+﻿using HandyControl.Controls;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using HandyControl.Controls;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
-using System.Windows.Media.Animation;
-using HandyControl.Tools;
-using System.Linq;
 
 namespace PresPio
-{
-    public class ColorClass
     {
+    public class ColorClass
+        {
         public string ColorName { get; set; }
         public string HexValue { get; set; }
         public float Hue { get; set; }
         public float Saturation { get; set; }
         public float Lightness { get; set; }
+
         public SolidColorBrush BackgroundColor
-        {
-            get
             {
+            get
+                {
                 var color = HSLToRGB(Hue, Saturation, Lightness);
                 return new SolidColorBrush(color);
+                }
             }
-        }
 
         public ColorClass(string colorName, string hexValue, float hue, float saturation, float lightness)
-        {
+            {
             ColorName = colorName;
             HexValue = hexValue;
             Hue = hue;
             Saturation = saturation;
             Lightness = lightness;
-        }
+            }
 
         private Color HSLToRGB(float h, float s, float l)
-        {
+            {
             float c = (1 - Math.Abs(2 * l - 1)) * s;
             float x = c * (1 - Math.Abs((h / 60) % 2 - 1));
             float m = l - c / 2;
@@ -60,171 +59,171 @@ namespace PresPio
             b += m;
 
             return Color.FromArgb(255, (byte)(r * 255), (byte)(g * 255), (byte)(b * 255));
+            }
         }
-    }
 
     public partial class Page_ColorPane : UserControl
-    {
+        {
         public PowerPoint.Application app;
         private ColorViewModel _viewModel;
         private const int MAX_RECENT_COLORS = 12;
         public ObservableCollection<ColorGroup> ColorSchemeGroups { get; set; }
 
         public Page_ColorPane()
-        {
+            {
             InitializeComponent();
             _viewModel = new ColorViewModel();
             ColorSchemeGroups = new ObservableCollection<ColorGroup>();
-            
+
             // 初始化颜色列表
             _viewModel.Colors = InitializeColors();
             _viewModel.RecentColors = LoadRecentColors();
             _viewModel.FavoriteColors = new ObservableCollection<SolidColorBrush>();
             _viewModel.CurrentOpacity = 100;
-            
+
             this.DataContext = _viewModel;
             InitializeColorSchemes();
-        }
+            }
 
         private ObservableCollection<SolidColorBrush> LoadRecentColors()
-        {
+            {
             var recentColors = new ObservableCollection<SolidColorBrush>();
             try
-            {
-                if (Properties.Settings.Default.RecentColors == null)
                 {
+                if (Properties.Settings.Default.RecentColors == null)
+                    {
                     Properties.Settings.Default.RecentColors = new StringCollection();
                     Properties.Settings.Default.Save();
-                }
+                    }
 
                 foreach (string colorStr in Properties.Settings.Default.RecentColors)
-                {
-                    try
                     {
+                    try
+                        {
                         var color = (Color)ColorConverter.ConvertFromString(colorStr);
                         recentColors.Add(new SolidColorBrush(color));
-                    }
+                        }
                     catch { }
+                    }
                 }
-            }
             catch (Exception ex)
-            {
+                {
                 Growl.ErrorGlobal($"加载最近使用的颜色时出错: {ex.Message}");
-            }
+                }
             return recentColors;
-        }
+            }
 
         private void SaveRecentColors()
-        {
-            try
             {
+            try
+                {
                 var colorList = _viewModel.RecentColors.Select(brush => brush.Color.ToString()).ToList();
                 Properties.Settings.Default.RecentColors = new StringCollection();
                 Properties.Settings.Default.RecentColors.AddRange(colorList.ToArray());
                 Properties.Settings.Default.Save();
-            }
+                }
             catch (Exception ex)
-            {
+                {
                 Growl.ErrorGlobal($"保存最近使用的颜色时出错: {ex.Message}");
+                }
             }
-        }
 
         private void AddToRecentColors(Color color)
-        {
+            {
             var brush = new SolidColorBrush(color);
             if (_viewModel.RecentColors.Contains(brush))
-            {
+                {
                 _viewModel.RecentColors.Remove(brush);
-            }
+                }
             _viewModel.RecentColors.Insert(0, brush);
 
             while (_viewModel.RecentColors.Count > MAX_RECENT_COLORS)
-            {
+                {
                 _viewModel.RecentColors.RemoveAt(_viewModel.RecentColors.Count - 1);
-            }
+                }
 
             SaveRecentColors();
-        }
+            }
 
         private List<ColorClass> InitializeColors()
-        {
+            {
             var colors = new List<ColorClass>();
 
             // 生成红色系列（R变化，GB为0）
-            for (int r = 0; r <= 255; r += 5)
-            {
+            for (int r = 0 ; r <= 255 ; r += 5)
+                {
                 colors.Add(new ColorClass($"R{r}", "", 0, 1.0f, r / 255.0f));
-            }
+                }
 
             // 生成绿色系列（G变化，RB为0）
-            for (int g = 0; g <= 255; g += 5)
-            {
+            for (int g = 0 ; g <= 255 ; g += 5)
+                {
                 colors.Add(new ColorClass($"G{g}", "", 120, 1.0f, g / 255.0f));
-            }
+                }
 
             // 生成蓝色系列（B变化，RG为0）
-            for (int b = 0; b <= 255; b += 5)
-            {
+            for (int b = 0 ; b <= 255 ; b += 5)
+                {
                 colors.Add(new ColorClass($"B{b}", "", 240, 1.0f, b / 255.0f));
-            }
+                }
 
             // 生成黄色系列（RG变化，B为0）
-            for (int y = 0; y <= 255; y += 5)
-            {
+            for (int y = 0 ; y <= 255 ; y += 5)
+                {
                 colors.Add(new ColorClass($"Y{y}", "", 60, 1.0f, y / 255.0f));
-            }
+                }
 
             // 生成青色系列（GB变化，R为0）
-            for (int c = 0; c <= 255; c += 5)
-            {
+            for (int c = 0 ; c <= 255 ; c += 5)
+                {
                 colors.Add(new ColorClass($"C{c}", "", 180, 1.0f, c / 255.0f));
-            }
+                }
 
             // 生成紫色系列（RB变化，G为0）
-            for (int m = 0; m <= 255; m += 5)
-            {
+            for (int m = 0 ; m <= 255 ; m += 5)
+                {
                 colors.Add(new ColorClass($"M{m}", "", 300, 1.0f, m / 255.0f));
-            }
+                }
 
             // 生成灰度系列（RGB同值）
-            for (int gray = 0; gray <= 255; gray += 5)
-            {
+            for (int gray = 0 ; gray <= 255 ; gray += 5)
+                {
                 float value = gray / 255.0f;
                 colors.Add(new ColorClass($"Gray{gray}", "", 0, 0, value));
-            }
+                }
 
             // 更新每个颜色的十六进制值
             foreach (var color in colors)
-            {
+                {
                 var brush = color.BackgroundColor;
                 color.HexValue = brush.Color.ToString();
-            }
+                }
 
             return colors;
-        }
+            }
 
         private void OnColorClick(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is Border border && border.Background is SolidColorBrush brush)
             {
+            if (sender is Border border && border.Background is SolidColorBrush brush)
+                {
                 _viewModel.CurrentColor = brush;
                 _viewModel.CurrentColorHex = brush.Color.ToString();
                 AddToRecentColors(brush.Color);
                 GenerateSubColors(brush.Color);
                 ApplyColor(brush.Color);
+                }
             }
-        }
 
         private void GenerateSubColors(Color baseColor)
-        {
+            {
             _viewModel.SubColors.Clear();
             float h, s, v;
             ColorToHSV(baseColor, out h, out s, out v);
 
             // 生成12个子颜色
             // 第一行：6个颜色，保持色相不变，调整饱和度
-            for (int i = 0; i < 6; i++)
-            {
+            for (int i = 0 ; i < 6 ; i++)
+                {
                 float newS = Math.Min(1.0f, (i + 1) * 0.2f);
                 Color newColor = HSVToColor(h, newS, v);
                 _viewModel.SubColors.Add(new ColorClass(
@@ -234,11 +233,11 @@ namespace PresPio
                     newS,
                     v
                 ));
-            }
+                }
 
             // 第二行：6个颜色，保持饱和度不变，调整色相
-            for (int i = 0; i < 6; i++)
-            {
+            for (int i = 0 ; i < 6 ; i++)
+                {
                 float newH = (h + i * 30) % 360; // 每次增加30度
                 Color newColor = HSVToColor(newH, s, v);
                 _viewModel.SubColors.Add(new ColorClass(
@@ -248,11 +247,11 @@ namespace PresPio
                     s,
                     v
                 ));
+                }
             }
-        }
 
         private void ColorToHSV(Color color, out float h, out float s, out float v)
-        {
+            {
             float r = color.R / 255f;
             float g = color.G / 255f;
             float b = color.B / 255f;
@@ -263,21 +262,21 @@ namespace PresPio
 
             // Hue
             if (delta == 0)
-            {
+                {
                 h = 0;
-            }
+                }
             else if (max == r)
-            {
+                {
                 h = 60 * ((g - b) / delta % 6);
-            }
+                }
             else if (max == g)
-            {
+                {
                 h = 60 * ((b - r) / delta + 2);
-            }
+                }
             else
-            {
+                {
                 h = 60 * ((r - g) / delta + 4);
-            }
+                }
 
             if (h < 0)
                 h += 360;
@@ -287,10 +286,10 @@ namespace PresPio
 
             // Value
             v = max;
-        }
+            }
 
         private Color HSVToColor(float h, float s, float v)
-        {
+            {
             float c = v * s;
             float x = c * (1 - Math.Abs((h / 60) % 2 - 1));
             float m = v - c;
@@ -298,41 +297,41 @@ namespace PresPio
             float r, g, b;
 
             if (h >= 0 && h < 60)
-            {
+                {
                 r = c; g = x; b = 0;
-            }
+                }
             else if (h >= 60 && h < 120)
-            {
+                {
                 r = x; g = c; b = 0;
-            }
+                }
             else if (h >= 120 && h < 180)
-            {
+                {
                 r = 0; g = c; b = x;
-            }
+                }
             else if (h >= 180 && h < 240)
-            {
+                {
                 r = 0; g = x; b = c;
-            }
+                }
             else if (h >= 240 && h < 300)
-            {
+                {
                 r = x; g = 0; b = c;
-            }
+                }
             else
-            {
+                {
                 r = c; g = 0; b = x;
-            }
+                }
 
             byte red = (byte)((r + m) * 255);
             byte green = (byte)((g + m) * 255);
             byte blue = (byte)((b + m) * 255);
 
             return Color.FromRgb(red, green, blue);
-        }
+            }
 
         private void ApplyColor(Color color)
-        {
-            try
             {
+            try
+                {
                 // 创建新的颜色对象，保留RGB值但使用当前的透明度
                 color = Color.FromArgb(
                     (byte)(_viewModel.CurrentOpacity * 255 / 100),
@@ -346,158 +345,158 @@ namespace PresPio
                 bool isCtrlPressed = (System.Windows.Forms.Control.ModifierKeys & System.Windows.Forms.Keys.Control) == System.Windows.Forms.Keys.Control;
 
                 if (selection.Type == PowerPoint.PpSelectionType.ppSelectionShapes)
-                {
-                    foreach (PowerPoint.Shape shape in selection.ShapeRange)
                     {
-                        if (isCtrlPressed)
+                    foreach (PowerPoint.Shape shape in selection.ShapeRange)
                         {
+                        if (isCtrlPressed)
+                            {
                             // 设置边框颜色
                             shape.Line.ForeColor.RGB = colorRgb;
                             shape.Line.Visible = Microsoft.Office.Core.MsoTriState.msoTrue;
                             shape.Line.Transparency = (float)(1 - (_viewModel.CurrentOpacity / 100.0));
-                        }
+                            }
                         else
-                        {
+                            {
                             // 设置填充颜色
                             shape.Fill.ForeColor.RGB = colorRgb;
                             shape.Fill.Visible = Microsoft.Office.Core.MsoTriState.msoTrue;
                             shape.Fill.Transparency = (float)(1 - (_viewModel.CurrentOpacity / 100.0));
+                            }
                         }
                     }
-                }
                 else if (selection.Type == PowerPoint.PpSelectionType.ppSelectionText)
-                {
+                    {
                     // 设置文字颜色
                     selection.TextRange.Font.Color.RGB = colorRgb;
-                }
+                    }
                 else
-                {
+                    {
                     Growl.WarningGlobal("请先在PPT中选择要填充颜色的形状或文字");
                     return;
-                }
+                    }
 
                 // 更新当前颜色和最近使用的颜色
                 AddToRecentColors(color);
                 _viewModel.CurrentColor = new SolidColorBrush(color);
                 _viewModel.CurrentColorHex = $"#{color.R:X2}{color.G:X2}{color.B:X2}";
-            }
+                }
             catch (Exception ex)
-            {
+                {
                 Growl.ErrorGlobal($"应用颜色时出错: {ex.Message}");
+                }
             }
-        }
 
         private void OnColorRightClick(object sender, MouseButtonEventArgs e)
-        {
+            {
             var border = sender as Border;
             if (border?.Background is SolidColorBrush brush)
-            {
+                {
                 Clipboard.SetText(brush.Color.ToString());
+                }
             }
-        }
 
         private void Border_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
+            {
             var border = sender as Border;
             if (border?.Background is SolidColorBrush brush)
-            {
+                {
                 Clipboard.SetText(brush.Color.ToString());
+                }
             }
-        }
 
         private void OnSubColorClick(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is Border border && border.Background is SolidColorBrush brush)
             {
+            if (sender is Border border && border.Background is SolidColorBrush brush)
+                {
                 _viewModel.CurrentColor = brush;
                 _viewModel.CurrentColorHex = brush.Color.ToString();
                 AddToRecentColors(brush.Color);
                 ApplyColor(brush.Color);
+                }
             }
-        }
 
         private void OnSchemeColorClick(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is Border border && border.Background is SolidColorBrush brush)
             {
+            if (sender is Border border && border.Background is SolidColorBrush brush)
+                {
                 _viewModel.CurrentColor = brush;
                 _viewModel.CurrentColorHex = brush.Color.ToString();
                 AddToRecentColors(brush.Color);
                 GenerateSubColors(brush.Color);
                 ApplyColor(brush.Color);
+                }
             }
-        }
 
         private void OnRecentColorClick(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is Border border && border.Background is SolidColorBrush brush)
             {
+            if (sender is Border border && border.Background is SolidColorBrush brush)
+                {
                 _viewModel.CurrentColor = brush;
                 _viewModel.CurrentColorHex = brush.Color.ToString();
                 AddToRecentColors(brush.Color);
                 GenerateSubColors(brush.Color);
                 ApplyColor(brush.Color);
+                }
             }
-        }
 
         private void OnFavoriteColorClick(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is Border border && border.Background is SolidColorBrush brush)
             {
+            if (sender is Border border && border.Background is SolidColorBrush brush)
+                {
                 _viewModel.CurrentColor = brush;
                 _viewModel.CurrentColorHex = brush.Color.ToString();
                 AddToRecentColors(brush.Color);
                 GenerateSubColors(brush.Color);
                 ApplyColor(brush.Color);
+                }
             }
-        }
 
         private void OnAddToFavorites(object sender, RoutedEventArgs e)
-        {
+            {
             var button = sender as Button;
             var border = VisualTreeHelper.GetParent(button) as Border;
             if (border != null && border.Background is SolidColorBrush brush)
-            {
-                if (!_viewModel.FavoriteColors.Contains(brush))
                 {
+                if (!_viewModel.FavoriteColors.Contains(brush))
+                    {
                     _viewModel.FavoriteColors.Add(brush);
+                    }
                 }
             }
-        }
 
         private void OnMorandiColorClick(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is Border border && border.Background is SolidColorBrush brush)
             {
+            if (sender is Border border && border.Background is SolidColorBrush brush)
+                {
                 _viewModel.CurrentColor = brush;
                 _viewModel.CurrentColorHex = brush.Color.ToString();
                 AddToRecentColors(brush.Color);
                 GenerateSubColors(brush.Color);
                 ApplyColor(brush.Color);
-            }
-        }
-
-        private void InitializeColorSchemes()
-        {
-            // 添加配色方案1-100
-            for (int i = 1; i <= 100; i++)
-            {
-                var colors = GetColorScheme(i);
-                if (colors != null)
-                {
-                    ColorSchemeGroups.Add(new ColorGroup
-                    {
-                        GroupName = $"配色方案 {i}",
-                        Colors = new ObservableCollection<ColorInfo>(colors)
-                    });
                 }
             }
-        }
+
+        private void InitializeColorSchemes()
+            {
+            // 添加配色方案1-100
+            for (int i = 1 ; i <= 100 ; i++)
+                {
+                var colors = GetColorScheme(i);
+                if (colors != null)
+                    {
+                    ColorSchemeGroups.Add(new ColorGroup
+                        {
+                        GroupName = $"配色方案 {i}",
+                        Colors = new ObservableCollection<ColorInfo>(colors)
+                        });
+                    }
+                }
+            }
 
         private List<ColorInfo> GetColorScheme(int index)
-        {
-            switch (index)
             {
+            switch (index)
+                {
                 case 1:
                     return new List<ColorInfo>
                     {
@@ -514,6 +513,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#222831")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#222831")) }
                     };
+
                 case 2:
                     return new List<ColorInfo>
                     {
@@ -530,6 +530,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f9ed69")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f9ed69")) }
                     };
+
                 case 3:
                     return new List<ColorInfo>
                     {
@@ -546,6 +547,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f38181")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f38181")) }
                     };
+
                 case 4:
                     return new List<ColorInfo>
                     {
@@ -562,6 +564,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#08d9d6")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#08d9d6")) }
                     };
+
                 case 5:
                     return new List<ColorInfo>
                     {
@@ -578,6 +581,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364f6b")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364f6b")) }
                     };
+
                 case 6:
                     return new List<ColorInfo>
                     {
@@ -594,6 +598,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a8d8ea")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a8d8ea")) }
                     };
+
                 case 7:
                     return new List<ColorInfo>
                     {
@@ -610,6 +615,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e3fdfd")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e3fdfd")) }
                     };
+
                 case 8:
                     return new List<ColorInfo>
                     {
@@ -626,6 +632,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e4f9f5")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e4f9f5")) }
                     };
+
                 case 9:
                     return new List<ColorInfo>
                     {
@@ -642,6 +649,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffc7c7")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffc7c7")) }
                     };
+
                 case 10:
                     return new List<ColorInfo>
                     {
@@ -661,167 +669,176 @@ namespace PresPio
                 // ... 继续添加其他配色方案 ...
                 default:
                     return null;
+                }
             }
-        }
 
         private void ColorButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button && button.ToolTip is string colorName)
             {
+            if (sender is Button button && button.ToolTip is string colorName)
+                {
                 var colorClass = _viewModel.Colors.FirstOrDefault(c => c.ColorName == colorName);
                 if (colorClass != null)
-                {
+                    {
                     var color = colorClass.BackgroundColor.Color;
                     _viewModel.CurrentColor = new SolidColorBrush(color);
                     _viewModel.CurrentColorHex = color.ToString();
                     AddToRecentColors(color);
                     GenerateSubColors(color);
                     ApplyColor(color);
+                    }
                 }
             }
         }
-    }
 
     public class ColorInfo
-    {
+        {
         public string ColorName { get; set; }
         public SolidColorBrush ColorBrush { get; set; }
-    }
+        }
 
     public class ColorGroup
-    {
+        {
         public string GroupName { get; set; }
         public ObservableCollection<ColorInfo> Colors { get; set; }
-    }
+        }
 
     public class ColorViewModel : INotifyPropertyChanged
-    {
-        private List<ColorClass> _colors;
-        public List<ColorClass> Colors
         {
+        private List<ColorClass> _colors;
+
+        public List<ColorClass> Colors
+            {
             get => _colors;
             set
-            {
+                {
                 _colors = value;
                 OnPropertyChanged(nameof(Colors));
+                }
             }
-        }
 
         private ObservableCollection<ColorClass> _subColors;
+
         public ObservableCollection<ColorClass> SubColors
-        {
+            {
             get => _subColors;
             set
-            {
+                {
                 _subColors = value;
                 OnPropertyChanged(nameof(SubColors));
+                }
             }
-        }
 
         public ObservableCollection<SolidColorBrush> RecentColors { get; set; }
         public ObservableCollection<SolidColorBrush> FavoriteColors { get; set; }
 
         private SolidColorBrush _currentColor;
+
         public SolidColorBrush CurrentColor
-        {
+            {
             get => _currentColor;
             set
-            {
+                {
                 _currentColor = value;
                 OnPropertyChanged(nameof(CurrentColor));
+                }
             }
-        }
 
         private string _currentColorHex;
+
         public string CurrentColorHex
-        {
+            {
             get => _currentColorHex;
             set
-            {
+                {
                 _currentColorHex = value;
                 OnPropertyChanged(nameof(CurrentColorHex));
+                }
             }
-        }
 
         private double _currentOpacity = 100;
+
         public double CurrentOpacity
-        {
+            {
             get => _currentOpacity;
             set
-            {
-                if (_currentOpacity != value)
                 {
+                if (_currentOpacity != value)
+                    {
                     _currentOpacity = value;
                     OnPropertyChanged(nameof(CurrentOpacity));
                     UpdateCurrentColorWithOpacity();
+                    }
                 }
             }
-        }
 
         private void UpdateCurrentColorWithOpacity()
-        {
-            if (_currentColor != null)
             {
+            if (_currentColor != null)
+                {
                 var color = _currentColor.Color;
                 color.A = (byte)(_currentOpacity * 255 / 100);
                 _currentColor = new SolidColorBrush(color);
                 OnPropertyChanged(nameof(CurrentColor));
+                }
             }
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
-        {
+            {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+            }
 
         private ObservableCollection<ColorGroup> _morandiColorGroups;
+
         public ObservableCollection<ColorGroup> MorandiColorGroups
-        {
+            {
             get => _morandiColorGroups;
             set
-            {
+                {
                 _morandiColorGroups = value;
                 OnPropertyChanged(nameof(MorandiColorGroups));
+                }
             }
-        }
 
         private ObservableCollection<ColorGroup> _chineseColorGroups;
+
         public ObservableCollection<ColorGroup> ChineseColorGroups
-        {
+            {
             get => _chineseColorGroups;
             set
-            {
+                {
                 _chineseColorGroups = value;
                 OnPropertyChanged(nameof(ChineseColorGroups));
+                }
             }
-        }
 
         private ObservableCollection<ColorGroup> _macaronColorGroups;
+
         public ObservableCollection<ColorGroup> MacaronColorGroups
-        {
+            {
             get => _macaronColorGroups;
             set
-            {
+                {
                 _macaronColorGroups = value;
                 OnPropertyChanged(nameof(MacaronColorGroups));
+                }
             }
-        }
 
         private ObservableCollection<ColorGroup> _colorSchemeGroups;
+
         public ObservableCollection<ColorGroup> ColorSchemeGroups
-        {
+            {
             get => _colorSchemeGroups;
             set
-            {
+                {
                 _colorSchemeGroups = value;
                 OnPropertyChanged(nameof(ColorSchemeGroups));
+                }
             }
-        }
 
         public ColorViewModel()
-        {
+            {
             SubColors = new ObservableCollection<ColorClass>();
             RecentColors = new ObservableCollection<SolidColorBrush>();
             FavoriteColors = new ObservableCollection<SolidColorBrush>();
@@ -830,10 +847,10 @@ namespace PresPio
             InitializeChineseColors();
             InitializeMacaronColors();
             InitializeColorSchemes();
-        }
+            }
 
         private void InitializeMorandiColors()
-        {
+            {
             MorandiColorGroups = new ObservableCollection<ColorGroup>
             {
                 new ColorGroup
@@ -1008,10 +1025,10 @@ namespace PresPio
                     }
                 }
             };
-        }
+            }
 
         private void InitializeChineseColors()
-        {
+            {
             ChineseColorGroups = new ObservableCollection<ColorGroup>
             {
                 new ColorGroup
@@ -1243,10 +1260,10 @@ namespace PresPio
                     }
                 }
             };
-        }
+            }
 
         private void InitializeMacaronColors()
-        {
+            {
             MacaronColorGroups = new ObservableCollection<ColorGroup>
             {
                 new ColorGroup
@@ -1326,29 +1343,29 @@ namespace PresPio
                     }
                 }
             };
-        }
+            }
 
         private void InitializeColorSchemes()
-        {
-            // 添加配色方案1-100
-            for (int i = 1; i <= 100; i++)
             {
+            // 添加配色方案1-100
+            for (int i = 1 ; i <= 100 ; i++)
+                {
                 var colors = GetColorScheme(i);
                 if (colors != null)
-                {
-                    ColorSchemeGroups.Add(new ColorGroup
                     {
+                    ColorSchemeGroups.Add(new ColorGroup
+                        {
                         GroupName = $"配色方案 {i}",
                         Colors = new ObservableCollection<ColorInfo>(colors)
-                    });
+                        });
+                    }
                 }
             }
-        }
 
         private List<ColorInfo> GetColorScheme(int index)
-        {
-            switch (index)
             {
+            switch (index)
+                {
                 case 1:
                     return new List<ColorInfo>
                     {
@@ -1365,6 +1382,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#222831")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#222831")) }
                     };
+
                 case 2:
                     return new List<ColorInfo>
                     {
@@ -1381,6 +1399,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f9ed69")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f9ed69")) }
                     };
+
                 case 3:
                     return new List<ColorInfo>
                     {
@@ -1397,6 +1416,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f38181")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f38181")) }
                     };
+
                 case 4:
                     return new List<ColorInfo>
                     {
@@ -1413,6 +1433,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#08d9d6")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#08d9d6")) }
                     };
+
                 case 5:
                     return new List<ColorInfo>
                     {
@@ -1429,6 +1450,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364f6b")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364f6b")) }
                     };
+
                 case 6:
                     return new List<ColorInfo>
                     {
@@ -1445,6 +1467,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a8d8ea")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a8d8ea")) }
                     };
+
                 case 7:
                     return new List<ColorInfo>
                     {
@@ -1461,6 +1484,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e3fdfd")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e3fdfd")) }
                     };
+
                 case 8:
                     return new List<ColorInfo>
                     {
@@ -1477,6 +1501,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e4f9f5")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e4f9f5")) }
                     };
+
                 case 9:
                     return new List<ColorInfo>
                     {
@@ -1493,6 +1518,7 @@ namespace PresPio
                         new ColorInfo { ColorName = "占位3", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffc7c7")) },
                         new ColorInfo { ColorName = "占位4", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffc7c7")) }
                     };
+
                 case 10:
                     return new List<ColorInfo>
                     {
@@ -1512,13 +1538,13 @@ namespace PresPio
                 // ... 继续添加其他配色方案 ...
                 default:
                     return null;
+                }
             }
         }
-    }
 
     public class ColorScheme
-    {
+        {
         public string Name { get; set; }
         public List<SolidColorBrush> Colors { get; set; }
+        }
     }
-}

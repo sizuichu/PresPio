@@ -1,19 +1,6 @@
-﻿using System;
-using System.Activities.Expressions;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Office.Core;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Office.Core;
 
 namespace PresPio
     {
@@ -81,54 +68,50 @@ namespace PresPio
         private void RadioButton_Click(object sender, RoutedEventArgs e)
             {
             RadioButton radioButton = sender as RadioButton;
-            if (radioButton!= null)
+            if (radioButton != null)
                 {
                 string buttonName = radioButton.Name;
                 switch (buttonName)
                     {
                     case "shpRadio1":
                         Properties.Settings.Default.Shape_Style = MsoAutoShapeType.msoShapeRectangle;
-                         break;
+                        break;
+
                     case "shpRadio2":
                         Properties.Settings.Default.Shape_Style = MsoAutoShapeType.msoShapeSnip2DiagRectangle;
-                         break;
+                        break;
+
                     case "shpRadio3":
                         Properties.Settings.Default.Shape_Style = MsoAutoShapeType.msoShapeRound1Rectangle;
                         break;
+
                     case "shpRadio4":
                         Properties.Settings.Default.Shape_Style = MsoAutoShapeType.msoShapeRoundedRectangle;
-                         break;
+                        break;
+
                     case "shpRadio5":
                         Properties.Settings.Default.Shape_Style = MsoAutoShapeType.msoShapeSnip2DiagRectangle;
-                       break;
+                        break;
+
                     case "shpRadio6":
                         Properties.Settings.Default.Shape_Style = MsoAutoShapeType.msoShapeRound2SameRectangle;
                         break;
+
                     case "shpRadio7":
                         Properties.Settings.Default.Shape_Style = MsoAutoShapeType.msoShapeSnip1Rectangle;
-                         break;
+                        break;
+
                     case "shpRadio8":
                         Properties.Settings.Default.Shape_Style = MsoAutoShapeType.msoShapeSnipRoundRectangle;
-                         break;
+                        break;
+
                     case "shpRadio9":
                         Properties.Settings.Default.Shape_Style = MsoAutoShapeType.msoShapeRound2DiagRectangle;
-                     
+
                         break;
                     }
                 }
             Properties.Settings.Default.Save();
             }
-
-
-
-
-
-
-
-
-
-
         }
-
-
     }

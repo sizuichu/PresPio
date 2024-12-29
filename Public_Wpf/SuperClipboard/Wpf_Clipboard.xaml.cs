@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Media.Imaging;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using HandyControl.Controls;
 
 namespace PresPio
     {
@@ -103,7 +98,6 @@ namespace PresPio
         }
                 });
             }
-
 
         public class TabData
             {

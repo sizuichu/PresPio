@@ -14,30 +14,30 @@
     <hc:Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <hc:ThemeResources/>
-                <hc:Theme/>
+                <hc:ThemeResources />
+                <hc:Theme />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </hc:Window.Resources>
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- 设置选项 -->
         <StackPanel Grid.Row="0" Margin="0,0,0,20">
-            <TextBlock Text="转换设置" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
-            <CheckBox x:Name="DeleteSourceCheck" Content="转换后删除源对象" Margin="0,5" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Pla_N1}"/>
-            <CheckBox x:Name="SkipShapeCheck" Content="跳过形状对象" Margin="0,5" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Pla_N2}"/>
-            <CheckBox x:Name="KeepTextCheck" Content="保留文本内容" Margin="0,5" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Pla_N3}"/>
-            <CheckBox x:Name="SkipPictureCheck" Content="跳过图片对象" Margin="0,5" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Pla_N4}"/>
+            <TextBlock Text="转换设置" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+            <CheckBox x:Name="DeleteSourceCheck" Content="转换后删除源对象" Margin="0,5" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Pla_N1}" />
+            <CheckBox x:Name="SkipShapeCheck" Content="跳过形状对象" Margin="0,5" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Pla_N2}" />
+            <CheckBox x:Name="KeepTextCheck" Content="保留文本内容" Margin="0,5" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Pla_N3}" />
+            <CheckBox x:Name="SkipPictureCheck" Content="跳过图片对象" Margin="0,5" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Pla_N4}" />
         </StackPanel>
 
         <!-- 说明文本 -->
-        <TextBox Grid.Row="1" 
-                 IsReadOnly="True" 
+        <TextBox Grid.Row="1"
+                 IsReadOnly="True"
                  TextWrapping="Wrap"
                  Margin="0,10"
                  Padding="10"
@@ -54,22 +54,22 @@
 - 不同类型的对象将转换为对应类型的占位符</TextBox>
 
         <!-- 底部按钮 -->
-        <StackPanel Grid.Row="2" 
-                    Orientation="Horizontal" 
-                    HorizontalAlignment="Right" 
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
                     Margin="0,20,0,0">
-            <Button x:Name="SaveButton" 
-                    Content="保存设置" 
-                    Width="100" 
+            <Button x:Name="SaveButton"
+                    Content="保存设置"
+                    Width="100"
                     Height="30"
                     Style="{StaticResource ButtonPrimary}"
                     Click="SaveButton_Click"
-                    Margin="0,0,10,0"/>
-            <Button x:Name="CloseButton" 
-                    Content="关闭" 
-                    Width="100" 
+                    Margin="0,0,10,0" />
+            <Button x:Name="CloseButton"
+                    Content="关闭"
+                    Width="100"
                     Height="30"
-                    Click="CloseButton_Click"/>
+                    Click="CloseButton_Click" />
         </StackPanel>
     </Grid>
 </hc:Window>

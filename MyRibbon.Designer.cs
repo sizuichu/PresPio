@@ -373,6 +373,7 @@
             this.tab2 = this.Factory.CreateRibbonTab();
             this.group6 = this.Factory.CreateRibbonGroup();
             this.button171 = this.Factory.CreateRibbonButton();
+            this.button227 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -1686,6 +1687,7 @@
             // 
             // splitButton6
             // 
+            this.splitButton6.Items.Add(this.button227);
             this.splitButton6.Items.Add(this.button109);
             this.splitButton6.Items.Add(this.button75);
             this.splitButton6.Items.Add(this.button111);
@@ -3088,6 +3090,13 @@
             this.button171.Name = "button171";
             this.button171.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button171_Click);
             // 
+            // button227
+            // 
+            this.button227.Label = "形状生成";
+            this.button227.Name = "button227";
+            this.button227.ShowImage = true;
+            this.button227.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button227_Click_1);
+            // 
             // MyRibbon
             // 
             this.Name = "MyRibbon";
@@ -3457,6 +3466,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button228;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button15;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button124;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button227;
         }
 
     partial class ThisRibbonCollection

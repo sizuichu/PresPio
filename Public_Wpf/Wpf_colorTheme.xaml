@@ -45,7 +45,6 @@
                     Height="16"
                     Kind="DashCircleDotted" />
             </Button>
-
         </hc:ButtonGroup>
     </Grid>
 </apb:AppBarWindow>

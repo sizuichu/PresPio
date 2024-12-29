@@ -1,21 +1,21 @@
 ﻿using HandyControl.Controls;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
+
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Linq;
-using ShapeRange = Microsoft.Office.Interop.PowerPoint.ShapeRange;
+
 using Shape = Microsoft.Office.Interop.PowerPoint.Shape;
-using System.Runtime.InteropServices;
+using ShapeRange = Microsoft.Office.Interop.PowerPoint.ShapeRange;
 
 namespace PresPio
     {
@@ -25,15 +25,14 @@ namespace PresPio
     public partial class Wpf_waterMark
         {
         public PowerPoint.Application app;
+
         public Wpf_waterMark()
             {
             InitializeComponent();
             }
 
-
         private void markWindow_Loaded(object sender, RoutedEventArgs e)
             {
-
             // 获取当前应用程序实例
             var app = Globals.ThisAddIn.Application;
 
@@ -62,7 +61,6 @@ namespace PresPio
 
             // 将水印大小显示为整数
             Fontsize.Text = waterSize.ToString();
-
             }
 
         private void FontBtn_Click(object sender, RoutedEventArgs e)
@@ -89,9 +87,7 @@ namespace PresPio
                 // 用户取消选择
                 return;
                 }
-
             }
-
 
         private void FontTextBox_TextChanged(object sender, TextChangedEventArgs e)
             {
@@ -99,7 +95,6 @@ namespace PresPio
             Watermark.Mark = FontTextBox.Text;
             Properties.Settings.Default.WaterText = FontTextBox.Text;
             Properties.Settings.Default.Save();
-
             }
 
         private void markLabel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -111,7 +106,6 @@ namespace PresPio
             {
             Properties.Settings.Default.WaterRow = (int)Num1.Value;
             Properties.Settings.Default.Save();
-
             }
 
         private void Num2_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
@@ -164,13 +158,16 @@ namespace PresPio
             GC.Collect();
             GC.WaitForPendingFinalizers();
             }
+
         private void Button_Click(object sender, RoutedEventArgs e)
             {
             DelwaterrMark();
 
             Growl.Success("水印删除成功！");
             }
+
         private List<string> shps = new List<string>();
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
             {
             app = Globals.ThisAddIn.Application;
@@ -240,11 +237,7 @@ namespace PresPio
                 // Handle exception
                 Debug.WriteLine(ex.Message);
                 }
-
-
-
             }
-
 
         /// <summary>
         /// RGB转换为INT色值
@@ -258,6 +251,7 @@ namespace PresPio
             int PPTRGB = R + G * 256 + B * 256 * 256;
             return PPTRGB;
             }
+
         public System.Drawing.Color Int2RGB(int color)
             {
             int B = color / (256 * 256);
@@ -268,23 +262,23 @@ namespace PresPio
 
         // 添加颜色选择器点击事件处理
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var colorPicker = new HandyControl.Controls.ColorPicker
             {
+            var colorPicker = new HandyControl.Controls.ColorPicker
+                {
                 SelectedBrush = markLabel.Foreground as SolidColorBrush
-            };
+                };
 
             var popup = new HandyControl.Controls.PopupWindow
-            {
+                {
                 PopupElement = colorPicker,
                 AllowsTransparency = true,
                 WindowStyle = WindowStyle.None,
                 Title = "选择颜色",
                 Width = 280,  // 设置固定宽度
-                Height =360  // 设置固定高度
-            };
+                Height = 360  // 设置固定高度
+                };
 
-            colorPicker.Canceled += (s, args) => 
+            colorPicker.Canceled += (s, args) =>
             {
                 popup.Close();
             };
@@ -309,20 +303,16 @@ namespace PresPio
             // 计算弹出位置 - 在鼠标点击位置的右边并垂直居中
             var element = sender as FrameworkElement;
             var mousePosition = Mouse.GetPosition(element);
-            var elementPoint = element.PointToScreen(new System.Windows.Point(element.ActualWidth, element.ActualHeight/2));
-            var point = new System.Windows.Point(elementPoint.X-100, elementPoint.Y - 160); // 垂直居中对齐,200为弹窗高度的一半
+            var elementPoint = element.PointToScreen(new System.Windows.Point(element.ActualWidth, element.ActualHeight / 2));
+            var point = new System.Windows.Point(elementPoint.X - 100, elementPoint.Y - 160); // 垂直居中对齐,200为弹窗高度的一半
             // 确保颜色选择器不会超出屏幕边界
             var screenWidth = SystemParameters.PrimaryScreenWidth;
             var screenHeight = SystemParameters.PrimaryScreenHeight;
-            
+
             popup.Left = Math.Min(point.X, screenWidth - 280);  // 使用固定宽度
             popup.Top = Math.Min(point.Y, screenHeight - 360);  // 使用固定高度
-            
+
             popup.Show();
-        }
-
-     
-
-      
+            }
         }
     }

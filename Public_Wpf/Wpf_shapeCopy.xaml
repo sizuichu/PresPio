@@ -10,30 +10,30 @@
     WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- 顶部菜单 -->
-        <TabControl Grid.Row="0" 
+        <TabControl Grid.Row="0"
                    x:Name="copyModeTab"
                    SelectionChanged="TabControl_SelectionChanged"
                    Margin="10,5">
-            <TabItem Header="矩阵复制" Tag="Matrix"/>
-            <TabItem Header="环形复制" Tag="Circle"/>
-            <TabItem Header="对角复制" Tag="Diagonal"/>
-            <TabItem Header="螺旋复制" Tag="Spiral"/>
-            <TabItem Header="波浪复制" Tag="Wave"/>
-            <TabItem Header="放射复制" Tag="Radial"/>
-            <TabItem Header="网格复制" Tag="Grid"/>
+            <TabItem Header="矩阵复制" Tag="Matrix" />
+            <TabItem Header="环形复制" Tag="Circle" />
+            <TabItem Header="对角复制" Tag="Diagonal" />
+            <TabItem Header="螺旋复制" Tag="Spiral" />
+            <TabItem Header="波浪复制" Tag="Wave" />
+            <TabItem Header="放射复制" Tag="Radial" />
+            <TabItem Header="网格复制" Tag="Grid" />
         </TabControl>
 
         <!-- 中间内容区域 -->
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="280"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <!-- 左侧参数设置 -->
@@ -44,23 +44,23 @@
                         <StackPanel Margin="10">
                             <DockPanel Margin="0,5">
                                 <Label Content="横向数量:" />
-                                <hc:NumericUpDown x:Name="matrixRows" Value="2" Minimum="1" Maximum="20" 
-                                                ValueChanged="OnValueChanged"/>
+                                <hc:NumericUpDown x:Name="matrixRows" Value="2" Minimum="1" Maximum="20"
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="纵向数量:" />
                                 <hc:NumericUpDown x:Name="matrixColumns" Value="2" Minimum="1" Maximum="20"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="横向间距:" />
                                 <hc:NumericUpDown x:Name="matrixHSpacing" Value="50" Minimum="0"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="纵向间距:" />
                                 <hc:NumericUpDown x:Name="matrixVSpacing" Value="50" Minimum="0"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                         </StackPanel>
                     </GroupBox>
@@ -71,22 +71,22 @@
                             <DockPanel Margin="0,5">
                                 <Label Content="复制数量:" />
                                 <hc:NumericUpDown x:Name="circleCount" Value="8" Minimum="2" Maximum="36"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="半径:" />
                                 <hc:NumericUpDown x:Name="circleRadius" Value="100" Minimum="20"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="起始角度:" />
                                 <hc:NumericUpDown x:Name="startAngle" Value="0" Minimum="0" Maximum="360"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="旋转对齐:" />
-                                <CheckBox x:Name="rotateAlign" IsChecked="True" 
-                                        Checked="OnCheckBoxChanged" Unchecked="OnCheckBoxChanged"/>
+                                <CheckBox x:Name="rotateAlign" IsChecked="True"
+                                        Checked="OnCheckBoxChanged" Unchecked="OnCheckBoxChanged" />
                             </DockPanel>
                         </StackPanel>
                     </GroupBox>
@@ -97,22 +97,22 @@
                             <DockPanel Margin="0,5">
                                 <Label Content="复制数量:" />
                                 <hc:NumericUpDown x:Name="diagonalCount" Value="5" Minimum="2" Maximum="20"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="间距:" />
                                 <hc:NumericUpDown x:Name="diagonalSpacing" Value="50" Minimum="0"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="角度:" />
                                 <hc:NumericUpDown x:Name="diagonalAngle" Value="45" Minimum="-180" Maximum="180"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="缩放比例:" />
                                 <hc:NumericUpDown x:Name="diagonalScale" Value="100" Minimum="1" Maximum="200"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                         </StackPanel>
                     </GroupBox>
@@ -123,27 +123,27 @@
                             <DockPanel Margin="0,5">
                                 <Label Content="圈数:" />
                                 <hc:NumericUpDown x:Name="spiralTurns" Value="2" Minimum="1" Maximum="10"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="每圈数量:" />
                                 <hc:NumericUpDown x:Name="spiralCount" Value="8" Minimum="4" Maximum="36"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="起始半径:" />
                                 <hc:NumericUpDown x:Name="spiralRadius" Value="50" Minimum="20"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="半径增量:" />
                                 <hc:NumericUpDown x:Name="spiralInc" Value="20" Minimum="0"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="旋转对齐:" />
-                                <CheckBox x:Name="spiralRotate" IsChecked="True" 
-                                        Checked="OnCheckBoxChanged" Unchecked="OnCheckBoxChanged"/>
+                                <CheckBox x:Name="spiralRotate" IsChecked="True"
+                                        Checked="OnCheckBoxChanged" Unchecked="OnCheckBoxChanged" />
                             </DockPanel>
                         </StackPanel>
                     </GroupBox>
@@ -154,22 +154,22 @@
                             <DockPanel Margin="0,5">
                                 <Label Content="复制数量:" />
                                 <hc:NumericUpDown x:Name="waveCount" Value="10" Minimum="2" Maximum="36"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="波长:" />
                                 <hc:NumericUpDown x:Name="waveLength" Value="100" Minimum="20"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="振幅:" />
                                 <hc:NumericUpDown x:Name="waveAmplitude" Value="50" Minimum="0"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="相位:" />
                                 <hc:NumericUpDown x:Name="wavePhase" Value="0" Minimum="0" Maximum="360"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                         </StackPanel>
                     </GroupBox>
@@ -180,27 +180,27 @@
                             <DockPanel Margin="0,5">
                                 <Label Content="复制数量:" />
                                 <hc:NumericUpDown x:Name="radialCount" Value="8" Minimum="2" Maximum="36"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="起始半径:" />
                                 <hc:NumericUpDown x:Name="radialStartRadius" Value="50" Minimum="20"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="半径增量:" />
                                 <hc:NumericUpDown x:Name="radialRadiusInc" Value="30" Minimum="0"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="角度增量:" />
                                 <hc:NumericUpDown x:Name="radialAngleInc" Value="15" Minimum="-180" Maximum="180"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="旋转对齐:" />
-                                <CheckBox x:Name="radialRotate" IsChecked="True" 
-                                        Checked="OnCheckBoxChanged" Unchecked="OnCheckBoxChanged"/>
+                                <CheckBox x:Name="radialRotate" IsChecked="True"
+                                        Checked="OnCheckBoxChanged" Unchecked="OnCheckBoxChanged" />
                             </DockPanel>
                         </StackPanel>
                     </GroupBox>
@@ -211,27 +211,27 @@
                             <DockPanel Margin="0,5">
                                 <Label Content="横向数量:" />
                                 <hc:NumericUpDown x:Name="gridColumns" Value="3" Minimum="1" Maximum="20"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="纵向数量:" />
                                 <hc:NumericUpDown x:Name="gridRows" Value="3" Minimum="1" Maximum="20"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="单元大小:" />
                                 <hc:NumericUpDown x:Name="gridSize" Value="100" Minimum="20"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="旋转角度:" />
                                 <hc:NumericUpDown x:Name="gridAngle" Value="0" Minimum="-180" Maximum="180"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                             <DockPanel Margin="0,5">
                                 <Label Content="随机偏移:" />
                                 <hc:NumericUpDown x:Name="gridOffset" Value="0" Minimum="0" Maximum="50"
-                                                ValueChanged="OnValueChanged"/>
+                                                ValueChanged="OnValueChanged" />
                             </DockPanel>
                         </StackPanel>
                     </GroupBox>
@@ -239,34 +239,34 @@
             </ScrollViewer>
 
             <!-- 右侧预览区域 -->
-            <Border Grid.Column="1" 
+            <Border Grid.Column="1"
                     Margin="10,0,0,0"
                     Background="#FAFAFA"
                     BorderBrush="#DDDDDD"
                     BorderThickness="1">
                 <Grid>
-                    <Canvas x:Name="previewCanvas"/>
+                    <Canvas x:Name="previewCanvas" />
                     <TextBlock Text="预览区域"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Top"
                              Margin="0,5,0,0"
-                             Foreground="#666666"/>
+                             Foreground="#666666" />
                 </Grid>
             </Border>
         </Grid>
 
         <!-- 底部按钮 -->
-        <StackPanel Grid.Row="2" 
-                    Orientation="Horizontal" 
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="10">
-            <Button Content="重置" 
-                    Width="80" 
-                    Margin="0,0,10,0"
-                    Click="ResetButton_Click"/>
-            <Button Content="应用" 
+            <Button Content="重置"
                     Width="80"
-                    Click="ApplyButton_Click"/>
+                    Margin="0,0,10,0"
+                    Click="ResetButton_Click" />
+            <Button Content="应用"
+                    Width="80"
+                    Click="ApplyButton_Click" />
         </StackPanel>
     </Grid>
 </Window>

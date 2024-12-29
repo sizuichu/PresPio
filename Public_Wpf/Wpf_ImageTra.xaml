@@ -21,22 +21,22 @@
     <hc:TransitioningContentControl>
         <Grid Margin="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="320" />
             </Grid.ColumnDefinitions>
 
             <!-- 左侧预览区 -->
             <Border Grid.Column="0" Margin="0,0,20,0" CornerRadius="8">
                 <Grid Margin="15">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <hc:SimpleText Text="预览效果" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <hc:SimpleText Text="预览效果" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
 
                     <Border Grid.Row="1" BorderThickness="1">
-                        <hc:ImageViewer x:Name="PreviewImage" ShowImgMap="False"/>
+                        <hc:ImageViewer x:Name="PreviewImage" ShowImgMap="False" />
                     </Border>
                 </Grid>
             </Border>
@@ -48,20 +48,20 @@
                     <GroupBox Header="基础调整" Margin="0,0,0,15" Padding="15">
                         <StackPanel>
                             <!-- 亮度 -->
-                            <hc:SimpleText Text="{Binding Brightness, StringFormat={}亮度: {0:F0}%}" Margin="0,0,0,5"/>
-                            <hc:PreviewSlider Value="{Binding Brightness}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,15"/>
+                            <hc:SimpleText Text="{Binding Brightness, StringFormat={}亮度: {0:F0}%}" Margin="0,0,0,5" />
+                            <hc:PreviewSlider Value="{Binding Brightness}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,15" />
 
                             <!-- 对比度 -->
-                            <hc:SimpleText Text="{Binding Contrast, StringFormat={}对比度: {0:F0}%}" Margin="0,0,0,5"/>
-                            <hc:PreviewSlider Value="{Binding Contrast}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,15"/>
+                            <hc:SimpleText Text="{Binding Contrast, StringFormat={}对比度: {0:F0}%}" Margin="0,0,0,5" />
+                            <hc:PreviewSlider Value="{Binding Contrast}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,15" />
 
                             <!-- 饱和度 -->
-                            <hc:SimpleText Text="{Binding Saturation, StringFormat={}饱和度: {0:F0}%}" Margin="0,0,0,5"/>
-                            <hc:PreviewSlider Value="{Binding Saturation}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,15"/>
+                            <hc:SimpleText Text="{Binding Saturation, StringFormat={}饱和度: {0:F0}%}" Margin="0,0,0,5" />
+                            <hc:PreviewSlider Value="{Binding Saturation}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,15" />
 
                             <!-- 锐化 -->
-                            <hc:SimpleText Text="{Binding Sharpness, StringFormat={}锐化: {0:F0}%}" Margin="0,0,0,5"/>
-                            <hc:PreviewSlider Value="{Binding Sharpness}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                            <hc:SimpleText Text="{Binding Sharpness, StringFormat={}锐化: {0:F0}%}" Margin="0,0,0,5" />
+                            <hc:PreviewSlider Value="{Binding Sharpness}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1" />
                         </StackPanel>
                     </GroupBox>
 
@@ -69,22 +69,22 @@
                     <GroupBox Header="透明度调整" Margin="0,0,0,15" Padding="15">
                         <StackPanel>
                             <!-- 整体透明度 -->
-                            <hc:SimpleText Text="{Binding OverallOpacity, StringFormat={}整体透明度: {0:F0}%}" Margin="0,0,0,5"/>
-                            <hc:PreviewSlider Value="{Binding OverallOpacity}" Maximum="100" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,15"/>
+                            <hc:SimpleText Text="{Binding OverallOpacity, StringFormat={}整体透明度: {0:F0}%}" Margin="0,0,0,5" />
+                            <hc:PreviewSlider Value="{Binding OverallOpacity}" Maximum="100" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,15" />
 
                             <!-- 渐变透明度 -->
-                            <hc:SimpleText Text="{Binding GradientOpacity, StringFormat={}渐变透明度: {0:F0}%}" Margin="0,0,0,5"/>
-                            <hc:PreviewSlider Value="{Binding GradientOpacity}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,10"/>
+                            <hc:SimpleText Text="{Binding GradientOpacity, StringFormat={}渐变透明度: {0:F0}%}" Margin="0,0,0,5" />
+                            <hc:PreviewSlider Value="{Binding GradientOpacity}" Maximum="100" Minimum="-100" IsSnapToTickEnabled="True" TickFrequency="1" Margin="0,0,0,10" />
 
                             <!-- 渐变方向 -->
-                            <hc:SimpleText Text="渐变方向" Margin="0,5,0,10"/>
+                            <hc:SimpleText Text="渐变方向" Margin="0,5,0,10" />
                             <UniformGrid Columns="2" Rows="3">
-                                <RadioButton GroupName="Direction" Content="从左到右" Tag="0" Margin="5" IsChecked="True" Checked="OnDirectionChanged"/>
-                                <RadioButton GroupName="Direction" Content="从上到下" Tag="90" Margin="5" Checked="OnDirectionChanged"/>
-                                <RadioButton GroupName="Direction" Content="左上到右下" Tag="45" Margin="5" Checked="OnDirectionChanged"/>
-                                <RadioButton GroupName="Direction" Content="右上到左下" Tag="-45" Margin="5" Checked="OnDirectionChanged"/>
-                                <RadioButton GroupName="Direction" Content="从右到左" Tag="180" Margin="5" Checked="OnDirectionChanged"/>
-                                <RadioButton GroupName="Direction" Content="从下到上" Tag="-90" Margin="5" Checked="OnDirectionChanged"/>
+                                <RadioButton GroupName="Direction" Content="从左到右" Tag="0" Margin="5" IsChecked="True" Checked="OnDirectionChanged" />
+                                <RadioButton GroupName="Direction" Content="从上到下" Tag="90" Margin="5" Checked="OnDirectionChanged" />
+                                <RadioButton GroupName="Direction" Content="左上到右下" Tag="45" Margin="5" Checked="OnDirectionChanged" />
+                                <RadioButton GroupName="Direction" Content="右上到左下" Tag="-45" Margin="5" Checked="OnDirectionChanged" />
+                                <RadioButton GroupName="Direction" Content="从右到左" Tag="180" Margin="5" Checked="OnDirectionChanged" />
+                                <RadioButton GroupName="Direction" Content="从下到上" Tag="-90" Margin="5" Checked="OnDirectionChanged" />
                             </UniformGrid>
                         </StackPanel>
                     </GroupBox>
@@ -92,19 +92,19 @@
                     <!-- 滤镜预设 -->
                     <GroupBox Header="滤镜预设" Margin="0,0,0,15" Padding="15">
                         <WrapPanel>
-                            <Button Content="原始" Width="80" Height="32" Margin="0,0,8,8" Click="OnReset"/>
-                            <Button Content="柔和" Width="80" Height="32" Margin="0,0,8,8" Click="OnFilterSoft"/>
-                            <Button Content="复古" Width="80" Height="32" Margin="0,0,8,8" Click="OnFilterVintage"/>
-                            <Button Content="黑白" Width="80" Height="32" Margin="0,0,8,8" Click="OnFilterBW"/>
-                            <Button Content="反色" Width="80" Height="32" Margin="0,0,8,8" Click="OnFilterInvert"/>
-                            <Button Content="锐化" Width="80" Height="32" Click="OnFilterSharpen"/>
+                            <Button Content="原始" Width="80" Height="32" Margin="0,0,8,8" Click="OnReset" />
+                            <Button Content="柔和" Width="80" Height="32" Margin="0,0,8,8" Click="OnFilterSoft" />
+                            <Button Content="复古" Width="80" Height="32" Margin="0,0,8,8" Click="OnFilterVintage" />
+                            <Button Content="黑白" Width="80" Height="32" Margin="0,0,8,8" Click="OnFilterBW" />
+                            <Button Content="反色" Width="80" Height="32" Margin="0,0,8,8" Click="OnFilterInvert" />
+                            <Button Content="锐化" Width="80" Height="32" Click="OnFilterSharpen" />
                         </WrapPanel>
                     </GroupBox>
 
                     <!-- 操作按钮 -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                        <Button Content="取消" Width="100" Height="35" Margin="0,0,15,0" Click="OnCancel"/>
-                        <Button Content="应用" Width="100" Height="35" Click="OnApply"/>
+                        <Button Content="取消" Width="100" Height="35" Margin="0,0,15,0" Click="OnCancel" />
+                        <Button Content="应用" Width="100" Height="35" Click="OnApply" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
