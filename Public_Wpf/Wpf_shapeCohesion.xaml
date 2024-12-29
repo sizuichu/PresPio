@@ -6,26 +6,57 @@
              xmlns:hc="https://handyorg.github.io/handycontrol" 
              xmlns:local="clr-namespace:PresPio"
              mc:Ignorable="d" 
-           Width="450"
-           Height="300"
-             d:DesignHeight="300" 
-           d:DesignWidth="450"
+           Width="448"
+           Height="436"
            Title="形状衔接"
            Topmost="True"
            WindowStartupLocation="CenterScreen"
-           ResizeMode="CanMinimize" Loaded="ShpeWindow_Loaded"
-           >
+           ResizeMode="CanMinimize" 
+           Background="#F8F9FA"
+           Loaded="ShpeWindow_Loaded">
     <hc:Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <hc:ThemeResources/>
                 <hc:Theme/>
             </ResourceDictionary.MergedDictionaries>
+            <!-- 按钮样式 -->
+            <Style x:Key="CustomToggleButton" TargetType="ToggleButton">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#E9ECEF"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Width" Value="85"/>
+                <Setter Property="Height" Value="85"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#20000000" BlurRadius="10" ShadowDepth="1" Opacity="0.2"/>
+                                </Border.Effect>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Background" Value="#E3F2FD"/>
+                        <Setter Property="BorderBrush" Value="#2196F3"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#F5F5F5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </hc:Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="120"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="10*"/>
@@ -41,15 +72,103 @@
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
 
-        <ToggleButton Name="ToggleButton1" Background="White" Grid.Column="1" Grid.Row="1" Margin="0,8,0,0" VerticalAlignment="Top" Height="85" Width="85" Content="→"/>
-        <ToggleButton Name="ToggleButton2" Background="White" Grid.Column="2" Grid.Row="1" Margin="0,8,0,0" VerticalAlignment="Top" Height="85" Width="85" Content="←"/>
-        <ToggleButton Name="ToggleButton3" Background="White" Grid.Column="3" Grid.Row="1" Margin="0,8,0,0" VerticalAlignment="Top" Height="85" Width="85" Content="→"/>
-        <ToggleButton Name="ToggleButton4" Background="White" Grid.Column="4" Grid.Row="1" Margin="0,8,0,0" VerticalAlignment="Top" Height="85" Width="85" Content="←"/>
-        <ToggleButton Name="ToggleButton5" Background="White" Grid.Column="1" Grid.Row="2" Margin="0,8,0,0" VerticalAlignment="Top" Height="85" Width="85" Content="↘"/>
-        <ToggleButton Name="ToggleButton6" Background="White" Grid.Column="2" Grid.Row="2" Margin="0,8,0,0" VerticalAlignment="Top" Height="85" Width="85" Content="↗"/>
-        <ToggleButton Name="ToggleButton7" Background="White" Grid.Column="3" Grid.Row="2" Margin="0,8,0,0" VerticalAlignment="Top" Height="85" Width="85" Content="→"/>
-        <ToggleButton Name="ToggleButton8" Background="White" Grid.Column="4" Grid.Row="2" Margin="0,8,0,0" VerticalAlignment="Top" Height="85" Width="85" Content="←"/>
-        
-        <Button x:Name="OkBtn" Grid.Column="2" Content="确定" Grid.Row="4" Grid.ColumnSpan="2" Height="41" Width="208" HorizontalAlignment="Left" Margin="2,0,0,0" Click="OkBtn_Click"/>
+        <!-- 预览区域 -->
+        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" 
+                Background="White" 
+                Margin="5,10,5,10" 
+                CornerRadius="10"
+                BorderBrush="#E9ECEF"
+                BorderThickness="1">
+            <Border.Effect>
+                <DropShadowEffect Color="#20000000" BlurRadius="10" ShadowDepth="1" Opacity="0.2"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="预览效果" 
+                         Margin="15,10,0,0" 
+                         FontSize="14" 
+                         Foreground="#666666"
+                         FontWeight="Medium"/>
+                <Canvas x:Name="PreviewCanvas" Grid.Row="1" Height="80">
+                    <Rectangle Width="40" Height="40" Fill="#F8F9FA" Stroke="#CED4DA" Canvas.Left="100" Canvas.Top="10" RadiusX="4" RadiusY="4"/>
+                    <Rectangle Width="40" Height="40" Fill="#F8F9FA" Stroke="#CED4DA" Canvas.Left="250" Canvas.Top="10" RadiusX="4" RadiusY="4"/>
+                </Canvas>
+            </Grid>
+        </Border>
+
+        <!-- 按钮组 -->
+        <ToggleButton Name="ToggleButton1" Style="{StaticResource CustomToggleButton}" Grid.Column="1" Grid.Row="1" Checked="TogButton_Checked" Unchecked="TogButton_Checked">
+            <Grid Width="60" Height="60">
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2"/>
+                <Line X1="25" Y1="12.5" X2="35" Y2="12.5" Stroke="#E83F33" StrokeThickness="1"/>
+            </Grid>
+        </ToggleButton>
+        <ToggleButton Name="ToggleButton2" Style="{StaticResource CustomToggleButton}" Grid.Column="2" Grid.Row="1" Checked="TogButton_Checked" Unchecked="TogButton_Checked">
+            <Grid Width="60" Height="60">
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" RadiusX="2" RadiusY="2"/>
+                <Line X1="25" Y1="47.5" X2="35" Y2="47.5" Stroke="#E83F33" StrokeThickness="1"/>
+            </Grid>
+        </ToggleButton>
+        <ToggleButton Name="ToggleButton3" Style="{StaticResource CustomToggleButton}" Grid.Column="3" Grid.Row="1" Checked="TogButton_Checked" Unchecked="TogButton_Checked">
+            <Grid Width="60" Height="60">
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" RadiusX="2" RadiusY="2" Margin="13,0,0,0"/>
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2" Margin="13,0,0,0"/>
+                <Line X1="0" Y1="25" X2="0" Y2="35" Stroke="#E83F33" StrokeThickness="1" HorizontalAlignment="Left" Margin="12.5,0,0,0"/>
+            </Grid>
+        </ToggleButton>
+        <ToggleButton Name="ToggleButton4" Style="{StaticResource CustomToggleButton}" Grid.Column="4" Grid.Row="1" Checked="TogButton_Checked" Unchecked="TogButton_Checked">
+            <Grid Width="60" Height="60">
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" RadiusX="2" RadiusY="2" Margin="0,0,13,0"/>
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2" Margin="0,0,13,0"/>
+                <Line X1="0" Y1="25" X2="0" Y2="35" Stroke="#E83F33" StrokeThickness="1" HorizontalAlignment="Right" Margin="0,0,12.5,0"/>
+            </Grid>
+        </ToggleButton>
+        <ToggleButton Name="ToggleButton5" Style="{StaticResource CustomToggleButton}" Grid.Column="1" Grid.Row="2" Checked="TogButton_Checked" Unchecked="TogButton_Checked">
+            <Grid Width="60" Height="60">
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2"/>
+                <Line X1="25" Y1="25" X2="35" Y2="35" Stroke="#E83F33" StrokeThickness="1"/>
+            </Grid>
+        </ToggleButton>
+        <ToggleButton Name="ToggleButton6" Style="{StaticResource CustomToggleButton}" Grid.Column="2" Grid.Row="2" Checked="TogButton_Checked" Unchecked="TogButton_Checked">
+            <Grid Width="60" Height="60">
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" RadiusX="2" RadiusY="2"/>
+                <Line X1="25" Y1="35" X2="35" Y2="25" Stroke="#E83F33" StrokeThickness="1"/>
+            </Grid>
+        </ToggleButton>
+        <ToggleButton Name="ToggleButton7" Style="{StaticResource CustomToggleButton}" Grid.Column="3" Grid.Row="2" Checked="TogButton_Checked" Unchecked="TogButton_Checked">
+            <Grid Width="60" Height="60">
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" RadiusX="2" RadiusY="2" Margin="2,12,0,0"/>
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" RadiusX="2" RadiusY="2" Margin="0,12,0,0"/>
+                <Line X1="25" Y1="12.5" X2="35" Y2="12.5" Stroke="#E83F33" StrokeThickness="1"/>
+            </Grid>
+        </ToggleButton>
+        <ToggleButton Name="ToggleButton8" Style="{StaticResource CustomToggleButton}" Grid.Column="4" Grid.Row="2" Checked="TogButton_Checked" Unchecked="TogButton_Checked">
+            <Grid Width="60" Height="60">
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2" Margin="0,0,0,12"/>
+                <Rectangle Width="25" Height="25" Fill="#F8F9FA" Stroke="#CED4DA" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2" Margin="0,0,0,12"/>
+                <Line X1="25" Y1="47.5" X2="35" Y2="47.5" Stroke="#E83F33" StrokeThickness="1"/>
+            </Grid>
+        </ToggleButton>
+
+        <!-- 确定按钮 -->
+        <Button x:Name="OkBtn" 
+                Grid.Column="2" 
+                Grid.Row="4" 
+                Grid.ColumnSpan="2" 
+                Content="确定" 
+                Height="41" 
+                Width="208" 
+                HorizontalAlignment="Left" 
+                Margin="2,0,0,0" 
+                Click="OkBtn_Click"
+                Style="{StaticResource ButtonPrimary}"
+                hc:BorderElement.CornerRadius="20"/>
     </Grid>
 </hc:Window>

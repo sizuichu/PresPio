@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using HandyControl.Controls;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.PowerPoint;
@@ -48,6 +51,101 @@ namespace PresPio
                         toggleButton.IsChecked = false;
                         }
                     }
+                // 更新预览
+                UpdatePreview(clickedButton);
+                }
+            else
+                {
+                // 清除预览
+                ClearPreview();
+                }
+            }
+
+        private void UpdatePreview(ToggleButton selectedButton)
+            {
+            // 清除现有的连接线
+            ClearPreview();
+
+            // 获取预览区域中的两个矩形
+            Rectangle leftRect = PreviewCanvas.Children[0] as Rectangle;
+            Rectangle rightRect = PreviewCanvas.Children[1] as Rectangle;
+
+            // 创建连接线
+            Rectangle connector = new Rectangle();
+            connector.Fill = new SolidColorBrush(Color.FromRgb(33, 150, 243)); // #2196F3
+
+            // 根据选中的按钮设置连接线的位置和样式
+            if (selectedButton == ToggleButton1) // 从左到右
+                {
+                connector.Width = 110;
+                connector.Height = 4;
+                Canvas.SetLeft(connector, 140);
+                Canvas.SetTop(connector, 28);
+                }
+            else if (selectedButton == ToggleButton2) // 从右到左
+                {
+                connector.Width = 110;
+                connector.Height = 4;
+                Canvas.SetLeft(connector, 140);
+                Canvas.SetTop(connector, 28);
+                }
+            else if (selectedButton == ToggleButton3) // 左边垂直连接
+                {
+                connector.Width = 4;
+                connector.Height = 40;
+                Canvas.SetLeft(connector, 100);
+                Canvas.SetTop(connector, 10);
+                }
+            else if (selectedButton == ToggleButton4) // 右边垂直连接
+                {
+                connector.Width = 4;
+                connector.Height = 40;
+                Canvas.SetLeft(connector, 290);
+                Canvas.SetTop(connector, 10);
+                }
+            else if (selectedButton == ToggleButton5) // 左上到右下
+                {
+                connector.Width = 155;
+                connector.Height = 4;
+                Canvas.SetLeft(connector, 118);
+                Canvas.SetTop(connector, 28);
+                RotateTransform transform = new RotateTransform(45, 77.5, 2);
+                connector.RenderTransform = transform;
+                }
+            else if (selectedButton == ToggleButton6) // 左下到右上
+                {
+                connector.Width = 155;
+                connector.Height = 4;
+                Canvas.SetLeft(connector, 118);
+                Canvas.SetTop(connector, 28);
+                RotateTransform transform = new RotateTransform(-45, 77.5, 2);
+                connector.RenderTransform = transform;
+                }
+            else if (selectedButton == ToggleButton7) // 顶部连接
+                {
+                connector.Width = 110;
+                connector.Height = 4;
+                Canvas.SetLeft(connector, 140);
+                Canvas.SetTop(connector, 10);
+                }
+            else if (selectedButton == ToggleButton8) // 底部连接
+                {
+                connector.Width = 110;
+                connector.Height = 4;
+                Canvas.SetLeft(connector, 140);
+                Canvas.SetTop(connector, 46);
+                }
+
+            // 添加连接线到预览画布
+            PreviewCanvas.Children.Add(connector);
+            }
+
+        private void ClearPreview()
+            {
+            // 移除所有连接线，保留两个矩形
+            while (PreviewCanvas.Children.Count > 2)
+                {
+                PreviewCanvas.Children.RemoveAt(2);
                 }
             }
 

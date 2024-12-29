@@ -35,10 +35,10 @@
         private void InitializeComponent()
         {
             Microsoft.Office.Tools.Ribbon.RibbonDialogLauncher ribbonDialogLauncherImpl1 = this.Factory.CreateRibbonDialogLauncher();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyRibbon));
             Microsoft.Office.Tools.Ribbon.RibbonDialogLauncher ribbonDialogLauncherImpl2 = this.Factory.CreateRibbonDialogLauncher();
             Microsoft.Office.Tools.Ribbon.RibbonDialogLauncher ribbonDialogLauncherImpl3 = this.Factory.CreateRibbonDialogLauncher();
             Microsoft.Office.Tools.Ribbon.RibbonDialogLauncher ribbonDialogLauncherImpl4 = this.Factory.CreateRibbonDialogLauncher();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyRibbon));
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
             this.menu1 = this.Factory.CreateRibbonMenu();
@@ -490,7 +490,6 @@
             // button54
             // 
             this.button54.Enabled = false;
-            this.button54.Image = null;
             this.button54.Label = "随机";
             this.button54.Name = "button54";
             this.button54.ShowImage = true;
@@ -499,7 +498,6 @@
             // button52
             // 
             this.button52.Enabled = false;
-            this.button52.Image = null;
             this.button52.Label = "同系";
             this.button52.Name = "button52";
             this.button52.ShowImage = true;
@@ -508,7 +506,6 @@
             // button127
             // 
             this.button127.Enabled = false;
-            this.button127.Image = null;
             this.button127.Label = "互补";
             this.button127.Name = "button127";
             this.button127.ShowImage = true;
@@ -517,7 +514,6 @@
             // button132
             // 
             this.button132.Enabled = false;
-            this.button132.Image = null;
             this.button132.Label = "对比";
             this.button132.Name = "button132";
             this.button132.ShowImage = true;
@@ -564,7 +560,6 @@
             // toggleButton4
             // 
             this.toggleButton4.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.toggleButton4.Image = null;
             this.toggleButton4.Label = "超级剪切板";
             this.toggleButton4.Name = "toggleButton4";
             this.toggleButton4.ShowImage = true;
@@ -572,7 +567,6 @@
             // 
             // menu2
             // 
-            this.menu2.Image = null;
             this.menu2.Items.Add(this.button120);
             this.menu2.Items.Add(this.button121);
             this.menu2.Items.Add(this.separator25);
@@ -658,7 +652,6 @@
             // 
             // button73
             // 
-            this.button73.Image = null;
             this.button73.Label = "形文分离";
             this.button73.Name = "button73";
             this.button73.ShowImage = true;
@@ -666,7 +659,6 @@
             // 
             // menu9
             // 
-            this.menu9.Image = null;
             this.menu9.Items.Add(this.button76);
             this.menu9.Items.Add(this.button119);
             this.menu9.Items.Add(this.button77);
@@ -714,7 +706,6 @@
             // 
             // splitButton15
             // 
-            this.splitButton15.Image = null;
             this.splitButton15.Items.Add(this.button124);
             this.splitButton15.Items.Add(this.button214);
             this.splitButton15.Items.Add(this.button213);
@@ -940,7 +931,6 @@
             // 
             // button98
             // 
-            this.button98.Image = null;
             this.button98.Label = "1.0倍行距";
             this.button98.Name = "button98";
             this.button98.ShowImage = true;
@@ -948,7 +938,6 @@
             // 
             // button133
             // 
-            this.button133.Image = null;
             this.button133.Label = "1.2倍行距";
             this.button133.Name = "button133";
             this.button133.ShowImage = true;
@@ -956,7 +945,6 @@
             // 
             // button134
             // 
-            this.button134.Image = null;
             this.button134.Label = "1.3倍行距";
             this.button134.Name = "button134";
             this.button134.ShowImage = true;
@@ -964,7 +952,6 @@
             // 
             // button135
             // 
-            this.button135.Image = null;
             this.button135.Label = "1.5倍行距";
             this.button135.Name = "button135";
             this.button135.ShowImage = true;
@@ -972,7 +959,6 @@
             // 
             // button136
             // 
-            this.button136.Image = null;
             this.button136.Label = "2.0倍行距";
             this.button136.Name = "button136";
             this.button136.ShowImage = true;
@@ -984,7 +970,6 @@
             // 
             // button137
             // 
-            this.button137.Image = null;
             this.button137.Label = "行距设置";
             this.button137.Name = "button137";
             this.button137.ShowImage = true;
@@ -1025,7 +1010,6 @@
             // splitButton7
             // 
             this.splitButton7.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.splitButton7.Image = null;
             this.splitButton7.Items.Add(this.button151);
             this.splitButton7.Items.Add(this.button220);
             this.splitButton7.Items.Add(this.separator31);
@@ -1093,7 +1077,6 @@
             // 
             // menu3
             // 
-            this.menu3.Image = null;
             this.menu3.Items.Add(this.button35);
             this.menu3.Items.Add(this.button36);
             this.menu3.Items.Add(this.button37);
@@ -1105,7 +1088,6 @@
             // 
             // button35
             // 
-            this.button35.Image = null;
             this.button35.Label = "空白标签";
             this.button35.Name = "button35";
             this.button35.ShowImage = true;
@@ -1113,7 +1095,6 @@
             // 
             // button36
             // 
-            this.button36.Image = null;
             this.button36.Label = "新增标签";
             this.button36.Name = "button36";
             this.button36.ShowImage = true;
@@ -1121,7 +1102,6 @@
             // 
             // button37
             // 
-            this.button37.Image = null;
             this.button37.Label = "转换标签";
             this.button37.Name = "button37";
             this.button37.ShowImage = true;
@@ -1141,7 +1121,6 @@
             // 
             // splitButton13
             // 
-            this.splitButton13.Image = null;
             this.splitButton13.Items.Add(this.button176);
             this.splitButton13.Items.Add(this.button177);
             this.splitButton13.Items.Add(this.button190);
@@ -1173,7 +1152,6 @@
             // 
             // button176
             // 
-            this.button176.Image = null;
             this.button176.Label = "空白母版";
             this.button176.Name = "button176";
             this.button176.ShowImage = true;
@@ -1221,7 +1199,6 @@
             // 
             // button180
             // 
-            this.button180.Image = null;
             this.button180.Label = "清空占位";
             this.button180.Name = "button180";
             this.button180.ShowImage = true;
@@ -1240,7 +1217,6 @@
             // 
             // button181
             // 
-            this.button181.Image = null;
             this.button181.Label = "删除图片";
             this.button181.Name = "button181";
             this.button181.ShowImage = true;
@@ -1280,7 +1256,6 @@
             // 
             // button91
             // 
-            this.button91.Image = null;
             this.button91.Label = "删除动画";
             this.button91.Name = "button91";
             this.button91.ShowImage = true;
@@ -1313,7 +1288,6 @@
             // 
             // button192
             // 
-            this.button192.Image = null;
             this.button192.Label = "删除音频";
             this.button192.Name = "button192";
             this.button192.ShowImage = true;
@@ -1342,7 +1316,6 @@
             // 
             // button23
             // 
-            this.button23.Image = null;
             this.button23.Label = "空白版式";
             this.button23.Name = "button23";
             this.button23.ScreenTip = "空白版式";
@@ -1352,7 +1325,6 @@
             // 
             // menu6
             // 
-            this.menu6.Image = null;
             this.menu6.Items.Add(this.button57);
             this.menu6.Items.Add(this.button58);
             this.menu6.Items.Add(this.separator8);
@@ -1370,7 +1342,6 @@
             // 
             // button57
             // 
-            this.button57.Image = null;
             this.button57.Label = "英文修饰";
             this.button57.Name = "button57";
             this.button57.ShowImage = true;
@@ -1378,7 +1349,6 @@
             // 
             // button58
             // 
-            this.button58.Image = null;
             this.button58.Label = "拼音修饰";
             this.button58.Name = "button58";
             this.button58.ShowImage = true;
@@ -1390,7 +1360,6 @@
             // 
             // button108
             // 
-            this.button108.Image = null;
             this.button108.Label = "形状编号";
             this.button108.Name = "button108";
             this.button108.ShowImage = true;
@@ -1398,7 +1367,6 @@
             // 
             // button59
             // 
-            this.button59.Image = null;
             this.button59.Label = "角标修饰";
             this.button59.Name = "button59";
             this.button59.ShowImage = true;
@@ -1406,7 +1374,6 @@
             // 
             // button61
             // 
-            this.button61.Image = null;
             this.button61.Label = "矩形修饰";
             this.button61.Name = "button61";
             this.button61.ShowImage = true;
@@ -1414,7 +1381,6 @@
             // 
             // button62
             // 
-            this.button62.Image = null;
             this.button62.Label = "圆形修饰";
             this.button62.Name = "button62";
             this.button62.ShowImage = true;
@@ -1426,7 +1392,6 @@
             // 
             // button118
             // 
-            this.button118.Image = null;
             this.button118.Label = "矩形衬底";
             this.button118.Name = "button118";
             this.button118.ShowImage = true;
@@ -1434,7 +1399,6 @@
             // 
             // button117
             // 
-            this.button117.Image = null;
             this.button117.Label = "圆形衬底";
             this.button117.Name = "button117";
             this.button117.ShowImage = true;
@@ -1446,7 +1410,6 @@
             // 
             // menu5
             // 
-            this.menu5.Image = null;
             this.menu5.Items.Add(this.button55);
             this.menu5.Items.Add(this.separator40);
             this.menu5.Items.Add(this.button60);
@@ -1566,7 +1529,6 @@
             // 
             // menu10
             // 
-            this.menu10.Image = null;
             this.menu10.Items.Add(this.button152);
             this.menu10.Items.Add(this.button78);
             this.menu10.Items.Add(this.button79);
@@ -1628,7 +1590,6 @@
             // 
             // splitButton3
             // 
-            this.splitButton3.Image = null;
             this.splitButton3.Items.Add(this.button21);
             this.splitButton3.Items.Add(this.button22);
             this.splitButton3.Items.Add(this.button26);
@@ -1687,7 +1648,6 @@
             // 
             // splitButton4
             // 
-            this.splitButton4.Image = null;
             this.splitButton4.Items.Add(this.button50);
             this.splitButton4.Items.Add(this.button51);
             this.splitButton4.Items.Add(this.separator30);
@@ -1726,7 +1686,6 @@
             // 
             // splitButton6
             // 
-            this.splitButton6.Image = null;
             this.splitButton6.Items.Add(this.button109);
             this.splitButton6.Items.Add(this.button75);
             this.splitButton6.Items.Add(this.button111);
@@ -1779,7 +1738,6 @@
             // 
             // splitButton2
             // 
-            this.splitButton2.Image = null;
             this.splitButton2.Items.Add(this.button16);
             this.splitButton2.Items.Add(this.button17);
             this.splitButton2.Items.Add(this.button53);
@@ -1899,7 +1857,6 @@
             // 
             // splitButton8
             // 
-            this.splitButton8.Image = null;
             this.splitButton8.Items.Add(this.button10);
             this.splitButton8.Items.Add(this.button9);
             this.splitButton8.Items.Add(this.button203);
@@ -1937,7 +1894,6 @@
             // 
             // splitButton5
             // 
-            this.splitButton5.Image = null;
             this.splitButton5.Items.Add(this.button70);
             this.splitButton5.Label = "便捷显隐";
             this.splitButton5.Name = "splitButton5";
@@ -1947,7 +1903,6 @@
             // 
             // button70
             // 
-            this.button70.Image = null;
             this.button70.Label = "对象显示";
             this.button70.Name = "button70";
             this.button70.ScreenTip = "对象显示";
@@ -2112,7 +2067,6 @@
             // splitButton12
             // 
             this.splitButton12.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.splitButton12.Image = null;
             this.splitButton12.Items.Add(this.button140);
             this.splitButton12.Items.Add(this.button141);
             this.splitButton12.Items.Add(this.button142);
@@ -2273,7 +2227,6 @@
             // splitButton1
             // 
             this.splitButton1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.splitButton1.Image = null;
             this.splitButton1.Items.Add(this.button94);
             this.splitButton1.Items.Add(this.button129);
             this.splitButton1.Items.Add(this.button8);
@@ -2299,7 +2252,6 @@
             // 
             // button94
             // 
-            this.button94.Image = null;
             this.button94.Label = "超级水印";
             this.button94.Name = "button94";
             this.button94.ShowImage = true;
@@ -2418,7 +2370,6 @@
             // 
             // button31
             // 
-            this.button31.Image = null;
             this.button31.Label = "文稿检测";
             this.button31.Name = "button31";
             this.button31.ShowImage = true;
@@ -2426,7 +2377,6 @@
             // 
             // button32
             // 
-            this.button32.Image = null;
             this.button32.Label = "兼容检测";
             this.button32.Name = "button32";
             this.button32.ShowImage = true;
@@ -2434,7 +2384,6 @@
             // 
             // button33
             // 
-            this.button33.Image = null;
             this.button33.Label = "发送到Word";
             this.button33.Name = "button33";
             this.button33.OfficeImageId = "FileSaveAsWordDocx";
@@ -2443,7 +2392,6 @@
             // 
             // menu4
             // 
-            this.menu4.Image = null;
             this.menu4.Items.Add(this.button82);
             this.menu4.Items.Add(this.separator11);
             this.menu4.Items.Add(this.button38);
@@ -2463,7 +2411,6 @@
             // 
             // button82
             // 
-            this.button82.Image = null;
             this.button82.Label = "页面大小";
             this.button82.Name = "button82";
             this.button82.ShowImage = true;
@@ -2475,7 +2422,6 @@
             // 
             // button38
             // 
-            this.button38.Image = null;
             this.button38.Label = "画布适应";
             this.button38.Name = "button38";
             this.button38.ShowImage = true;
@@ -2483,7 +2429,6 @@
             // 
             // button39
             // 
-            this.button39.Image = null;
             this.button39.Label = "图形适应";
             this.button39.Name = "button39";
             this.button39.ShowImage = true;
@@ -2495,7 +2440,6 @@
             // 
             // button40
             // 
-            this.button40.Image = null;
             this.button40.Label = "微信封面";
             this.button40.Name = "button40";
             this.button40.ShowImage = true;
@@ -2503,7 +2447,6 @@
             // 
             // button42
             // 
-            this.button42.Image = null;
             this.button42.Label = "聚合封面";
             this.button42.Name = "button42";
             this.button42.ShowImage = true;
@@ -2511,7 +2454,6 @@
             // 
             // button41
             // 
-            this.button41.Image = null;
             this.button41.Label = "微信小图";
             this.button41.Name = "button41";
             this.button41.ShowImage = true;
@@ -2523,7 +2465,6 @@
             // 
             // button43
             // 
-            this.button43.Image = null;
             this.button43.Label = "名片尺寸";
             this.button43.Name = "button43";
             this.button43.ShowImage = true;
@@ -2531,7 +2472,6 @@
             // 
             // button44
             // 
-            this.button44.Image = null;
             this.button44.Label = "电商图标";
             this.button44.Name = "button44";
             this.button44.ShowImage = true;
@@ -2539,7 +2479,6 @@
             // 
             // button45
             // 
-            this.button45.Image = null;
             this.button45.Label = "视频封面";
             this.button45.Name = "button45";
             this.button45.ShowImage = true;
@@ -2547,7 +2486,6 @@
             // 
             // button46
             // 
-            this.button46.Image = null;
             this.button46.Label = "胶囊主图";
             this.button46.Name = "button46";
             this.button46.ShowImage = true;
@@ -2555,7 +2493,6 @@
             // 
             // menu7
             // 
-            this.menu7.Image = null;
             this.menu7.Items.Add(this.button115);
             this.menu7.Items.Add(this.button85);
             this.menu7.Items.Add(this.button128);
@@ -2577,7 +2514,6 @@
             // 
             // button115
             // 
-            this.button115.Image = null;
             this.button115.Label = "同类选择";
             this.button115.Name = "button115";
             this.button115.ShowImage = true;
@@ -2585,7 +2521,6 @@
             // 
             // button85
             // 
-            this.button85.Image = null;
             this.button85.Label = "反向选择";
             this.button85.Name = "button85";
             this.button85.ScreenTip = "反向选择";
@@ -2595,7 +2530,6 @@
             // 
             // button128
             // 
-            this.button128.Image = null;
             this.button128.Label = "尺寸大小";
             this.button128.Name = "button128";
             this.button128.ShowImage = true;
@@ -2603,7 +2537,6 @@
             // 
             // button126
             // 
-            this.button126.Image = null;
             this.button126.Label = "自选图形";
             this.button126.Name = "button126";
             this.button126.ShowImage = true;
@@ -2615,7 +2548,6 @@
             // 
             // button27
             // 
-            this.button27.Image = null;
             this.button27.Label = "填充颜色";
             this.button27.Name = "button27";
             this.button27.ShowImage = true;
@@ -2940,7 +2872,6 @@
             // 
             // button201
             // 
-            this.button201.Image = null;
             this.button201.Label = "花瓣网";
             this.button201.Name = "button201";
             this.button201.ShowImage = true;
@@ -2948,7 +2879,6 @@
             // 
             // button204
             // 
-            this.button204.Image = null;
             this.button204.Label = "站酷网";
             this.button204.Name = "button204";
             this.button204.ShowImage = true;
@@ -2956,7 +2886,6 @@
             // 
             // button205
             // 
-            this.button205.Image = null;
             this.button205.Label = "UI中国";
             this.button205.Name = "button205";
             this.button205.ShowImage = true;
@@ -2964,7 +2893,6 @@
             // 
             // button206
             // 
-            this.button206.Image = null;
             this.button206.Label = "Dribbble";
             this.button206.Name = "button206";
             this.button206.ShowImage = true;
@@ -2986,7 +2914,6 @@
             // 
             // button198
             // 
-            this.button198.Image = null;
             this.button198.Label = "佐糖抠图";
             this.button198.Name = "button198";
             this.button198.ShowImage = true;
@@ -2994,7 +2921,6 @@
             // 
             // button199
             // 
-            this.button199.Image = null;
             this.button199.Label = "皮卡抠图";
             this.button199.Name = "button199";
             this.button199.ShowImage = true;
@@ -3002,7 +2928,6 @@
             // 
             // button200
             // 
-            this.button200.Image = null;
             this.button200.Label = "Pixmiller";
             this.button200.Name = "button200";
             this.button200.ShowImage = true;
@@ -3019,7 +2944,6 @@
             // 
             // button196
             // 
-            this.button196.Image = null;
             this.button196.Label = "AboutPPT·音律";
             this.button196.Name = "button196";
             this.button196.ShowImage = true;
@@ -3027,7 +2951,6 @@
             // 
             // button197
             // 
-            this.button197.Image = null;
             this.button197.Label = "PPT世界";
             this.button197.Name = "button197";
             this.button197.ShowImage = true;

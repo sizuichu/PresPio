@@ -637,6 +637,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Icon_Shape\*.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\FormImg\recent %281%29.png" />
     <Resource Include="Images\FormImg\recent %282%29.png" />
     <Resource Include="Images\FormImg\recent %283%29.png" />
