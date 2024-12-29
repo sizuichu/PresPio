@@ -61,92 +61,21 @@ namespace PresPio.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        ///   查找类似 {\rtf1 \ansi \ansicpg936 \deff0 \stshfdbch1 \stshfloch0 \stshfhich0 \deflang2052 \deflangfe2052 {\fonttbl {\f0 \froman \fcharset0 \fprq2 {\*\panose 02020603050405020304}Times New Roman{\*\falt Times New Roman};}{\f1 \fnil \fcharset134 \fprq0 {\*\panose 02010600030101010101}\&apos;cb\&apos;ce\&apos;cc\&apos;e5{\*\falt \&apos;cb\&apos;ce\&apos;cc\&apos;e5};}{\f2 \fnil \fcharset2 \fprq0 {\*\panose 05000000000000000000}Wingdings{\*\falt Wingdings};}{\f3 \fnil \fcharset134 \fprq0 {\*\panose 02010600030101010101}\&apos;b5\&apos;c8\&apos;cf\&apos;df{\*\falt \&apos;b5\&apos;c8\&apos;cf\&apos;d [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static System.Drawing.Bitmap F__10_ {
+        internal static string About {
             get {
-                object obj = ResourceManager.GetObject("F (10)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("About", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap F__2_ {
+        internal static byte[] FluentIcons {
             get {
-                object obj = ResourceManager.GetObject("F (2)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap F__3_ {
-            get {
-                object obj = ResourceManager.GetObject("F (3)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap F__4_ {
-            get {
-                object obj = ResourceManager.GetObject("F (4)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap F__5_ {
-            get {
-                object obj = ResourceManager.GetObject("F (5)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap F__6_ {
-            get {
-                object obj = ResourceManager.GetObject("F (6)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap F__7_ {
-            get {
-                object obj = ResourceManager.GetObject("F (7)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap F__8_ {
-            get {
-                object obj = ResourceManager.GetObject("F (8)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap F__9_ {
-            get {
-                object obj = ResourceManager.GetObject("F (9)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("FluentIcons", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -163,9 +92,9 @@ namespace PresPio.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap shp__1_ {
+        internal static System.Drawing.Bitmap icon_chart {
             get {
-                object obj = ResourceManager.GetObject("shp (1)", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_chart", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +102,9 @@ namespace PresPio.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap shp__2_ {
+        internal static System.Drawing.Bitmap icon_group {
             get {
-                object obj = ResourceManager.GetObject("shp (2)", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_group", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +112,9 @@ namespace PresPio.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap shp__3_ {
+        internal static System.Drawing.Bitmap icon_image {
             get {
-                object obj = ResourceManager.GetObject("shp (3)", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,9 +122,9 @@ namespace PresPio.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap shp__4_ {
+        internal static System.Drawing.Bitmap icon_line {
             get {
-                object obj = ResourceManager.GetObject("shp (4)", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_line", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +132,9 @@ namespace PresPio.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap shp__5_ {
+        internal static System.Drawing.Bitmap icon_media {
             get {
-                object obj = ResourceManager.GetObject("shp (5)", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_media", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,9 +142,9 @@ namespace PresPio.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap shp__6_ {
+        internal static System.Drawing.Bitmap icon_shape {
             get {
-                object obj = ResourceManager.GetObject("shp (6)", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_shape", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,9 +152,9 @@ namespace PresPio.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap shp__7_ {
+        internal static System.Drawing.Bitmap icon_table {
             get {
-                object obj = ResourceManager.GetObject("shp (7)", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_table", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -233,10 +162,144 @@ namespace PresPio.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap shp__8_ {
+        internal static System.Drawing.Bitmap icon_text {
             get {
-                object obj = ResourceManager.GetObject("shp (8)", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_text", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_tools {
+            get {
+                object obj = ResourceManager.GetObject("icon_tools", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+        ///&lt;dataset&gt;
+        ///	&lt;record&gt;
+        ///		&lt;Name&gt;PPT 16:9&lt;/Name&gt;
+        ///		&lt;Height&gt;14.288 &lt;/Height&gt;
+        ///		&lt;Width&gt;25.400 &lt;/Width&gt;
+        ///	&lt;/record&gt;
+        ///	&lt;record&gt;
+        ///		&lt;Name&gt;PPT 16:10&lt;/Name&gt;
+        ///		&lt;Height&gt;15.875 &lt;/Height&gt;
+        ///		&lt;Width&gt;25.400 &lt;/Width&gt;
+        ///	&lt;/record&gt;
+        ///	&lt;record&gt;
+        ///		&lt;Name&gt;PPT 4:3&lt;/Name&gt;
+        ///		&lt;Height&gt;19.050 &lt;/Height&gt;
+        ///		&lt;Width&gt;25.400 &lt;/Width&gt;
+        ///	&lt;/record&gt;
+        ///	&lt;record&gt;
+        ///		&lt;Name&gt;手机海报&lt;/Name&gt;
+        ///		&lt;Height&gt;19.200 &lt;/Height&gt;
+        ///		&lt;Width&gt;10.800 &lt;/Width&gt;
+        ///	&lt;/record&gt;
+        ///	&lt;record&gt;
+        ///		&lt;Name&gt;全屏海报&lt;/Name&gt;
+        ///		&lt;Height&gt;27.780 &lt;/Height&gt;
+        ///		&lt;Width&gt;12.840 &lt;/Wid [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string PageSettings {
+            get {
+                return ResourceManager.GetString("PageSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap shape_arrow {
+            get {
+                object obj = ResourceManager.GetObject("shape_arrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap shape_circle {
+            get {
+                object obj = ResourceManager.GetObject("shape_circle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap shape_diamond {
+            get {
+                object obj = ResourceManager.GetObject("shape_diamond", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap shape_hexagon {
+            get {
+                object obj = ResourceManager.GetObject("shape_hexagon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap shape_pentagon {
+            get {
+                object obj = ResourceManager.GetObject("shape_pentagon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap shape_rectangle {
+            get {
+                object obj = ResourceManager.GetObject("shape_rectangle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap shape_star {
+            get {
+                object obj = ResourceManager.GetObject("shape_star", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap shape_triangle {
+            get {
+                object obj = ResourceManager.GetObject("shape_triangle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] TextTemplates {
+            get {
+                object obj = ResourceManager.GetObject("TextTemplates", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

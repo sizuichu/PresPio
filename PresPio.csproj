@@ -429,27 +429,27 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ComForm\Use_Color.cs">
+    <Compile Include="Public_Customize\Use_Color.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ComForm\Use_Color.Designer.cs">
+    <Compile Include="Public_Customize\Use_Color.Designer.cs">
       <DependentUpon>Use_Color.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\RibbonIcoHelper.cs" />
     <Compile Include="Helper\ComHelper.cs" />
-    <Compile Include="ComForm\Con_TextTools.cs">
+    <Compile Include="Public_Customize\Con_TextTools.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ComForm\Con_TextTools.Designer.cs">
+    <Compile Include="Public_Customize\Con_TextTools.Designer.cs">
       <DependentUpon>Con_TextTools.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\ImageHelper.cs" />
-    <Compile Include="Function\MyCustomTaskPane.cs" />
+    <Compile Include="Public_Function\MyCustomTaskPane.cs" />
     <Compile Include="Helper\RotationHelper.cs" />
-    <Compile Include="Pages\Page_ColorPane.xaml.cs">
+    <Compile Include="Public_Pages\Page_ColorPane.xaml.cs">
       <DependentUpon>Page_ColorPane.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Page_textPods.xaml.cs">
+    <Compile Include="Public_Pages\Page_textPods.xaml.cs">
       <DependentUpon>Page_textPods.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -457,152 +457,124 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Rseource\Icon.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Icon.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Page_NotePage.xaml.cs">
+    <Compile Include="Public_Pages\Page_NotePage.xaml.cs">
       <DependentUpon>Page_NotePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Page_Sprite.xaml.cs">
+    <Compile Include="Public_Pages\Page_Sprite.xaml.cs">
       <DependentUpon>Page_Sprite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Page_ThemeColor.xaml.cs">
+    <Compile Include="Public_Pages\Page_ThemeColor.xaml.cs">
       <DependentUpon>Page_ThemeColor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\IconUtility.cs" />
     <Compile Include="Properties\Images.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Images.resx</DependentUpon>
     </Compile>
-    <Compile Include="Rseource\ResourceMock.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ResourceMock.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Function\MessageBoxTimeout.cs" />
-    <Compile Include="Rseource\iToolResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>iToolResource.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Public_Function\MessageBoxTimeout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helper\YouDao.cs" />
-    <Compile Include="Wpf_Form\Wpf_FileSteward.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_FileSteward.xaml.cs">
       <DependentUpon>Wpf_FileSteward.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_ColorAdjust.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_ColorAdjust.xaml.cs">
       <DependentUpon>Wpf_ColorAdjust.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\SuperClipboard\Wpf_Clipboard.xaml.cs">
+    <Compile Include="Public_Wpf\SuperClipboard\Wpf_Clipboard.xaml.cs">
       <DependentUpon>Wpf_Clipboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_colorTheme.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_colorTheme.xaml.cs">
       <DependentUpon>Wpf_colorTheme.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_crossPage.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_crossPage.xaml.cs">
       <DependentUpon>Wpf_crossPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_Colortheif.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_Colortheif.xaml.cs">
       <DependentUpon>Wpf_Colortheif.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_About.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_About.xaml.cs">
       <DependentUpon>Wpf_About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_Publish.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_Publish.xaml.cs">
       <DependentUpon>Wpf_Publish.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_superGuide.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_superGuide.xaml.cs">
       <DependentUpon>Wpf_superGuide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_waterMark.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_waterMark.xaml.cs">
       <DependentUpon>Wpf_waterMark.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_Gradient.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_Gradient.xaml.cs">
       <DependentUpon>Wpf_Gradient.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_ImageExport.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_ImageExport.xaml.cs">
       <DependentUpon>Wpf_ImageExport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_InfoDelete.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_InfoDelete.xaml.cs">
       <DependentUpon>Wpf_InfoDelete.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_MasterSet.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_MasterSet.xaml.cs">
       <DependentUpon>Wpf_MasterSet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_LikeChat.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_LikeChat.xaml.cs">
       <DependentUpon>Wpf_LikeChat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_Mockup.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_Mockup.xaml.cs">
       <DependentUpon>Wpf_Mockup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_NameUnification.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_NameUnification.xaml.cs">
       <DependentUpon>Wpf_NameUnification.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_shapeCopy.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_shapeCopy.xaml.cs">
       <DependentUpon>Wpf_shapeCopy.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf__Pagesize.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf__Pagesize.xaml.cs">
       <DependentUpon>Wpf__Pagesize.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_shapeCohesion.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_shapeCohesion.xaml.cs">
       <DependentUpon>Wpf_shapeCohesion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_ShapeGlow.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_ShapeGlow.xaml.cs">
       <DependentUpon>Wpf_ShapeGlow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_ShapeShodw.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_ShapeShodw.xaml.cs">
       <DependentUpon>Wpf_ShapeShodw.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_Tools.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_Tools.xaml.cs">
       <DependentUpon>Wpf_Tools.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_UniPa.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_UniPa.xaml.cs">
       <DependentUpon>Wpf_UniPa.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ComForm\XWindow1.xaml.cs">
+    <Compile Include="Public_Customize\XWindow1.xaml.cs">
       <DependentUpon>XWindow1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_ImageTra.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_ImageTra.xaml.cs">
       <DependentUpon>Wpf_ImageTra.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_ShpStyle.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_ShpStyle.xaml.cs">
       <DependentUpon>Wpf_ShpStyle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_Qrcode.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_Qrcode.xaml.cs">
       <DependentUpon>Wpf_Qrcode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Form\Wpf_SplitPPT.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_SplitPPT.xaml.cs">
       <DependentUpon>Wpf_SplitPPT.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf_Manuscript.xaml.cs">
+    <Compile Include="Public_Wpf\Wpf_Manuscript.xaml.cs">
       <DependentUpon>Wpf_Manuscript.xaml</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ComForm\Con_TextTools.resx">
+    <EmbeddedResource Include="Public_Customize\Con_TextTools.resx">
       <DependentUpon>Con_TextTools.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ComForm\Use_Color.resx">
+    <EmbeddedResource Include="Public_Customize\Use_Color.resx">
       <DependentUpon>Use_Color.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Images.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Images.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Rseource\Icon.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Icon.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Rseource\ResourceMock.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResourceMock.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Rseource\iToolResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>iToolResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -634,9 +606,7 @@
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="Resources\Aboutme.rtf" />
     <None Include="Resources\Fluents.ttf" />
-    <None Include="Resources\TextBox.cfg" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
     </None>
@@ -645,9 +615,7 @@
     </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UseForm\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
@@ -678,11 +646,9 @@
     <Resource Include="Images\FormImg\recent %287%29.png" />
     <Resource Include="Images\FormImg\recent %288%29.png" />
     <Resource Include="Images\FormImg\recent %289%29.png" />
-    <EmbeddedResource Include="UserData\GuideData.xml">
+    <EmbeddedResource Include="Public_Data\GuideData.xml">
       <CustomToolNamespace>UserData</CustomToolNamespace>
     </EmbeddedResource>
-    <Content Include="ColorPage.html" />
-    <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
     <Content Include="Images\Icons\0-LOGO.ico" />
     <Content Include="Images\Icons\0-LOGO.png" />
     <Content Include="Images\Icons\A %281%29.png" />
@@ -885,159 +851,149 @@
     <Content Include="Images\Icons\页面清空.png" />
     <Content Include="Images\Icons\预览-关闭_preview-close-one.png" />
     <Content Include="Images\Icons\预览-打开_preview-open.png" />
-    <None Include="Resources\Pagesize.xml" />
-    <None Include="Images\Imageicon\F %282%29.png" />
-    <None Include="Images\Imageicon\F %283%29.png" />
-    <None Include="Images\Imageicon\F %284%29.png" />
-    <None Include="Images\Imageicon\F %285%29.png" />
-    <None Include="Images\Imageicon\F %286%29.png" />
-    <None Include="Images\Imageicon\F %287%29.png" />
-    <None Include="Images\Imageicon\F %288%29.png" />
-    <Resource Include="Images\Imageicon\F %289%29.png" />
-    <None Include="Images\Imageicon\F %2810%29.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Pages\Page_NotePage.xaml">
+    <Page Include="Public_Pages\Page_NotePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Page_Sprite.xaml">
+    <Page Include="Public_Pages\Page_Sprite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Page_ThemeColor.xaml">
+    <Page Include="Public_Pages\Page_ThemeColor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Page_ColorPane.xaml">
+    <Page Include="Public_Pages\Page_ColorPane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Page_textPods.xaml">
+    <Page Include="Public_Pages\Page_textPods.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_FileSteward.xaml">
+    <Page Include="Public_Wpf\Wpf_FileSteward.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_ColorAdjust.xaml">
+    <Page Include="Public_Wpf\Wpf_ColorAdjust.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf_Form\SuperClipboard\Wpf_Clipboard.xaml">
+    <Page Include="Public_Wpf\SuperClipboard\Wpf_Clipboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_colorTheme.xaml">
+    <Page Include="Public_Wpf\Wpf_colorTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_crossPage.xaml">
+    <Page Include="Public_Wpf\Wpf_crossPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_Colortheif.xaml">
+    <Page Include="Public_Wpf\Wpf_Colortheif.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_About.xaml">
+    <Page Include="Public_Wpf\Wpf_About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_Publish.xaml">
+    <Page Include="Public_Wpf\Wpf_Publish.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_superGuide.xaml">
+    <Page Include="Public_Wpf\Wpf_superGuide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_waterMark.xaml">
+    <Page Include="Public_Wpf\Wpf_waterMark.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_Gradient.xaml">
+    <Page Include="Public_Wpf\Wpf_Gradient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_ImageExport.xaml">
+    <Page Include="Public_Wpf\Wpf_ImageExport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_InfoDelete.xaml">
+    <Page Include="Public_Wpf\Wpf_InfoDelete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_MasterSet.xaml">
+    <Page Include="Public_Wpf\Wpf_MasterSet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_LikeChat.xaml">
+    <Page Include="Public_Wpf\Wpf_LikeChat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_Mockup.xaml">
+    <Page Include="Public_Wpf\Wpf_Mockup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_NameUnification.xaml">
+    <Page Include="Public_Wpf\Wpf_NameUnification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_shapeCopy.xaml">
+    <Page Include="Public_Wpf\Wpf_shapeCopy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf__Pagesize.xaml">
+    <Page Include="Public_Wpf\Wpf__Pagesize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_shapeCohesion.xaml">
+    <Page Include="Public_Wpf\Wpf_shapeCohesion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_ShapeGlow.xaml">
+    <Page Include="Public_Wpf\Wpf_ShapeGlow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_ShapeShodw.xaml">
+    <Page Include="Public_Wpf\Wpf_ShapeShodw.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_Tools.xaml">
+    <Page Include="Public_Wpf\Wpf_Tools.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_UniPa.xaml">
+    <Page Include="Public_Wpf\Wpf_UniPa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ComForm\XWindow1.xaml">
+    <Page Include="Public_Customize\XWindow1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_ImageTra.xaml">
+    <Page Include="Public_Wpf\Wpf_ImageTra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_ShpStyle.xaml">
+    <Page Include="Public_Wpf\Wpf_ShpStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_Qrcode.xaml">
+    <Page Include="Public_Wpf\Wpf_Qrcode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Form\Wpf_SplitPPT.xaml">
+    <Page Include="Public_Wpf\Wpf_SplitPPT.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf_Manuscript.xaml">
+    <Page Include="Public_Wpf\Wpf_Manuscript.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

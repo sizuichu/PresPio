@@ -1,26 +1,20 @@
 ﻿using HandyControl.Controls;
-using System;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.PowerPoint;
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 
 namespace PresPio.Function
-{
-    public class ImageHelper
     {
-
-        public void gitMessage() {
-
+    public class ImageHelper
+        {
+        public void gitMessage()
+            {
             Growl.SuccessGlobal("测试");
-        
-        }
+            }
 
         /// <summary>
         /// 图片整体透明
@@ -59,8 +53,6 @@ namespace PresPio.Function
 
             return bmp; // 返回处理后的 Bitmap
             }
-
-
 
         /// <summary>
         /// 图片渐变透明
@@ -127,10 +119,6 @@ namespace PresPio.Function
             return bmp; // 返回渐变透明的 Bitmap
             }
 
-
-
-
-
         /// <summary>
         /// 设置图片的透明度
         /// </summary>
@@ -162,7 +150,7 @@ namespace PresPio.Function
             }
 
         public Bitmap ChangeImageOpacity(string imagePath, float opacity)
-        {
+            {
             Bitmap originalImage = new Bitmap(imagePath);
 
             // 创建一个带有透明通道的新位图
@@ -173,7 +161,7 @@ namespace PresPio.Function
 
             // 使用 Graphics 类绘制图像以应用透明度
             using (Graphics g = Graphics.FromImage(transparentImage))
-            {
+                {
                 // 设置透明度矩阵
                 ColorMatrix matrix = new ColorMatrix();
                 matrix.Matrix33 = opacity; // 0.0表示完全透明，1.0表示完全不透明
@@ -187,15 +175,15 @@ namespace PresPio.Function
                     new Rectangle(0, 0, originalImage.Width, originalImage.Height),
                     0, 0, originalImage.Width, originalImage.Height,
                     GraphicsUnit.Pixel, imageAttributes);
-            }
+                }
 
             return transparentImage;
-        }
+            }
 
         public void InsertImageToSlide(Bitmap image, int slideIndex)
-        {
-            try
             {
+            try
+                {
                 // 获取当前 PowerPoint 应用程序实例
                 Application pptApp = Globals.ThisAddIn.Application;
 
@@ -208,10 +196,10 @@ namespace PresPio.Function
                 // 将 Bitmap 转换为 byte[]
                 byte[] imageBytes;
                 using (MemoryStream stream = new MemoryStream())
-                {
+                    {
                     image.Save(stream, ImageFormat.Png); // 可以根据需要修改保存格式
                     imageBytes = stream.ToArray();
-                }
+                    }
 
                 // 将图片插入到幻灯片中
                 slide.Shapes.AddPicture(
@@ -224,13 +212,12 @@ namespace PresPio.Function
                 // 清理资源
                 Marshal.ReleaseComObject(slide);
                 Marshal.ReleaseComObject(presentation);
-            }
+                }
             catch (Exception ex)
-            {
+                {
                 Console.WriteLine("插入图片时发生错误：" + ex.Message);
                 // 这里可以添加处理异常的代码
+                }
             }
         }
-
     }
-}

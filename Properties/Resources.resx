@@ -118,56 +118,68 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="F (10)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Imageicon\F (10).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Icons\icon_tools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="F (9)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Imageicon\F (9).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_group" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Icons\icon_group.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="F (4)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Imageicon\F (4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_media" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Icons\icon_media.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="F (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Imageicon\F (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Icons\icon_chart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="F (8)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Imageicon\F (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_shape" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Icons\icon_shape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="F (5)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Imageicon\F (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_table" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Icons\icon_table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="F (6)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Imageicon\F (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_text" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Icons\icon_text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="F (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Imageicon\F (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Icons\icon_image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="F (7)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Imageicon\F (7).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_line" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Icons\icon_line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shp (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\MiniIcon\shp (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="shape_rectangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ShapeIcons\shape_rectangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shp (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\MiniIcon\shp (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="shape_circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ShapeIcons\shape_circle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shp (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\MiniIcon\shp (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="shape_triangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ShapeIcons\shape_triangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shp (4)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\MiniIcon\shp (4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="shape_diamond" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ShapeIcons\shape_diamond.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shp (5)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\MiniIcon\shp (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="shape_pentagon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ShapeIcons\shape_pentagon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shp (6)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\MiniIcon\shp (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="shape_hexagon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ShapeIcons\shape_hexagon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shp (7)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\MiniIcon\shp (7).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="shape_star" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ShapeIcons\shape_star.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shp (8)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\MiniIcon\shp (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="shape_arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ShapeIcons\shape_arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FluentIcons" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Properties\Resources\FluentIcons.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="About" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Properties\Resources\About.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="PageSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Properties\Resources\PageSettings.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TextTemplates" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Properties\Resources\TextTemplates.cfg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Fluents" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fluents.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

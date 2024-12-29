@@ -9,11 +9,11 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace PresPio
-{
-    public class YouDao
     {
-        public string YouDaos(string q, string from, string to)
+    public class YouDao
         {
+        public string YouDaos(string q, string from, string to)
+            {
             string result = "";
             string url = "http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule/";
             string u = "fanyideskweb";
@@ -50,43 +50,40 @@ namespace PresPio
             StringBuilder builder = new StringBuilder();
             int i = 0;
             foreach (var item in dic)
-            {
+                {
                 if (i > 0)
                     builder.Append("&");
                 builder.AppendFormat("{0}={1}", item.Key, item.Value);
                 i++;
-            }
+                }
             byte[] data = Encoding.UTF8.GetBytes(builder.ToString());
             req.ContentLength = data.Length;
             using (Stream reqStream = req.GetRequestStream())
-            {
+                {
                 reqStream.Write(data, 0, data.Length);
                 reqStream.Close();
-            }
+                }
             HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
             Stream stream = resp.GetResponseStream();
             using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-            {
+                {
                 JObject jo = (JObject)JsonConvert.DeserializeObject(reader.ReadToEnd());
                 if (jo.Value<string>("errorCode").Equals("0"))
-                {
+                    {
                     var tgtarray = jo.SelectToken("translateResult").First().Values<string>("tgt").ToArray();
                     result = string.Join("", tgtarray);
+                    }
                 }
-            }
             return result;
-        }
-
+            }
 
         public static string GetMd5Str_32(string encryptString)
-        {
+            {
             byte[] result = Encoding.UTF8.GetBytes(encryptString);
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             byte[] output = md5.ComputeHash(result);
             string encryptResult = BitConverter.ToString(output).Replace("-", "");
             return encryptResult;
+            }
         }
     }
-}
-
-
