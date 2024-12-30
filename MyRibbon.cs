@@ -2122,6 +2122,8 @@ namespace PresPio
 
         private void button92_Click(object sender, RibbonControlEventArgs e)
             {
+            PresPio.Public_Wpf.Wpf_UnitName wpf_UnitName = new PresPio.Public_Wpf.Wpf_UnitName();
+            wpf_UnitName.Show();
             }
 
         //底层函数
@@ -2604,18 +2606,7 @@ namespace PresPio
 
         private void splitButton7_Click(object sender, RibbonControlEventArgs e)
             {
-            Wpf_ImageTra wpf_ImageTra = new Wpf_ImageTra();
-            wpf_ImageTra.ShowDialog();
-            //Selection sel = app.ActiveWindow.Selection;
-            //if (sel.Type == PpSelectionType.ppSelectionShapes && sel.ShapeRange.Count == 1)
-            //    {
-            //    Wpf_ImageTra wpf_ImageTra = new Wpf_ImageTra();
-            //    wpf_ImageTra.ShowDialog();
-            //    }
-            //else
-            //    {
-            //    Growl.WarningGlobal("请选择图片后重试！");
-            //    }
+           
             }
 
         private void button12_Click_1(object sender, RibbonControlEventArgs e)
@@ -6375,9 +6366,7 @@ namespace PresPio
 
         private void button207_Click(object sender, RibbonControlEventArgs e)
             {
-            // Replace the problematic code with the following
-            PresPio.Public_Wpf.Wpf_Polygon wpf_Polygon = new PresPio.Public_Wpf.Wpf_Polygon();
-            wpf_Polygon.Show();
+         
             }
 
         private void button208_Click(object sender, RibbonControlEventArgs e)

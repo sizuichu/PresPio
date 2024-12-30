@@ -199,6 +199,7 @@
             this.separator30 = this.Factory.CreateRibbonSeparator();
             this.button107 = this.Factory.CreateRibbonButton();
             this.splitButton6 = this.Factory.CreateRibbonSplitButton();
+            this.button227 = this.Factory.CreateRibbonButton();
             this.button109 = this.Factory.CreateRibbonButton();
             this.button75 = this.Factory.CreateRibbonButton();
             this.button111 = this.Factory.CreateRibbonButton();
@@ -373,7 +374,6 @@
             this.tab2 = this.Factory.CreateRibbonTab();
             this.group6 = this.Factory.CreateRibbonGroup();
             this.button171 = this.Factory.CreateRibbonButton();
-            this.button227 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -1698,6 +1698,13 @@
             this.splitButton6.ScreenTip = "快速形状";
             this.splitButton6.SuperTip = "快速添加形状，如果按下Crtl则添加遮罩层";
             this.splitButton6.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.splitButton6_Click);
+            // 
+            // button227
+            // 
+            this.button227.Label = "形状生成";
+            this.button227.Name = "button227";
+            this.button227.ShowImage = true;
+            this.button227.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button227_Click_1);
             // 
             // button109
             // 
@@ -3089,13 +3096,6 @@
             this.button171.Label = "AI实验室";
             this.button171.Name = "button171";
             this.button171.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button171_Click);
-            // 
-            // button227
-            // 
-            this.button227.Label = "形状生成";
-            this.button227.Name = "button227";
-            this.button227.ShowImage = true;
-            this.button227.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button227_Click_1);
             // 
             // MyRibbon
             // 
