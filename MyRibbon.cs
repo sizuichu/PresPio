@@ -6366,7 +6366,8 @@ namespace PresPio
 
         private void button207_Click(object sender, RibbonControlEventArgs e)
             {
-         
+            PresPio.Public_Wpf.Wpf_VoiceAssistant wpf_VoiceAssistant= new PresPio.Public_Wpf.Wpf_VoiceAssistant();
+            wpf_VoiceAssistant.Show();
             }
 
         private void button208_Click(object sender, RibbonControlEventArgs e)

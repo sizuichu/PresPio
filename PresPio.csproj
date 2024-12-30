@@ -386,6 +386,7 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="System.Speech" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Tools.v4.0.Framework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -496,6 +497,9 @@
     </Compile>
     <Compile Include="Public_Wpf\Wpf_UnitName.xaml.cs">
       <DependentUpon>Wpf_UnitName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Public_Wpf\Wpf_VoiceAssistant.xaml.cs">
+      <DependentUpon>Wpf_VoiceAssistant.xaml</DependentUpon>
     </Compile>
     <Compile Include="Public_Wpf\Wpf_waterMark.xaml.cs">
       <DependentUpon>Wpf_waterMark.xaml</DependentUpon>
@@ -911,6 +915,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Public_Wpf\Wpf_UnitName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Public_Wpf\Wpf_VoiceAssistant.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
