@@ -399,7 +399,7 @@ namespace PresPio.Public_Wpf
                 // 更新UI显示
                 if (Categories.Any())
                     {
-                    HandyControl.Controls.Growl.Success($"已加载 {Categories.Count} 个分类");
+                  
                     }
                 else
                     {
@@ -457,6 +457,7 @@ namespace PresPio.Public_Wpf
                                 }
                                 existingImage.ModificationTime = fileInfo.LastWriteTime;
                                 existingImage.FileSize = GetFileSizeString(fileInfo.Length);
+                                existingImage.DominantColors = ColorAnalyzer.AnalyzeImage(file);
                                 _dbService.UpsertImage(existingImage);
                                 }
                             }
@@ -471,6 +472,9 @@ namespace PresPio.Public_Wpf
                                 height = decoder.Frames[0].PixelHeight;
                             }
 
+                            // 分析图片颜色
+                            var dominantColors = ColorAnalyzer.AnalyzeImage(file);
+
                             // 创建新的图片信息
                             existingImage = new ImageInfo
                                 {
@@ -482,7 +486,9 @@ namespace PresPio.Public_Wpf
                                 CreationTime = fileInfo.CreationTime,
                                 ModificationTime = fileInfo.LastWriteTime,
                                 LastAccessTime = DateTime.Now,
-                                ImportTime = DateTime.Now
+                                ImportTime = DateTime.Now,
+                                DominantColors = dominantColors,
+                                Tags = new List<string>()
                                 };
                             _dbService.UpsertImage(existingImage);
                             }
@@ -824,7 +830,7 @@ namespace PresPio.Public_Wpf
                             Images.Add(image);
                         }
                     }
-                    HandyControl.Controls.Growl.Info($"已加载分类 {category.Name} 中的 {Images.Count} 张图片");
+                   
                 }
                 else
                 {
