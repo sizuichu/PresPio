@@ -494,177 +494,184 @@
             <hc:Card Grid.Column="2" 
                      Margin="10,10,10,10"
                      Effect="{StaticResource EffectShadow1}">
-                <StackPanel Margin="15">
-                    <TextBlock Text="图片信息" 
-                             FontSize="18" 
-                             FontWeight="Bold"
-                             Margin="0,0,0,15"/>
-
-                    <Image Source="/Resources/placeholder.jpg"
-                           x:Name="ImagePreview"
-                           Height="200"
-                           Stretch="Uniform"
-                           Margin="0,0,0,15"/>
-
-                    <Grid Margin="0,0,0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Text="文件名：" Grid.Row="0" Grid.Column="0" Margin="0,0,10,5"/>
-                        <TextBlock x:Name="FileNameText" 
-                                 Text="示例图片.jpg" 
-                                 Grid.Row="0" 
-                                 Grid.Column="1" 
-                                 Margin="0,0,0,5"/>
-
-                        <TextBlock Text="大小：" Grid.Row="1" Grid.Column="0" Margin="0,0,10,5"/>
-                        <TextBlock x:Name="FileSizeText"
-                                 Text="1.2 MB" 
-                                 Grid.Row="1" 
-                                 Grid.Column="1" 
-                                 Margin="0,0,0,5"/>
-
-                        <TextBlock Text="尺寸：" Grid.Row="2" Grid.Column="0" Margin="0,0,10,5"/>
-                        <TextBlock x:Name="DimensionsText"
-                                 Text="1920 x 1080" 
-                                 Grid.Row="2" 
-                                 Grid.Column="1" 
-                                 Margin="0,0,0,5"/>
-
-                        <TextBlock Text="创建时间：" Grid.Row="3" Grid.Column="0" Margin="0,0,10,5"/>
-                        <TextBlock x:Name="CreationTimeText"
-                                 Text="2024-01-01 12:00:00" 
-                                 Grid.Row="3" 
-                                 Grid.Column="1" 
-                                 Margin="0,0,0,5"/>
-
-                        <TextBlock Text="修改时间：" Grid.Row="4" Grid.Column="0" Margin="0,0,10,5"/>
-                        <TextBlock x:Name="ModificationTimeText"
-                                 Text="2024-01-01 12:00:00" 
-                                 Grid.Row="4" 
-                                 Grid.Column="1" 
-                                 Margin="0,0,0,5"/>
-                    </Grid>
-
-                    <hc:Divider Margin="0,10"/>
-
-                    <!-- 标签区域 -->
-                    <StackPanel Margin="0,10,0,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="图片标签" 
-                                     FontWeight="Bold"
-                                     VerticalAlignment="Center"/>
-                            <Button Grid.Column="1"
-                                    Content="管理标签"
-                                    Style="{StaticResource ButtonInfo}"
-                                    Height="24"
-                                    Padding="8,0"
-                                    Click="ManageTags_Click"/>
-                        </Grid>
-
-                        <!-- 标签输入区域 -->
-                        <Grid Margin="0,8,0,8">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox x:Name="ImageTagInput"
-                                    hc:InfoElement.Placeholder="输入标签名称"
-                                    KeyDown="ImageTagInput_KeyDown"
-                                    Margin="0,0,5,0"/>
-                            <Button Grid.Column="1"
-                                    Style="{StaticResource ButtonInfo}"
-                                    Content="添加"
-                                    Click="AddTagToImage_Click"/>
-                        </Grid>
-
-                        <!-- 当前图片的标签 -->
-                        <TextBlock Text="已添加标签："
-                                 Margin="0,0,0,4"/>
-                        <ItemsControl x:Name="TagsItemsControl">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <hc:Tag Margin="0,0,5,5"
-                                           Background="{Binding Color}"
-                                           Foreground="White"
-                                           Content="{Binding Name}"
-                                           Effect="{StaticResource EffectShadow2}"
-                                           BorderThickness="0"
-                                           Padding="8,4"
-                                           ShowCloseButton="True"
-                                           PreviewMouseLeftButtonDown="RemoveTagFromImage_Click">
-                                    </hc:Tag>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-                        <!-- 常用标签 -->
-                        <TextBlock Text="常用标签："
-                                 Margin="0,8,0,4"/>
-                        <ItemsControl x:Name="CommonTagsControl">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <hc:Tag Margin="0,0,5,5"
-                                           Background="{Binding Color}"
-                                           Foreground="White"
-                                           Content="{Binding Name}"
-                                           Effect="{StaticResource EffectShadow2}"
-                                           BorderThickness="0"
-                                           Padding="8,4"
-                                           Cursor="Hand"
-                                           MouseLeftButtonDown="CommonTag_Click">
-                                    </hc:Tag>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-
-                    <hc:Divider Margin="0,10"/>
-
-                    <!-- 颜色分析区域 -->
-                    <StackPanel Margin="0,10,0,0">
-                        <TextBlock Text="主要颜色" 
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="15">
+                        <TextBlock Text="图片信息" 
+                                 FontSize="18" 
                                  FontWeight="Bold"
-                                 Margin="0,0,0,8"/>
-                        <WrapPanel x:Name="ColorAnalysisPanel">
-                        </WrapPanel>
-                    </StackPanel>
+                                 Margin="0,0,0,15"/>
 
-                    <hc:Divider Margin="0,10"/>
+                        <Image Source="/Resources/placeholder.jpg"
+                               x:Name="ImagePreview"
+                               Height="200"
+                               Stretch="Uniform"
+                               Margin="0,0,0,15"/>
 
-                    <StackPanel Orientation="Horizontal" 
-                              HorizontalAlignment="Right"
-                              Margin="0,10,0,0">
-                        <Button Content="在资源管理器中显示" 
-                                Style="{StaticResource ButtonInfo}"
-                                Margin="0,0,10,0"/>
-                        <Button Content="删除" 
-                                Style="{StaticResource ButtonDanger}"/>
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="文件名：" Grid.Row="0" Grid.Column="0" Margin="0,0,10,5"/>
+                            <TextBlock x:Name="FileNameText" 
+                                     Text="示例图片.jpg" 
+                                     Grid.Row="0" 
+                                     Grid.Column="1" 
+                                     Margin="0,0,0,5"/>
+
+                            <TextBlock Text="大小：" Grid.Row="1" Grid.Column="0" Margin="0,0,10,5"/>
+                            <TextBlock x:Name="FileSizeText"
+                                     Text="1.2 MB" 
+                                     Grid.Row="1" 
+                                     Grid.Column="1" 
+                                     Margin="0,0,0,5"/>
+
+                            <TextBlock Text="尺寸：" Grid.Row="2" Grid.Column="0" Margin="0,0,10,5"/>
+                            <TextBlock x:Name="DimensionsText"
+                                     Text="1920 x 1080" 
+                                     Grid.Row="2" 
+                                     Grid.Column="1" 
+                                     Margin="0,0,0,5"/>
+
+                            <TextBlock Text="创建时间：" Grid.Row="3" Grid.Column="0" Margin="0,0,10,5"/>
+                            <TextBlock x:Name="CreationTimeText"
+                                     Text="2024-01-01 12:00:00" 
+                                     Grid.Row="3" 
+                                     Grid.Column="1" 
+                                     Margin="0,0,0,5"/>
+
+                            <TextBlock Text="修改时间：" Grid.Row="4" Grid.Column="0" Margin="0,0,10,5"/>
+                            <TextBlock x:Name="ModificationTimeText"
+                                     Text="2024-01-01 12:00:00" 
+                                     Grid.Row="4" 
+                                     Grid.Column="1" 
+                                     Margin="0,0,0,5"/>
+                        </Grid>
+
+                        <hc:Divider Margin="0,10"/>
+
+                        <!-- 标签区域 -->
+                        <StackPanel Margin="0,10,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="图片标签" 
+                                         FontWeight="Bold"
+                                         VerticalAlignment="Center"/>
+                                <Button Grid.Column="1"
+                                        Content="管理标签"
+                                        Style="{StaticResource ButtonInfo}"
+                                        Height="24"
+                                        Padding="8,0"
+                                        Click="ManageTags_Click"/>
+                            </Grid>
+
+                            <!-- 标签输入区域 -->
+                            <Grid Margin="0,8,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="ImageTagInput"
+                                        hc:InfoElement.Placeholder="输入标签名称"
+                                        KeyDown="ImageTagInput_KeyDown"
+                                        Margin="0,0,5,0"/>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource ButtonInfo}"
+                                        Content="添加"
+                                        Click="AddTagToImage_Click"/>
+                            </Grid>
+
+                            <!-- 当前图片的标签 -->
+                            <TextBlock Text="已添加标签："
+                                     Margin="0,0,0,4"/>
+                            <ItemsControl x:Name="TagsItemsControl">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <hc:Tag Margin="0,0,5,5"
+                                               Background="{Binding Color}"
+                                               Foreground="White"
+                                               Content="{Binding Name}"
+                                               Effect="{StaticResource EffectShadow2}"
+                                               BorderThickness="0"
+                                               Padding="8,4"
+                                               ShowCloseButton="True"
+                                               PreviewMouseLeftButtonDown="RemoveTagFromImage_Click">
+                                        </hc:Tag>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <!-- 常用标签 -->
+                            <TextBlock Text="常用标签："
+                                     Margin="0,8,0,4"/>
+                            <ItemsControl x:Name="CommonTagsControl">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <hc:Tag Margin="0,0,5,5"
+                                               Background="{Binding Color}"
+                                               Foreground="White"
+                                               Content="{Binding Name}"
+                                               Effect="{StaticResource EffectShadow2}"
+                                               BorderThickness="0"
+                                               Padding="8,4"
+                                               Cursor="Hand"
+                                               MouseLeftButtonDown="CommonTag_Click">
+                                        </hc:Tag>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+
+                        <hc:Divider Margin="0,10"/>
+
+                        <!-- 颜色分析区域 -->
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock Text="主要颜色" 
+                                     FontWeight="Bold"
+                                     Margin="0,0,0,8"/>
+                            <UniformGrid x:Name="ColorAnalysisPanel" 
+                                       Rows="2" 
+                                       Columns="4"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="0,0,0,5"/>
+                        </StackPanel>
+
+                        <hc:Divider Margin="0,10"/>
+
+                        <StackPanel Orientation="Horizontal" 
+                                  HorizontalAlignment="Right"
+                                  Margin="0,10,0,0">
+                            <Button Content="在资源管理器中显示" 
+                                    Style="{StaticResource ButtonInfo}"
+                                    Margin="0,0,10,0"
+                                    Click="ShowInExplorer_Click"/>
+                            <Button Content="删除" 
+                                    Style="{StaticResource ButtonDanger}"
+                                    Click="DeleteImage_Click"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                </ScrollViewer>
             </hc:Card>
         </Grid>
 

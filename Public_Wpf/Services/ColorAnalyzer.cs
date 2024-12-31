@@ -9,12 +9,12 @@ namespace PresPio.Public_Wpf.Services
 {
     public class ColorAnalyzer
     {
-        public static List<Models.ColorInfo> AnalyzeImage(string imagePath, int colorCount = 4)
+        public static List<Models.ColorInfo> AnalyzeImage(string imagePath, int colorCount = 8)
         {
             using (var bitmap = new Bitmap(imagePath))
             {
                 // 缩小图片以提高性能
-                var resized = ResizeImage(bitmap, 100, 100);
+                var resized = ResizeImage(bitmap, 80, 80);
                 var colors = new Dictionary<System.Drawing.Color, int>();
 
                 // 分析每个像素
@@ -53,10 +53,10 @@ namespace PresPio.Public_Wpf.Services
 
         private static System.Drawing.Color QuantizeColor(System.Drawing.Color color)
         {
-            // 将颜色量化为32个级别以减少颜色数量
-            int r = (color.R / 32) * 32;
-            int g = (color.G / 32) * 32;
-            int b = (color.B / 32) * 32;
+            // 将颜色量化为24个级别以获得更细致的颜色区分
+            int r = (color.R / 24) * 24;
+            int g = (color.G / 24) * 24;
+            int b = (color.B / 24) * 24;
             return System.Drawing.Color.FromArgb(r, g, b);
         }
 

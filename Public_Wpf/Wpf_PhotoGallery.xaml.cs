@@ -911,29 +911,71 @@ namespace PresPio.Public_Wpf
         private void UpdateColorAnalysis(List<Models.ColorInfo> colors)
             {
             ColorAnalysisPanel.Children.Clear();
-            foreach (var color in colors)
-                {
+            
+            // 只取前8个主要颜色，如果不足8个则补充透明色
+            var mainColors = colors.OrderByDescending(c => c.Percentage).Take(8).ToList();
+            while (mainColors.Count < 8)
+            {
+                mainColors.Add(new Models.ColorInfo { ColorHex = "#00FFFFFF", Percentage = 0 });
+            }
+            
+            foreach (var color in mainColors)
+            {
+                var container = new Grid();
+                
                 var border = new Border
-                    {
-                    Width = 40,
-                    Height = 40,
+                {
                     Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color.ColorHex)),
                     CornerRadius = new CornerRadius(4),
-                    Margin = new Thickness(0, 0, 5, 5)
-                    };
+                    Height = 35,
+                    Margin = new Thickness(2)
+                };
+
+                var percentageBackground = new Border
+                {
+                    Background = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)),
+                    Height = 16,
+                    VerticalAlignment = VerticalAlignment.Bottom,
+                    CornerRadius = new CornerRadius(0, 0, 4, 4)
+                };
 
                 var percentage = new TextBlock
-                    {
+                {
                     Text = $"{color.Percentage:P0}",
                     Foreground = Brushes.White,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                    VerticalAlignment = System.Windows.VerticalAlignment.Center
-                    };
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 10,
+                    Effect = new System.Windows.Media.Effects.DropShadowEffect
+                    {
+                        ShadowDepth = 1,
+                        BlurRadius = 2,
+                        Color = Colors.Black,
+                        Opacity = 0.5
+                    }
+                };
 
-                border.Child = percentage;
-                ColorAnalysisPanel.Children.Add(border);
+                // 为颜色块添加工具提示
+                var colorHex = color.ColorHex.ToUpper();
+                var tooltip = new System.Windows.Controls.ToolTip
+                {
+                    Content = $"颜色值: {colorHex}\n占比: {color.Percentage:P1}"
+                };
+                ToolTipService.SetToolTip(border, tooltip);
+
+                // 组装UI元素
+                container.Children.Add(border);
+                if (color.Percentage > 0)  // 只为有效颜色显示百分比
+                {
+                    var percentageContainer = new Grid();
+                    percentageContainer.Children.Add(percentageBackground);
+                    percentageContainer.Children.Add(percentage);
+                    container.Children.Add(percentageContainer);
                 }
+
+                ColorAnalysisPanel.Children.Add(container);
             }
+        }
 
         private void SearchBar_SearchStarted(object sender, HandyControl.Data.FunctionEventArgs<string> e)
             {
