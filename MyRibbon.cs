@@ -2606,7 +2606,8 @@ namespace PresPio
 
         private void splitButton7_Click(object sender, RibbonControlEventArgs e)
             {
-           
+            PresPio.Public_Wpf.Wpf_PhotoGallery wpf_PhotoGallery = new PresPio.Public_Wpf.Wpf_PhotoGallery();
+            wpf_PhotoGallery.Show();
             }
 
         private void button12_Click_1(object sender, RibbonControlEventArgs e)

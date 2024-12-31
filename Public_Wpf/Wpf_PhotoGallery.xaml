@@ -88,49 +88,202 @@
                         </Style>
                     </ItemsControl.Resources>
                     <ItemsControl.Items>
-                        <!-- 红色 -->
+                        <!-- 红色系 -->
                         <Border Width="24" 
                                 Height="24" 
                                 Background="#FFE74C3C"
                                 CornerRadius="4"
                                 Margin="0,0,4,0"
-                                Cursor="Hand"/>
-                        <!-- 蓝色 -->
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
                         <Border Width="24" 
                                 Height="24" 
-                                Background="#FF3498DB"
+                                Background="#FFc0392b"
                                 CornerRadius="4"
                                 Margin="0,0,4,0"
-                                Cursor="Hand"/>
-                        <!-- 绿色 -->
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
                         <Border Width="24" 
                                 Height="24" 
-                                Background="#FF2ECC71"
+                                Background="#FFff6b6b"
                                 CornerRadius="4"
                                 Margin="0,0,4,0"
-                                Cursor="Hand"/>
-                        <!-- 黄色 -->
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 橙色系 -->
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FFe67e22"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FFd35400"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 黄色系 -->
                         <Border Width="24" 
                                 Height="24" 
                                 Background="#FFF1C40F"
                                 CornerRadius="4"
                                 Margin="0,0,4,0"
-                                Cursor="Hand"/>
-                        <!-- 紫色 -->
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FFf39c12"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 绿色系 -->
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF2ECC71"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF27ae60"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF00b894"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 青色系 -->
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF00cec9"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF81ecec"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 蓝色系 -->
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF3498DB"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF2980b9"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF74b9ff"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 紫色系 -->
                         <Border Width="24" 
                                 Height="24" 
                                 Background="#FF9B59B6"
                                 CornerRadius="4"
                                 Margin="0,0,4,0"
-                                Cursor="Hand"/>
-                        <!-- 黑色 -->
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF8e44ad"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FFa29bfe"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 粉色系 -->
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FFfd79a8"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FFe84393"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 棕色系 -->
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF795548"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF6D4C41"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 灰色系 -->
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF95a5a6"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" 
+                                Height="24" 
+                                Background="#FF7f8c8d"
+                                CornerRadius="4"
+                                Margin="0,0,4,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
+
+                        <!-- 黑白色 -->
                         <Border Width="24" 
                                 Height="24" 
                                 Background="#FF2C3E50"
                                 CornerRadius="4"
                                 Margin="0,0,4,0"
-                                Cursor="Hand"/>
-                        <!-- 白色 -->
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
                         <Border Width="24" 
                                 Height="24" 
                                 Background="White"
@@ -138,7 +291,8 @@
                                 BorderThickness="1"
                                 CornerRadius="4"
                                 Margin="0,0,4,0"
-                                Cursor="Hand"/>
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ColorFilter_Click"/>
                     </ItemsControl.Items>
                 </ItemsControl>
             </StackPanel>

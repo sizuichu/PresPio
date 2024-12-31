@@ -2190,5 +2190,152 @@ namespace PresPio.Public_Wpf
                 HandyControl.Controls.Growl.Error($"搜索时出错：{ex.Message}");
             }
         }
+
+        private async void FilterByColor(Color color, double tolerance = 30)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(currentFolderPath)) return;
+
+                // 获取当前文件夹中的所有图片
+                var allImages = Directory.GetFiles(currentFolderPath)
+                    .Where(file => supportedExtensions.Contains(Path.GetExtension(file).ToLower()))
+                    .Select(file => _dbService.GetImageByPath(file))
+                    .Where(img => img != null)
+                    .ToList();
+
+                // 筛选包含相似颜色的图片
+                var filteredImages = allImages.Where(img => 
+                    img.DominantColors.Any(c => 
+                    {
+                        var dominantColor = (Color)ColorConverter.ConvertFromString(c.ColorHex);
+                        return IsColorInSameFamily(dominantColor, color, tolerance);
+                    })).ToList();
+
+                // 更新UI
+                Images.Clear();
+                foreach (var imageInfo in filteredImages)
+                {
+                    await LoadImageToUI(imageInfo);
+                }
+
+                HandyControl.Controls.Growl.Info($"找到 {filteredImages.Count} 张包含所选颜色的图片");
+            }
+            catch (Exception ex)
+            {
+                HandyControl.Controls.Growl.Error($"颜色筛选时出错：{ex.Message}");
+            }
+        }
+
+        private bool IsColorInSameFamily(Color color, double targetH, double targetS, double targetL)
+        {
+            GetHSL(color, out double h, out double s, out double l);
+
+            // 色相差异（考虑360度循环）
+            double hueDiff = Math.Min(Math.Abs(h - targetH), 360 - Math.Abs(h - targetH));
+            
+            // 根据不同颜色系列调整容差
+            double hueThreshold = 45.0;  // 扩大色相容差到45度
+            double satThreshold = 0.4;   // 扩大饱和度容差到40%
+            double lightThreshold = 0.4; // 扩大亮度容差到40%
+
+            // 特殊处理：对于低饱和度的颜色（接近黑白灰）
+            if (targetS < 0.2)
+            {
+                // 对于低饱和度的颜色，主要考虑饱和度和亮度
+                return s < 0.2 && Math.Abs(l - targetL) <= lightThreshold;
+            }
+
+            // 特殊处理：对于高亮度的颜色（接近白色）
+            if (targetL > 0.9)
+            {
+                return l > 0.9;
+            }
+
+            // 特殊处理：对于低亮度的颜色（接近黑色）
+            if (targetL < 0.1)
+            {
+                return l < 0.1;
+            }
+
+            // 根据不同色相范围调整容差
+            if (IsRedFamily(targetH))
+            {
+                // 红色系（包括粉红色）的色相范围更大
+                return (hueDiff <= 60.0 || hueDiff >= 300.0) &&
+                       Math.Abs(s - targetS) <= satThreshold &&
+                       Math.Abs(l - targetL) <= lightThreshold;
+            }
+            else if (IsYellowFamily(targetH))
+            {
+                // 黄色系（包括橙色）的容差也较大
+                hueThreshold = 50.0;
+            }
+            else if (IsGreenFamily(targetH))
+            {
+                // 绿色系的容差适中
+                hueThreshold = 45.0;
+            }
+            else if (IsBlueFamily(targetH))
+            {
+                // 蓝色系（包括青色）的容差较大
+                hueThreshold = 50.0;
+            }
+
+            // 对于正常颜色，综合考虑色相、饱和度和亮度
+            return hueDiff <= hueThreshold &&
+                   Math.Abs(s - targetS) <= satThreshold &&
+                   Math.Abs(l - targetL) <= lightThreshold;
+        }
+
+        private bool IsRedFamily(double hue)
+        {
+            return hue <= 30 || hue >= 330;
+        }
+
+        private bool IsYellowFamily(double hue)
+        {
+            return hue > 30 && hue <= 90;
+        }
+
+        private bool IsGreenFamily(double hue)
+        {
+            return hue > 90 && hue <= 150;
+        }
+
+        private bool IsBlueFamily(double hue)
+        {
+            return hue > 150 && hue <= 270;
+        }
+
+        private void ColorFilter_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (sender is Border colorBorder)
+            {
+                // 获取边框的背景色
+                if (colorBorder.Background is SolidColorBrush brush)
+                {
+                    // 设置所有颜色过滤器的边框为0
+                    var parent = colorBorder.Parent as ItemsControl;
+                    if (parent != null)
+                    {
+                        foreach (var item in parent.Items)
+                        {
+                            if (item is Border border)
+                            {
+                                border.BorderThickness = new Thickness(0);
+                            }
+                        }
+                    }
+
+                    // 设置当前选中的颜色过滤器的边框
+                    colorBorder.BorderThickness = new Thickness(2);
+                    colorBorder.BorderBrush = new SolidColorBrush(Colors.White);
+
+                    // 执行颜色筛选
+                    FilterByColor(brush.Color);
+                }
+            }
+        }
         }
     }
