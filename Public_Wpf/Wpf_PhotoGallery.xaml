@@ -186,7 +186,8 @@
                                  MaxHeight="500"
                                  AllowDrop="True"
                                  DragEnter="CategoryList_DragEnter"
-                                 Drop="CategoryList_Drop">
+                                 Drop="CategoryList_Drop"
+                                 SelectedItemChanged="CategoryTreeView_SelectedItemChanged">
                             <TreeViewItem x:Name="RootFolderItem"
                                         IsExpanded="True">
                                 <TreeViewItem.Header>
@@ -251,8 +252,7 @@
 
                         <!-- 保持原有的ListBox作为数据源，但隐藏它 -->
                         <ListBox x:Name="CategoryList"
-                                Visibility="Collapsed"
-                                SelectionChanged="CategoryList_SelectionChanged"/>
+                                Visibility="Collapsed"/>
                     </StackPanel>
                 </hc:Card>
 

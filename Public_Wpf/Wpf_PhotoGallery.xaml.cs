@@ -502,53 +502,65 @@ namespace PresPio.Public_Wpf
                 }
             }
 
-        private void CategoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-            {
-            if (CategoryList.SelectedItem is CategoryItem selectedCategory)
-                {
-                // 根据选中的分类筛选图片
-                FilterImagesByCategory(selectedCategory);
-                }
-            }
-
         private void FilterImagesByCategory(CategoryItem category)
             {
             if (category == null) return;
 
             try
                 {
-                // 从分类文件夹中加载图片
-                var categoryPath = category.Path;
-                if (Directory.Exists(categoryPath))
-                    {
-                    Images.Clear();
-                    var files = Directory.GetFiles(categoryPath)
-                        .Where(file => supportedExtensions.Contains(Path.GetExtension(file).ToLower()));
+                // 清空当前显示的图片
+                Images.Clear();
 
-                    foreach (var file in files)
+                // 从数据库获取该分类下的所有图片
+                var categoryImages = _dbService.GetImagesByCategory(category.Name);
+                if (categoryImages != null && categoryImages.Any())
+                {
+                    // 使用同步方式加载图片，避免重复
+                    foreach (var imageInfo in categoryImages)
+                    {
+                        if (File.Exists(imageInfo.FilePath))
                         {
-                        var imageInfo = _dbService.GetImageByPath(file);
-                        if (imageInfo == null)
+                            var image = new ImageItem
                             {
-                            // 如果数据库中没有，创建新记录
-                            var fileInfo = new FileInfo(file);
-                            imageInfo = new ImageInfo
+                                FilePath = imageInfo.FilePath,
+                                FileName = imageInfo.FileName,
+                                FileSize = imageInfo.FileSize,
+                                CreationTime = imageInfo.CreationTime,
+                                ModificationTime = imageInfo.ModificationTime
+                            };
+
+                            var bitmap = new BitmapImage();
+                            bitmap.BeginInit();
+                            bitmap.UriSource = new Uri(imageInfo.FilePath);
+                            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmap.DecodePixelWidth = 400;
+                            bitmap.EndInit();
+                            bitmap.Freeze();
+                            image.Thumbnail = bitmap;
+
+                            // 加载标签
+                            if (imageInfo.Tags != null)
+                            {
+                                foreach (var tagName in imageInfo.Tags)
                                 {
-                                FilePath = file,
-                                FileName = Path.GetFileName(file),
-                                FileSize = GetFileSizeString(fileInfo.Length),
-                                CreationTime = fileInfo.CreationTime,
-                                ModificationTime = fileInfo.LastWriteTime,
-                                Category = category.Name,
-                                Tags = new List<string>()
-                                };
-                            _dbService.UpsertImage(imageInfo);
+                                    var tag = Tags.FirstOrDefault(t => t.Name == tagName);
+                                    if (tag != null)
+                                    {
+                                        image.Tags.Add(tag);
+                                    }
+                                }
                             }
 
-                        LoadImageToUI(imageInfo);
+                            Images.Add(image);
                         }
                     }
+                    HandyControl.Controls.Growl.Info($"已加载分类 {category.Name} 中的 {Images.Count} 张图片");
                 }
+                else
+                {
+                    HandyControl.Controls.Growl.Info($"分类 {category.Name} 中暂无图片");
+                }
+            }
             catch (Exception ex)
                 {
                 HandyControl.Controls.MessageBox.Error($"加载分类图片时出错：{ex.Message}", "错误");
@@ -1290,7 +1302,7 @@ namespace PresPio.Public_Wpf
                     {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        HandyControl.Controls.Growl.Success($"已加载 {Images.Count} 张图片");
+                      
                         LoadingMask.Visibility = Visibility.Collapsed;
                     });
                     }
@@ -1533,40 +1545,34 @@ namespace PresPio.Public_Wpf
         private void CategoryTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
             {
             try
-                {
+            {
+                // 如果新值为空，直接返回
+                if (e.NewValue == null) return;
+
+                // 如果是TreeViewItem
                 if (e.NewValue is TreeViewItem treeViewItem)
+                {
+                    // 只处理主文件夹项
+                    if (treeViewItem == RootFolderItem && !string.IsNullOrEmpty(currentFolderPath))
                     {
-                    if (treeViewItem == RootFolderItem)
-                        {
-                        // 显示主文件夹中的所有图片
-                        if (!string.IsNullOrEmpty(currentFolderPath))
-                            {
-                            _ = LoadImagesFromFolder(currentFolderPath);
-                            }
-                        }
-                    else if (treeViewItem.Header is StackPanel stackPanel &&
-                            stackPanel.Children.Count > 0 &&
-                            stackPanel.Children[1] is TextBlock textBlock &&
-                            textBlock.Text == "图片分类")
-                        {
-                        // 当选择"图片分类"主类时，显示所有图片
-                        if (!string.IsNullOrEmpty(currentFolderPath))
-                            {
-                            _ = LoadImagesFromFolder(currentFolderPath);
-                            }
-                        }
-                    else if (treeViewItem.DataContext is CategoryItem categoryItem)
-                        {
-                        // 显示特定分类中的图片
-                        FilterImagesByCategory(categoryItem);
-                        }
+                        _ = LoadImagesFromFolder(currentFolderPath);
                     }
                 }
-            catch (Exception ex)
+                // 如果是CategoryItem
+                else if (e.NewValue is CategoryItem categoryItem)
                 {
-                HandyControl.Controls.MessageBox.Error($"切换分类时出错：{ex.Message}", "错误");
+                    // 防止重复加载
+                    if (e.OldValue != e.NewValue)
+                    {
+                        FilterImagesByCategory(categoryItem);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                HandyControl.Controls.MessageBox.Error($"切换分类时出错：{ex.Message}", "错误");
+            }
+        }
 
         private void UpdateCommonTags()
             {
