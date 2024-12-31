@@ -64,6 +64,8 @@ namespace PresPio.Public_Wpf
 
         private ObservableCollection<TagItem> CommonTags { get; set; }
 
+        private bool isLoading = false;  // 添加加载状态标志
+
         public Wpf_PhotoGallery()
             {
             InitializeComponent();
@@ -243,15 +245,19 @@ namespace PresPio.Public_Wpf
 
         private async Task LoadImagesFromFolder(string folderPath)
             {
+            // 如果正在加载，直接返回
+            if (isLoading) return;
+
             try
                 {
+                isLoading = true;
                 if (Application.Current?.Dispatcher == null) return;
 
                 await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     LoadingMask.Visibility = Visibility.Visible;
                     LoadingProgress.Value = 0;
-                    Images.Clear();
+                    Images.Clear();  // 清空当前图片列表
                 });
 
                 var files = Directory.GetFiles(folderPath)
@@ -263,35 +269,110 @@ namespace PresPio.Public_Wpf
 
                 foreach (var file in files)
                     {
-                    var fileInfo = new FileInfo(file);
-                    ImageInfo existingImage = null;
-                    existingImage = _dbService.GetImageByPath(file);
-
-                    if (existingImage != null)
+                    try
                         {
-                        if (existingImage.ModificationTime != fileInfo.LastWriteTime)
+                        var fileInfo = new FileInfo(file);
+                        var existingImage = _dbService.GetImageByPath(file);
+
+                        if (existingImage != null)
                             {
-                            await UpdateImage(file, fileInfo, existingImage);
+                            // 检查文件是否被修改
+                            if (existingImage.ModificationTime != fileInfo.LastWriteTime)
+                                {
+                                // 获取新的图片尺寸
+                                using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read))
+                                {
+                                    var decoder = BitmapDecoder.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                    existingImage.Width = decoder.Frames[0].PixelWidth;
+                                    existingImage.Height = decoder.Frames[0].PixelHeight;
+                                }
+                                existingImage.ModificationTime = fileInfo.LastWriteTime;
+                                existingImage.FileSize = GetFileSizeString(fileInfo.Length);
+                                _dbService.UpsertImage(existingImage);
+                                }
                             }
                         else
                             {
-                            await LoadImageToUI(existingImage);
+                            // 获取新图片的尺寸
+                            int width = 0, height = 0;
+                            using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read))
+                            {
+                                var decoder = BitmapDecoder.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                width = decoder.Frames[0].PixelWidth;
+                                height = decoder.Frames[0].PixelHeight;
+                            }
+
+                            // 创建新的图片信息
+                            existingImage = new ImageInfo
+                                {
+                                FilePath = file,
+                                FileName = Path.GetFileName(file),
+                                FileSize = GetFileSizeString(fileInfo.Length),
+                                Width = width,
+                                Height = height,
+                                CreationTime = fileInfo.CreationTime,
+                                ModificationTime = fileInfo.LastWriteTime,
+                                LastAccessTime = DateTime.Now,
+                                ImportTime = DateTime.Now
+                                };
+                            _dbService.UpsertImage(existingImage);
+                            }
+
+                        // 加载到UI
+                        if (Application.Current?.Dispatcher != null)
+                            {
+                            await Application.Current.Dispatcher.InvokeAsync(() =>
+                            {
+                                // 检查图片是否已经在列表中
+                                if (!Images.Any(img => img.FilePath == existingImage.FilePath))
+                                {
+                                    var image = new ImageItem
+                                        {
+                                        FilePath = existingImage.FilePath,
+                                        FileName = existingImage.FileName,
+                                        FileSize = existingImage.FileSize,
+                                        Width = existingImage.Width,
+                                        Height = existingImage.Height,
+                                        CreationTime = existingImage.CreationTime,
+                                        ModificationTime = existingImage.ModificationTime
+                                        };
+
+                                    var bitmap = new BitmapImage();
+                                    bitmap.BeginInit();
+                                    bitmap.UriSource = new Uri(file);
+                                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                                    bitmap.DecodePixelWidth = 400;
+                                    bitmap.EndInit();
+                                    bitmap.Freeze();
+                                    image.Thumbnail = bitmap;
+
+                                    // 加载标签
+                                    if (existingImage.Tags != null)
+                                        {
+                                        foreach (var tagName in existingImage.Tags)
+                                            {
+                                            var tag = Tags.FirstOrDefault(t => t.Name == tagName);
+                                            if (tag != null)
+                                                {
+                                                image.Tags.Add(tag);
+                                                }
+                                            }
+                                        }
+
+                                    Images.Add(image);
+                                }
+
+                                // 更新进度
+                                loadedFiles++;
+                                var progress = (double)loadedFiles / totalFiles * 100;
+                                LoadingProgress.Value = progress;
+                                LoadingText.Text = $"正在加载图片... ({loadedFiles}/{totalFiles})";
+                            });
                             }
                         }
-                    else
+                    catch (Exception ex)
                         {
-                        await AddNewImage(file, fileInfo);
-                        }
-
-                    loadedFiles++;
-                    if (Application.Current?.Dispatcher != null)
-                        {
-                        await Application.Current.Dispatcher.InvokeAsync(() =>
-                        {
-                            var progress = (double)loadedFiles / totalFiles * 100;
-                            LoadingProgress.Value = progress;
-                            LoadingText.Text = $"正在加载图片... ({loadedFiles}/{totalFiles})";
-                        });
+                        HandyControl.Controls.Growl.Warning($"加载图片失败: {Path.GetFileName(file)} - {ex.Message}");
                         }
                     }
 
@@ -313,6 +394,10 @@ namespace PresPio.Public_Wpf
                         LoadingMask.Visibility = Visibility.Collapsed;
                     });
                     }
+                }
+            finally
+                {
+                isLoading = false;
                 }
             }
 
@@ -1791,7 +1876,7 @@ namespace PresPio.Public_Wpf
                     }
                 }
 
-            public string Dimensions => $"{Width} x {Height}";
+            public string Dimensions => width > 0 && height > 0 ? $"{width:N0} × {height:N0}" : string.Empty;
 
             public DateTime CreationTime
                 {
