@@ -12,6 +12,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Linq;
+using TextBox = System.Windows.Controls.TextBox;
+
 
 namespace PresPio.Public_Wpf
 {
@@ -19,11 +21,16 @@ namespace PresPio.Public_Wpf
     {
         private SpeechSynthesizer synthesizer;
         private ObservableCollection<InstalledVoice> windowsVoices;
-        private string currentText;
         private bool isPlaying;
         private DispatcherTimer playbackTimer;
         private TimeSpan currentPlaybackPosition;
         private string currentPlaybackTime;
+        private TextBox textContent;
+        private ProgressBar playbackProgressBar;
+        private Button playPauseButton;
+        private Slider speechSpeedSlider;
+        private Slider speechVolumeSlider;
+        private Slider speechPitchSlider;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -50,9 +57,20 @@ namespace PresPio.Public_Wpf
         public Wpf_VoiceAssistant()
         {
             InitializeComponent();
+            InitializeControls();
             InitializeSpeechSynthesizer();
             InitializePlaybackTimer();
             DataContext = this;
+        }
+
+        private void InitializeControls()
+        {
+            textContent = (TextBox)FindName("TextContent");
+            playbackProgressBar = (ProgressBar)FindName("PlaybackProgressBar");
+            playPauseButton = (Button)FindName("PlayPauseButton");
+            speechSpeedSlider = (Slider)FindName("SpeechSpeedSlider");
+            speechVolumeSlider = (Slider)FindName("SpeechVolumeSlider");
+            speechPitchSlider = (Slider)FindName("SpeechPitchSlider");
         }
 
         private void InitializeSpeechSynthesizer()
@@ -90,35 +108,16 @@ namespace PresPio.Public_Wpf
         {
             Dispatcher.Invoke(() =>
             {
-                UpdateWaveform(e.CharacterPosition, e.CharacterCount);
+                double progress = (double)e.CharacterPosition / e.CharacterCount * 100;
+                playbackProgressBar.Value = progress;
             });
-        }
-
-        private void UpdateWaveform(int position, int total)
-        {
-            WaveformCanvas.Children.Clear();
-            double canvasWidth = WaveformCanvas.ActualWidth;
-            double canvasHeight = WaveformCanvas.ActualHeight;
-            
-            if (total > 0)
-            {
-                double progress = (double)position / total;
-                Rectangle progressRect = new Rectangle
-                {
-                    Width = canvasWidth * progress,
-                    Height = 4,
-                    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#006CBE"))
-                };
-                Canvas.SetTop(progressRect, canvasHeight / 2 - 2);
-                WaveformCanvas.Children.Add(progressRect);
-            }
         }
 
         private void OnPlayButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(TextContent.Text))
+                if (string.IsNullOrWhiteSpace(textContent.Text))
                 {
                     Growl.Warning("请输入要转换的文字");
                     return;
@@ -146,7 +145,8 @@ namespace PresPio.Public_Wpf
                 isPlaying = true;
                 currentPlaybackPosition = TimeSpan.Zero;
                 playbackTimer.Start();
-                synthesizer.SpeakAsync(TextContent.Text);
+                playbackProgressBar.Value = 0;
+                synthesizer.SpeakAsync(textContent.Text);
                 UpdatePlayButton(true);
             }
             catch (Exception ex)
@@ -165,6 +165,7 @@ namespace PresPio.Public_Wpf
                     synthesizer.SpeakAsyncCancelAll();
                     isPlaying = false;
                     playbackTimer.Stop();
+                    playbackProgressBar.Value = 0;
                     UpdatePlayButton(false);
                 }
             }
@@ -184,7 +185,7 @@ namespace PresPio.Public_Wpf
                 Height = 24,
                 Stretch = Stretch.Uniform
             };
-            PlayButton.Content = path;
+            playPauseButton.Content = path;
         }
 
         private void Synthesizer_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
@@ -196,6 +197,7 @@ namespace PresPio.Public_Wpf
                 UpdatePlayButton(false);
                 CurrentPlaybackTime = "00:00:00";
                 currentPlaybackPosition = TimeSpan.Zero;
+                playbackProgressBar.Value = 0;
             });
         }
 
@@ -212,9 +214,9 @@ namespace PresPio.Public_Wpf
                     // 如果正在播放，则重新开始播放以应用新的语速
                     if (isPlaying)
                     {
-                        string currentText = TextContent.Text;
+                        string currentText = textContent.Text;
                         StopPlayback();
-                        TextContent.Text = currentText;
+                        textContent.Text = currentText;
                         StartPlayback();
                     }
                 }
@@ -242,7 +244,7 @@ namespace PresPio.Public_Wpf
 
         private void OnPitchChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (synthesizer != null && !string.IsNullOrEmpty(TextContent.Text))
+            if (synthesizer != null && !string.IsNullOrEmpty(textContent.Text))
             {
                 try
                 {
@@ -254,7 +256,7 @@ namespace PresPio.Public_Wpf
 
                     // 使用SSML设置音高
                     string ssml = $@"<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='zh-CN'>
-                        <prosody pitch='{e.NewValue}st'>{TextContent.Text}</prosody>
+                        <prosody pitch='{e.NewValue}st'>{textContent.Text}</prosody>
                     </speak>";
 
                     // 如果之前在播放，则继续播放
@@ -273,7 +275,7 @@ namespace PresPio.Public_Wpf
 
         private void OnSaveButtonClick(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TextContent.Text))
+            if (string.IsNullOrWhiteSpace(textContent.Text))
             {
                 Growl.Warning("请先输入要保存的文字");
                 return;
@@ -291,7 +293,7 @@ namespace PresPio.Public_Wpf
                 try
                 {
                     synthesizer.SetOutputToWaveFile(saveFileDialog.FileName);
-                    synthesizer.Speak(TextContent.Text);
+                    synthesizer.Speak(textContent.Text);
                     synthesizer.SetOutputToDefaultAudioDevice();
                     Growl.Success("文件保存成功");
                 }
@@ -326,36 +328,36 @@ namespace PresPio.Public_Wpf
             Growl.Success("已应用音频效果");
         }
 
-        private void OnPresetButtonClick(object sender, RoutedEventArgs e)
+        private void OnVoiceEffectButtonClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
             {
                 switch (button.Tag.ToString())
                 {
                     case "Normal":
-                        SpeedSlider.Value = 1;
-                        VolumeSlider.Value = 100;
-                        PitchSlider.Value = 0;
+                        speechSpeedSlider.Value = 1;
+                        speechVolumeSlider.Value = 100;
+                        speechPitchSlider.Value = 0;
                         break;
                     case "Deep":
-                        SpeedSlider.Value = 0.8;
-                        VolumeSlider.Value = 100;
-                        PitchSlider.Value = -5;
+                        speechSpeedSlider.Value = 0.8;
+                        speechVolumeSlider.Value = 100;
+                        speechPitchSlider.Value = -5;
                         break;
                     case "High":
-                        SpeedSlider.Value = 1.2;
-                        VolumeSlider.Value = 90;
-                        PitchSlider.Value = 5;
+                        speechSpeedSlider.Value = 1.2;
+                        speechVolumeSlider.Value = 90;
+                        speechPitchSlider.Value = 5;
                         break;
                     case "Fast":
-                        SpeedSlider.Value = 2;
-                        VolumeSlider.Value = 100;
-                        PitchSlider.Value = 0;
+                        speechSpeedSlider.Value = 2;
+                        speechVolumeSlider.Value = 100;
+                        speechPitchSlider.Value = 0;
                         break;
                     case "Slow":
-                        SpeedSlider.Value = 0.5;
-                        VolumeSlider.Value = 100;
-                        PitchSlider.Value = 0;
+                        speechSpeedSlider.Value = 0.5;
+                        speechVolumeSlider.Value = 100;
+                        speechPitchSlider.Value = 0;
                         break;
                 }
             }
@@ -372,7 +374,7 @@ namespace PresPio.Public_Wpf
             {
                 try
                 {
-                    TextContent.Text = File.ReadAllText(openFileDialog.FileName);
+                    textContent.Text = File.ReadAllText(openFileDialog.FileName);
                     Growl.Success("文本导入成功");
                 }
                 catch (Exception ex)
@@ -384,7 +386,7 @@ namespace PresPio.Public_Wpf
 
         private void OnBatchConvertButtonClick(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TextContent.Text))
+            if (string.IsNullOrWhiteSpace(textContent.Text))
             {
                 Growl.Warning("请先输入要转换的文字");
                 return;
@@ -395,7 +397,7 @@ namespace PresPio.Public_Wpf
             {
                 try
                 {
-                    string[] paragraphs = TextContent.Text.Split(new[] { "\r\n", "\r", "\n" }, 
+                    string[] paragraphs = textContent.Text.Split(new[] { "\r\n", "\r", "\n" }, 
                         StringSplitOptions.RemoveEmptyEntries);
                     
                     for (int i = 0; i < paragraphs.Length; i++)
@@ -440,9 +442,9 @@ namespace PresPio.Public_Wpf
                     // 如果正在播放，则重新开始播放以应用新的语音
                     if (isPlaying)
                     {
-                        string currentText = TextContent.Text;
+                        string currentText = textContent.Text;
                         StopPlayback();
-                        TextContent.Text = currentText;
+                        textContent.Text = currentText;
                         StartPlayback();
                     }
                 }
@@ -456,6 +458,30 @@ namespace PresPio.Public_Wpf
         private void OnSettingButtonClick(object sender, RoutedEventArgs e)
         {
             DrawerSettings.IsOpen = true;
+        }
+
+        private void OnVoiceRadioButtonChecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (sender is RadioButton radioButton && radioButton.DataContext is InstalledVoice selectedVoice)
+                {
+                    synthesizer.SelectVoice(selectedVoice.VoiceInfo.Name);
+
+                    // 如果正在播放，则重新开始播放以应用新的语音
+                    if (isPlaying)
+                    {
+                        string currentText = textContent.Text;
+                        StopPlayback();
+                        textContent.Text = currentText;
+                        StartPlayback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Growl.Error($"切换语音失败: {ex.Message}");
+            }
         }
     }
 }

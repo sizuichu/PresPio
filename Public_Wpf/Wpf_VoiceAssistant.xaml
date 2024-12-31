@@ -17,6 +17,13 @@
                 <hc:ThemeResources/>
                 <hc:Theme/>
             </ResourceDictionary.MergedDictionaries>
+            
+            <!-- 自定义颜色 -->
+            <SolidColorBrush x:Key="PrimaryBrush" Color="#006CBE"/>
+            <SolidColorBrush x:Key="SecondaryBrush" Color="#F5F5F5"/>
+            <SolidColorBrush x:Key="PrimaryTextBrush" Color="#333333"/>
+            <SolidColorBrush x:Key="SecondaryTextBrush" Color="#666666"/>
+            
             <!-- 自定义几何图形 -->
             <PathGeometry x:Key="AudioGeometry">M12,3V12.26C11.5,12.09 11,12 10.5,12C8,12 6,14 6,16.5C6,19 8,21 10.5,21C13,21 15,19 15,16.5V6H19V3H12Z</PathGeometry>
             <PathGeometry x:Key="SaveGeometry">M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z</PathGeometry>
@@ -26,10 +33,81 @@
             <PathGeometry x:Key="PauseGeometry">M14,19H18V5H14M6,19H10V5H6V19Z</PathGeometry>
             <PathGeometry x:Key="UserGeometry">M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z</PathGeometry>
             <PathGeometry x:Key="StarGeometry">M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z</PathGeometry>
+            <PathGeometry x:Key="MicrophoneGeometry">M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z</PathGeometry>
+            
+            <!-- 按钮样式 -->
+            <Style x:Key="DefaultButton" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="15,5"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center"
+                                                Margin="{TemplateBinding Padding}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource DarkPrimaryBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource BorderBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.4"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- 图标按钮样式 -->
+            <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource DefaultButton}">
+                <Setter Property="Width" Value="40"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Padding" Value="8"/>
+                <Setter Property="Background" Value="#006CBE"/>
+            </Style>
+
+            <!-- 透明图标按钮样式 -->
+            <Style x:Key="TransparentIconButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center"
+                                                Margin="{TemplateBinding Padding}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#1A006CBE"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#33006CBE"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </hc:Window.Resources>
 
-    <Grid>
+    <Grid Background="{StaticResource SecondaryBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="60"/>
@@ -38,7 +116,7 @@
         <!-- 主要内容区域 -->
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="250"/>
             </Grid.RowDefinitions>
@@ -62,21 +140,36 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         
-                        <!-- 波形显示区域 -->
-                        <Border Grid.Row="0" Height="60" Margin="20,0" Background="#F5F5F5" CornerRadius="4">
-                            <Canvas x:Name="WaveformCanvas"/>
-                        </Border>
+                        <!-- 播放进度条 -->
+                        <Grid Grid.Row="0" Margin="20,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- 进度条 -->
+                            <ProgressBar x:Name="PlaybackProgressBar" Height="20" 
+                                       Background="#E0E0E0"
+                                       BorderThickness="0"
+                                       Foreground="{StaticResource PrimaryBrush}"
+                                       Value="0" Maximum="100"/>
+                            
+                            <!-- 时间显示 -->
+                            <TextBlock Grid.Row="1" Text="{Binding CurrentPlaybackTime}"
+                                     HorizontalAlignment="Right" Margin="0,4,0,0"
+                                     FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
+                        </Grid>
                         
                         <!-- 控制区域 -->
                         <StackPanel Grid.Row="1" Margin="20,10">
                             <!-- 播放控制按钮 -->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
-                                <Button x:Name="PlayButton" Width="40" Height="40" Margin="5" Background="#006CBE" 
+                                <Button x:Name="PlayPauseButton" Width="40" Height="40" Margin="5" Background="#006CBE" 
                                         BorderThickness="0" ToolTip="播放/暂停" Click="OnPlayButtonClick">
                                     <Path Data="{StaticResource PlayGeometry}" Fill="White"
                                           Width="24" Height="24" Stretch="Uniform"/>
                                 </Button>
-                                <Button Width="40" Height="40" Margin="5" Background="#006CBE" 
+                                <Button x:Name="SaveAudioButton" Width="40" Height="40" Margin="5" Background="#006CBE" 
                                         BorderThickness="0" ToolTip="保存" Click="OnSaveButtonClick">
                                     <Path Data="{StaticResource SaveGeometry}" Fill="White"
                                           Width="24" Height="24" Stretch="Uniform"/>
@@ -91,27 +184,27 @@
                             <!-- 语音参数控制 -->
                             <DockPanel Margin="0,5">
                                 <TextBlock Text="语速:" VerticalAlignment="Center" Width="40"/>
-                                <TextBlock Text="{Binding ElementName=SpeedSlider, Path=Value, StringFormat={}{0:F1}x}" 
+                                <TextBlock Text="{Binding ElementName=SpeechSpeedSlider, Path=Value, StringFormat={}{0:F1}x}" 
                                          Width="40" TextAlignment="Right" DockPanel.Dock="Right"/>
-                                <Slider x:Name="SpeedSlider" Minimum="0" Maximum="3" Value="1" 
+                                <Slider x:Name="SpeechSpeedSlider" Minimum="0" Maximum="3" Value="1" 
                                         ValueChanged="OnSpeedChanged" SmallChange="0.1" LargeChange="0.5"
                                         IsMoveToPointEnabled="True"/>
                             </DockPanel>
                             
                             <DockPanel Margin="0,5">
                                 <TextBlock Text="音量:" VerticalAlignment="Center" Width="40"/>
-                                <TextBlock Text="{Binding ElementName=VolumeSlider, Path=Value, StringFormat={}{0:F0}%}"
+                                <TextBlock Text="{Binding ElementName=SpeechVolumeSlider, Path=Value, StringFormat={}{0:F0}%}"
                                          Width="40" TextAlignment="Right" DockPanel.Dock="Right"/>
-                                <Slider x:Name="VolumeSlider" Minimum="0" Maximum="100" Value="100"
+                                <Slider x:Name="SpeechVolumeSlider" Minimum="0" Maximum="100" Value="100"
                                         ValueChanged="OnVolumeChanged"
                                         IsMoveToPointEnabled="True"/>
                             </DockPanel>
                             
                             <DockPanel Margin="0,5">
                                 <TextBlock Text="音高:" VerticalAlignment="Center" Width="40"/>
-                                <TextBlock Text="{Binding ElementName=PitchSlider, Path=Value, StringFormat={}{0:F0}}"
+                                <TextBlock Text="{Binding ElementName=SpeechPitchSlider, Path=Value, StringFormat={}{0:F0}}"
                                          Width="40" TextAlignment="Right" DockPanel.Dock="Right"/>
-                                <Slider x:Name="PitchSlider" Minimum="-10" Maximum="10" Value="0"
+                                <Slider x:Name="SpeechPitchSlider" Minimum="-10" Maximum="10" Value="0"
                                         ValueChanged="OnPitchChanged"
                                         IsMoveToPointEnabled="True"/>
                             </DockPanel>
@@ -122,56 +215,41 @@
 
             <!-- 中部声音选择区域 -->
             <Border Grid.Row="1" Background="#FFFFFF" Margin="20,10" BorderThickness="1" BorderBrush="#E0E0E0" CornerRadius="4">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <DockPanel Margin="20,10">
-                        <TextBlock Text="声音选择" FontSize="16" FontWeight="Bold"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock Text="选择语音：" VerticalAlignment="Center"/>
-                            <ComboBox Width="150" Margin="5,0,0,0" 
-                                    ItemsSource="{Binding WindowsVoices}"
-                                    DisplayMemberPath="VoiceInfo.Name"
-                                    SelectionChanged="OnVoiceSelectionChanged"/>
-                        </StackPanel>
-                    </DockPanel>
-
-                    <TabControl Grid.Row="1" Margin="20,0,20,20" BorderThickness="0">
-                        <TabItem Header="所有语音">
-                            <ScrollViewer>
-                                <WrapPanel x:Name="VoicesPanel">
-                                    <!-- 语音选项将通过代码动态生成 -->
-                                </WrapPanel>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="收藏夹">
-                            <ScrollViewer>
-                                <WrapPanel x:Name="FavoritesPanel">
-                                    <!-- 收藏的语音将在这里显示 -->
-                                </WrapPanel>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="预设效果">
-                            <ScrollViewer>
-                                <StackPanel>
-                                    <Button Content="正常语音" Style="{StaticResource ButtonInfo}" 
-                                            Margin="5" Click="OnPresetButtonClick" Tag="Normal"/>
-                                    <Button Content="低沉声音" Style="{StaticResource ButtonInfo}" 
-                                            Margin="5" Click="OnPresetButtonClick" Tag="Deep"/>
-                                    <Button Content="尖细声音" Style="{StaticResource ButtonInfo}" 
-                                            Margin="5" Click="OnPresetButtonClick" Tag="High"/>
-                                    <Button Content="快速朗读" Style="{StaticResource ButtonInfo}" 
-                                            Margin="5" Click="OnPresetButtonClick" Tag="Fast"/>
-                                    <Button Content="慢速朗读" Style="{StaticResource ButtonInfo}" 
-                                            Margin="5" Click="OnPresetButtonClick" Tag="Slow"/>
-                                </StackPanel>
-                            </ScrollViewer>
-                        </TabItem>
-                    </TabControl>
-                </Grid>
+                <DockPanel Margin="20,10">
+                    <TextBlock Text="声音选择" FontSize="16" FontWeight="Bold"/>
+                    <ScrollViewer DockPanel.Dock="Right" MaxHeight="120" 
+                                HorizontalScrollBarVisibility="Disabled" 
+                                VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding WindowsVoices}" Margin="10,0,0,0">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="5" Padding="10,5" 
+                                            Background="{StaticResource SecondaryBrush}"
+                                            CornerRadius="4">
+                                        <RadioButton GroupName="VoiceSelection" 
+                                                   Checked="OnVoiceRadioButtonChecked"
+                                                   Tag="{Binding VoiceInfo.Name}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Data="{StaticResource MicrophoneGeometry}" 
+                                                      Fill="{StaticResource PrimaryTextBrush}"
+                                                      Width="16" Height="16" 
+                                                      Margin="0,0,5,0"
+                                                      Stretch="Uniform"/>
+                                                <TextBlock Text="{Binding VoiceInfo.Name}" 
+                                                         VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </RadioButton>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
             </Border>
 
             <!-- 底部文稿区域 -->
@@ -186,10 +264,10 @@
 
                     <DockPanel Grid.Row="1" LastChildFill="True">
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="20,10">
-                            <Button Content="导入文本" Style="{StaticResource ButtonInfo}" 
+                            <Button Content="导入文本" Style="{StaticResource DefaultButton}" 
                                     Margin="0,0,10,0" Click="OnImportButtonClick"/>
-                            <Button Content="批量转换" Style="{StaticResource ButtonInfo}" 
-                                    Click="OnBatchConvertButtonClick"/>
+                            <Button Content="批量转换" Style="{StaticResource DefaultButton}" 
+                                    Margin="0,0,10,0" Click="OnBatchConvertButtonClick"/>
                         </StackPanel>
                         <TextBox x:Name="TextContent" Margin="20,0,20,20" TextWrapping="Wrap" 
                                 AcceptsReturn="True" hc:InfoElement.Placeholder="在此输入要转换的文字..."/>
@@ -200,28 +278,17 @@
 
         <!-- 右侧操作按钮 -->
         <StackPanel Grid.Column="1" Background="#F5F5F5">
-            <Button Width="40" Height="40" Margin="0,20,0,0" Background="Transparent" BorderThickness="0">
-                <Path Data="{StaticResource AudioGeometry}" Fill="#006CBE" 
-                      Width="20" Height="20" Stretch="Uniform"/>
-            </Button>
-            <Button Width="40" Height="40" Margin="0,10,0,0" Background="Transparent" BorderThickness="0">
-                <Path Data="{StaticResource SaveGeometry}" Fill="#006CBE"
-                      Width="20" Height="20" Stretch="Uniform"/>
-            </Button>
-            <Button Width="40" Height="40" Margin="0,10,0,0" Background="Transparent" BorderThickness="0">
-                <Path Data="{StaticResource DownloadGeometry}" Fill="#006CBE"
-                      Width="20" Height="20" Stretch="Uniform"/>
-            </Button>
-            <Button Width="40" Height="40" Margin="0,10,0,0" Background="Transparent" BorderThickness="0"
+            <Button Width="40" Height="40" Margin="0,20,0,0" Background="Transparent" BorderThickness="0"
                     Click="OnSettingButtonClick">
-                <Path Data="{StaticResource SettingGeometry}" Fill="#006CBE"
+                <Path Data="{StaticResource SettingGeometry}" Fill="#006CBE" 
                       Width="20" Height="20" Stretch="Uniform"/>
             </Button>
         </StackPanel>
 
         <!-- 设置抽屉 -->
-        <hc:Drawer Name="DrawerSettings" Dock="Right" ShowMode="Push" MaskCanClose="True">
-            <Border Width="400" Background="#FFFFFF" BorderThickness="1,0,0,0" BorderBrush="#E0E0E0">
+        <hc:Drawer x:Name="DrawerSettings" Dock="Right" ShowMode="Push" MaskCanClose="True"
+                   Width="300">
+            <Border Background="White">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -229,96 +296,80 @@
                     </Grid.RowDefinitions>
 
                     <!-- 抽屉标题栏 -->
-                    <DockPanel Grid.Row="0" Margin="20,15" LastChildFill="True">
-                        <TextBlock Text="API 设置" FontSize="18" FontWeight="Bold"/>
-                        <Button DockPanel.Dock="Right" Background="Transparent" BorderThickness="0"
-                                Command="hc:ControlCommands.Close" 
+                    <DockPanel Grid.Row="0" Background="{StaticResource PrimaryBrush}" Height="48">
+                        <TextBlock Text="设置" Foreground="White" FontSize="16" 
+                                 VerticalAlignment="Center" Margin="20,0"/>
+                        <Button DockPanel.Dock="Right" Style="{StaticResource DefaultButton}"
+                                Background="Transparent" BorderThickness="0" Margin="0,0,10,0"
+                                Command="hc:ControlCommands.Close"
                                 CommandParameter="{Binding ElementName=DrawerSettings}">
-                            <Path Data="{StaticResource DeleteGeometry}" 
-                                  Fill="#006CBE" Width="12" Height="12"/>
+                            <Path Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" 
+                                  Fill="White" Width="16" Height="16"/>
                         </Button>
                     </DockPanel>
 
                     <!-- 设置内容 -->
-                    <ScrollViewer Grid.Row="1" Margin="0,10,0,0">
-                        <StackPanel Margin="20,0,20,20">
-                            <!-- Windows默认语音设置 -->
-                            <Expander Header="Windows 默认语音" 
-                                     IsExpanded="True" 
-                                     Margin="0,0,0,10"
-                                     BorderThickness="1"
-                                     BorderBrush="#E0E0E0">
-                                <StackPanel Margin="10">
-                                    <CheckBox Content="启用 Windows 语音" 
-                                            IsChecked="True" 
-                                            Margin="0,5"/>
-                                    <TextBlock Text="选择语音：" Margin="0,10,0,5"/>
-                                    <ComboBox ItemsSource="{Binding WindowsVoices}"
-                                            DisplayMemberPath="VoiceInfo.Name"
-                                            SelectedIndex="0"
-                                            SelectionChanged="OnVoiceSelectionChanged"/>
-                                </StackPanel>
-                            </Expander>
-
-                            <!-- 百度语音API设置 -->
-                            <Expander Header="百度语音 API" 
-                                     Margin="0,0,0,10"
-                                     BorderThickness="1"
-                                     BorderBrush="#E0E0E0">
-                                <StackPanel Margin="10">
-                                    <CheckBox Content="启用百度语音" Margin="0,5"/>
-                                    <TextBlock Text="API Key：" Margin="0,10,0,5"/>
-                                    <hc:TextBox hc:InfoElement.Placeholder="请输入百度API Key"/>
-                                    <TextBlock Text="Secret Key：" Margin="0,10,0,5"/>
-                                    <hc:TextBox hc:InfoElement.Placeholder="请输入百度Secret Key"/>
-                                    <Button Content="验证连接"
-                                                                             HorizontalAlignment="Left"
-                                            Margin="0,10,0,0"
-                                            Padding="15,7"/>
-                                </StackPanel>
-                            </Expander>
-
-                            <!-- 腾讯语音API设置 -->
-                            <Expander Header="腾讯语音 API" 
-                                     Margin="0,0,0,10"
-                                     BorderThickness="1"
-                                     BorderBrush="#E0E0E0">
-                                <StackPanel Margin="10">
-                                    <CheckBox Content="启用腾讯语音" Margin="0,5"/>
-                                    <TextBlock Text="SecretId：" Margin="0,10,0,5"/>
-                                    <hc:TextBox hc:InfoElement.Placeholder="请输入腾讯SecretId"/>
-                                    <TextBlock Text="SecretKey：" Margin="0,10,0,5"/>
-                                    <hc:TextBox hc:InfoElement.Placeholder="请输入腾讯SecretKey"/>
-                                    <Button Content="验证连接"
-                                            HorizontalAlignment="Left"
-                                            Margin="0,10,0,0"
-                                            Padding="15,7"/>
-                                </StackPanel>
-                            </Expander>
-
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="20">
+                            <!-- Windows语音设置 -->
+                            <TextBlock Text="Windows语音设置" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <CheckBox Content="启用Windows语音" IsChecked="True" Margin="0,0,0,20"/>
+                            
+                            <!-- 百度语音设置 -->
+                            <TextBlock Text="百度语音设置" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <CheckBox Content="启用百度语音" Margin="0,0,0,10"/>
+                            <TextBox hc:InfoElement.Title="AppID" Margin="0,0,0,10"/>
+                            <TextBox hc:InfoElement.Title="API Key" Margin="0,0,0,10"/>
+                            <TextBox hc:InfoElement.Title="Secret Key" Margin="0,0,0,20"/>
+                            
+                            <!-- 腾讯语音设置 -->
+                            <TextBlock Text="腾讯语音设置" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <CheckBox Content="启用腾讯语音" Margin="0,0,0,10"/>
+                            <TextBox hc:InfoElement.Title="SecretId" Margin="0,0,0,10"/>
+                            <TextBox hc:InfoElement.Title="SecretKey" Margin="0,0,0,20"/>
+                            
                             <!-- 保存按钮 -->
-                            <Button Content="保存设置"
-                                    Style="{StaticResource ButtonPrimary}"
-                                    HorizontalAlignment="Right"
-                                    Margin="0,20,0,0"
-                                    Padding="20,10"/>
+                            <Button Content="保存设置" Style="{StaticResource DefaultButton}" 
+                                    HorizontalAlignment="Stretch"/>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
             </Border>
         </hc:Drawer>
 
-        <!-- 添加效果设置抽屉 -->
-        <hc:Drawer Name="DrawerEffects" Dock="Right" ShowMode="Push" MaskCanClose="True">
-            <Border Width="300" Background="#FFFFFF">
-                <StackPanel Margin="20">
-                    <TextBlock Text="音频效果" FontSize="18" FontWeight="Bold" Margin="0,0,0,20"/>
-                    <CheckBox Content="回声效果" Margin="0,5" x:Name="EchoEffect"/>
-                    <CheckBox Content="混响效果" Margin="0,5" x:Name="ReverbEffect"/>
-                    <CheckBox Content="合唱效果" Margin="0,5" x:Name="ChorusEffect"/>
-                    <Button Content="应用效果" Margin="0,20,0,0" Style="{StaticResource ButtonPrimary}"
-                            Click="OnApplyEffectsClick"/>
-                </StackPanel>
+        <!-- 音频效果抽屉 -->
+        <hc:Drawer x:Name="DrawerEffects" Dock="Right" ShowMode="Push" MaskCanClose="True"
+                   Width="300">
+            <Border Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 抽屉标题栏 -->
+                    <DockPanel Grid.Row="0" Background="{StaticResource PrimaryBrush}" Height="48">
+                        <TextBlock Text="音频效果" Foreground="White" FontSize="16" 
+                                 VerticalAlignment="Center" Margin="20,0"/>
+                        <Button DockPanel.Dock="Right" Style="{StaticResource DefaultButton}"
+                                Background="Transparent" BorderThickness="0" Margin="0,0,10,0"
+                                Command="hc:ControlCommands.Close"
+                                CommandParameter="{Binding ElementName=DrawerEffects}">
+                            <Path Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" 
+                                  Fill="White" Width="16" Height="16"/>
+                        </Button>
+                    </DockPanel>
+
+                    <!-- 效果内容 -->
+                    <StackPanel Grid.Row="1" Margin="20">
+                        <CheckBox x:Name="EchoEffect" Content="回声效果" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ReverbEffect" Content="混响效果" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChorusEffect" Content="合唱效果" Margin="0,0,0,20"/>
+                        
+                        <Button Content="应用效果" Style="{StaticResource DefaultButton}" 
+                                HorizontalAlignment="Stretch" Click="OnApplyEffectsClick"/>
+                    </StackPanel>
+                </Grid>
             </Border>
         </hc:Drawer>
     </Grid>

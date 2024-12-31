@@ -489,6 +489,9 @@
     <Compile Include="Public_Wpf\Wpf_About.xaml.cs">
       <DependentUpon>Wpf_About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Public_Wpf\Wpf_PhotoGallery.xaml.cs">
+      <DependentUpon>Wpf_PhotoGallery.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Public_Wpf\Wpf_Publish.xaml.cs">
       <DependentUpon>Wpf_Publish.xaml</DependentUpon>
     </Compile>
@@ -906,6 +909,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Public_Wpf\Wpf_PhotoGallery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Public_Wpf\Wpf_Publish.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1050,24 +1057,24 @@
   </Target>
   <Import Project="packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets')" />
   <ItemGroup>
-    <PackageReference Include="HandyControl" Version="3.5.1" />
-    <PackageReference Include="LiteDB">
-      <Version>5.0.21</Version>
-    </PackageReference>
-    <PackageReference Include="System.Buffers">
-      <Version>4.6.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.Memory" Version="4.6.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
-      <Version>6.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="9.0.0" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="9.0.0" />
+    <PackageReference Include="HandyControl" Version="3.4.0" />
+    <PackageReference Include="LiteDB" Version="5.0.17" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\*.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Public_Wpf\Models\ImageInfo.cs" />
+    <Compile Include="Public_Wpf\Services\ColorAnalyzer.cs" />
+    <Compile Include="Public_Wpf\Services\DatabaseService.cs" />
+    <Compile Include="Public_Wpf\Models\SettingInfo.cs" />
   </ItemGroup>
 </Project>

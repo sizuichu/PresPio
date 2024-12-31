@@ -6756,11 +6756,8 @@ namespace PresPio
 
         private void button212_Click(object sender, RibbonControlEventArgs e)
             {
-            //Wpf_FileSteward wpf_FileSteward=new Wpf_FileSteward();
-            //wpf_FileSteward.Show();
-            PresPio.Wpf_Form.Wpf_SplitPPT wpf_SplitPPT = new Wpf_Form.Wpf_SplitPPT();
-
-            wpf_SplitPPT.Show();
+            PresPio.Public_Wpf.Wpf_PhotoGallery wpf_PhotoGallery= new PresPio.Public_Wpf.Wpf_PhotoGallery();
+            wpf_PhotoGallery.Show();
             }
 
         private void button114_Click_2(object sender, RibbonControlEventArgs e)
