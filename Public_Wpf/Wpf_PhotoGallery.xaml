@@ -610,7 +610,7 @@
                                            BorderThickness="0"
                                            Padding="8,4"
                                            ShowCloseButton="True"
-                                           MouseLeftButtonDown="RemoveTagFromImage_Click">
+                                           PreviewMouseLeftButtonDown="RemoveTagFromImage_Click">
                                     </hc:Tag>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

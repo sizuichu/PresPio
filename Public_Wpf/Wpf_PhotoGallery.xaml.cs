@@ -769,18 +769,18 @@ namespace PresPio.Public_Wpf
                 }
             }
 
-        private void RemoveTagFromImage_Click(object sender, RoutedEventArgs e)
+        private void RemoveTagFromImage_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
             {
-            if (sender is System.Windows.Controls.MenuItem menuItem &&
-                menuItem.DataContext is TagItem tagItem &&
+            if (sender is HandyControl.Controls.Tag tag &&
+                tag.DataContext is TagItem tagItem &&
                 selectedImage != null)
-                {
+            {
                 try
-                    {
+                {
                     // 从数据库中移除标签
                     var imageInfo = _dbService.GetImageByPath(selectedImage.FilePath);
                     if (imageInfo != null)
-                        {
+                    {
                         imageInfo.Tags.Remove(tagItem.Name);
                         _dbService.UpsertImage(imageInfo);
 
@@ -793,14 +793,16 @@ namespace PresPio.Public_Wpf
                         // 更新常用标签和筛选标签列表
                         UpdateCommonTags();
                         UpdateFilterTags();
-                        }
-                    }
-                catch (Exception ex)
-                    {
-                    HandyControl.Controls.MessageBox.Error($"移除标签时出错：{ex.Message}", "错误");
+
+                        HandyControl.Controls.Growl.Success($"已移除标签：{tagItem.Name}");
                     }
                 }
+                catch (Exception ex)
+                {
+                    HandyControl.Controls.MessageBox.Error($"移除标签时出错：{ex.Message}", "错误");
+                }
             }
+        }
 
         private void FilterTag_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -833,10 +835,10 @@ namespace PresPio.Public_Wpf
                         Images.Clear();
                         foreach (var imageInfo in images)
                         {
-                            LoadImageToUI(imageInfo);
+                            _ = LoadImageToUI(imageInfo);
                         }
 
-                        HandyControl.Controls.Growl.Info($"已筛选出 {Images.Count} 张图片");
+                    
                     }
                     else
                     {
@@ -1577,18 +1579,19 @@ namespace PresPio.Public_Wpf
             HandyControl.Controls.MessageBox.Info("标签管理功能正在开发中...", "提示");
             }
 
-        private void Tag_Closed(object sender, RoutedEventArgs e)
-            {
+        private void Tag_Closing(object sender, CancelEventArgs e)
+        {
             if (sender is HandyControl.Controls.Tag tag &&
                 tag.DataContext is TagItem tagItem &&
                 selectedImage != null)
-                {
+            {
                 try
-                    {
-                    // 从数据库中移除标签
+                {
+                    // 从数据库中获取图片信息
                     var imageInfo = _dbService.GetImageByPath(selectedImage.FilePath);
                     if (imageInfo != null)
-                        {
+                    {
+                        // 只从当前图片中移除标签
                         imageInfo.Tags.Remove(tagItem.Name);
                         _dbService.UpsertImage(imageInfo);
 
@@ -1598,19 +1601,24 @@ namespace PresPio.Public_Wpf
                         // 从UI中移除标签
                         selectedImage.Tags.Remove(tagItem);
 
+                        // 更新UI显示
+                        TagsItemsControl.ItemsSource = null;
+                        TagsItemsControl.ItemsSource = selectedImage.Tags;
+
                         // 更新常用标签和筛选标签列表
                         UpdateCommonTags();
                         UpdateFilterTags();
 
-                        HandyControl.Controls.Growl.Success($"已移除标签：{tagItem.Name}");
-                        }
-                    }
-                catch (Exception ex)
-                    {
-                    HandyControl.Controls.MessageBox.Error($"移除标签时出错：{ex.Message}", "错误");
+                        HandyControl.Controls.Growl.Success($"已从图片中移除标签：{tagItem.Name}");
                     }
                 }
+                catch (Exception ex)
+                {
+                    HandyControl.Controls.MessageBox.Error($"移除标签时出错：{ex.Message}", "错误");
+                    e.Cancel = true;  // 如果发生错误，取消关闭操作
+                }
             }
+        }
 
         public class TagItem
             {
