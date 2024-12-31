@@ -126,6 +126,22 @@ namespace PresPio.Public_Wpf.Services
             }
         }
 
+        public void DeleteCategory(string categoryName)
+        {
+            // 删除分类
+            _categories.DeleteMany(x => x.Name == categoryName);
+
+            // 获取该分类下的所有图片
+            var images = _images.Find(x => x.Category == categoryName);
+
+            // 清除这些图片的分类信息
+            foreach (var image in images)
+            {
+                image.Category = null;
+                _images.Update(image);
+            }
+        }
+
         public void SaveSetting(string key, string value)
         {
             var setting = _settings.FindOne(x => x.Key == key);

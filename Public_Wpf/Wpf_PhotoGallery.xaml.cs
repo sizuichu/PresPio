@@ -195,6 +195,128 @@ namespace PresPio.Public_Wpf
                 if (isNewDb)
                     {
                     HandyControl.Controls.Growl.Info("正在创建新的图库数据库...");
+                    
+                    // 扫描并添加子文件夹作为分类
+                    var directories = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
+                    int totalImages = 0;
+
+                    // 处理主文件夹中的图片
+                    var rootImages = Directory.GetFiles(folderPath)
+                        .Where(file => supportedExtensions.Contains(Path.GetExtension(file).ToLower()))
+                        .ToList();
+
+                    foreach (var file in rootImages)
+                        {
+                        try
+                            {
+                            var fileInfo = new FileInfo(file);
+                            // 获取图片尺寸
+                            int width = 0, height = 0;
+                            using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read))
+                                {
+                                var decoder = BitmapDecoder.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                width = decoder.Frames[0].PixelWidth;
+                                height = decoder.Frames[0].PixelHeight;
+                                }
+
+                            // 分析图片颜色
+                            var dominantColors = ColorAnalyzer.AnalyzeImage(file);
+
+                            var imageInfo = new ImageInfo
+                                {
+                                FilePath = file,
+                                FileName = Path.GetFileName(file),
+                                FileSize = GetFileSizeString(fileInfo.Length),
+                                Width = width,
+                                Height = height,
+                                CreationTime = fileInfo.CreationTime,
+                                ModificationTime = fileInfo.LastWriteTime,
+                                LastAccessTime = DateTime.Now,
+                                ImportTime = DateTime.Now,
+                                DominantColors = dominantColors,
+                                Tags = new List<string>()
+                                };
+
+                            _dbService.UpsertImage(imageInfo);
+                            totalImages++;
+                            }
+                        catch (Exception ex)
+                            {
+                            HandyControl.Controls.Growl.Warning($"处理图片失败: {Path.GetFileName(file)} - {ex.Message}");
+                            }
+                        }
+
+                    // 处理子文件夹
+                    foreach (var dir in directories)
+                        {
+                        try
+                            {
+                            var dirName = Path.GetFileName(dir);
+                            var imageFiles = Directory.GetFiles(dir)
+                                .Where(file => supportedExtensions.Contains(Path.GetExtension(file).ToLower()))
+                                .ToList();
+
+                            if (imageFiles.Any())
+                                {
+                                var categoryInfo = new CategoryInfo
+                                    {
+                                    Name = dirName,
+                                    Path = dir,
+                                    ImageCount = imageFiles.Count,
+                                    CreationTime = Directory.GetCreationTime(dir)
+                                    };
+
+                                _dbService.UpsertCategory(categoryInfo);
+
+                                // 处理分类下的图片
+                                foreach (var file in imageFiles)
+                                    {
+                                    try
+                                        {
+                                        var fileInfo = new FileInfo(file);
+                                        int width = 0, height = 0;
+                                        using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read))
+                                            {
+                                            var decoder = BitmapDecoder.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                            width = decoder.Frames[0].PixelWidth;
+                                            height = decoder.Frames[0].PixelHeight;
+                                            }
+
+                                        var dominantColors = ColorAnalyzer.AnalyzeImage(file);
+
+                                        var imageInfo = new ImageInfo
+                                            {
+                                            FilePath = file,
+                                            FileName = Path.GetFileName(file),
+                                            FileSize = GetFileSizeString(fileInfo.Length),
+                                            Width = width,
+                                            Height = height,
+                                            CreationTime = fileInfo.CreationTime,
+                                            ModificationTime = fileInfo.LastWriteTime,
+                                            LastAccessTime = DateTime.Now,
+                                            ImportTime = DateTime.Now,
+                                            Category = dirName,
+                                            DominantColors = dominantColors,
+                                            Tags = new List<string>()
+                                            };
+
+                                        _dbService.UpsertImage(imageInfo);
+                                        totalImages++;
+                                        }
+                                    catch (Exception ex)
+                                        {
+                                        HandyControl.Controls.Growl.Warning($"处理图片失败: {Path.GetFileName(file)} - {ex.Message}");
+                                        }
+                                    }
+                                }
+                            }
+                        catch (Exception ex)
+                            {
+                            HandyControl.Controls.Growl.Warning($"处理文件夹失败: {Path.GetFileName(dir)} - {ex.Message}");
+                            }
+                        }
+
+                    HandyControl.Controls.Growl.Success($"已导入 {directories.Count(d => Directory.GetFiles(d).Any(f => supportedExtensions.Contains(Path.GetExtension(f).ToLower())))} 个分类，共 {totalImages} 张图片");
                     }
                 else if (isInitialLoad)
                     {
@@ -213,33 +335,80 @@ namespace PresPio.Public_Wpf
 
         private void LoadExistingData()
             {
-            // 加载分类
-            Categories.Clear();
-            foreach (var category in _dbService.GetAllCategories())
+            try
                 {
-                Categories.Add(new CategoryItem
+                // 加载分类
+                Categories.Clear();
+                var allCategories = _dbService.GetAllCategories()
+                    .OrderBy(c => c.Name)  // 按名称排序
+                    .ToList();
+
+                foreach (var category in allCategories)
                     {
-                    Name = category.Name,
-                    Path = category.Path,
-                    ImageCount = category.ImageCount
-                    });
+                    // 验证分类文件夹是否存在
+                    if (Directory.Exists(category.Path))
+                        {
+                        // 更新图片数量
+                        var imageCount = Directory.GetFiles(category.Path)
+                            .Count(file => supportedExtensions.Contains(Path.GetExtension(file).ToLower()));
+                        
+                        if (category.ImageCount != imageCount)
+                            {
+                            category.ImageCount = imageCount;
+                            _dbService.UpsertCategory(category);
+                            }
+
+                        // 只添加包含图片的分类
+                        if (imageCount > 0)
+                            {
+                            Categories.Add(new CategoryItem
+                                {
+                                Name = category.Name,
+                                Path = category.Path,
+                                ImageCount = imageCount
+                                });
+                            }
+                        }
+                    else
+                        {
+                        // 如果文件夹不存在，从数据库中删除该分类
+                        _dbService.DeleteCategory(category.Name);
+                        }
+                    }
+
+                // 加载标签
+                Tags.Clear();
+                FilterTags.Clear();
+                foreach (var tag in _dbService.GetAllTags())
+                    {
+                    var color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(tag.ColorHex));
+                    var tagItem = new TagItem { Name = tag.Name, Color = color };
+                    Tags.Add(tagItem);
+
+                    if (tag.ImageCount > 0)
+                        {
+                        FilterTags.Add(new FilterTagItem
+                            {
+                            Name = tag.Name,
+                            Color = color,
+                            IsSelected = false
+                            });
+                        }
+                    }
+
+                // 更新UI显示
+                if (Categories.Any())
+                    {
+                    HandyControl.Controls.Growl.Success($"已加载 {Categories.Count} 个分类");
+                    }
+                else
+                    {
+                    HandyControl.Controls.Growl.Info("暂无分类");
+                    }
                 }
-
-            // 加载标签
-            Tags.Clear();
-            FilterTags.Clear();
-            foreach (var tag in _dbService.GetAllTags())
+            catch (Exception ex)
                 {
-                var color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(tag.ColorHex));
-                var tagItem = new TagItem { Name = tag.Name, Color = color };
-                Tags.Add(tagItem);
-
-                FilterTags.Add(new FilterTagItem
-                    {
-                    Name = tag.Name,
-                    Color = color,
-                    IsSelected = false
-                    });
+                HandyControl.Controls.MessageBox.Error($"加载现有数据时出错：{ex.Message}", "错误");
                 }
             }
 
@@ -359,7 +528,23 @@ namespace PresPio.Public_Wpf
                                             }
                                         }
 
+                                    // 加载分类
+                                    if (!string.IsNullOrEmpty(existingImage.Category))
+                                        {
+                                        var category = Categories.FirstOrDefault(c => c.Name == existingImage.Category);
+                                        if (category != null)
+                                            {
+                                            image.Category = category;
+                                            }
+                                        }
+
                                     Images.Add(image);
+
+                                    // 如果是选中的图片，更新颜色分析面板
+                                    if (selectedImage != null && selectedImage.FilePath == image.FilePath)
+                                        {
+                                        UpdateColorAnalysis(existingImage.DominantColors);
+                                        }
                                 }
 
                                 // 更新进度
