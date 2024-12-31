@@ -2141,5 +2141,54 @@ namespace PresPio.Public_Wpf
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
                 }
             }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is HandyControl.Controls.SearchBar searchBar)
+            {
+                PerformSearch(searchBar.Text);
+            }
+        }
+
+        private async void PerformSearch(string searchText)
+        {
+            try
+            {
+                searchText = searchText?.ToLower() ?? string.Empty;
+
+                if (string.IsNullOrWhiteSpace(searchText))
+                {
+                    // 如果搜索文本为空，显示所有图片
+                    if (!string.IsNullOrEmpty(currentFolderPath))
+                    {
+                        await LoadImagesFromFolder(currentFolderPath);
+                    }
+                    return;
+                }
+
+                // 从数据库中搜索图片
+                var allImages = Directory.GetFiles(currentFolderPath)
+                    .Where(file => supportedExtensions.Contains(Path.GetExtension(file).ToLower()))
+                    .Select(file => _dbService.GetImageByPath(file))
+                    .Where(img => img != null)
+                    .Where(img =>
+                        img.FileName.ToLower().Contains(searchText) ||
+                        img.Tags.Any(tag => tag.ToLower().Contains(searchText)) ||
+                        img.Category?.ToLower().Contains(searchText) == true
+                    );
+
+                // 更新UI
+                Images.Clear();
+                foreach (var imageInfo in allImages)
+                {
+                    await LoadImageToUI(imageInfo);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HandyControl.Controls.Growl.Error($"搜索时出错：{ex.Message}");
+            }
+        }
         }
     }

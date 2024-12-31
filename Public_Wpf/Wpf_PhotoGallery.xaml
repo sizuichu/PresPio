@@ -54,7 +54,9 @@
 
             <hc:SearchBar Grid.Column="1"
                 Style="{StaticResource SearchBarPlus}"
-                hc:InfoElement.Placeholder="搜索图片"/>
+                hc:InfoElement.Placeholder="搜索图片"
+                TextChanged="SearchBar_TextChanged"
+                IsRealTime="True"/>
 
             <!-- 颜色筛选区域 -->
             <StackPanel Grid.Column="2" 
