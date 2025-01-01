@@ -6757,8 +6757,8 @@ namespace PresPio
 
         private void button212_Click(object sender, RibbonControlEventArgs e)
             {
-            PresPio.Public_Wpf.Wpf_PhotoGallery wpf_PhotoGallery= new PresPio.Public_Wpf.Wpf_PhotoGallery();
-            wpf_PhotoGallery.Show();
+            PresPio.Public_Wpf.Wpf_MaterialExport wpf_MaterialExport=new Public_Wpf.Wpf_MaterialExport(app);
+            wpf_MaterialExport.Show();
             }
 
         private void button114_Click_2(object sender, RibbonControlEventArgs e)

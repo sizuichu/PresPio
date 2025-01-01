@@ -567,6 +567,9 @@
     <Compile Include="Public_Wpf\Wpf_Polygon.xaml.cs">
       <DependentUpon>Wpf_Polygon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Public_Wpf\Wpf_MaterialExport.xaml.cs">
+      <DependentUpon>Wpf_MaterialExport.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Public_Customize\Con_TextTools.resx">
       <DependentUpon>Con_TextTools.cs</DependentUpon>
     </EmbeddedResource>
@@ -1010,6 +1013,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Public_Wpf\Wpf_Polygon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Public_Wpf\Wpf_MaterialExport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
