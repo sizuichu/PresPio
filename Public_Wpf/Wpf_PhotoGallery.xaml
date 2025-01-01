@@ -7,7 +7,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:PresPio.Public_Wpf"
              mc:Ignorable="d" 
-             Title="图片管理器"
+             Title="图片仓库"
              Height="760" Width="1200"
              WindowStartupLocation="CenterScreen"
              Background="{DynamicResource RegionBrush}">
@@ -251,6 +251,32 @@
                                     MouseLeftButtonDown="Image_Click"
                                     MouseMove="Image_MouseMove"
                                     MaxWidth="300">
+                                <hc:Card.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="插入到PPT" Click="InsertToPPT_Click">
+                                            <MenuItem.Icon>
+                                                <iconPacks:PackIconBootstrapIcons Kind="FileEarmarkPpt" 
+                                                                                Width="16" 
+                                                                                Height="16"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="复制图片" Click="CopyImage_Click">
+                                            <MenuItem.Icon>
+                                                <iconPacks:PackIconBootstrapIcons Kind="Clipboard" 
+                                                                                Width="16" 
+                                                                                Height="16"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <Separator/>
+                                        <MenuItem Header="在资源管理器中显示" Click="ShowInExplorer_Click">
+                                            <MenuItem.Icon>
+                                                <iconPacks:PackIconBootstrapIcons Kind="Folder" 
+                                                                                Width="16" 
+                                                                                Height="16"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </hc:Card.ContextMenu>
                                 <hc:Card.RenderTransform>
                                     <ScaleTransform x:Name="ImageScale" ScaleX="1" ScaleY="1"/>
                                 </hc:Card.RenderTransform>
@@ -387,17 +413,10 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="图片标签" 
                                          FontWeight="Bold"
                                          VerticalAlignment="Center"/>
-                                <Button Grid.Column="1"
-                                        Content="管理标签"
-                                        Style="{StaticResource ButtonInfo}"
-                                        Height="24"
-                                        Padding="8,0"
-                                        Click="ManageTags_Click"/>
                             </Grid>
 
                             <!-- 标签输入区域 -->
