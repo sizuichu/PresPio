@@ -9,6 +9,7 @@
              mc:Ignorable="d" 
              Title="图片仓库"
              Height="760" Width="1200"
+           Topmost="True"
              WindowStartupLocation="CenterScreen"
              Background="{DynamicResource RegionBrush}">
     <hc:Window.Resources>
