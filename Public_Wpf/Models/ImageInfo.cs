@@ -26,6 +26,7 @@ namespace PresPio.Public_Wpf.Models
     {
         public string ColorHex { get; set; }
         public double Percentage { get; set; }
+        public (double H, double S, double L) Hsl { get; set; }
     }
 
     public class CategoryInfo

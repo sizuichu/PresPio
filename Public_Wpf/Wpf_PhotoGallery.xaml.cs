@@ -2191,11 +2191,18 @@ namespace PresPio.Public_Wpf
             }
         }
 
-        private async void FilterByColor(Color color, double tolerance = 30)
+        private async void FilterByColor(Color selectedColor)
         {
             try
             {
                 if (string.IsNullOrEmpty(currentFolderPath)) return;
+
+                // 将选中的颜色转换为 HSL
+                var selectedColorInfo = new Models.ColorInfo 
+                { 
+                    ColorHex = $"#{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}",
+                    Hsl = ColorAnalyzer.RgbToHsl(selectedColor.R, selectedColor.G, selectedColor.B)
+                };
 
                 // 获取当前文件夹中的所有图片
                 var allImages = Directory.GetFiles(currentFolderPath)
@@ -2208,9 +2215,23 @@ namespace PresPio.Public_Wpf
                 var filteredImages = allImages.Where(img => 
                     img.DominantColors.Any(c => 
                     {
-                        var dominantColor = (Color)ColorConverter.ConvertFromString(c.ColorHex);
-                        return IsColorInSameFamily(dominantColor, color, tolerance);
-                    })).ToList();
+                        // 将颜色字符串转换为HSL
+                        var hsl = ColorAnalyzer.RgbToHsl(
+                            Convert.ToInt32(c.ColorHex.Substring(1, 2), 16),
+                            Convert.ToInt32(c.ColorHex.Substring(3, 2), 16),
+                            Convert.ToInt32(c.ColorHex.Substring(5, 2), 16)
+                        );
+                        
+                        var colorInfo = new Models.ColorInfo 
+                        { 
+                            ColorHex = c.ColorHex,
+                            Hsl = hsl,
+                            Percentage = c.Percentage
+                        };
+
+                        return ColorAnalyzer.AreColorsSimilar(colorInfo, selectedColorInfo);
+                    })
+                ).ToList();
 
                 // 更新UI
                 Images.Clear();
@@ -2219,93 +2240,24 @@ namespace PresPio.Public_Wpf
                     await LoadImageToUI(imageInfo);
                 }
 
-                HandyControl.Controls.Growl.Info($"找到 {filteredImages.Count} 张包含所选颜色的图片");
-            }
+                // 获取选中颜色最接近的标准颜色名称
+                var standardColorName = ColorAnalyzer.GetClosestStandardColor(selectedColorInfo);
+                   }
             catch (Exception ex)
             {
                 HandyControl.Controls.Growl.Error($"颜色筛选时出错：{ex.Message}");
             }
         }
 
-        private bool IsColorInSameFamily(Color color, double targetH, double targetS, double targetL)
+        private bool IsColorSimilar(Color c1, Color c2, double tolerance)
         {
-            GetHSL(color, out double h, out double s, out double l);
+            // 计算RGB分量的差异
+            double rDiff = Math.Abs(c1.R - c2.R);
+            double gDiff = Math.Abs(c1.G - c2.G);
+            double bDiff = Math.Abs(c1.B - c2.B);
 
-            // 色相差异（考虑360度循环）
-            double hueDiff = Math.Min(Math.Abs(h - targetH), 360 - Math.Abs(h - targetH));
-            
-            // 根据不同颜色系列调整容差
-            double hueThreshold = 45.0;  // 扩大色相容差到45度
-            double satThreshold = 0.4;   // 扩大饱和度容差到40%
-            double lightThreshold = 0.4; // 扩大亮度容差到40%
-
-            // 特殊处理：对于低饱和度的颜色（接近黑白灰）
-            if (targetS < 0.2)
-            {
-                // 对于低饱和度的颜色，主要考虑饱和度和亮度
-                return s < 0.2 && Math.Abs(l - targetL) <= lightThreshold;
-            }
-
-            // 特殊处理：对于高亮度的颜色（接近白色）
-            if (targetL > 0.9)
-            {
-                return l > 0.9;
-            }
-
-            // 特殊处理：对于低亮度的颜色（接近黑色）
-            if (targetL < 0.1)
-            {
-                return l < 0.1;
-            }
-
-            // 根据不同色相范围调整容差
-            if (IsRedFamily(targetH))
-            {
-                // 红色系（包括粉红色）的色相范围更大
-                return (hueDiff <= 60.0 || hueDiff >= 300.0) &&
-                       Math.Abs(s - targetS) <= satThreshold &&
-                       Math.Abs(l - targetL) <= lightThreshold;
-            }
-            else if (IsYellowFamily(targetH))
-            {
-                // 黄色系（包括橙色）的容差也较大
-                hueThreshold = 50.0;
-            }
-            else if (IsGreenFamily(targetH))
-            {
-                // 绿色系的容差适中
-                hueThreshold = 45.0;
-            }
-            else if (IsBlueFamily(targetH))
-            {
-                // 蓝色系（包括青色）的容差较大
-                hueThreshold = 50.0;
-            }
-
-            // 对于正常颜色，综合考虑色相、饱和度和亮度
-            return hueDiff <= hueThreshold &&
-                   Math.Abs(s - targetS) <= satThreshold &&
-                   Math.Abs(l - targetL) <= lightThreshold;
-        }
-
-        private bool IsRedFamily(double hue)
-        {
-            return hue <= 30 || hue >= 330;
-        }
-
-        private bool IsYellowFamily(double hue)
-        {
-            return hue > 30 && hue <= 90;
-        }
-
-        private bool IsGreenFamily(double hue)
-        {
-            return hue > 90 && hue <= 150;
-        }
-
-        private bool IsBlueFamily(double hue)
-        {
-            return hue > 150 && hue <= 270;
+            // 如果任何一个分量的差异超过容差，则认为颜色不相似
+            return rDiff <= tolerance && gDiff <= tolerance && bDiff <= tolerance;
         }
 
         private void ColorFilter_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)

@@ -25,6 +25,7 @@
             <DropShadowEffect x:Key="EffectShadow" BlurRadius="5" ShadowDepth="1" Direction="315" Color="#88000000"/>
         </ResourceDictionary>
     </hc:Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -35,28 +36,27 @@
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <!-- 设置按钮 -->
-            <Button Grid.Column="0"
-                    Style="{StaticResource ButtonIcon}"
+            <Button Style="{StaticResource ButtonIcon}"
                     hc:IconElement.Geometry="{StaticResource SettingGeometry}"
                     Width="32"
                     Height="32"
-                    Margin="0,0,10,0"
                     Background="#00BCD4"
                     Foreground="White"
                     Click="OpenSettings_Click"
-           
                     ToolTip="设置仓库"/>
 
+            <!-- 搜索框 -->
             <hc:SearchBar Grid.Column="1"
-                Style="{StaticResource SearchBarPlus}"
-                hc:InfoElement.Placeholder="搜索图片"
-                TextChanged="SearchBar_TextChanged"
-                IsRealTime="True"/>
+                         Style="{StaticResource SearchBarPlus}"
+                         hc:InfoElement.Placeholder="搜索图片"
+                         TextChanged="SearchBar_TextChanged"
+                         IsRealTime="True"
+                         Margin="10,0,15,0"/>
 
             <!-- 颜色筛选区域 -->
             <StackPanel Grid.Column="2" 
@@ -89,210 +89,42 @@
                     </ItemsControl.Resources>
                     <ItemsControl.Items>
                         <!-- 红色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFE74C3C"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFc0392b"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFff6b6b"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FFE74C3C" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FFc0392b" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FFff6b6b" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 橙色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFe67e22"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFd35400"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FFe67e22" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FFd35400" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 黄色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFF1C40F"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFf39c12"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FFF1C40F" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FFf39c12" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 绿色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF2ECC71"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF27ae60"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF00b894"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FF2ECC71" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FF27ae60" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FF00b894" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 青色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF00cec9"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF81ecec"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FF00cec9" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FF81ecec" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 蓝色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF3498DB"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF2980b9"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF74b9ff"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FF3498DB" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FF2980b9" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FF74b9ff" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 紫色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF9B59B6"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF8e44ad"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFa29bfe"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FF9B59B6" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FF8e44ad" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FFa29bfe" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 粉色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFfd79a8"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FFe84393"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FFfd79a8" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FFe84393" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 棕色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF795548"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF6D4C41"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FF795548" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FF6D4C41" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 灰色系 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF95a5a6"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF7f8c8d"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-
+                        <Border Width="24" Height="24" Background="#FF95a5a6" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FF7f8c8d" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                         <!-- 黑白色 -->
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="#FF2C3E50"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
-                        <Border Width="24" 
-                                Height="24" 
-                                Background="White"
-                                BorderBrush="#FFCCCCCC"
-                                BorderThickness="1"
-                                CornerRadius="4"
-                                Margin="0,0,4,0"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="#FF2C3E50" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
+                        <Border Width="24" Height="24" Background="White" BorderBrush="#FFCCCCCC" BorderThickness="1" CornerRadius="4" Margin="0,0,4,0" Cursor="Hand" MouseLeftButtonDown="ColorFilter_Click"/>
                     </ItemsControl.Items>
                 </ItemsControl>
             </StackPanel>
@@ -319,6 +151,10 @@
                             <TextBlock Text="分类管理" 
                                      FontSize="16" 
                                      FontWeight="Bold"/>
+                            <Button Grid.Column="1"
+                                    Style="{StaticResource ButtonInfo}"
+                                    Content="添加"
+                                    Click="AddCategory_Click"/>
                         </Grid>
 
                         <!-- 添加分类输入框 -->
@@ -330,14 +166,10 @@
                             <TextBox x:Name="NewCategoryInput"
                                     hc:InfoElement.Placeholder="输入新分类名称"
                                     Margin="0,0,5,0"/>
-                            <Button Grid.Column="1"
-                                    Style="{StaticResource ButtonInfo}"
-                                    Content="添加"
-                                    Click="AddCategory_Click"/>
                         </Grid>
 
-                        <TreeView x:Name="CategoryTreeView"
-                                 BorderThickness="0" 
+                        <TreeView x:Name="CategoryTreeView" 
+                                 BorderThickness="0"
                                  Background="Transparent"
                                  MaxHeight="500"
                                  AllowDrop="True"
@@ -361,49 +193,6 @@
                                     </StackPanel>
                                 </TreeViewItem.Header>
                             </TreeViewItem>
-                            <TreeViewItem IsExpanded="True">
-                                <TreeViewItem.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconBootstrapIcons Kind="TagsFill" 
-                                                                        Width="16" 
-                                                                        Height="16"
-                                                                        Margin="0,0,8,0"
-                                                                        Foreground="{DynamicResource PrimaryBrush}"
-                                                                        VerticalAlignment="Center"/>
-                                        <TextBlock Text="图片分类" 
-                                                 FontWeight="Bold"
-                                                 VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </TreeViewItem.Header>
-                                <TreeViewItem.ItemsSource>
-                                    <CompositeCollection>
-                                        <CollectionContainer Collection="{Binding Source={x:Reference CategoryList}, Path=ItemsSource}"/>
-                                    </CompositeCollection>
-                                </TreeViewItem.ItemsSource>
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <StackPanel Orientation="Horizontal">
-                                                <iconPacks:PackIconBootstrapIcons Kind="Folder" 
-                                                                                Width="16" 
-                                                                                Height="16"
-                                                                                Margin="0,0,8,0"
-                                                                                Foreground="{DynamicResource SecondaryBrush}"
-                                                                                VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Name}" 
-                                                         VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                            <TextBlock Grid.Column="1" 
-                                                     Text="{Binding ImageCount}"
-                                                     Foreground="{DynamicResource PrimaryTextBrush}"/>
-                                        </Grid>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
                         </TreeView>
 
                         <!-- 保持原有的ListBox作为数据源，但隐藏它 -->
@@ -419,7 +208,6 @@
                                  FontSize="16" 
                                  FontWeight="Bold" 
                                  Margin="0,0,0,10"/>
-
                         <ScrollViewer MaxHeight="200" 
                                     VerticalScrollBarVisibility="Auto">
                             <ItemsControl x:Name="FilterTagsControl">
@@ -436,8 +224,7 @@
                                                Content="{Binding Name}"
                                                BorderThickness="0"
                                                Padding="8,4"
-                                               MouseLeftButtonDown="FilterTag_Click">
-                                        </hc:Tag>
+                                               MouseLeftButtonDown="FilterTag_Click"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -445,119 +232,6 @@
                     </StackPanel>
                 </hc:Card>
             </StackPanel>
-
-            <!-- 设置抽屉 -->
-            <hc:Drawer Name="SettingsDrawer"
-                       Dock="Left"
-                       ShowMode="Push"
-                       MaskCanClose="True" RenderTransformOrigin="0.517,0.477">
-                <Border Background="{DynamicResource RegionBrush}" 
-                        Width="300"
-                        BorderThickness="0,0,1,0"
-                        BorderBrush="{DynamicResource BorderBrush}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel Margin="10">
-                            <hc:Card Margin="0,0,0,10">
-                                <StackPanel Margin="10">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Text="图库设置" 
-                                                 FontSize="16" 
-                                                 FontWeight="Bold"/>
-                                        <Button Grid.Column="1"
-                                                Style="{StaticResource ButtonIcon}"
-                                                Foreground="{DynamicResource PrimaryTextBrush}"
-                                                Click="CloseDrawer_Click">
-                                            <iconPacks:PackIconBootstrapIcons Kind="X"
-                                                                            Width="16"
-                                                                            Height="16"/>
-                                        </Button>
-                                    </Grid>
-
-                                    <Button Content="选择图库路径" 
-                                            x:Name="SelectFolderButton"
-                                            Style="{StaticResource ButtonInfo}"
-                                            Height="35"
-                                            Margin="0,10,0,10"/>
-                                    <TextBlock Text="当前路径:" Margin="0,0,0,5"/>
-                                    <TextBlock x:Name="FolderPathText"
-                                             Text="未设置" 
-                                             TextWrapping="Wrap"
-                                             Foreground="{DynamicResource BorderBrush}"/>
-
-                                    <!-- 路径状态指示器 -->
-                                    <StackPanel Orientation="Horizontal" 
-                                              Margin="0,5,0,0">
-                                        <iconPacks:PackIconBootstrapIcons x:Name="PathStatusIcon"
-                                                                        Kind="CheckCircleFill"
-                                                                        Width="16"
-                                                                        Height="16"
-                                                                        Margin="0,0,5,0"
-                                                                        Foreground="{DynamicResource SuccessBrush}"/>
-                                        <TextBlock x:Name="PathStatusText"
-                                                 Text="路径有效"
-                                                 Foreground="{DynamicResource SuccessBrush}"/>
-                                    </StackPanel>
-
-                                    <!-- 路径操作按钮 -->
-                                    <UniformGrid Columns="2" Margin="0,10,0,0">
-                                        <Button Content="验证" 
-                                                x:Name="ValidatePathButton"
-                                                Style="{StaticResource ButtonSuccess}"
-                                                Height="30"
-                                                Margin="0,0,5,0"
-                                                Click="ValidatePath_Click"/>
-                                        <Button Content="重置" 
-                                                x:Name="ResetPathButton"
-                                                Style="{StaticResource ButtonWarning}"
-                                                Height="30"
-                                                Margin="5,0,0,0"
-                                                Click="ResetPath_Click"/>
-                                    </UniformGrid>
-
-                                    <!-- 多路径管理 -->
-                                    <Expander Header="多路径管理" 
-                                             Margin="0,10,0,0">
-                                        <StackPanel>
-                                            <ListBox x:Name="PathListBox"
-                                                    MaxHeight="150"
-                                                    Margin="0,5">
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Grid>
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                            </Grid.ColumnDefinitions>
-                                                            <TextBlock Text="{Binding Path}"
-                                                                     TextWrapping="Wrap"/>
-                                                            <Button Grid.Column="1"
-                                                                    Content="×"
-                                                                    Style="{StaticResource ButtonDanger}"
-                                                                    Height="24"
-                                                                    Width="24"
-                                                                    Padding="0"
-                                                                    Margin="5,0,0,0"
-                                                                    Click="RemovePath_Click"/>
-                                                        </Grid>
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
-                                            <Button Content="添加路径"
-                                                    Style="{StaticResource ButtonInfo}"
-                                                    Height="30"
-                                                    Click="AddPath_Click"/>
-                                        </StackPanel>
-                                    </Expander>
-                                </StackPanel>
-                            </hc:Card>
-                        </StackPanel>
-                    </ScrollViewer>
-                </Border>
-            </hc:Drawer>
 
             <!-- 中间瀑布流图片展示区 -->
             <hc:ScrollViewer Grid.Column="1" 
@@ -571,7 +245,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <hc:Card Effect="{StaticResource EffectShadow2}" 
+                            <hc:Card Effect="{StaticResource EffectShadow}" 
                                     Margin="5"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="Image_Click"
@@ -649,7 +323,7 @@
             <!-- 右侧图片信息展示区 -->
             <hc:Card Grid.Column="2" 
                      Margin="10,10,10,10"
-                     Effect="{StaticResource EffectShadow1}">
+                     Effect="{StaticResource EffectShadow}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="15">
                         <TextBlock Text="图片信息" 
@@ -657,8 +331,7 @@
                                  FontWeight="Bold"
                                  Margin="0,0,0,15"/>
 
-                        <Image Source="/Resources/placeholder.jpg"
-                               x:Name="ImagePreview"
+                        <Image x:Name="ImagePreview"
                                Height="200"
                                Stretch="Uniform"
                                Margin="0,0,0,15"/>
@@ -678,35 +351,30 @@
 
                             <TextBlock Text="文件名：" Grid.Row="0" Grid.Column="0" Margin="0,0,10,5"/>
                             <TextBlock x:Name="FileNameText" 
-                                     Text="示例图片.jpg" 
                                      Grid.Row="0" 
                                      Grid.Column="1" 
                                      Margin="0,0,0,5"/>
 
                             <TextBlock Text="大小：" Grid.Row="1" Grid.Column="0" Margin="0,0,10,5"/>
                             <TextBlock x:Name="FileSizeText"
-                                     Text="1.2 MB" 
                                      Grid.Row="1" 
                                      Grid.Column="1" 
                                      Margin="0,0,0,5"/>
 
                             <TextBlock Text="尺寸：" Grid.Row="2" Grid.Column="0" Margin="0,0,10,5"/>
                             <TextBlock x:Name="DimensionsText"
-                                     Text="1920 x 1080" 
                                      Grid.Row="2" 
                                      Grid.Column="1" 
                                      Margin="0,0,0,5"/>
 
                             <TextBlock Text="创建时间：" Grid.Row="3" Grid.Column="0" Margin="0,0,10,5"/>
                             <TextBlock x:Name="CreationTimeText"
-                                     Text="2024-01-01 12:00:00" 
                                      Grid.Row="3" 
                                      Grid.Column="1" 
                                      Margin="0,0,0,5"/>
 
                             <TextBlock Text="修改时间：" Grid.Row="4" Grid.Column="0" Margin="0,0,10,5"/>
                             <TextBlock x:Name="ModificationTimeText"
-                                     Text="2024-01-01 12:00:00" 
                                      Grid.Row="4" 
                                      Grid.Column="1" 
                                      Margin="0,0,0,5"/>
@@ -763,12 +431,11 @@
                                                Background="{Binding Color}"
                                                Foreground="White"
                                                Content="{Binding Name}"
-                                               Effect="{StaticResource EffectShadow2}"
+                                               Effect="{StaticResource EffectShadow}"
                                                BorderThickness="0"
                                                Padding="8,4"
                                                ShowCloseButton="True"
-                                               PreviewMouseLeftButtonDown="RemoveTagFromImage_Click">
-                                        </hc:Tag>
+                                               PreviewMouseLeftButtonDown="RemoveTagFromImage_Click"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -788,12 +455,11 @@
                                                Background="{Binding Color}"
                                                Foreground="White"
                                                Content="{Binding Name}"
-                                               Effect="{StaticResource EffectShadow2}"
+                                               Effect="{StaticResource EffectShadow}"
                                                BorderThickness="0"
                                                Padding="8,4"
                                                Cursor="Hand"
-                                               MouseLeftButtonDown="CommonTag_Click">
-                                        </hc:Tag>
+                                               MouseLeftButtonDown="CommonTag_Click"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -830,6 +496,118 @@
                 </ScrollViewer>
             </hc:Card>
         </Grid>
+
+        <!-- 设置抽屉 -->
+        <hc:Drawer Name="SettingsDrawer"
+                   Grid.RowSpan="2"
+                   Dock="Left"
+                   ShowMode="Push"
+                   MaskCanClose="True">
+            <Border Background="{DynamicResource RegionBrush}" 
+                    Width="300"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="{DynamicResource BorderBrush}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <hc:Card Margin="0,0,0,10">
+                            <StackPanel Margin="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="图库设置" 
+                                             FontSize="16" 
+                                             FontWeight="Bold"/>
+                                    <Button Grid.Column="1"
+                                            Style="{StaticResource ButtonIcon}"
+                                            Foreground="{DynamicResource PrimaryTextBrush}"
+                                            Click="CloseDrawer_Click">
+                                        <iconPacks:PackIconBootstrapIcons Kind="X"
+                                                                        Width="16"
+                                                                        Height="16"/>
+                                    </Button>
+                                </Grid>
+
+                                <Button x:Name="SelectFolderButton"
+                                        Content="选择图库路径" 
+                                        Style="{StaticResource ButtonInfo}"
+                                        Height="35"
+                                        Margin="0,10,0,10"/>
+                                <TextBlock Text="当前路径:" Margin="0,0,0,5"/>
+                                <TextBlock x:Name="FolderPathText"
+                                         Text="未设置" 
+                                         TextWrapping="Wrap"
+                                         Foreground="{DynamicResource BorderBrush}"/>
+
+                                <!-- 路径状态指示器 -->
+                                <StackPanel Orientation="Horizontal" 
+                                          Margin="0,5,0,0">
+                                    <iconPacks:PackIconBootstrapIcons x:Name="PathStatusIcon"
+                                                                    Kind="CheckCircleFill"
+                                                                    Width="16"
+                                                                    Height="16"
+                                                                    Margin="0,0,5,0"
+                                                                    Foreground="{DynamicResource SuccessBrush}"/>
+                                    <TextBlock x:Name="PathStatusText"
+                                             Text="路径有效"
+                                             Foreground="{DynamicResource SuccessBrush}"/>
+                                </StackPanel>
+
+                                <!-- 路径操作按钮 -->
+                                <UniformGrid Columns="2" Margin="0,10,0,0">
+                                    <Button Content="验证" 
+                                            Style="{StaticResource ButtonSuccess}"
+                                            Height="30"
+                                            Margin="0,0,5,0"
+                                            Click="ValidatePath_Click"/>
+                                    <Button Content="重置" 
+                                            Style="{StaticResource ButtonWarning}"
+                                            Height="30"
+                                            Margin="5,0,0,0"
+                                            Click="ResetPath_Click"/>
+                                </UniformGrid>
+
+                                <!-- 多路径管理 -->
+                                <Expander Header="多路径管理" 
+                                         Margin="0,10,0,0">
+                                    <StackPanel>
+                                        <ListBox x:Name="PathListBox"
+                                                MaxHeight="150"
+                                                Margin="0,5">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="{Binding Path}"
+                                                                 TextWrapping="Wrap"/>
+                                                        <Button Grid.Column="1"
+                                                                Content="×"
+                                                                Style="{StaticResource ButtonDanger}"
+                                                                Height="24"
+                                                                Width="24"
+                                                                Padding="0"
+                                                                Margin="5,0,0,0"
+                                                                Click="RemovePath_Click"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                        <Button Content="添加路径"
+                                                Style="{StaticResource ButtonInfo}"
+                                                Height="30"
+                                                Click="AddPath_Click"/>
+                                    </StackPanel>
+                                </Expander>
+                            </StackPanel>
+                        </hc:Card>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </hc:Drawer>
 
         <!-- 加载遮罩 -->
         <Grid x:Name="LoadingMask" 
