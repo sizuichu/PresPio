@@ -20,6 +20,7 @@ using A = DocumentFormat.OpenXml.Drawing;
 using System.Windows.Media;
 using System.Windows.Threading;
 using ProgressBar = System.Windows.Controls.ProgressBar;
+using System.Collections.Generic;
 
 namespace PresPio.Public_Wpf
 {
@@ -27,16 +28,32 @@ namespace PresPio.Public_Wpf
     {
         private ObservableCollection<MaterialItem> Materials { get; set; }
         private ObservableCollection<MaterialItem> FilteredMaterials { get; set; }
-        private PowerPoint.Application pptApplication;
+        private readonly PowerPoint.Application pptApplication;
         private PowerPoint.Presentation activePresentation;
         private string tempFolder;
-        private bool isExternalPptApp = true;  // 标记是否是外部传入的PowerPoint应用程序
+        private bool isExternalPptApp = true;
+        private bool isClosing = false;
 
         public Wpf_MaterialExport(PowerPoint.Application app)
         {
+            if (app == null)
+            {
+                throw new ArgumentNullException(nameof(app), "PowerPoint应用程序对象不能为空");
+            }
+
+            try
+            {
+                // 验证PowerPoint应用程序是否可用
+                var test = app.ActivePresentation;
+                pptApplication = app;
+                isExternalPptApp = true;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("PowerPoint应用程序对象无效或已关闭", ex);
+            }
+
             InitializeComponent();
-            pptApplication = app;
-            isExternalPptApp = true;
 
             // 创建临时文件夹
             tempFolder = Path.Combine(Path.GetTempPath(), "PresPio_Export_" + Guid.NewGuid().ToString());
@@ -63,9 +80,19 @@ namespace PresPio.Public_Wpf
             btnExport.Click += BtnExport_Click;
             btnCancel.Click += BtnCancel_Click;
             cmbExportType.SelectionChanged += CmbExportType_SelectionChanged;
+            cmbPageRange.SelectionChanged += CmbPageRange_SelectionChanged;
+            txtCustomPages.TextChanged += TxtCustomPages_TextChanged;
+            lvMaterials.SelectionChanged += LvMaterials_SelectionChanged;
+
+            // 媒体控件事件
+            btnPlay.Click += BtnPlay_Click;
+            btnPause.Click += BtnPause_Click;
+            btnStop.Click += BtnStop_Click;
+            mediaPreview.MediaEnded += MediaPreview_MediaEnded;
 
             // 设置默认选项
             cmbExportType.SelectedIndex = 0;
+            cmbPageRange.SelectedIndex = 0;
 
             // 加载素材列表
             LoadMaterials();
@@ -87,25 +114,12 @@ namespace PresPio.Public_Wpf
 
         private async void LoadMaterials()
         {
+            if (isClosing) return;
+
             try
             {
                 Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                 ShowProgress(true, "正在加载素材...", 0);
-
-                if (pptApplication == null)
-                {
-                    try
-                    {
-                        // 如果没有传入PowerPoint应用程序，尝试获取当前运行的实例
-                        pptApplication = Marshal.GetActiveObject("PowerPoint.Application") as PowerPoint.Application;
-                        isExternalPptApp = false;
-                    }
-                    catch
-                    {
-                        MessageBox.Show("无法获取PowerPoint应用程序", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                }
 
                 try
                 {
@@ -137,6 +151,12 @@ namespace PresPio.Public_Wpf
                         currentSlide++;
                         ShowProgress(true, $"正在处理幻灯片 ({currentSlide}/{totalSlides})", (currentSlide / (double)totalSlides) * 100);
 
+                        // 检查是否应该包含当前幻灯片
+                        if (!ShouldIncludeSlide(slide.SlideNumber))
+                        {
+                            continue;
+                        }
+
                         foreach (PowerPoint.Shape shape in slide.Shapes)
                         {
                             try
@@ -151,108 +171,132 @@ namespace PresPio.Public_Wpf
                                         string fileName = $"image_{Guid.NewGuid()}.png";
                                         string tempFilePath = Path.Combine(tempFolder, fileName);
                                         
-                                        // 导出图片
+                                        // 尝试获取原始文件路径
+                                        string originalPath = "";
                                         try
                                         {
+                                            if (shape.LinkFormat != null)
+                                            {
+                                                originalPath = shape.LinkFormat.SourceFullName;
+                                            }
+                                        }
+                                        catch { }
+
+                                        // 如果有原始文件，直接复制
+                                        if (!string.IsNullOrEmpty(originalPath) && File.Exists(originalPath))
+                                        {
+                                            File.Copy(originalPath, tempFilePath, true);
+                                        }
+                                        else // 否则导出图片
+                                        {
                                             shape.Export(tempFilePath, PowerPoint.PpShapeFormat.ppShapeFormatPNG);
-                                            
-                                            // 确保文件已经被创建
+                                        }
+                                        
+                                        // 确保文件已经被创建
+                                        if (File.Exists(tempFilePath))
+                                        {
+                                            item = new MaterialItem
+                                            {
+                                                Name = string.IsNullOrEmpty(shape.Name) ? fileName : shape.Name,
+                                                Type = "图片",
+                                                FilePath = tempFilePath,
+                                                CreateTime = DateTime.Now,
+                                                SlideNumber = slide.SlideNumber
+                                            };
+
+                                            // 生成缩略图
+                                            await GenerateThumbnail(item);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        System.Diagnostics.Debug.WriteLine($"导出图片失败: {ex.Message}");
+                                        continue;
+                                    }
+                                }
+                                // 处理媒体（视频和音频）
+                                else if (shape.Type == MsoShapeType.msoMedia || shape.Type == MsoShapeType.msoLinkedOLEObject || 
+                                        shape.Type == MsoShapeType.msoEmbeddedOLEObject)
+                                {
+                                    string mediaType = "未知";
+                                    string extension = ".mp4"; // 默认扩展名
+                                    string originalPath = "";
+
+                                    try
+                                    {
+                                        // 尝试从不同属性获取媒体信息
+                                        if (shape.OLEFormat != null)
+                                        {
+                                            string progID = shape.OLEFormat.ProgID ?? "";
+                                            if (progID.Contains("Video") || progID.Contains("Media"))
+                                            {
+                                                mediaType = "视频";
+                                            }
+                                            else if (progID.Contains("Audio") || progID.Contains("Sound"))
+                                            {
+                                                mediaType = "音频";
+                                            }
+                                        }
+
+                                        // 尝试获取原始文件路径
+                                        try
+                                        {
+                                            if (shape.LinkFormat != null)
+                                            {
+                                                originalPath = shape.LinkFormat.SourceFullName;
+                                            }
+                                        }
+                                        catch { }
+
+                                        // 如果还未确定类型，尝试从名称判断
+                                        if (mediaType == "未知")
+                                        {
+                                            string name = shape.Name.ToLower();
+                                            if (name.Contains("video") || name.EndsWith(".mp4") || name.EndsWith(".avi") || 
+                                                name.EndsWith(".wmv") || name.EndsWith(".mov"))
+                                            {
+                                                mediaType = "视频";
+                                                extension = GetExtensionFromName(name);
+                                            }
+                                            else if (name.Contains("audio") || name.EndsWith(".mp3") || name.EndsWith(".wav") || 
+                                                     name.EndsWith(".wma"))
+                                            {
+                                                mediaType = "音频";
+                                                extension = GetExtensionFromName(name);
+                                            }
+                                        }
+
+                                        if (mediaType != "未知")
+                                        {
+                                            string fileName = $"{mediaType}_{Guid.NewGuid()}{extension}";
+                                            string tempFilePath = Path.Combine(tempFolder, fileName);
+
+                                            // 如果有原始文件，直接复制
+                                            if (!string.IsNullOrEmpty(originalPath) && File.Exists(originalPath))
+                                            {
+                                                File.Copy(originalPath, tempFilePath, true);
+                                            }
+                                            else // 尝试导出
+                                            {
+                                                try
+                                                {
+                                                    shape.Export(tempFilePath, PowerPoint.PpShapeFormat.ppShapeFormatPNG);
+                                                }
+                                                catch
+                                                {
+                                                    continue;
+                                                }
+                                            }
+
                                             if (File.Exists(tempFilePath))
                                             {
                                                 item = new MaterialItem
                                                 {
                                                     Name = string.IsNullOrEmpty(shape.Name) ? fileName : shape.Name,
-                                                    Type = "图片",
+                                                    Type = mediaType,
                                                     FilePath = tempFilePath,
                                                     CreateTime = DateTime.Now,
                                                     SlideNumber = slide.SlideNumber
-                                                };
-
-                                                // 生成缩略图
-                                                await GenerateThumbnail(item);
-                                            }
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            System.Diagnostics.Debug.WriteLine($"导出图片失败: {ex.Message}");
-                                            continue;
-                                        }
-                                    }
-                                    catch
-                                    {
-                                        continue;
-                                    }
-                                }
-                                // 处理媒体（视频和音频）
-                                else if (shape.Type == MsoShapeType.msoMedia)
-                                {
-                                    string mediaType = "未知";
-                                    string extension = ".mp4"; // 默认扩展名
-
-                                    try
-                                    {
-                                        PowerPoint.MediaFormat mediaFormat = null;
-                                        try
-                                        {
-                                            mediaFormat = shape.MediaFormat;
-                                        }
-                                        catch
-                                        {
-                                            continue; // 如果无法获取MediaFormat，跳过此项
-                                        }
-
-                                        if (mediaFormat != null)
-                                        {
-                                            // 尝试从OLEFormat获取信息
-                                            if (shape.OLEFormat != null)
-                                            {
-                                                string progID = shape.OLEFormat.ProgID ?? "";
-                                                
-                                                // 根据ProgID判断媒体类型
-                                                if (progID.Contains("Video"))
-                                                {
-                                                    mediaType = "视频";
-                                                    extension = ".mp4";
-                                                }
-                                                else if (progID.Contains("Audio") || progID.Contains("Sound"))
-                                                {
-                                                    mediaType = "音频";
-                                                    extension = ".mp3";
-                                                }
-                                            }
-
-                                            // 如果还未确定类型，尝试从名称判断
-                                            if (mediaType == "未知")
-                                            {
-                                                string name = shape.Name.ToLower();
-                                                if (name.Contains("video") || name.EndsWith(".mp4") || name.EndsWith(".avi") || 
-                                                    name.EndsWith(".wmv") || name.EndsWith(".mov"))
-                                                {
-                                                    mediaType = "视频";
-                                                    extension = GetExtensionFromName(name);
-                                                }
-                                                else if (name.Contains("audio") || name.EndsWith(".mp3") || name.EndsWith(".wav") || 
-                                                         name.EndsWith(".wma"))
-                                                {
-                                                    mediaType = "音频";
-                                                    extension = GetExtensionFromName(name);
-                                                }
-                                            }
-
-                                            string fileName = $"{mediaType}_{Guid.NewGuid()}{extension}";
-                                            string tempFilePath = Path.Combine(tempFolder, fileName);
-
-                                            try
-                                            {
-                                                // 尝试导出媒体文件
-                                                shape.Export(tempFilePath, PowerPoint.PpShapeFormat.ppShapeFormatPNG);
-
-                                                item = new MaterialItem
-                                                {
-                                                    Name = shape.Name,
-                                                    Type = mediaType,
-                                                    FilePath = tempFilePath,
-                                                    CreateTime = DateTime.Now
                                                 };
 
                                                 // 设置默认缩略图
@@ -265,15 +309,12 @@ namespace PresPio.Public_Wpf
                                                     item.ThumbnailPath = "pack://application:,,,/PresPio;component/Resources/audio_thumbnail.png";
                                                 }
                                             }
-                                            catch
-                                            {
-                                                continue; // 如果导出失败，跳过此项
-                                            }
                                         }
                                     }
-                                    catch
+                                    catch (Exception ex)
                                     {
-                                        continue; // 如果无法获取媒体信息，跳过此项
+                                        System.Diagnostics.Debug.WriteLine($"处理媒体失败: {ex.Message}");
+                                        continue;
                                     }
                                 }
 
@@ -283,9 +324,9 @@ namespace PresPio.Public_Wpf
                                     await UpdateFileInfo(item);
                                 }
                             }
-                            catch
+                            catch (Exception ex)
                             {
-                                // 如果处理单个形状时出错，继续处理下一个
+                                System.Diagnostics.Debug.WriteLine($"处理形状失败: {ex.Message}");
                                 continue;
                             }
                         }
@@ -300,23 +341,35 @@ namespace PresPio.Public_Wpf
                 }
                 catch (COMException comEx)
                 {
-                    MessageBox.Show("无法访问PowerPoint演示文稿，请确保文件未被锁定且PowerPoint运行正常。", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (!isClosing)
+                    {
+                        MessageBox.Show("无法访问PowerPoint演示文稿，请确保文件未被锁定且PowerPoint运行正常。", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                     return;
                 }
                 catch (Exception ex) when (ex is InvalidCastException || ex is System.Runtime.InteropServices.InvalidComObjectException)
                 {
-                    MessageBox.Show("PowerPoint应用程序状态异常，请重新打开PowerPoint。", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (!isClosing)
+                    {
+                        MessageBox.Show("PowerPoint应用程序状态异常，请重新打开PowerPoint。", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                     return;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"加载素材时出错：{ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (!isClosing)
+                {
+                    MessageBox.Show($"加载素材时出错：{ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             finally
             {
-                ShowProgress(false);
-                Mouse.OverrideCursor = null;
+                if (!isClosing)
+                {
+                    ShowProgress(false);
+                    Mouse.OverrideCursor = null;
+                }
             }
         }
 
@@ -558,7 +611,14 @@ namespace PresPio.Public_Wpf
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
+            isClosing = true;
             this.Close();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            isClosing = true;
+            base.OnClosing(e);
         }
 
         protected override void OnClosed(EventArgs e)
@@ -570,21 +630,10 @@ namespace PresPio.Public_Wpf
             {
                 try
                 {
-                    Marshal.ReleaseComObject(activePresentation);
+                    Marshal.FinalReleaseComObject(activePresentation);
                 }
                 catch { }
                 activePresentation = null;
-            }
-
-            // 只有在不是外部传入的情况下才释放PowerPoint应用程序对象
-            if (!isExternalPptApp && pptApplication != null)
-            {
-                try
-                {
-                    Marshal.ReleaseComObject(pptApplication);
-                }
-                catch { }
-                pptApplication = null;
             }
 
             // 清理临时文件夹
@@ -611,6 +660,156 @@ namespace PresPio.Public_Wpf
             if (name.EndsWith(".wav")) return ".wav";
             if (name.EndsWith(".wma")) return ".wma";
             return ".mp4"; // 默认扩展名
+        }
+
+        private void CmbPageRange_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbPageRange.SelectedItem is ComboBoxItem selectedItem)
+            {
+                txtCustomPages.Visibility = selectedItem.Content.ToString() == "自定义页面" ? 
+                    Visibility.Visible : Visibility.Collapsed;
+                LoadMaterials();
+            }
+        }
+
+        private void TxtCustomPages_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (cmbPageRange.SelectedItem is ComboBoxItem selectedItem && 
+                selectedItem.Content.ToString() == "自定义页面")
+            {
+                LoadMaterials();
+            }
+        }
+
+        private HashSet<int> ParseCustomPages(string input)
+        {
+            var result = new HashSet<int>();
+            if (string.IsNullOrWhiteSpace(input)) return result;
+
+            try
+            {
+                var parts = input.Split(',');
+                foreach (var part in parts)
+                {
+                    if (part.Contains("-"))
+                    {
+                        var range = part.Split('-');
+                        if (range.Length == 2 && int.TryParse(range[0], out int start) && 
+                            int.TryParse(range[1], out int end))
+                        {
+                            for (int i = start; i <= end; i++)
+                            {
+                                result.Add(i);
+                            }
+                        }
+                    }
+                    else if (int.TryParse(part, out int pageNumber))
+                    {
+                        result.Add(pageNumber);
+                    }
+                }
+            }
+            catch
+            {
+                // 忽略解析错误
+            }
+
+            return result;
+        }
+
+        private void LvMaterials_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvMaterials.SelectedItem is MaterialItem selectedItem)
+            {
+                UpdatePreview(selectedItem);
+            }
+        }
+
+        private void UpdatePreview(MaterialItem item)
+        {
+            if (item == null) return;
+
+            // 更新预览标题
+            txtPreviewTitle.Text = item.Name;
+
+            // 更新详细信息
+            txtPreviewName.Text = item.Name;
+            txtPreviewType.Text = item.Type;
+            txtPreviewSize.Text = item.Size;
+            txtPreviewPath.Text = item.FilePath;
+            txtPreviewCreateTime.Text = item.CreateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            txtPreviewSlide.Text = $"第 {item.SlideNumber} 页";
+
+            // 停止当前媒体播放
+            mediaPreview.Stop();
+            mediaPreview.Source = null;
+
+            // 根据类型显示不同的预览
+            switch (item.Type)
+            {
+                case "图片":
+                    imgPreview.Source = new BitmapImage(new Uri(item.FilePath));
+                    imgPreview.Visibility = Visibility.Visible;
+                    mediaPreview.Visibility = Visibility.Collapsed;
+                    mediaControls.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "视频":
+                    mediaPreview.Source = new Uri(item.FilePath);
+                    mediaPreview.Visibility = Visibility.Visible;
+                    mediaControls.Visibility = Visibility.Visible;
+                    imgPreview.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "音频":
+                    mediaPreview.Source = new Uri(item.FilePath);
+                    mediaPreview.Visibility = Visibility.Collapsed;
+                    mediaControls.Visibility = Visibility.Visible;
+                    imgPreview.Visibility = Visibility.Visible;
+                    imgPreview.Source = new BitmapImage(new Uri(item.ThumbnailPath));
+                    break;
+            }
+        }
+
+        private void BtnPlay_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPreview.Play();
+        }
+
+        private void BtnPause_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPreview.Pause();
+        }
+
+        private void BtnStop_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPreview.Stop();
+        }
+
+        private void MediaPreview_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            mediaPreview.Position = TimeSpan.Zero;
+            mediaPreview.Play();
+        }
+
+        private bool ShouldIncludeSlide(int slideNumber)
+        {
+            if (cmbPageRange.SelectedItem is ComboBoxItem selectedItem)
+            {
+                switch (selectedItem.Content.ToString())
+                {
+                    case "当前页面":
+                        return slideNumber == pptApplication.ActiveWindow.Selection.SlideRange.SlideNumber;
+                    case "所有页面":
+                        return true;
+                    case "自定义页面":
+                        var customPages = ParseCustomPages(txtCustomPages.Text);
+                        return customPages.Contains(slideNumber);
+                    default:
+                        return true;
+                }
+            }
+            return true;
         }
     }
 
