@@ -134,9 +134,6 @@
     <Reference Include="ColorHelper, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ColorHelper.1.8.1\lib\netstandard2.0\ColorHelper.dll</HintPath>
     </Reference>
-    <Reference Include="ColorThief.Desktop.v46, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ksemenenko.ColorThief.1.1.1.4\lib\net46\ColorThief.Desktop.v46.dll</HintPath>
-    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>packages\DocumentFormat.OpenXml.3.1.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
