@@ -7643,5 +7643,73 @@ namespace PresPio
                 //System.Diagnostics.Debug.WriteLine("Sender is not a RibbonButton");
                 }
             }
+
+        private void button236_Click(object sender, RibbonControlEventArgs e)
+            {
+            var button = sender as RibbonButton;
+
+            if (button != null)
+                {
+                // 获取按钮的标签
+                string label = button.Label;
+                string url = @"https://www.volcengine.com/experience/ark";
+                Globals.ThisAddIn.ShowTaskPane(url, label, 480);
+                }
+            else
+                {
+                //System.Diagnostics.Debug.WriteLine("Sender is not a RibbonButton");
+                }
+            }
+
+        private void button237_Click(object sender, RibbonControlEventArgs e)
+            {
+            var button = sender as RibbonButton;
+
+            if (button != null)
+                {
+                // 获取按钮的标签
+                string label = button.Label;
+                string url = @"https://www.aboutppt.com/";
+                Globals.ThisAddIn.ShowTaskPane(url, label, 480);
+                }
+            else
+                {
+                //System.Diagnostics.Debug.WriteLine("Sender is not a RibbonButton");
+                }
+            }
+
+        private void button238_Click(object sender, RibbonControlEventArgs e)
+            {
+            var button = sender as RibbonButton;
+
+            if (button != null)
+                {
+                // 获取按钮的标签
+                string label = button.Label;
+                string url = @"https://www.pptx.cn/";
+                Globals.ThisAddIn.ShowTaskPane(url, label, 480);
+                }
+            else
+                {
+                //System.Diagnostics.Debug.WriteLine("Sender is not a RibbonButton");
+                }
+            }
+
+        private void button239_Click(object sender, RibbonControlEventArgs e)
+            {
+            var button = sender as RibbonButton;
+
+            if (button != null)
+                {
+                // 获取按钮的标签
+                string label = button.Label;
+                string url = @"https://uzfqt.xetlk.com/s/2W8JQB/";
+                Globals.ThisAddIn.ShowTaskPane(url, label, 480);
+                }
+            else
+                {
+                //System.Diagnostics.Debug.WriteLine("Sender is not a RibbonButton");
+                }
+            }
         }
     }
