@@ -2352,18 +2352,21 @@
             // 
             this.button212.Label = "button212";
             this.button212.Name = "button212";
+            this.button212.Visible = false;
             this.button212.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button212_Click);
             // 
             // button207
             // 
             this.button207.Label = "button207";
             this.button207.Name = "button207";
+            this.button207.Visible = false;
             this.button207.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button207_Click);
             // 
             // button138
             // 
             this.button138.Label = "button138";
             this.button138.Name = "button138";
+            this.button138.Visible = false;
             this.button138.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button138_Click_2);
             // 
             // button11

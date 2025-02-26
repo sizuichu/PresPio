@@ -3127,10 +3127,10 @@ namespace PresPio
 
         private void group5_DialogLauncherClick(object sender, RibbonControlEventArgs e)
             {
-            Wpf_Tools wpf_Tools = new Wpf_Tools();
-            wpf_Tools.Show();
-            var ribbon = Globals.Ribbons.Ribbon1; // 获取功能区实例
-            ribbon.group5.Visible = false;
+            //Wpf_Tools wpf_Tools = new Wpf_Tools();
+            //wpf_Tools.Show();
+            //var ribbon = Globals.Ribbons.Ribbon1; // 获取功能区实例
+            //ribbon.group5.Visible = false;
             }
 
         private void button119_Click(object sender, RibbonControlEventArgs e)
@@ -4324,9 +4324,9 @@ namespace PresPio
 
         private void group3_DialogLauncherClick(object sender, RibbonControlEventArgs e)
             {
-            //独立窗口
-            Wpf_Clipboard wpf_Clipboard = new Wpf_Clipboard();
-            wpf_Clipboard.Show();
+            ////独立窗口
+            //Wpf_Clipboard wpf_Clipboard = new Wpf_Clipboard();
+            //wpf_Clipboard.Show();
             }
 
         /// <summary>
