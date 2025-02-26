@@ -1,0 +1,334 @@
+﻿<hc:Window x:Class="PresPio.Wpf_Manuscript"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:local="clr-namespace:PresPio"
+             mc:Ignorable="d"
+             Title="文稿备注"
+            Topmost="True"
+             Height="680" Width="1000"
+             WindowStartupLocation="CenterScreen"
+             x:Name="ManuscriptWindow"
+
+           Closed="ManuscriptWindow_Closed">
+    <hc:Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </hc:Window.Resources>
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 左侧面板 - 预览和备注 -->
+        <Grid Grid.Column="0" Margin="0,0,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="180" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- PPT预览区域 -->
+            <Border Background="White"
+                    BorderBrush="LightGray"
+                    BorderThickness="1">
+                <Grid>
+                    <!-- 预览图片 -->
+                    <Image x:Name="PreviewImage"
+                           Stretch="Uniform"
+                           RenderOptions.BitmapScalingMode="HighQuality" />
+                    <TextBlock Text="无预览内容"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Foreground="Gray"
+                             x:Name="NoPreviewText" />
+
+                    <!-- 导航按钮 - 半透明覆盖 -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0"
+                                Style="{StaticResource ButtonDefault}"
+                                Opacity="0.7"
+                                Width="40" Height="60"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                x:Name="BtnPrev" Click="BtnPrev_Click">
+                            <TextBlock Text="◀" FontSize="20" />
+                        </Button>
+                        <Button Grid.Column="2"
+                                Style="{StaticResource ButtonDefault}"
+                                Opacity="0.7"
+                                Width="40" Height="60"
+                                Margin="0,0,10,0"
+                                VerticalAlignment="Center"
+                                x:Name="BtnNext" Click="BtnNext_Click">
+                            <TextBlock Text="▶" FontSize="20" />
+                        </Button>
+
+                        <!-- 页码显示 -->
+                        <Border Grid.Column="1"
+                                Background="#80000000"
+                                CornerRadius="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10"
+                                Padding="10,5">
+                            <TextBlock x:Name="PageInfo"
+                                     Text="第 0/0 页"
+                                     Foreground="White" />
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- 备注工具栏 -->
+            <ToolBar Grid.Row="1" Margin="0,5" Height="30">
+                <ToolBar.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Width" Value="30" />
+                        <Setter Property="Height" Value="26" />
+                        <Setter Property="Margin" Value="0,0,2,0" />
+                        <Setter Property="Padding" Value="5" />
+                    </Style>
+                    <Style TargetType="Path">
+                        <Setter Property="Fill" Value="{DynamicResource PrimaryTextBrush}" />
+                        <Setter Property="Stretch" Value="Uniform" />
+                    </Style>
+                </ToolBar.Resources>
+
+                <Button x:Name="BtnBold" Click="BtnBold_Click" ToolTip="粗体 (Ctrl+B)">
+                    <Path Data="M8.21 13c2.106 0 3.412-1.087 3.412-2.823 0-1.306-.984-2.283-2.324-2.386v-.055a2.176 2.176 0 0 0 1.852-2.14c0-1.51-1.162-2.46-3.014-2.46H3.843V13H8.21zM5.908 4.674h1.696c.963 0 1.517.451 1.517 1.244 0 .834-.629 1.32-1.73 1.32H5.908V4.673zm0 6.788V8.598h1.73c1.217 0 1.88.492 1.88 1.415 0 .943-.643 1.449-1.832 1.449H5.907z" />
+                </Button>
+                <Button x:Name="BtnItalic" Click="BtnItalic_Click" ToolTip="斜体 (Ctrl+I)">
+                    <Path Data="M7.991 11.674 9.53 4.455c.123-.595.246-.71 1.347-.807l.11-.52H7.211l-.11.52c1.06.096 1.128.212 1.005.807L6.57 11.674c-.123.595-.246.71-1.346.806l-.11.52h3.774l.11-.52c-1.06-.095-1.129-.211-1.006-.806z" />
+                </Button>
+                <Button x:Name="BtnUnderline" Click="BtnUnderline_Click" ToolTip="下划线 (Ctrl+U)">
+                    <Path Data="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57-1.709 0-2.687-1.08-2.687-2.57V3.136zM12.5 15h-9v-1h9v1z" />
+                </Button>
+                <Separator />
+
+                <ComboBox Width="80" x:Name="FontSizeCombo"
+                         SelectionChanged="FontSizeCombo_SelectionChanged"
+                         Margin="0,0,2,0" ToolTip="字号" Height="26">
+                    <ComboBoxItem Content="小四" Tag="12" />
+                    <ComboBoxItem Content="四号" Tag="14" />
+                    <ComboBoxItem Content="三号" Tag="16" />
+                    <ComboBoxItem Content="二号" Tag="18" />
+                </ComboBox>
+
+                <!-- 字体颜色选择 -->
+                <Button x:Name="BtnFontColor"
+                       Width="30" Height="26"
+                       Margin="0,0,2,0"
+                       Click="BtnFontColor_Click"
+                       ToolTip="字体颜色"
+                       Padding="0">
+                    <Border BorderBrush="LightGray"
+                            BorderThickness="1"
+                            Width="20" Height="16">
+                        <Rectangle x:Name="ColorIndicator"
+                                 Fill="Black" />
+                    </Border>
+                </Button>
+                <Separator />
+
+                <Button x:Name="BtnAlignLeft" Click="BtnAlignLeft_Click" ToolTip="左对齐">
+                    <Path Data="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                </Button>
+                <Button x:Name="BtnAlignCenter" Click="BtnAlignCenter_Click" ToolTip="居中对齐">
+                    <Path Data="M4 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                </Button>
+                <Button x:Name="BtnAlignRight" Click="BtnAlignRight_Click" ToolTip="右对齐">
+                    <Path Data="M6 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm4-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                </Button>
+                <Separator />
+
+                <Button x:Name="BtnAutoFormat" Click="BtnAutoFormat_Click"
+                        Style="{StaticResource ButtonInfo}"
+                        Width="70" ToolTip="自动排版">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" Fill="White" />
+                        <TextBlock Text="排版" Margin="3,0,0,0" Foreground="White" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="BtnClearNotes" Click="BtnClearNotes_Click"
+                        Style="{StaticResource ButtonWarning}"
+                        Width="70" ToolTip="清空当前页面的备注">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" Fill="White" />
+                        <TextBlock Text="清空" Margin="3,0,0,0" Foreground="White" />
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+
+            <!-- 备注编辑区 -->
+            <Grid Grid.Row="2">
+                <RichTextBox x:Name="NotesTextBox"
+                            BorderBrush="LightGray"
+                            BorderThickness="1"
+                            VerticalScrollBarVisibility="Auto"
+                            TextChanged="NotesTextBox_TextChanged"
+                            AcceptsReturn="True"
+                            AcceptsTab="True"
+                            SpellCheck.IsEnabled="True" />
+
+                <!-- 字数统计 -->
+                <Border Background="#80000000"
+                        CornerRadius="4"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,5,5"
+                        Padding="8,4">
+                    <TextBlock x:Name="WordCount"
+                             Text="0 字"
+                             Foreground="White"
+                             FontSize="11" />
+                </Border>
+            </Grid>
+
+            <!-- 底部状态栏 -->
+            <StatusBar Grid.Row="3" Margin="0,5,0,0">
+                <TextBlock x:Name="StatusText" Text="就绪" />
+                <Separator />
+                <TextBlock Text="双击页面列表可快速跳转" />
+                <Separator />
+                <TextBlock x:Name="AutoSaveStatus" Text="已自动保存" Foreground="Green" />
+            </StatusBar>
+        </Grid>
+
+        <!-- 右侧面板 -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- 操作按钮 -->
+            <GroupBox Header="PPT操作" Margin="0,0,0,5">
+                <StackPanel>
+                    <UniformGrid Rows="1" Columns="2" Margin="0,5">
+                        <Button Content="当前PPT" Style="{StaticResource ButtonPrimary}" Margin="0,0,2,0" x:Name="BtnUseActive" Click="BtnUseActive_Click" />
+                        <Button Content="导入PPT" Style="{StaticResource ButtonPrimary}" x:Name="BtnImport" Click="BtnImport_Click" />
+                    </UniformGrid>
+                    <UniformGrid Rows="1" Columns="2" Margin="0,5">
+                        <Button Content="打印预览" Style="{StaticResource ButtonSuccess}" Margin="0,0,2,0" x:Name="BtnPreview" Click="BtnPreview_Click" />
+                        <Button Content="打印文档" Style="{StaticResource ButtonSuccess}" x:Name="BtnPrint" Click="BtnPrint_Click" />
+                    </UniformGrid>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- 页面列表 -->
+            <GroupBox Grid.Row="1" Header="页面列表" Margin="0,5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- 搜索框 -->
+                    <TextBox x:Name="SearchBox"
+                             Height="28"
+                             Margin="0,0,0,5"
+                             hc:InfoElement.Placeholder="搜索页面..."
+                             hc:InfoElement.ShowClearButton="True"
+                             TextChanged="SearchBox_TextChanged" />
+
+                    <!-- 列表操作按钮 -->
+                    <UniformGrid Grid.Row="1" Rows="1" Columns="3" Margin="0,0,0,5">
+                        <Button Content="全选" Style="{StaticResource ButtonInfo}"
+                                Margin="0,0,2,0" Height="30"
+                                x:Name="BtnSelectAll" Click="BtnSelectAll_Click" />
+                        <Button Content="反选" Style="{StaticResource ButtonInfo}"
+                                Margin="0,0,2,0" Height="30"
+                                x:Name="BtnInvertSelect" Click="BtnInvertSelect_Click" />
+                        <Button Content="清除" Style="{StaticResource ButtonInfo}"
+                                Height="30"
+                                x:Name="BtnClearSelect" Click="BtnClearSelect_Click" />
+                    </UniformGrid>
+
+                    <!-- 列表 -->
+                    <ListBox Grid.Row="2"
+                            x:Name="SlideList"
+                            SelectionMode="Extended"
+                            SelectionChanged="SlideList_SelectionChanged"
+                            MouseDoubleClick="SlideList_MouseDoubleClick">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel LastChildFill="True">
+                                    <CheckBox DockPanel.Dock="Right"
+                                            VerticalAlignment="Center"
+                                            Margin="5,0,0,0"
+                                            IsChecked="{Binding IsSelected}"
+                                            Checked="SlideCheckBox_Changed"
+                                            Unchecked="SlideCheckBox_Changed" />
+                                    <Image Source="{Binding Thumbnail}"
+                                           Width="40" Height="30"
+                                           Margin="0,0,5,0" />
+                                    <TextBlock Text="{Binding Title}"
+                                             VerticalAlignment="Center" />
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </GroupBox>
+
+            <!-- 导出选项 -->
+            <StackPanel Grid.Row="2" Margin="0,5,0,0">
+                <!-- 页面布局选择 -->
+                <UniformGrid Columns="3" Margin="0,0,0,5">
+                    <RadioButton x:Name="LandscapeSingleRadio" IsChecked="True" Margin="0,0,5,0">
+                        <StackPanel>
+                            <Path Data="M0,0 L16,0 L16,12 L0,12 Z" Width="24" Height="18"
+                                  Stroke="{DynamicResource BorderBrush}"
+                                  StrokeThickness="1"
+                                  Fill="Transparent" />
+                            <TextBlock Text="横向单张" HorizontalAlignment="Center" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton x:Name="LandscapeDoubleRadio" Margin="0,0,5,0">
+                        <StackPanel>
+                            <Path Data="M0,0 L8,0 L8,12 L0,12 Z M10,0 L18,0 L18,12 L10,12 Z" Width="24" Height="18"
+                                  Stroke="{DynamicResource BorderBrush}"
+                                  StrokeThickness="1"
+                                  Fill="Transparent" />
+                            <TextBlock Text="横向双张" HorizontalAlignment="Center" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton x:Name="PortraitRadio">
+                        <StackPanel>
+                            <Path Data="M0,0 L12,0 L12,16 L0,16 Z" Width="18" Height="24"
+                                  Stroke="{DynamicResource BorderBrush}"
+                                  StrokeThickness="1"
+                                  Fill="Transparent" />
+                            <TextBlock Text="纵向" HorizontalAlignment="Center" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </RadioButton>
+                </UniformGrid>
+
+                <!-- 导出按钮 -->
+                <UniformGrid Rows="1" Columns="2">
+                    <Button Content="导出选中" Style="{StaticResource ButtonSuccess}"
+                            Margin="0,0,2,0" x:Name="BtnExportSelected"
+                            Click="BtnExportSelected_Click" />
+                    <Button Content="导出全部" Style="{StaticResource ButtonSuccess}"
+                            x:Name="BtnExportAll" Click="BtnExportAll_Click" />
+                </UniformGrid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</hc:Window>

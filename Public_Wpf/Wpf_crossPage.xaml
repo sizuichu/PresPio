@@ -1,0 +1,162 @@
+﻿<hc:Window
+    x:Class="PresPio.Wpf_crossPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    Title="跨页工具"
+    Width="450"
+    Height="280"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    Background="White"
+    Topmost="True">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧预览区域 -->
+            <DockPanel Grid.Column="0" Margin="0,0,8,0">
+                <TextBlock DockPanel.Dock="Top"
+                          Text="预览区域"
+                          Style="{StaticResource TextBlockTitle}"
+                          Margin="0,0,0,5"
+                          FontSize="14" />
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    Background="#F5F5F5"
+                    CornerRadius="3">
+                    <Grid>
+                        <Image
+                            x:Name="imageBox"
+                            Margin="5"
+                            MaxHeight="160"
+                            Source="/PresPio;component/Images/Icons/Lucency.png"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Stretch="Uniform"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" />
+                        <TextBlock
+                            Text="请选择要复制的对象"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="Gray"
+                            x:Name="NoSelectionText"
+                            Visibility="Visible" />
+                    </Grid>
+                </Border>
+            </DockPanel>
+
+            <!-- 右侧功能区 -->
+            <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                <!-- 页码设置 -->
+                <TextBlock Text="页码设置"
+                          Style="{StaticResource TextBlockSubTitle}"
+                          Margin="0,0,0,5"
+                          FontSize="14" />
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <hc:NumericUpDown
+                        x:Name="NumericUpDown1"
+                        Margin="0,0,4,0"
+                        hc:InfoElement.Title="起始页码"
+                        Style="{StaticResource NumericUpDownExtend}" />
+
+                    <hc:NumericUpDown
+                        x:Name="NumericUpDown2"
+                        Grid.Column="1"
+                        Margin="4,0,0,0"
+                        hc:InfoElement.Title="结束页码"
+                        Style="{StaticResource NumericUpDownExtend}" />
+                </Grid>
+
+                <!-- 复制模式 -->
+                <TextBlock Text="复制模式"
+                          Style="{StaticResource TextBlockSubTitle}"
+                          Margin="0,0,0,5"
+                          FontSize="14" />
+                <ComboBox x:Name="CopyModeCombo"
+                         Margin="0,0,0,10"
+                         hc:InfoElement.Title="复制模式">
+                    <ComboBoxItem Content="单页复制" IsSelected="True" />
+                    <ComboBoxItem Content="奇数页复制" />
+                    <ComboBoxItem Content="偶数页复制" />
+                    <ComboBoxItem Content="指定间隔复制" />
+                    <ComboBoxItem Content="自定义范围复制" />
+                </ComboBox>
+
+                <hc:NumericUpDown x:Name="IntervalUpDown"
+                                 Margin="0,0,0,10"
+                                 hc:InfoElement.Title="页面间隔"
+                                 Value="1"
+                                 Minimum="1"
+                                 Visibility="Collapsed" />
+
+                <TextBox x:Name="CustomRangeBox"
+                         hc:InfoElement.Title="自定义范围（如：1,3,5-7）"
+                         Visibility="Collapsed" />
+            </StackPanel>
+        </Grid>
+
+        <!-- 底部按钮区域 -->
+        <UniformGrid Grid.Row="1"
+                     Rows="1"
+                     HorizontalAlignment="Center"
+                     Margin="0,10,0,0">
+            <Button
+                x:Name="QuickSelectBtn"
+                Width="85"
+                Height="30"
+                Margin="3,0"
+                Content="快速选择"
+                Style="{StaticResource ButtonInfo}"
+                Click="QuickSelectBtn_Click" />
+            <Button
+                x:Name="PreviewBtn"
+                Width="65"
+                Height="30"
+                Margin="3,0"
+                Click="PreviewBtn_Click"
+                Content="预览"
+                Style="{StaticResource ButtonInfo}" />
+            <Button
+                x:Name="CopBtn"
+                Width="65"
+                Height="30"
+                Margin="3,0"
+                Click="CopBtn_Click"
+                Content="复制"
+                Style="{StaticResource ButtonPrimary}" />
+            <Button
+                x:Name="DelBtn"
+                Width="65"
+                Height="30"
+                Margin="3,0"
+                Click="DelBtn_Click"
+                Content="删除"
+                Style="{StaticResource ButtonDanger}" />
+        </UniformGrid>
+    </Grid>
+</hc:Window>

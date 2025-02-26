@@ -1,0 +1,23 @@
+<Window x:Class="PresPio.Public_Wpf.TestHandyControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:PresPio.Public_Wpf"
+        mc:Ignorable="d"
+        Title="HandyControl测试" Height="300" Width="400">
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock Text="HandyControl测试窗体" FontSize="18" Margin="0,0,0,20"/>
+            <hc:TextBox hc:InfoElement.Title="测试输入框" hc:InfoElement.Placeholder="请输入内容" Margin="0,0,0,10"/>
+            <hc:ComboBox hc:InfoElement.Title="测试下拉框" Margin="0,0,0,10">
+                <ComboBoxItem Content="选项1"/>
+                <ComboBoxItem Content="选项2"/>
+                <ComboBoxItem Content="选项3"/>
+            </hc:ComboBox>
+            <hc:DatePicker hc:InfoElement.Title="测试日期选择器" Margin="0,0,0,10"/>
+            <hc:Button Content="测试按钮" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window> 

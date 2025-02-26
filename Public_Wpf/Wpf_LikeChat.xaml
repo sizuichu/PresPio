@@ -1,0 +1,69 @@
+﻿<Window
+    x:Class="PresPio.Wpf_LikeChat"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PresPio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="WeChat-like Chat"
+    Width="400"
+    Height="600"
+    d:DesignHeight="600"
+    d:DesignWidth="400"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" MinHeight="60.76" />
+        </Grid.RowDefinitions>
+
+        <ListBox
+            x:Name="ChatListBox"
+            Margin="10,10,10,10"
+            Background="WhiteSmoke">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <Image
+                            Width="30"
+                            Height="30"
+                            Margin="5"
+                            Source="Images/ai_avatar.png"
+                            Visibility="{Binding IsSenderAI, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="{Binding Sender}" />
+                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+                        </StackPanel>
+                        <Image
+                            Width="30"
+                            Height="30"
+                            Margin="5"
+                            Source="Images/user_avatar.png"
+                            Visibility="{Binding IsSenderUser, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Row="1" Margin="10,10,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" MinWidth="60" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                x:Name="MessageTextBox"
+                Grid.Column="0"
+                Margin="0,0,10,0" />
+            <Button
+                x:Name="SendButton"
+                Grid.Column="1"
+                Click="SendButton_Click"
+                Content="发送" />
+        </Grid>
+    </Grid>
+</Window>

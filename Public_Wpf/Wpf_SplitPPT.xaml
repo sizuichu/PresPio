@@ -1,0 +1,261 @@
+﻿<Window x:Class="PresPio.Wpf_Form.Wpf_SplitPPT"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:PresPio.Wpf_Form"
+        mc:Ignorable="d"
+        Title="超级拆分"
+        Height="700" Width="1200"
+        Topmost="True"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0">
+    <Window.Resources>
+        <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,20" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="CommonButtonStyle" TargetType="Button">
+            <Setter Property="Padding" Value="15,5" />
+            <Setter Property="MinWidth" Value="80" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Background" Value="#2196F3" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1976D2" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#BDBDBD" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="GroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="BorderBrush" Value="#BDBDBD" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧预览区域 -->
+            <Grid Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- 预览区域 -->
+                <GroupBox Header="预览" Style="{StaticResource GroupBoxStyle}">
+                    <Grid>
+                        <Viewbox Stretch="Uniform" Margin="10">
+                            <Border Width="960" Height="540"
+                                    Background="#F5F5F5"
+                                    BorderThickness="1"
+                                    BorderBrush="#E0E0E0"
+                                    CornerRadius="3"
+                                    x:Name="PreviewBorder">
+                                <Image x:Name="PreviewImage"
+                                       Stretch="Uniform"
+                                       RenderOptions.BitmapScalingMode="HighQuality" />
+                            </Border>
+                        </Viewbox>
+                    </Grid>
+                </GroupBox>
+
+                <!-- 页面导航 -->
+                <Grid Grid.Row="1" Margin="0,9,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="上一页"
+                            x:Name="PrevButton"
+                            Style="{StaticResource CommonButtonStyle}"
+                            Click="PrevButton_Click"
+                            Height="32"
+                            Grid.Column="1" />
+                    <TextBlock x:Name="PageNumberText"
+                             Text="0/0"
+                             Grid.Column="2"
+                             VerticalAlignment="Center"
+                             Margin="15,0"
+                             FontSize="14" />
+                    <Button Content="下一页"
+                            x:Name="NextButton"
+                            Style="{StaticResource CommonButtonStyle}"
+                            Click="NextButton_Click"
+                            Height="32"
+                            Grid.Column="3"
+                            HorizontalAlignment="Left" />
+                </Grid>
+            </Grid>
+
+            <!-- 右侧控制面板 -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- 拆分设置 -->
+                <GroupBox Header="拆分设置" Style="{StaticResource GroupBoxStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- 文件列表 -->
+                        <DockPanel>
+                            <Button Content="添加文件"
+                                    x:Name="AddFilesButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Click="AddFilesButton_Click"
+                                    Height="32"
+                                    DockPanel.Dock="Right"
+                                    Margin="5,0,0,0" />
+                            <Button Content="清空列表"
+                                    x:Name="ClearButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Click="ClearButton_Click"
+                                    Height="32"
+                                    DockPanel.Dock="Right"
+                                    Margin="5,0" />
+                            <TextBlock Text="已选择文件："
+                                     VerticalAlignment="Center" />
+                        </DockPanel>
+
+                        <ListView x:Name="FileListView"
+                                 Grid.Row="1"
+                                 Margin="0,8"
+                                 BorderThickness="1"
+                                 BorderBrush="#E0E0E0"
+                                 SelectionMode="Single"
+                                 SelectionChanged="FileListView_SelectionChanged" />
+
+                        <!-- 拆分选项 -->
+                        <StackPanel Grid.Row="2" Margin="0,8">
+                            <GroupBox Header="拆分方式">
+                                <Grid Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <UniformGrid Columns="3">
+                                        <RadioButton x:Name="SinglePageRadio"
+                                                   Content="当前页"
+                                                   IsChecked="True"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="5" />
+                                        <RadioButton x:Name="AllPagesRadio"
+                                                   Content="所有页面"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="5" />
+                                        <RadioButton x:Name="CustomRangeRadio"
+                                                   Content="自定范围"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="5" />
+                                    </UniformGrid>
+
+                                    <TextBox Grid.Row="1"
+                                            x:Name="CustomRangeTextBox"
+                                            Margin="5"
+                                            Padding="5"
+                                            Height="30"
+                                            IsEnabled="{Binding IsChecked, ElementName=CustomRangeRadio}"
+                                            ToolTip="请输入页码范围，如: 1-3,4-6,7" />
+                                </Grid>
+                            </GroupBox>
+                        </StackPanel>
+
+                        <!-- 操作按钮 -->
+                        <StackPanel Grid.Row="3" Margin="0,8,0,0">
+                            <Button Content="开始拆分"
+                                    x:Name="StartButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Click="StartButton_Click"
+                                    Height="32"
+                                    Margin="0,0,0,8" />
+                            <Button Content="取消"
+                                    x:Name="CancelButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Background="#F44336"
+                                    Click="CancelButton_Click"
+                                    Height="32"
+                                    Margin="0,0,0,8" />
+                            <Button Content="完成"
+                                    x:Name="CompleteButton"
+                                    Style="{StaticResource CommonButtonStyle}"
+                                    Background="#4CAF50"
+                                    Click="CompleteButton_Click"
+                                    Height="32"
+                                    Visibility="Collapsed" />
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+
+        <!-- 底部进度条 -->
+        <Grid Grid.Row="1" Margin="5,10,5,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="处理进度："
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0" />
+            <ProgressBar x:Name="ProgressBar"
+                       Grid.Column="1"
+                       Height="15"
+                       Background="#E0E0E0"
+                       Foreground="#2196F3"
+                       VerticalAlignment="Center" />
+            <TextBlock Grid.Column="2"
+                     x:Name="ProgressText"
+                     Text="0/0"
+                     Margin="10,0,0,0"
+                     VerticalAlignment="Center" />
+        </Grid>
+    </Grid>
+</Window>

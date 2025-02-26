@@ -1,0 +1,47 @@
+﻿<hc:Window x:Name="NameWindow" x:Class="PresPio.Wpf_NameUnification"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+         xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:PresPio"
+             mc:Ignorable="d"
+        Width="600"
+        Height="450"
+             d:DesignHeight="450"
+            d:DesignWidth="600"
+            Title="名称规整"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True" Loaded="NameWindow_Loaded">
+    <hc:Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </hc:Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*" />
+            <ColumnDefinition Width="297*" />
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="140*" />
+            <ColumnDefinition Width="140*" />
+            <ColumnDefinition Width="6*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="416*" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+        <ListView x:Name="NameListView" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,8,0,11" Grid.RowSpan="3">
+            <ListView.View>
+                <GridView>
+                    <!-- 添加表头列并设置表头文本 -->
+                    <GridViewColumn Header="形状名称" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</hc:Window>

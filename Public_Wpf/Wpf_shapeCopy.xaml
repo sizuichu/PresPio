@@ -1,0 +1,280 @@
+﻿<Window
+    x:Class="PresPio.Wpf_shapeCopy"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    Title="形状阵列"
+    Width="600"
+    Height="400"
+    ResizeMode="CanMinimize"
+    WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部菜单 -->
+        <TabControl Grid.Row="0"
+                   x:Name="copyModeTab"
+                   SelectionChanged="TabControl_SelectionChanged"
+                   Margin="10,5">
+            <TabItem Header="矩阵复制" Tag="Matrix" />
+            <TabItem Header="环形复制" Tag="Circle" />
+            <TabItem Header="对角复制" Tag="Diagonal" />
+            <TabItem Header="螺旋复制" Tag="Spiral" />
+            <TabItem Header="波浪复制" Tag="Wave" />
+            <TabItem Header="放射复制" Tag="Radial" />
+            <TabItem Header="网格复制" Tag="Grid" />
+        </TabControl>
+
+        <!-- 中间内容区域 -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧参数设置 -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="settingsPanel">
+                    <!-- 矩阵复制参数 -->
+                    <GroupBox x:Name="matrixSettings" Header="参数设置" Visibility="Collapsed">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,5">
+                                <Label Content="横向数量:" />
+                                <hc:NumericUpDown x:Name="matrixRows" Value="2" Minimum="1" Maximum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="纵向数量:" />
+                                <hc:NumericUpDown x:Name="matrixColumns" Value="2" Minimum="1" Maximum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="横向间距:" />
+                                <hc:NumericUpDown x:Name="matrixHSpacing" Value="50" Minimum="0"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="纵向间距:" />
+                                <hc:NumericUpDown x:Name="matrixVSpacing" Value="50" Minimum="0"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- 环形复制参数 -->
+                    <GroupBox x:Name="circleSettings" Header="参数设置" Visibility="Collapsed">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,5">
+                                <Label Content="复制数量:" />
+                                <hc:NumericUpDown x:Name="circleCount" Value="8" Minimum="2" Maximum="36"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="半径:" />
+                                <hc:NumericUpDown x:Name="circleRadius" Value="100" Minimum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="起始角度:" />
+                                <hc:NumericUpDown x:Name="startAngle" Value="0" Minimum="0" Maximum="360"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="旋转对齐:" />
+                                <CheckBox x:Name="rotateAlign" IsChecked="True"
+                                        Checked="OnCheckBoxChanged" Unchecked="OnCheckBoxChanged" />
+                            </DockPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- 对角复制参数 -->
+                    <GroupBox x:Name="diagonalSettings" Header="参数设置" Visibility="Collapsed">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,5">
+                                <Label Content="复制数量:" />
+                                <hc:NumericUpDown x:Name="diagonalCount" Value="5" Minimum="2" Maximum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="间距:" />
+                                <hc:NumericUpDown x:Name="diagonalSpacing" Value="50" Minimum="0"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="角度:" />
+                                <hc:NumericUpDown x:Name="diagonalAngle" Value="45" Minimum="-180" Maximum="180"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="缩放比例:" />
+                                <hc:NumericUpDown x:Name="diagonalScale" Value="100" Minimum="1" Maximum="200"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- 螺旋复制参数 -->
+                    <GroupBox x:Name="spiralSettings" Header="参数设置" Visibility="Collapsed">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,5">
+                                <Label Content="圈数:" />
+                                <hc:NumericUpDown x:Name="spiralTurns" Value="2" Minimum="1" Maximum="10"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="每圈数量:" />
+                                <hc:NumericUpDown x:Name="spiralCount" Value="8" Minimum="4" Maximum="36"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="起始半径:" />
+                                <hc:NumericUpDown x:Name="spiralRadius" Value="50" Minimum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="半径增量:" />
+                                <hc:NumericUpDown x:Name="spiralInc" Value="20" Minimum="0"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="旋转对齐:" />
+                                <CheckBox x:Name="spiralRotate" IsChecked="True"
+                                        Checked="OnCheckBoxChanged" Unchecked="OnCheckBoxChanged" />
+                            </DockPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- 波浪复制参数 -->
+                    <GroupBox x:Name="waveSettings" Header="参数设置" Visibility="Collapsed">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,5">
+                                <Label Content="复制数量:" />
+                                <hc:NumericUpDown x:Name="waveCount" Value="10" Minimum="2" Maximum="36"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="波长:" />
+                                <hc:NumericUpDown x:Name="waveLength" Value="100" Minimum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="振幅:" />
+                                <hc:NumericUpDown x:Name="waveAmplitude" Value="50" Minimum="0"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="相位:" />
+                                <hc:NumericUpDown x:Name="wavePhase" Value="0" Minimum="0" Maximum="360"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- 放射复制参数 -->
+                    <GroupBox x:Name="radialSettings" Header="参数设置" Visibility="Collapsed">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,5">
+                                <Label Content="复制数量:" />
+                                <hc:NumericUpDown x:Name="radialCount" Value="8" Minimum="2" Maximum="36"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="起始半径:" />
+                                <hc:NumericUpDown x:Name="radialStartRadius" Value="50" Minimum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="半径增量:" />
+                                <hc:NumericUpDown x:Name="radialRadiusInc" Value="30" Minimum="0"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="角度增量:" />
+                                <hc:NumericUpDown x:Name="radialAngleInc" Value="15" Minimum="-180" Maximum="180"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="旋转对齐:" />
+                                <CheckBox x:Name="radialRotate" IsChecked="True"
+                                        Checked="OnCheckBoxChanged" Unchecked="OnCheckBoxChanged" />
+                            </DockPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- 网格复制参数 -->
+                    <GroupBox x:Name="gridSettings" Header="参数设置" Visibility="Collapsed">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,5">
+                                <Label Content="横向数量:" />
+                                <hc:NumericUpDown x:Name="gridColumns" Value="3" Minimum="1" Maximum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="纵向数量:" />
+                                <hc:NumericUpDown x:Name="gridRows" Value="3" Minimum="1" Maximum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="单元大小:" />
+                                <hc:NumericUpDown x:Name="gridSize" Value="100" Minimum="20"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="旋转角度:" />
+                                <hc:NumericUpDown x:Name="gridAngle" Value="0" Minimum="-180" Maximum="180"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                            <DockPanel Margin="0,5">
+                                <Label Content="随机偏移:" />
+                                <hc:NumericUpDown x:Name="gridOffset" Value="0" Minimum="0" Maximum="50"
+                                                ValueChanged="OnValueChanged" />
+                            </DockPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- 右侧预览区域 -->
+            <Border Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Background="#FAFAFA"
+                    BorderBrush="#DDDDDD"
+                    BorderThickness="1">
+                <Grid>
+                    <Canvas x:Name="previewCanvas" />
+                    <TextBlock Text="预览区域"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Top"
+                             Margin="0,5,0,0"
+                             Foreground="#666666" />
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 底部按钮 -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="10">
+            <Button Content="重置"
+                    Width="80"
+                    Margin="0,0,10,0"
+                    Click="ResetButton_Click" />
+            <Button Content="应用"
+                    Width="80"
+                    Click="ApplyButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

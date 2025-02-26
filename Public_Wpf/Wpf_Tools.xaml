@@ -1,0 +1,1020 @@
+﻿<apb:AppBarWindow
+    x:Class="PresPio.Wpf_Tools"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:apb="clr-namespace:Itp.WpfAppBar;assembly=Itp.WpfAppBar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:PresPio"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="ToolsWindow"
+    Width="150"
+    Height="600"
+    MinWidth="100"
+    MinHeight="100"
+    d:DesignHeight="600"
+    d:DesignWidth="150"
+    AllowsTransparency="True"
+    Closed="ToolsWindow_Closed"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    DockedWidthOrHeight="150"
+    Loaded="ToolsWindow_Loaded"
+    MouseEnter="ToolsWindow_MouseEnter"
+    MouseLeave="ToolsWindow_MouseLeave"
+    ResizeMode="CanMinimize"
+    Topmost="True"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources />
+                <hc:Theme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <hc:TransitioningContentControl>
+        <ScrollViewer>
+            <StackPanel Height="1400" Margin="6">
+                <hc:ButtonGroup Height="30">
+                    <Button x:Name="LeftBtn" Click="LeftBtn_Click_1">
+                        <iconPacks:PackIconBootstrapIcons Kind="ChevronBarLeft" />
+                    </Button>
+                    <Button x:Name="CloseBtn" Click="CloseBtn_Click_1">
+                        <iconPacks:PackIconBootstrapIcons Kind="Power" />
+                    </Button>
+                    <Button x:Name="RightBtn" Click="RightBtn_Click_1">
+                        <iconPacks:PackIconBootstrapIcons Kind="ChevronBarRight" />
+                    </Button>
+                </hc:ButtonGroup>
+
+                <TextBlock
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    FontWeight="Bold"
+                    Style="{StaticResource TextBlockDefaultPrimary}"
+                    Text="镜像/角度" />
+                <hc:Row Margin="0,5,0,0">
+                    <hc:Col Span="24">
+                        <hc:NumericUpDown
+                            Margin="0,0,0,5"
+                            hc:InfoElement.Necessary="True"
+                            hc:InfoElement.Placeholder="0"
+                            hc:InfoElement.Title="角度"
+                            hc:InfoElement.TitlePlacement="Left"
+                            hc:InfoElement.TitleWidth="50"
+                            DecimalPlaces="2"
+                            Style="{StaticResource NumericUpDownPlus}" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,5,0,5">
+                    <hc:Col Span="6">
+                        <Button
+                            x:Name="Horizontally"
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="24" Click="Horizontally_Click">
+                            <iconPacks:PackIconBootstrapIcons Kind="SymmetryVertical" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="24">
+                            <iconPacks:PackIconBootstrapIcons Kind="SymmetryHorizontal" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="24">
+                            <iconPacks:PackIconBootstrapIcons Kind="ArrowClockwise" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="24">
+                            <iconPacks:PackIconBootstrapIcons Kind="ArrowCounterclockwise" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+
+                <TextBlock
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    FontWeight="Bold"
+                    Style="{StaticResource TextBlockDefaultPrimary}"
+                    Text="图层/对齐" />
+
+                <hc:Row Margin="0,5,0,0">
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <Image Source="/PresPio;component/Images/Icons/图层-最上层.png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <Image Source="/PresPio;component/Images/Icons/图层-移到后面.png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <Image Source="/PresPio;component/Images/Icons/图层-最下层.png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <Image Source="/PresPio;component/Images/Icons/图层-移到前面.png" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+
+                <hc:Row Margin="0,5,0,0">
+
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/对齐-1.png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/对齐-2.png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/对齐-3.png" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+
+                <hc:Row Margin="0,5,0,0">
+
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/对齐-4.png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/对齐-5.png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/对齐-6.png" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,5,0,0">
+
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/对齐-7.png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/对齐-8.png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/对齐-9.png" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+
+                <hc:Row Margin="0,5,0,0">
+
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/原位复制 (1).png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/原位复制 (8).png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/原位复制 (2).png" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,5,0,0">
+
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/原位复制 (6).png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/原位复制 (3).png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/原位复制 (7).png" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,5,0,0">
+
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/原位复制 (4).png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/原位复制 (9).png" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Button
+                            Width="45"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="5">
+                            <Image Source="/PresPio;component/Images/Icons/原位复制 (5).png" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+
+                <TextBlock
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    FontWeight="Bold"
+                    Style="{StaticResource TextBlockDefaultPrimary}"
+                    Text="文本/段落" />
+                <hc:Row Margin="0,5,0,5">
+
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="4"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TextLeft" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="4"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TextCenter" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="4"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TextRight" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="4"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="Justify" />
+                        </Button>
+                    </hc:Col>
+
+                    <hc:Row Margin="0,5,0,0">
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="StopFill" />
+                            </Button>
+                        </hc:Col>
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="Stop" />
+                            </Button>
+                        </hc:Col>
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="TextareaT" />
+                            </Button>
+                        </hc:Col>
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="Textarea" />
+                            </Button>
+                        </hc:Col>
+                    </hc:Row>
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="4"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TextParagraph" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,5,0,5">
+
+                    <hc:Col Span="14">
+                        <hc:SplitButton
+                            Margin="0"
+                            HorizontalAlignment="Stretch"
+                            CommandParameter="Command0"
+                            Content="行距">
+
+                            <hc:SplitButton.DropDownContent>
+                                <StackPanel>
+                                    <MenuItem CommandParameter="Command1" Header="Title1" />
+                                    <MenuItem CommandParameter="Command2" Header="Title2" />
+                                    <MenuItem CommandParameter="Command3" Header="Title3" />
+                                </StackPanel>
+                            </hc:SplitButton.DropDownContent>
+                        </hc:SplitButton>
+                    </hc:Col>
+
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="0"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TextIndentLeft" />
+                        </Button>
+                    </hc:Col>
+
+                    <hc:Row Margin="0,5,0,0">
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="StopFill" />
+                            </Button>
+                        </hc:Col>
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="Stop" />
+                            </Button>
+                        </hc:Col>
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="TextareaT" />
+                            </Button>
+                        </hc:Col>
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="Textarea" />
+                            </Button>
+                        </hc:Col>
+                    </hc:Row>
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="0"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TextIndentRight" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,5,0,5">
+
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="0"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TypeH1" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="0"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TypeH2" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="0"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TypeH3" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="2"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TypeBold" />
+                        </Button>
+                    </hc:Col>
+
+                    <hc:Row Margin="0,5,0,0">
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="StopFill" />
+                            </Button>
+                        </hc:Col>
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="Stop" />
+                            </Button>
+                        </hc:Col>
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="TextareaT" />
+                            </Button>
+                        </hc:Col>
+                        <hc:Col Span="6">
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Padding="5"
+                                hc:BorderElement.CornerRadius="2">
+                                <iconPacks:PackIconBootstrapIcons Kind="Textarea" />
+                            </Button>
+                        </hc:Col>
+                    </hc:Row>
+                    <hc:Col Span="5">
+                        <Button
+                            Width="24"
+                            Height="24"
+                            Padding="0"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TypeUnderline" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+
+                <hc:Row Margin="0,5,0,0">
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="Translate" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="Crop" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="Layers" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="FileEarmarkFont" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+
+                <TextBlock
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    FontWeight="Bold"
+                    Style="{StaticResource TextBlockDefaultPrimary}"
+                    Text="形状工具" />
+
+                <hc:Row Margin="0,5,0,0">
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="StopFill" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="Stop" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="TextareaT" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="Textarea" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,5,0,5">
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="AppIndicator" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="App" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="Diagram3" />
+                        </Button>
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="5"
+                            hc:BorderElement.CornerRadius="2">
+                            <iconPacks:PackIconBootstrapIcons Kind="Grid" />
+                        </Button>
+                    </hc:Col>
+                </hc:Row>
+
+                <TextBlock
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    FontWeight="Bold"
+                    Style="{StaticResource TextBlockDefaultPrimary}"
+                    Text="色彩工具" />
+                <hc:Row Margin="0,5,0,0">
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,5,0,0">
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+
+                <hc:Row Margin="0,20,0,0">
+                    <hc:Col Span="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource SecondaryBorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource SecondaryBorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,20,0,0">
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource SecondaryBorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource SecondaryBorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource SecondaryBorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+                <TextBlock
+                    Margin="0,32,0,0"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource TextBlockLargeBold}"
+                    Text="Column Spacing" />
+                <hc:Row Margin="0,20,0,0" Gutter="20">
+                    <hc:Col Span="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+                <TextBlock
+                    Margin="0,32,0,0"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource TextBlockLargeBold}"
+                    Text="Hybrid Layout" />
+                <hc:Row Margin="0,20,0,0" Gutter="20">
+                    <hc:Col Span="16">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,20,0,0" Gutter="20">
+                    <hc:Col Span="8">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="8">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,20,0,0" Gutter="20">
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="16">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="4">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+                <TextBlock
+                    Margin="0,32,0,0"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource TextBlockLargeBold}"
+                    Text="Column Offset" />
+                <hc:Row Margin="0,20,0,0" Gutter="20">
+                    <hc:Col Span="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="6" Offset="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,20,0,0" Gutter="20">
+                    <hc:Col Span="6" Offset="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                    <hc:Col Span="6" Offset="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,20,0,0" Gutter="20">
+                    <hc:Col Span="12" Offset="6">
+                        <Border
+                            Height="36"
+                            Background="{DynamicResource BorderBrush}"
+                            CornerRadius="4" />
+                    </hc:Col>
+                </hc:Row>
+            </StackPanel>
+        </ScrollViewer>
+    </hc:TransitioningContentControl>
+</apb:AppBarWindow>
