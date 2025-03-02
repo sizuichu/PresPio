@@ -1,10 +1,10 @@
-﻿using Microsoft.Office.Interop.PowerPoint;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Microsoft.Office.Interop.PowerPoint;
 
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 

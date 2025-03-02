@@ -1,7 +1,4 @@
-﻿using HandyControl.Controls;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,6 +8,9 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using HandyControl.Controls;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
 
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 

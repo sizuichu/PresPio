@@ -25,7 +25,7 @@
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>PresPio</RootNamespace>
     <AssemblyName>PresPio</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -144,9 +144,6 @@
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\PresentationFramework.dll</HintPath>
-    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
@@ -838,7 +835,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -862,9 +859,6 @@
   </Target>
   <Import Project="packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.2895-prerelease\build\Microsoft.Web.WebView2.targets')" />
   <ItemGroup>
-    <PackageReference Include="CodeWF.EventBus">
-      <Version>3.4.4.2</Version>
-    </PackageReference>
     <PackageReference Include="DocumentFormat.OpenXml">
       <Version>3.2.0</Version>
     </PackageReference>
@@ -877,8 +871,9 @@
     <PackageReference Include="Itp.WpfAppBar">
       <Version>2.2.1</Version>
     </PackageReference>
-    <PackageReference Include="LiteDB" Version="5.0.21" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="5.1.0" />
+    <PackageReference Include="LiteDB">
+      <Version>5.0.21</Version>
+    </PackageReference>
     <PackageReference Include="MahApps.Metro.IconPacks.BootstrapIcons">
       <Version>5.1.0</Version>
     </PackageReference>
@@ -886,29 +881,28 @@
       <Version>4.7.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Web.WebView2">
-      <Version>1.0.3065.39</Version>
+      <Version>1.0.3116-prerelease</Version>
     </PackageReference>
     <PackageReference Include="NPinyin">
       <Version>0.2.6321.26573</Version>
     </PackageReference>
-    <PackageReference Include="PresentationFramework">
-      <Version>4.6.0</Version>
-    </PackageReference>
     <PackageReference Include="QRCoder">
       <Version>1.6.0</Version>
     </PackageReference>
-    <PackageReference Include="System.Drawing.Common" Version="9.0.2" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="ksemenenko.ColorThief" Version="1.1.1.4" />
-    <PackageReference Include="System.Reflection">
-      <Version>4.3.0</Version>
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
+      <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
-      <Version>9.0.2</Version>
+      <Version>7.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="System.Text.Encodings.Web">
+      <Version>7.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>

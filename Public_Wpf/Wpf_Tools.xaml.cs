@@ -1,5 +1,5 @@
-﻿using Itp.WpfAppBar;
-using System.Windows;
+﻿using System.Windows;
+using Itp.WpfAppBar;
 using Powerpoint = Microsoft.Office.Interop.PowerPoint;
 
 // ReSharper disable IdentifierTypo

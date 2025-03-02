@@ -1,9 +1,4 @@
-﻿using HandyControl.Controls;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using Microsoft.Office.Tools.Ribbon;
-using PresPio.Properties;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,6 +10,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using HandyControl.Controls;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
+using Microsoft.Office.Tools.Ribbon;
+using PresPio.Properties;
 using static PresPio.ThisAddIn;
 using Color = System.Drawing.Color;
 using Control = System.Windows.Forms.Control;
@@ -47,7 +47,6 @@ namespace PresPio
             Globals.Ribbons.Ribbon1.group5.Visible = Properties.Settings.Default.Group5;
             Globals.Ribbons.Ribbon1.tab2.Visible = Properties.Settings.Default.Group6;
             //Globals.Ribbons.Ribbon1.group7.Visible = Properties.Settings.Default.Group7;
-          
             }
 
         //以下为公用字段
@@ -337,7 +336,6 @@ namespace PresPio
             }
 
         public static Microsoft.Office.Tools.CustomTaskPane taskPane;
-
 
         private void button15_Click(object sender, RibbonControlEventArgs e)
             {
@@ -3055,8 +3053,6 @@ namespace PresPio
 
         private void toggleButton4_Click(object sender, RibbonControlEventArgs e)
             {
-
-
             //自适应窗格剪切板
             #region
             if (toggleButton4.Checked)
@@ -6334,7 +6330,7 @@ namespace PresPio
 
         private void button207_Click(object sender, RibbonControlEventArgs e)
             {
-            PresPio.Public_Wpf.Wpf_VoiceAssistant wpf_VoiceAssistant= new PresPio.Public_Wpf.Wpf_VoiceAssistant();
+            PresPio.Public_Wpf.Wpf_VoiceAssistant wpf_VoiceAssistant = new PresPio.Public_Wpf.Wpf_VoiceAssistant();
             wpf_VoiceAssistant.Show();
             }
 
@@ -6724,7 +6720,7 @@ namespace PresPio
 
         private void button212_Click(object sender, RibbonControlEventArgs e)
             {
-            PresPio.Public_Wpf.Wpf_MaterialExport wpf_MaterialExport=new Public_Wpf.Wpf_MaterialExport(app);
+            PresPio.Public_Wpf.Wpf_MaterialExport wpf_MaterialExport = new Public_Wpf.Wpf_MaterialExport(app);
             wpf_MaterialExport.Show();
             }
 
@@ -7338,8 +7334,6 @@ namespace PresPio
                 }
             }
 
-      
-
         private void button222_Click(object sender, RibbonControlEventArgs e)
             {
             var commandBars = Globals.ThisAddIn.Application.CommandBars;
@@ -7494,8 +7488,6 @@ namespace PresPio
             wpf_MaterialExport.Show();
             }
 
-
-      
         private void splitButton18_Click(object sender, RibbonControlEventArgs e)
             {
             Globals.ThisAddIn.ShowTaskPane(@"https://chat.deepseek.com/", "Deepseek", 480);
@@ -7503,9 +7495,9 @@ namespace PresPio
 
         private void button2_Click_2(object sender, RibbonControlEventArgs e)
             {
-             // 将 sender 转换为 RibbonButton 或其他合适的控件类型
+            // 将 sender 转换为 RibbonButton 或其他合适的控件类型
             var button = sender as RibbonButton;
-   
+
             if (button != null)
                 {
                 // 获取按钮的标签
@@ -7522,7 +7514,6 @@ namespace PresPio
         private void button221_Click(object sender, RibbonControlEventArgs e)
             {
             Globals.ThisAddIn.ShowTaskPane("https://aigc365.cc/", "aigc365", 480);
-
             }
 
         private void button225_Click(object sender, RibbonControlEventArgs e)

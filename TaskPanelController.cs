@@ -1,8 +1,8 @@
-﻿using HandyControl.Controls;
-using Microsoft.Web.WebView2.Core;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HandyControl.Controls;
+using Microsoft.Web.WebView2.Core;
 
 namespace PresPio
     {
@@ -52,7 +52,7 @@ namespace PresPio
             catch (Exception ex)
                 {
                 _initializationCompletionSource.TrySetException(ex);
-               Growl.WarningGlobal($"WebView2初始化失败: {ex.Message}");
+                Growl.WarningGlobal($"WebView2初始化失败: {ex.Message}");
                 throw;
                 }
             }
@@ -78,7 +78,7 @@ namespace PresPio
             {
             if (!e.IsSuccess)
                 {
-              //  Growl.WarningGlobal($"页面加载失败: {e.WebErrorStatus}");
+                //  Growl.WarningGlobal($"页面加载失败: {e.WebErrorStatus}");
                 }
             }
 
@@ -101,7 +101,7 @@ namespace PresPio
                 }
             catch (Exception ex)
                 {
-               Growl.WarningGlobal($"导航失败: {ex.Message}");
+                Growl.WarningGlobal($"导航失败: {ex.Message}");
                 throw;
                 }
             }

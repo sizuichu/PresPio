@@ -1,11 +1,11 @@
 ﻿<Window x:Class="PresPio.Public_Wpf.Wpf_UnitName"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:local="clr-namespace:PresPio.Public_Wpf"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              Title="形状名称列表"
              Height="600" Width="900"
              Topmost="True"
@@ -14,57 +14,57 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <hc:ThemeResources/>
-                <hc:Theme/>
+                <hc:ThemeResources />
+                <hc:Theme />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="272"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="272" />
         </Grid.ColumnDefinitions>
 
         <!-- 左侧：形状列表区域 -->
         <Grid Grid.Column="0" Margin="0,0,10,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Text="当前页面形状列表" 
-                      FontSize="16" 
-                      FontWeight="Bold" 
-                      Margin="0,0,0,10"/>
+            <TextBlock Text="当前页面形状列表"
+                      FontSize="16"
+                      FontWeight="Bold"
+                      Margin="0,0,0,10" />
 
             <!-- 筛选区域 -->
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="筛选：" VerticalAlignment="Center"/>
-                <ComboBox x:Name="FilterTypeComboBox" 
-                         Width="120" 
+                <TextBlock Text="筛选：" VerticalAlignment="Center" />
+                <ComboBox x:Name="FilterTypeComboBox"
+                         Width="120"
                          Margin="5,0,10,0"
                          SelectionChanged="FilterTypeComboBox_SelectionChanged">
-                    <ComboBoxItem Content="全部"/>
-                    <ComboBoxItem Content="图片"/>
-                    <ComboBoxItem Content="文本框"/>
-                    <ComboBoxItem Content="自选图形"/>
-                    <ComboBoxItem Content="组合"/>
-                    <ComboBoxItem Content="表格"/>
+                    <ComboBoxItem Content="全部" />
+                    <ComboBoxItem Content="图片" />
+                    <ComboBoxItem Content="文本框" />
+                    <ComboBoxItem Content="自选图形" />
+                    <ComboBoxItem Content="组合" />
+                    <ComboBoxItem Content="表格" />
                 </ComboBox>
-                <TextBlock Text="搜索：" VerticalAlignment="Center"/>
-                <hc:SearchBar x:Name="SearchTextBox" 
-                            Width="150" 
+                <TextBlock Text="搜索：" VerticalAlignment="Center" />
+                <hc:SearchBar x:Name="SearchTextBox"
+                            Width="150"
                             Margin="5,0,0,0"
                             Style="{StaticResource SearchBarPlus}"
                             IsRealTime="True"
                             hc:InfoElement.Placeholder="输入关键字搜索"
-                            TextChanged="SearchTextBox_TextChanged"/>
+                            TextChanged="SearchTextBox_TextChanged" />
             </StackPanel>
 
             <!-- 形状列表 -->
-            <ListView Grid.Row="2" 
+            <ListView Grid.Row="2"
                       x:Name="ShapesListView"
                       Margin="0,5"
                       SelectionMode="Extended"
@@ -74,29 +74,29 @@
                     <GridView>
                         <GridViewColumn Width="40">
                             <GridViewColumn.Header>
-                                <CheckBox x:Name="SelectAllCheckBox" 
+                                <CheckBox x:Name="SelectAllCheckBox"
                                         Click="SelectAllCheckBox_Click"
-                                        VerticalAlignment="Center"/>
+                                        VerticalAlignment="Center" />
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
-                                            Click="ItemCheckBox_Click"/>
+                                            Click="ItemCheckBox_Click" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="序号" 
+                        <GridViewColumn Header="序号"
                                       Width="80"
-                                      DisplayMemberBinding="{Binding Index}"/>
-                        <GridViewColumn Header="形状名称" 
+                                      DisplayMemberBinding="{Binding Index}" />
+                        <GridViewColumn Header="形状名称"
                                       Width="200"
-                                      DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="形状类型" 
+                                      DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="形状类型"
                                       Width="100"
-                                      DisplayMemberBinding="{Binding ShapeType}"/>
-                        <GridViewColumn Header="图层" 
+                                      DisplayMemberBinding="{Binding ShapeType}" />
+                        <GridViewColumn Header="图层"
                                       Width="80"
-                                      DisplayMemberBinding="{Binding ZOrder}"/>
+                                      DisplayMemberBinding="{Binding ZOrder}" />
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -107,42 +107,42 @@
             <!-- 命名操作区域 -->
             <GroupBox Header="命名设置" Margin="0,0,0,10">
                 <StackPanel Margin="5">
-                    <TextBlock Text="单个重命名" 
-                             FontWeight="Bold" 
-                             Margin="0,0,0,5"/>
+                    <TextBlock Text="单个重命名"
+                             FontWeight="Bold"
+                             Margin="0,0,0,5" />
                     <DockPanel Margin="0,0,0,10">
-                        <Button x:Name="RenameBtn" 
-                                Content="重命名" 
+                        <Button x:Name="RenameBtn"
+                                Content="重命名"
                                 Width="80"
                                 Background="#2196F3"
                                 Foreground="White"
                                 Click="RenameBtn_Click"
-                                Margin="0,0,5,0"/>
-                        <TextBox x:Name="NewNameTextBox" 
-                                hc:InfoElement.Placeholder="输入新名称"/>
+                                Margin="0,0,5,0" />
+                        <TextBox x:Name="NewNameTextBox"
+                                hc:InfoElement.Placeholder="输入新名称" />
                     </DockPanel>
 
-                    <TextBlock Text="批量重命名" 
-                             FontWeight="Bold" 
-                             Margin="0,0,0,5"/>
+                    <TextBlock Text="批量重命名"
+                             FontWeight="Bold"
+                             Margin="0,0,0,5" />
                     <DockPanel Margin="0,0,0,5">
-                        <Button x:Name="BatchRenameBtn" 
-                                Content="批量重命名" 
+                        <Button x:Name="BatchRenameBtn"
+                                Content="批量重命名"
                                 Width="80"
                                 Background="#FF9800"
                                 Foreground="White"
                                 Click="BatchRenameBtn_Click"
-                                Margin="0,0,5,0"/>
-                        <TextBox x:Name="BatchPrefixTextBox" 
-                                hc:InfoElement.Placeholder="输入批量命名前缀"/>
+                                Margin="0,0,5,0" />
+                        <TextBox x:Name="BatchPrefixTextBox"
+                                hc:InfoElement.Placeholder="输入批量命名前缀" />
                     </DockPanel>
                     <DockPanel>
-                        <TextBlock Text="起始序号：" 
-                                 VerticalAlignment="Center"/>
-                        <TextBox x:Name="StartNumberTextBox" 
+                        <TextBlock Text="起始序号："
+                                 VerticalAlignment="Center" />
+                        <TextBox x:Name="StartNumberTextBox"
                                 Text="1"
                                 Width="60"
-                                HorizontalAlignment="Left"/>
+                                HorizontalAlignment="Left" />
                     </DockPanel>
                 </StackPanel>
             </GroupBox>
@@ -151,34 +151,34 @@
             <GroupBox Header="图层操作" Margin="0,0,0,10">
                 <StackPanel Margin="5">
                     <DockPanel Margin="0,0,0,5">
-                        <Button x:Name="BringToFrontBtn" 
-                                Content="置于顶层" 
+                        <Button x:Name="BringToFrontBtn"
+                                Content="置于顶层"
                                 Width="120"
                                 Background="#4CAF50"
                                 Foreground="White"
                                 Click="BringToFrontBtn_Click"
-                                Margin="0,0,5,0"/>
-                        <Button x:Name="SendToBackBtn" 
-                                Content="置于底层" 
+                                Margin="0,0,5,0" />
+                        <Button x:Name="SendToBackBtn"
+                                Content="置于底层"
                                 Width="120"
                                 Background="#F44336"
                                 Foreground="White"
-                                Click="SendToBackBtn_Click"/>
+                                Click="SendToBackBtn_Click" />
                     </DockPanel>
                     <DockPanel>
-                        <Button x:Name="BringForwardBtn" 
-                                Content="上移一层" 
+                        <Button x:Name="BringForwardBtn"
+                                Content="上移一层"
                                 Width="120"
                                 Background="#03A9F4"
                                 Foreground="White"
                                 Click="BringForwardBtn_Click"
-                                Margin="0,0,5,0"/>
-                        <Button x:Name="SendBackwardBtn" 
-                                Content="下移一层" 
+                                Margin="0,0,5,0" />
+                        <Button x:Name="SendBackwardBtn"
+                                Content="下移一层"
                                 Width="120"
                                 Background="#FF9800"
                                 Foreground="White"
-                                Click="SendBackwardBtn_Click"/>
+                                Click="SendBackwardBtn_Click" />
                     </DockPanel>
                 </StackPanel>
             </GroupBox>
@@ -186,9 +186,9 @@
             <!-- 选择信息区域 -->
             <GroupBox Header="选择信息">
                 <StackPanel Margin="5">
-                    <TextBlock x:Name="SelectionInfoText" 
+                    <TextBlock x:Name="SelectionInfoText"
                              Text="已选择：0 个形状"
-                             Margin="0,5"/>
+                             Margin="0,5" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

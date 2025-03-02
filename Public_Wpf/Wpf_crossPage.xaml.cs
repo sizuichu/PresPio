@@ -1,11 +1,11 @@
-﻿using Microsoft.Office.Interop.PowerPoint;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Microsoft.Office.Interop.PowerPoint;
 using Path = System.IO.Path;
 
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;

@@ -1,12 +1,12 @@
-﻿using HandyControl.Controls;
-using Microsoft.Office.Interop.PowerPoint;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
+using HandyControl.Controls;
+using Microsoft.Office.Interop.PowerPoint;
 
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 

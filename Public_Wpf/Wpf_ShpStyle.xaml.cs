@@ -1,6 +1,6 @@
-﻿using Microsoft.Office.Core;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Office.Core;
 
 namespace PresPio
     {

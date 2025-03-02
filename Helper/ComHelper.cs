@@ -1,6 +1,5 @@
-﻿using HandyControl.Controls;
-using System;
-
+﻿using System;
+using HandyControl.Controls;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 
 namespace PresPio

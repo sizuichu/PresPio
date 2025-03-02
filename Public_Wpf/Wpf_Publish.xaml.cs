@@ -1,6 +1,4 @@
-﻿using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
 using ComboBox = System.Windows.Controls.ComboBox;
 using ComboBoxItem = System.Windows.Controls.ComboBoxItem;
 using MessageBox = HandyControl.Controls.MessageBox;

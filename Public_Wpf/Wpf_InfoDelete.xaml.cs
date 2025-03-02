@@ -1,9 +1,9 @@
-﻿using HandyControl.Controls;
-using Microsoft.Office.Interop.PowerPoint;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using HandyControl.Controls;
+using Microsoft.Office.Interop.PowerPoint;
 
 using Powerpoint = Microsoft.Office.Interop.PowerPoint;
 

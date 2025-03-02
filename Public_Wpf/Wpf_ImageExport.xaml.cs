@@ -1,6 +1,4 @@
-﻿using HandyControl.Controls;
-using Microsoft.Office.Interop.PowerPoint;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -12,6 +10,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using HandyControl.Controls;
+using Microsoft.Office.Interop.PowerPoint;
 
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 

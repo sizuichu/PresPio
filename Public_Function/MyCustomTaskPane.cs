@@ -1,6 +1,5 @@
-﻿using Microsoft.Office.Core;
-
-using System;
+﻿using System;
+using Microsoft.Office.Core;
 
 namespace PresPio.Function
     {

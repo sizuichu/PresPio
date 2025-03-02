@@ -1,4 +1,4 @@
-﻿<hc:Window
+﻿<Window
     x:Class="PresPio.Page_NotePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -15,14 +15,14 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d"
     Title="备注管理器">
-    <hc:Window.Resources>
+    <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <hc:ThemeResources />
                 <hc:Theme />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </hc:Window.Resources>
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -131,4 +131,4 @@
                     Margin="8,0,0,0"  Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" />
         </UniformGrid>
     </Grid>
-</hc:Window>
+</Window>

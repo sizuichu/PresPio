@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using Point = System.Windows.Point;
-using System.Drawing;
-using Color = System.Drawing.Color;
-using HandyControl.Controls;
 using MessageBox = HandyControl.Controls.MessageBox;
+using Point = System.Windows.Point;
 using Window = System.Windows.Window;
-using Application = Microsoft.Office.Interop.PowerPoint.Application;
-using Shape = Microsoft.Office.Interop.PowerPoint.Shape;
 
 namespace PresPio.Public_Wpf
-{
+    {
     /// <summary>
     /// Wpf_Polygon.xaml 的交互逻辑
     /// </summary>

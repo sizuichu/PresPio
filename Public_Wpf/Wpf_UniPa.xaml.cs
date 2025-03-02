@@ -1,7 +1,7 @@
-﻿using HandyControl.Controls;
+﻿using System.Windows;
+using HandyControl.Controls;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.PowerPoint;
-using System.Windows;
 
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 

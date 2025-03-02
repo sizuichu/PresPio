@@ -1,6 +1,4 @@
-﻿using HandyControl.Controls;
-using QRCoder;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -8,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using HandyControl.Controls;
+using QRCoder;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 
@@ -40,15 +40,15 @@ namespace PresPio
                 return;
                 }
 
-            // 获取二维码大小  
+            // 获取二维码大小
             string sizeStr = ((ComboBoxItem)SizeComboBox.SelectedItem).Content.ToString();
-            int size = 200; // 默认大小  
+            int size = 200; // 默认大小
             if (sizeStr.Contains("300"))
                 size = 300;
             else if (sizeStr.Contains("400"))
                 size = 400;
 
-            // 获取错误纠正级别  
+            // 获取错误纠正级别
             string eccStr = ((ComboBoxItem)ErrorCorrectionComboBox.SelectedItem).Content.ToString();
             QRCodeGenerator.ECCLevel eccLevel = QRCodeGenerator.ECCLevel.H;
             switch (eccStr)

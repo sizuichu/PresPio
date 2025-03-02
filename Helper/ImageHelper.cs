@@ -1,11 +1,11 @@
-﻿using HandyControl.Controls;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using HandyControl.Controls;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
 
 namespace PresPio.Function
     {

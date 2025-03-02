@@ -1,12 +1,7 @@
-﻿using Microsoft.Office.Interop.PowerPoint;
-using Microsoft.Office.Tools;
-using Microsoft.Web.WebView2.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Windows.Forms;
-using Office = Microsoft.Office.Core;
-using PresPio;
+using Microsoft.Office.Interop.PowerPoint;
+using Microsoft.Office.Tools;
 
 namespace PresPio
     {
@@ -18,7 +13,7 @@ namespace PresPio
             public static CustomTaskPane taskPane; // 定义一个任务窗格
             }
 
-         public void ShowTaskPane(string url, string title = "PresPio", int width = 450)
+        public void ShowTaskPane(string url, string title = "PresPio", int width = 450)
             {
             Public_Function.TaskPaneManager.Instance.ShowTaskPane(url, title, width);
             }
@@ -43,12 +38,12 @@ namespace PresPio
             var hwnd = this.Application.ActiveWindow.HWND;
             return Public_Function.TaskPaneManager.Instance.IsTaskPaneVisible(hwnd);
             }
+
         // taskpanel开闭
         public void ThisAddInHide(object sender, System.EventArgs e)
             {
             var pane = GetCurTaskPane();
             }
-
 
         public void CloseCustomTaskPane()
             {

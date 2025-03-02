@@ -1,6 +1,4 @@
-﻿using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -11,6 +9,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
 using Application = Microsoft.Office.Interop.PowerPoint.Application;
 using MessageBox = System.Windows.MessageBox;
 

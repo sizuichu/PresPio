@@ -1,8 +1,8 @@
-﻿using HandyControl.Controls;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using HandyControl.Controls;
 using Color = System.Drawing.Color;
 using MediaColor = System.Windows.Media.Color;
 

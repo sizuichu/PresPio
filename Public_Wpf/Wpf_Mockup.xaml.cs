@@ -1,7 +1,4 @@
-﻿using HandyControl.Controls;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -9,6 +6,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using HandyControl.Controls;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;

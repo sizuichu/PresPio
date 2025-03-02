@@ -1,8 +1,8 @@
-﻿using HandyControl.Controls;
+﻿using System.Windows;
+using System.Windows.Media;
+using HandyControl.Controls;
 using HandyControl.Tools;
 using Microsoft.Office.Core;
-using System.Windows;
-using System.Windows.Media;
 
 namespace PresPio
     {

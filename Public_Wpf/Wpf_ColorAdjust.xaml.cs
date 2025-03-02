@@ -1,6 +1,4 @@
-﻿using HandyControl.Controls;
-using Microsoft.Office.Core;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -8,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using HandyControl.Controls;
+using Microsoft.Office.Core;
 using Application = Microsoft.Office.Interop.PowerPoint.Application;
 
 namespace PresPio
