@@ -19,7 +19,7 @@ using static PresPio.ThisAddIn;
 using Color = System.Drawing.Color;
 using Control = System.Windows.Forms.Control;
 using MessageBox = System.Windows.Forms.MessageBox;
-
+using Growl = HandyControl.Controls.Growl;
 using Office = Microsoft.Office.Core;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 
@@ -7700,6 +7700,326 @@ namespace PresPio
             else
                 {
                 //System.Diagnostics.Debug.WriteLine("Sender is not a RibbonButton");
+                }
+            }
+
+        private void button240_Click(object sender, RibbonControlEventArgs e)
+            {
+            var selection = app.ActiveWindow.Selection;
+            if (selection.ShapeRange.Count > 1)
+            {
+                // 获取第一个形状的所有颜色属性
+                var firstShape = selection.ShapeRange[1];
+                
+                // 获取填充颜色
+                var fillColor = firstShape.Fill.ForeColor.RGB;
+                
+                // 获取边框颜色
+                var lineColor = firstShape.Line.ForeColor.RGB;
+                
+                // 获取文字颜色
+                var textColor = firstShape.HasTextFrame == MsoTriState.msoTrue && 
+                              firstShape.TextFrame.HasText == MsoTriState.msoTrue ?
+                              firstShape.TextFrame.TextRange.Font.Color.RGB : (int?)null;
+                
+                // 获取阴影颜色
+                var shadowColor = firstShape.Shadow.Type == MsoShadowType.msoShadowMixed ? 
+                                (int?)null : firstShape.Shadow.ForeColor.RGB;
+
+                // 遍历所有选中的形状
+                for (int i = 2; i <= selection.ShapeRange.Count; i++)
+                {
+                    var shape = selection.ShapeRange[i];
+                    
+                    // 设置填充颜色
+                    if (shape.Fill.Visible == MsoTriState.msoTrue)
+                    {
+                        shape.Fill.ForeColor.RGB = fillColor;
+                    }
+                    
+                    // 设置边框颜色
+                    if (shape.Line.Visible == MsoTriState.msoTrue)
+                    {
+                        shape.Line.ForeColor.RGB = lineColor;
+                    }
+                    
+                    // 设置文字颜色
+                    if (textColor.HasValue && 
+                        shape.HasTextFrame == MsoTriState.msoTrue &&
+                        shape.TextFrame.HasText == MsoTriState.msoTrue)
+                    {
+                        shape.TextFrame.TextRange.Font.Color.RGB = textColor.Value;
+                    }
+                    
+                    // 设置阴影颜色
+                    if (shadowColor.HasValue && 
+                        shape.Shadow.Type != MsoShadowType.msoShadowMixed)
+                    {
+                        shape.Shadow.ForeColor.RGB = shadowColor.Value;
+                    }
+                }
+            }
+            else
+            {
+                Growl.Warning("请选择多个对象以统一颜色");
+            }
+                
+            }
+
+        private void button243_Click(object sender, RibbonControlEventArgs e)
+            {
+
+            var selection = app.ActiveWindow.Selection;
+            if (selection.ShapeRange.Count > 1)
+                {
+                // 获取第一个形状作为基准
+                var firstShape = selection.ShapeRange[1];
+
+                // 获取基准尺寸和字体信息
+                float baseWidth = firstShape.Width;
+                float baseHeight = firstShape.Height;
+                float? baseFontSize = null;
+
+                // 如果形状包含文本，获取字体大小
+                if (firstShape.HasTextFrame == MsoTriState.msoTrue &&
+                    firstShape.TextFrame.HasText == MsoTriState.msoTrue)
+                    {
+                    baseFontSize = firstShape.TextFrame.TextRange.Font.Size;
+                    }
+
+                // 遍历所有选中的形状
+                for (int i = 2 ; i <= selection.ShapeRange.Count ; i++)
+                    {
+                    var shape = selection.ShapeRange[i];
+
+                    // 应用基准尺寸
+                    shape.Width = baseWidth;
+                    shape.Height = baseHeight;
+
+                    // 如果基准有字体大小且当前形状有文本，应用字体大小
+                    if (baseFontSize.HasValue &&
+                        shape.HasTextFrame == MsoTriState.msoTrue &&
+                        shape.TextFrame.HasText == MsoTriState.msoTrue)
+                        {
+                        shape.TextFrame.TextRange.Font.Size = baseFontSize.Value;
+                        }
+                    }
+
+               // Growl.SuccessGlobal("尺寸和字体镜像已完成");
+                }
+            else
+                {
+               // Growl.WarningGlobal("请选择多个对象以应用尺寸镜像");
+                }
+
+            }
+
+        private void button241_Click(object sender, RibbonControlEventArgs e)
+            {
+                 var selection = app.ActiveWindow.Selection;
+                 if (selection.ShapeRange.Count > 1)
+                     {
+                     // 获取第一个形状作为基准
+                     var firstShape = selection.ShapeRange[1];
+                     float baseHeight = firstShape.Height;
+
+                     // 遍历所有选中的形状
+                     for (int i = 2; i <= selection.ShapeRange.Count; i++)
+                         {
+                         var shape = selection.ShapeRange[i];
+                         // 应用基准高度
+                         shape.Height = baseHeight;
+                         }
+
+                     //Growl.SuccessGlobal("高度统一已完成");
+                     }
+                 else
+                     {
+                     //Growl.WarningGlobal("请选择多个对象以应用高度统一");
+                     }
+            }
+
+        private void button242_Click(object sender, RibbonControlEventArgs e)
+            {
+            var selection = app.ActiveWindow.Selection;
+            if (selection.ShapeRange.Count > 1)
+            {
+                // 获取第一个形状作为基准
+                var firstShape = selection.ShapeRange[1];
+                float baseWidth = firstShape.Width;
+
+                // 遍历所有选中的形状
+                for (int i = 2; i <= selection.ShapeRange.Count; i++)
+                {
+                    var shape = selection.ShapeRange[i];
+                    // 应用基准宽度
+                    shape.Width = baseWidth;
+                }
+
+                //Growl.SuccessGlobal("宽度统一已完成");
+            }
+            else
+            {
+                //Growl.WarningGlobal("请选择多个对象以应用宽度统一");
+            }
+            }
+
+        private void button244_Click(object sender, RibbonControlEventArgs e)
+            {
+           
+            var selection = app.ActiveWindow.Selection;
+            if (selection.ShapeRange.Count > 1)
+                {
+                var firstShape = selection.ShapeRange[1];
+
+                // 复制更多属性：透明度、线条样式、线条粗细、渐变设置等
+                var fillTransparency = firstShape.Fill.Transparency;
+                var lineWeight = firstShape.Line.Weight;
+                var lineDashStyle = firstShape.Line.DashStyle;
+
+                for (int i = 2 ; i <= selection.ShapeRange.Count ; i++)
+                    {
+                    var shape = selection.ShapeRange[i];
+
+                    // 应用所有属性
+                    shape.Fill.Transparency = fillTransparency;
+                    shape.Line.Weight = lineWeight;
+                    shape.Line.DashStyle = lineDashStyle;
+                    // 可添加更多属性
+                    }
+
+                Growl.SuccessGlobal("完整格式镜像已完成");
+                }
+           
+        }
+
+        private void button245_Click(object sender, RibbonControlEventArgs e)
+            {
+      
+            var selection = app.ActiveWindow.Selection;
+            if (selection.ShapeRange.Count > 1)
+                {
+                // 获取所有形状相对于第一个形状的位置关系
+                var firstShape = selection.ShapeRange[1];
+                float baseLeft = firstShape.Left;
+                float baseTop = firstShape.Top;
+
+                // 将所有形状按照相对于另一点的位置进行排列
+                float targetLeft = 100; // 新的基准点x坐标
+                float targetTop = 100;  // 新的基准点y坐标
+
+                for (int i = 1 ; i <= selection.ShapeRange.Count ; i++)
+                    {
+                    var shape = selection.ShapeRange[i];
+                    float offsetX = shape.Left - baseLeft;
+                    float offsetY = shape.Top - baseTop;
+
+                    shape.Left = targetLeft + offsetX;
+                    shape.Top = targetTop + offsetY;
+                    }
+
+                Growl.SuccessGlobal("位置关系镜像已完成");
+                }
+             }
+
+        private void button246_Click(object sender, RibbonControlEventArgs e)
+            {
+            var selection = app.ActiveWindow.Selection;
+            if (selection.ShapeRange.Count > 1)
+                {
+                var firstShape = selection.ShapeRange[1];
+                float rotation = firstShape.Rotation;
+
+                for (int i = 2 ; i <= selection.ShapeRange.Count ; i++)
+                    {
+                    selection.ShapeRange[i].Rotation = rotation;
+                    }
+
+                Growl.SuccessGlobal("旋转角度镜像已完成");
+                }
+            }
+
+        private void button247_Click(object sender, RibbonControlEventArgs e)
+            {
+            var selection = app.ActiveWindow.Selection;
+            if (selection.ShapeRange.Count > 1)
+                {
+                var firstShape = selection.ShapeRange[1];
+                if (firstShape.HasTextFrame == MsoTriState.msoTrue &&
+                    firstShape.TextFrame.HasText == MsoTriState.msoTrue)
+                    {
+                    var textRange = firstShape.TextFrame.TextRange;
+                    var fontName = textRange.Font.Name;
+                    var fontBold = textRange.Font.Bold;
+                    var fontItalic = textRange.Font.Italic;
+                    var fontUnderline = textRange.Font.Underline;
+                    var alignment = textRange.ParagraphFormat.Alignment;
+                    var lineSpacing = textRange.ParagraphFormat.LineRuleWithin;
+
+                    for (int i = 2 ; i <= selection.ShapeRange.Count ; i++)
+                        {
+                        var shape = selection.ShapeRange[i];
+                        if (shape.HasTextFrame == MsoTriState.msoTrue &&
+                            shape.TextFrame.HasText == MsoTriState.msoTrue)
+                            {
+                            var targetText = shape.TextFrame.TextRange;
+                            targetText.Font.Name = fontName;
+                            targetText.Font.Bold = fontBold;
+                            targetText.Font.Italic = fontItalic;
+                            targetText.Font.Underline = fontUnderline;
+                            targetText.ParagraphFormat.Alignment = alignment;
+                            targetText.ParagraphFormat.LineRuleWithin = lineSpacing;
+                            }
+                        }
+
+                    Growl.SuccessGlobal("文本格式镜像已完成");
+                    }
+                }
+            }
+
+        private void button248_Click(object sender, RibbonControlEventArgs e)
+            {
+            var selection = app.ActiveWindow.Selection;
+            if (selection.ShapeRange.Count > 1)
+                {
+                var firstShape = selection.ShapeRange[1];
+                var slide = app.ActiveWindow.View.Slide;
+
+                // 查找第一个形状的动画
+                PowerPoint.Effect firstEffect = null;
+                foreach (PowerPoint.Effect effect in slide.TimeLine.MainSequence)
+                    {
+                    if (effect.Shape.Name == firstShape.Name)
+                        {
+                        firstEffect = effect;
+                        break;
+                        }
+                    }
+
+                if (firstEffect != null)
+                    {
+                    for (int i = 2 ; i <= selection.ShapeRange.Count ; i++)
+                        {
+                        var shape = selection.ShapeRange[i];
+                        // 删除该形状的现有动画
+                        for (int j = slide.TimeLine.MainSequence.Count ; j >= 1 ; j--)
+                            {
+                            if (slide.TimeLine.MainSequence[j].Shape.Name == shape.Name)
+                                {
+                                slide.TimeLine.MainSequence[j].Delete();
+                                }
+                            }
+
+                        // 添加与第一个形状相同的动画
+                        slide.TimeLine.MainSequence.AddEffect(
+                            shape,
+                            firstEffect.EffectType,
+                            firstEffect.Timing.TriggerType,
+                            firstEffect.Index);
+                        }
+
+                    Growl.SuccessGlobal("动画效果镜像已完成");
+                    }
                 }
             }
         }

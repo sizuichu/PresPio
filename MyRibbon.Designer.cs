@@ -245,6 +245,7 @@
             this.button7 = this.Factory.CreateRibbonButton();
             this.splitButton17 = this.Factory.CreateRibbonSplitButton();
             this.splitButton20 = this.Factory.CreateRibbonSplitButton();
+            this.button240 = this.Factory.CreateRibbonButton();
             this.splitButton14 = this.Factory.CreateRibbonSplitButton();
             this.button219 = this.Factory.CreateRibbonButton();
             this.separator47 = this.Factory.CreateRibbonSeparator();
@@ -390,7 +391,15 @@
             this.button88 = this.Factory.CreateRibbonButton();
             this.button92 = this.Factory.CreateRibbonButton();
             this.button171 = this.Factory.CreateRibbonButton();
-            this.button240 = this.Factory.CreateRibbonButton();
+            this.separator55 = this.Factory.CreateRibbonSeparator();
+            this.button241 = this.Factory.CreateRibbonButton();
+            this.button242 = this.Factory.CreateRibbonButton();
+            this.button243 = this.Factory.CreateRibbonButton();
+            this.button244 = this.Factory.CreateRibbonButton();
+            this.button245 = this.Factory.CreateRibbonButton();
+            this.button246 = this.Factory.CreateRibbonButton();
+            this.button247 = this.Factory.CreateRibbonButton();
+            this.button248 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -2104,9 +2113,25 @@
             // splitButton20
             // 
             this.splitButton20.Items.Add(this.button240);
+            this.splitButton20.Items.Add(this.separator55);
+            this.splitButton20.Items.Add(this.button248);
+            this.splitButton20.Items.Add(this.button247);
+            this.splitButton20.Items.Add(this.button246);
+            this.splitButton20.Items.Add(this.button244);
+            this.splitButton20.Items.Add(this.button245);
+            this.splitButton20.Items.Add(this.button243);
+            this.splitButton20.Items.Add(this.button241);
+            this.splitButton20.Items.Add(this.button242);
             this.splitButton20.Label = "镜像";
             this.splitButton20.Name = "splitButton20";
             this.splitButton20.OfficeImageId = "HtmlPaneShowHide";
+            // 
+            // button240
+            // 
+            this.button240.Label = "颜色镜像";
+            this.button240.Name = "button240";
+            this.button240.ShowImage = true;
+            this.button240.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button240_Click);
             // 
             // splitButton14
             // 
@@ -3281,11 +3306,65 @@
             this.button171.Name = "button171";
             this.button171.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button171_Click);
             // 
-            // button240
+            // separator55
             // 
-            this.button240.Label = "button240";
-            this.button240.Name = "button240";
-            this.button240.ShowImage = true;
+            this.separator55.Name = "separator55";
+            // 
+            // button241
+            // 
+            this.button241.Label = "高度统一";
+            this.button241.Name = "button241";
+            this.button241.ShowImage = true;
+            this.button241.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button241_Click);
+            // 
+            // button242
+            // 
+            this.button242.Label = "宽度统一";
+            this.button242.Name = "button242";
+            this.button242.ShowImage = true;
+            this.button242.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button242_Click);
+            // 
+            // button243
+            // 
+            this.button243.Label = "尺寸镜像";
+            this.button243.Name = "button243";
+            this.button243.ShowImage = true;
+            this.button243.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button243_Click);
+            // 
+            // button244
+            // 
+            this.button244.Label = "格式镜像";
+            this.button244.Name = "button244";
+            this.button244.ShowImage = true;
+            this.button244.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button244_Click);
+            // 
+            // button245
+            // 
+            this.button245.Label = "位置镜像";
+            this.button245.Name = "button245";
+            this.button245.ShowImage = true;
+            this.button245.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button245_Click);
+            // 
+            // button246
+            // 
+            this.button246.Label = "角度镜像";
+            this.button246.Name = "button246";
+            this.button246.ShowImage = true;
+            this.button246.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button246_Click);
+            // 
+            // button247
+            // 
+            this.button247.Label = "文本格式";
+            this.button247.Name = "button247";
+            this.button247.ShowImage = true;
+            this.button247.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button247_Click);
+            // 
+            // button248
+            // 
+            this.button248.Label = "动画效果";
+            this.button248.Name = "button248";
+            this.button248.ShowImage = true;
+            this.button248.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button248_Click);
             // 
             // MyRibbon
             // 
@@ -3674,6 +3753,15 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button238;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button239;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button240;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator55;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button243;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button241;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button242;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button244;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button245;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button246;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button247;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button248;
         }
 
     partial class ThisRibbonCollection
