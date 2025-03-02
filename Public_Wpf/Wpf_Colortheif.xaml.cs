@@ -423,6 +423,11 @@ namespace PresPio
         //获得色块的函数
         public List<int> GetColor3(string PicPath)
             {
+            if (PicPath is null)
+                {
+                throw new ArgumentNullException(nameof(PicPath));
+                }
+
             PicPath = Properties.Settings.Default.PicPath;
             Bitmap bitmap = new Bitmap(PicPath);
             ImageViewer.ImageSource = ConvertDrawingBitmapToBitmapFrame(bitmap);

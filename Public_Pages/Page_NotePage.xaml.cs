@@ -21,7 +21,7 @@ namespace PresPio
         {
         public Microsoft.Office.Interop.PowerPoint.Application app;
         public Microsoft.Office.Interop.PowerPoint.Application pptApp = Globals.ThisAddIn.Application;
-        private Presentation pptPresentation;
+        private readonly Presentation pptPresentation;
         private Slide pptSlide;
 
         public Page_NotePage()

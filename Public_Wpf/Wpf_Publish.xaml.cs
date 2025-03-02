@@ -25,8 +25,8 @@ namespace PresPio
         private CancellationTokenSource _cts;
         private readonly IProgress<int> _progress;
         private DateTime startTime;
-        private ComboBox _imageFormatComboBox;
-        private ComboBox _imageQualityComboBox;
+        private readonly ComboBox _imageFormatComboBox;
+        private readonly ComboBox _imageQualityComboBox;
 
         public Wpf_Publish()
             {

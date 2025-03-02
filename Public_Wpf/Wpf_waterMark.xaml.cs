@@ -166,7 +166,7 @@ namespace PresPio
             Growl.Success("水印删除成功！");
             }
 
-        private List<string> shps = new List<string>();
+        private readonly List<string> shps = new List<string>();
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
             {

@@ -25,20 +25,22 @@ namespace PresPio
             string f = curtime + rd.Next(0, 9);
             string signStr = u + q + f + c;
             string sign = GetMd5Str_32(signStr);
-            Dictionary<String, String> dic = new Dictionary<String, String>();
-            dic.Add("i", q);
-            dic.Add("from", from);
-            dic.Add("to", to);
-            dic.Add("smartresult", "dict");
-            dic.Add("client", "fanyideskweb");
-            dic.Add("salt", f);
-            dic.Add("sign", sign);
-            dic.Add("lts", curtime);
-            dic.Add("bv", GetMd5Str_32("5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"));
-            dic.Add("doctype", "json");
-            dic.Add("version", "2.1");
-            dic.Add("keyfrom", "fanyi.web");
-            dic.Add("action", "FY_BY_REALTlME");
+            Dictionary<String, String> dic = new Dictionary<String, String>
+                {
+                    { "i", q },
+                    { "from", from },
+                    { "to", to },
+                    { "smartresult", "dict" },
+                    { "client", "fanyideskweb" },
+                    { "salt", f },
+                    { "sign", sign },
+                    { "lts", curtime },
+                    { "bv", GetMd5Str_32("5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36") },
+                    { "doctype", "json" },
+                    { "version", "2.1" },
+                    { "keyfrom", "fanyi.web" },
+                    { "action", "FY_BY_REALTlME" }
+                };
             //dic.Add("typoResult", "false");
 
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);

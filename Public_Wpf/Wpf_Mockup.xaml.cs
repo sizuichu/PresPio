@@ -28,8 +28,8 @@ namespace PresPio
         public PowerPoint.Application app;
         private readonly string mockupFolderPath;
         private readonly string mockupConfigPath;
-        private ObservableCollection<MockupItem> mockupItems;
-        private ObservableCollection<MockupItem> filteredMockupItems;
+        private readonly ObservableCollection<MockupItem> mockupItems;
+        private readonly ObservableCollection<MockupItem> filteredMockupItems;
 
         public Wpf_Mockup()
             {
